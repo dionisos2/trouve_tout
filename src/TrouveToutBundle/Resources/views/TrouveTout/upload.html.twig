@@ -1,0 +1,26 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - Téléverser
+{% endblock %}
+
+{% block TrouveTout %}
+<form method="post" {{ form_enctype(form) }}>
+  {{ form_widget(form) }} 
+  <input type="submit" class="btn btn-primary" value="envoyer" />
+</form>
+
+{% if imageName is defined %}
+<p> Téléchargement réussi ! </p>
+<a href="{{ asset('img/')}}{{imageName}}">
+<img src="{{ asset('img/')}}{{imageName}}" alt="uploaded image" height="42" width="42"> 
+</a> 
+{% endif %}
+
+{% if invalideType is defined %}
+<p> Téléchargement raté !<br>
+Mauvais type de fichier: {{invalideType}}
+</p>
+{% endif %}
+
+{% endblock %}

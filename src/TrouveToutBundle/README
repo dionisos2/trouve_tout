@@ -1,0 +1,48 @@
+																														 _ 
+ _                                   _               _      | |
+| |_   ____ ___  _   _ _   _ ____   | |_  ___  _   _| |_    | |
+|  _) / ___) _ \| | | | | | / _  )  |  _)/ _ \| | | |  _)   |_|
+| |__| |  | |_| | |_| |\ V ( (/ /   | |_| |_| | |_| | |__    _ 
+ \___)_|   \___/ \____| \_/ \____)   \___)___/ \____|\___)  |_|
+                                                               
+
+Gitorious page: https://gitorious.org/trouve_tout
+This software is a tool built by the amopie community: http://amopie.org/index.php
+
+Trouve tout, is a web free software to organize a stock of objects.
+It is written in php and use symfony2.1
+
+=======================
+	Install
+=======================
+You need a web server that can run a symfony2.1 application.
+You need phpunit if you want run the tests.
+
+=======================
+	Authors
+=======================
+dionisos <dionisos@louiz.org> or <dionisos@linkmauve.fr>
+
+=======================
+	License
+=======================
+Trouve tout is Free Software
+Copyright (C) 2012 dionisos
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+=======================
+	Thanks
+=======================
+Thanks to def, its great vision for a better world.

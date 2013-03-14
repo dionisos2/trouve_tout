@@ -1,0 +1,49 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+	{{ parent() }} - Trouve tout
+{% endblock %}
+
+{% block body %}
+
+  <h1> trouve tout ! </h1>
+  	<menu>
+		<a href="{{ path('home') }}" class="btn">
+			<i class="icon-chevron-left"></i>
+            accueil
+		</a>
+		<a href="{{ path('test') }}" class="btn">
+			<i class="icon-edit"></i>
+            test
+		</a>
+		<a href="{{ path('edit_concept', {'id': 1}) }}" class="btn">
+			<i class="icon-edit"></i>
+            modifier premier objet
+		</a>
+		<a href="{{ path('create_set') }}" class="btn">
+			<i class="icon-edit"></i>
+            ajouter un objet
+		</a>
+		<a href="{{ path('create_category') }}" class="btn">
+			<i class="icon-edit"></i>
+            ajouter une categorie
+		</a>
+		<a href="{{ path('upload') }}" class="btn">
+			<i class="icon-edit"></i>
+            téléverser une image
+        </a>
+	</menu>
+  {% block TrouveTout %}{% endblock %}
+
+{% endblock %}
+  
+{% block javascripts %}
+{{ parent() }}
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+{% endblock %}
+  
+  
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/trouvetout/css/styles.css') }}" type="text/css" />
+{% endblock %}

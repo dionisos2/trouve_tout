@@ -1,0 +1,4 @@
+twig:
+    form:
+        resources:
+            - 'TrouveToutBundle:FormField:fields.html.twig'

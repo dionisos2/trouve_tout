@@ -1,0 +1,47 @@
+parameters:
+#    TrouveTout.example.class: Eud\TrouveToutBundle\Example
+
+services:
+#    TrouveTout.example:
+#        class: %TrouveTout.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    TrouveTout.ConceptFormManager:
+        class: Eud\TrouveToutBundle\Service\ConceptFormManager
+        arguments: [@form.factory, @doctrine.orm.entity_manager]
+
+    TrouveTout.form.caract:
+        class: Eud\TrouveToutBundle\Form\Type\CaractType
+        arguments: [@doctrine.orm.entity_manager]
+        tags: 
+            - {name: form.type, alias: TrouveTout_Caract}
+
+    TrouveTout.form.element:
+        class: Eud\TrouveToutBundle\Form\Type\ElementType
+        arguments: [@doctrine.orm.entity_manager]
+        tags: 
+            - {name: form.type, alias: TrouveTout_Element}
+
+    TrouveTout.form.set:
+        class: Eud\TrouveToutBundle\Form\Type\SetType
+        arguments: [@doctrine.orm.entity_manager]
+        tags: 
+            - {name: form.type, alias: TrouveTout_Set}
+
+    TrouveTout.form.category:
+        class: Eud\TrouveToutBundle\Form\Type\CategoryType
+        arguments: [@doctrine.orm.entity_manager]
+        tags: 
+            - {name: form.type, alias: TrouveTout_Category}
+
+    TrouveTout.form.category_choice:
+        class: Eud\TrouveToutBundle\Form\Type\CategoryChoiceType
+        arguments: [@doctrine.orm.entity_manager]
+        tags: 
+            - {name: form.type, alias: TrouveTout_CategoryChoice}
+
+    TrouveTout.form.concept_concept:
+        class: Eud\TrouveToutBundle\Form\Type\ConceptConceptType
+        arguments: [@doctrine.orm.entity_manager]
+        tags: 
+            - {name: form.type, alias: TrouveTout_ConceptConcept}

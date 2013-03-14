@@ -1,0 +1,26 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier un concept
+{% endblock %}
+
+{% block TrouveTout %}
+
+    {% if conceptType == "Set" %}
+        <h2>Modifier un objet</h2>
+        {% include "TrouveToutBundle:TrouveTout:SetForm.html.twig" %}
+    {% endif %}
+    {% if conceptType == "Category" %}
+        <h2>Modifier une catégorie</h2>
+        {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
+    {% endif %}
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('bundles/trouvetout/js/CaractDynamicAdd.js')}}" type="text/javascript"></script>
+{% endblock %}

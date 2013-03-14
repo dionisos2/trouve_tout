@@ -1,0 +1,3 @@
+TrouveTout_route:
+    resource: "@TrouveToutBundle/Controller"
+    type: annotation

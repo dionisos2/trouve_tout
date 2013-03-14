@@ -1,0 +1,16 @@
+.enligne *{
+	display: inline;
+}
+
+.separation {
+	width:100%; 
+	color:black; 
+	background-color:black; 
+	height:5px;
+}
+
+.fix {
+	position        : fixed;
+    bottom          : 10%;
+	right           : 0;
+}

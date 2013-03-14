@@ -1,0 +1,51 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block TrouveTout_Element_widget %}
+{% spaceless %}
+{{ parent() }}
+{% set allow_modif = allow_modif|default(false) %}
+
+<div class="enligne">
+  {% for child in form.getChildren %}
+  {% if child.name == 'childElement' %}
+  {{ form_row(child) }}
+  {% endif %}
+  {% endfor %}
+</div>
+
+<div class="enligne">
+  {{ form_rest(form) }}
+</div>
+
+{% endspaceless %}
+{% endblock %}
+
+{% block TrouveTout_Caract_widget %}
+{% spaceless %}
+{{ parent() }}
+
+{{ form_row(form.name) }}
+{{ form_row(form.type) }}
+{% if form.value is defined %}
+{{ form_row(form.value) }}
+{% endif %}
+
+
+{% if image is defined %}
+<img src="{{ asset('img/')}}{{image}}" alt="caract image: {{image}}" height="100" width="100">
+{% endif %}
+
+{% if objectName is defined %}
+<a href="{{ path('edit_concept', {id: objectId}) }}">{{objectName}}</a>
+{% endif %}
+
+<div class="enligne">
+{% if form.prefix is defined %}
+  {{ form_row(form.prefix) }}
+  {{ form_row(form.unit) }}
+{% endif %}
+</div>
+
+{{ form_rest(form) }}
+{% endspaceless %}
+{% endblock %}
