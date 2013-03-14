@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Entity;
+namespace Ukratio\TrouveToutBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

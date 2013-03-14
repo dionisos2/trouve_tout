@@ -1,13 +1,13 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Tests\Entity;
+namespace Ukratio\TrouveToutBundle\Tests\Entity;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Eud\TrouveToutBundle\Entity\Concept;
-use Eud\TrouveToutBundle\Entity\Caract;
+use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\Caract;
 use Doctrine\Common\Collections\ArrayCollection;
-use Eud\TrouveToutBundle\Constant;
-use Eud\ToolBundle\Tests\ValidatorAwareTestCase;
+use Ukratio\TrouveToutBundle\Constant;
+use Ukratio\ToolBundle\Tests\ValidatorAwareTestCase;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 class ConceptTest extends ValidatorAwareTestCase

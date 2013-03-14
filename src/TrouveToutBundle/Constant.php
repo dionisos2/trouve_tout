@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\TrouveToutBundle;
+namespace Ukratio\TrouveToutBundle;
 
 class Constant
 {

@@ -1,11 +1,11 @@
 <?php
-namespace Eud\TrouveToutBundle\Tests\Entity;
+namespace Ukratio\TrouveToutBundle\Tests\Entity;
 
-use Eud\TrouveToutBundle\Entity\Caract;
-use Eud\TrouveToutBundle\Entity\Type;
-use Eud\TrouveToutBundle\Entity\Unit;
-use Eud\TrouveToutBundle\Constant;
-use Eud\ToolBundle\Tests\ValidatorAwareTestCase;
+use Ukratio\TrouveToutBundle\Entity\Caract;
+use Ukratio\TrouveToutBundle\Entity\Type;
+use Ukratio\TrouveToutBundle\Entity\Unit;
+use Ukratio\TrouveToutBundle\Constant;
+use Ukratio\ToolBundle\Tests\ValidatorAwareTestCase;
 
 
 class CaractTest extends ValidatorAwareTestCase
@@ -213,7 +213,7 @@ class CaractTest extends ValidatorAwareTestCase
      */
     public function testGetAndSetOwnerConcept()
     {
-        $ownerConcept = $this->getMockBuilder('Eud\TrouveToutBundle\Entity\Concept')->disableOriginalConstructor()->getMock();
+        $ownerConcept = $this->getMockBuilder('Ukratio\TrouveToutBundle\Entity\Concept')->disableOriginalConstructor()->getMock();
         $this->caract0->setOwnerConcept($ownerConcept);
         $this->assertEquals($ownerConcept, $this->caract0->getOwnerConcept());
     }
@@ -233,7 +233,7 @@ class CaractTest extends ValidatorAwareTestCase
      */
     public function testGetAndSetValue()
     {
-        $value = $this->getMockBuilder('Eud\TrouveToutBundle\Entity\Element')->disableOriginalConstructor()->getMock();
+        $value = $this->getMockBuilder('Ukratio\TrouveToutBundle\Entity\Element')->disableOriginalConstructor()->getMock();
         $this->caract0->setValue($value);
         $this->assertEquals($value, $this->caract0->getValue());
     }

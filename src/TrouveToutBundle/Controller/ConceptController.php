@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Controller;
+namespace Ukratio\TrouveToutBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,12 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Eud\ToolBundle\Service\Enum;
-use Eud\ToolBundle\debug\Message;
-use Eud\TrouveToutBundle\Entity\Concept;
-use Eud\TrouveToutBundle\Entity\Caract;
-use Eud\TrouveToutBundle\Entity\Element;
-use Eud\TrouveToutBundle\Entity\Discriminator;
+use Ukratio\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\debug\Message;
+use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\Caract;
+use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\Discriminator;
 
 
 class ConceptController extends ControllerWithTools

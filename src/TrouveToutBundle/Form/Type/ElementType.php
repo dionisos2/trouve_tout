@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Form\Type;
+namespace Ukratio\TrouveToutBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
@@ -8,13 +8,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Eud\TrouveToutBundle\Form\EventListener\AddOwnerElementSubscriber;
-use Eud\TrouveToutBundle\Form\EventListener\AddChildElementSubscriber;
-use Eud\TrouveToutBundle\Form\EventListener\AddElementSubscriber;
+use Ukratio\TrouveToutBundle\Form\EventListener\AddOwnerElementSubscriber;
+use Ukratio\TrouveToutBundle\Form\EventListener\AddChildElementSubscriber;
+use Ukratio\TrouveToutBundle\Form\EventListener\AddElementSubscriber;
 
-use Eud\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
-use Eud\TrouveToutBundle\Entity\Element;
-use Eud\TrouveToutBundle\Entity\Type;
+use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
+use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\Type;
 
 use Doctrine\ORM\EntityManager;
 
@@ -42,7 +42,7 @@ class ElementType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Eud\TrouveToutBundle\Entity\Element',
+            'data_class' => 'Ukratio\TrouveToutBundle\Entity\Element',
             'constraintOnValue' => false,
             'allow_modif' => true,
             'typeOfValue' => 'name',

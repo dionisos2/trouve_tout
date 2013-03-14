@@ -1,9 +1,9 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Controller;
+namespace Ukratio\TrouveToutBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Eud\ToolBundle\Service\AssertData;
+use Ukratio\ToolBundle\Service\AssertData;
 
 class ControllerWithTools extends Controller
 {    

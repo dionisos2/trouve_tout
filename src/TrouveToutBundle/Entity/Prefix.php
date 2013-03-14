@@ -1,8 +1,8 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Entity;
+namespace Ukratio\TrouveToutBundle\Entity;
 
-use Eud\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\Service\Enum;
 
 Enum::enum('Prefix', array('pico' => pow(10, -12), 
                            'nano' => pow(10, -9),
@@ -18,6 +18,6 @@ Enum::enum('Prefix', array('pico' => pow(10, -12),
                            'giga' => pow(10, 9),
                            'téra' => pow(10, 12),
                            'péta' => pow(10, 15),),
-           'Eud\TrouveToutBundle\Entity');
+           'Ukratio\TrouveToutBundle\Entity');
 
-class_alias('Eud\TrouveToutBundle\Entity\Prefix', 'Prefix');
+class_alias('Ukratio\TrouveToutBundle\Entity\Prefix', 'Prefix');

@@ -1,15 +1,15 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Service;
+namespace Ukratio\TrouveToutBundle\Service;
 
-use Eud\TrouveToutBundle\Entity\Concept;
-use Eud\TrouveToutBundle\Entity\Discriminator;
+use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Eud\TrouveToutBundle\Form\Type\SetType;
-use Eud\TrouveToutBundle\Form\Type\CategoryType;
+use Ukratio\TrouveToutBundle\Form\Type\SetType;
+use Ukratio\TrouveToutBundle\Form\Type\CategoryType;
 use Doctrine\ORM\EntityManager;
-use Eud\ToolBundle\debug\Message;
+use Ukratio\ToolBundle\debug\Message;
 
 class ConceptFormManager
 {

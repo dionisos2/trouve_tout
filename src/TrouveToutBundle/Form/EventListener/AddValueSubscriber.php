@@ -1,21 +1,21 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Form\EventListener;
+namespace Ukratio\TrouveToutBundle\Form\EventListener;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Event\DataEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
-use Eud\TrouveToutBundle\Entity\Caract;
+use Ukratio\TrouveToutBundle\Entity\Caract;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\MinLengthValidator;
 use Doctrine\ORM\EntityManager;
-use Eud\ToolBundle\Service\Enum;
-use Eud\ToolBundle\Form\Type\EnumType;
-use Eud\TrouveToutBundle\Entity\Type;
-use Eud\TrouveToutBundle\Entity\Prefix;
+use Ukratio\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\Form\Type\EnumType;
+use Ukratio\TrouveToutBundle\Entity\Type;
+use Ukratio\TrouveToutBundle\Entity\Prefix;
 
 class AddValueSubscriber implements EventSubscriberInterface
 {
@@ -62,9 +62,9 @@ class AddValueSubscriber implements EventSubscriberInterface
         $form->add($this->factory->createNamed('value', 'TrouveTout_Element', null, array('typeOfValue' => $valueType)));
 
         if (Type::getEnumerator($valueType) === Type::$number) {
-            $form->add($this->factory->createNamed('prefix', new EnumType('Eud\TrouveToutBundle\Entity\Prefix')));
+            $form->add($this->factory->createNamed('prefix', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix')));
 
-            $form->add($this->factory->createNamed('unit', new EnumType('Eud\TrouveToutBundle\Entity\Unit')));
+            $form->add($this->factory->createNamed('unit', new EnumType('Ukratio\TrouveToutBundle\Entity\Unit')));
         }
     }
 }

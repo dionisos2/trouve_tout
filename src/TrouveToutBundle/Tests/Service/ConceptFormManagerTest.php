@@ -1,10 +1,10 @@
 <?php
-namespace Eud\TrouveToutBundle\Tests\Service;
+namespace Ukratio\TrouveToutBundle\Tests\Service;
 
-use Eud\TrouveToutBundle\Entity\ElementRepository;
-use Eud\TrouveToutBundle\Entity\Element;
-use Eud\TrouveToutBundle\Entity\Caract;
-use Eud\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\ElementRepository;
+use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\Caract;
+use Ukratio\TrouveToutBundle\Entity\Concept;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ConceptFormManagerTest extends WebTestCase

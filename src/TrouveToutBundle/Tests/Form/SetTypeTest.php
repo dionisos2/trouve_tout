@@ -1,11 +1,11 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Tests\Form\Type;
+namespace Ukratio\TrouveToutBundle\Tests\Form\Type;
 
-use Eud\TrouveToutBundle\Form\Type\SetType;
-use Eud\TrouveToutBundle\Form\Type\CaractType;
-use Eud\TrouveToutBundle\Form\Type\ElementType;
-use Eud\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Form\Type\SetType;
+use Ukratio\TrouveToutBundle\Form\Type\CaractType;
+use Ukratio\TrouveToutBundle\Form\Type\ElementType;
+use Ukratio\TrouveToutBundle\Entity\Concept;
 use Symfony\Component\Form\Tests\Extension\Core\Type\TypeTestCase;
 
 class SetTypeTest extends TypeTestCase

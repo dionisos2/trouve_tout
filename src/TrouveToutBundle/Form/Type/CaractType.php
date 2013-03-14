@@ -1,18 +1,18 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Form\Type;
+namespace Ukratio\TrouveToutBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Eud\ToolBundle\Form\Type\EnumType;
-use Eud\TrouveToutBundle\Form\EventListener\AddValueSubscriber;
-use Eud\TrouveToutBundle\Form\EventListener\SpecifyCaractSubscriber;
+use Ukratio\ToolBundle\Form\Type\EnumType;
+use Ukratio\TrouveToutBundle\Form\EventListener\AddValueSubscriber;
+use Ukratio\TrouveToutBundle\Form\EventListener\SpecifyCaractSubscriber;
 use Doctrine\ORM\EntityManager;
-use Eud\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\Service\Enum;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Eud\TrouveToutBundle\Entity\Discriminator;
+use Ukratio\TrouveToutBundle\Entity\Discriminator;
 
 class CaractType extends AbstractType
 {
@@ -66,7 +66,7 @@ class CaractType extends AbstractType
 
         
         if ($options['display_type'] == 'edit') {
-            $builder->add('type', new EnumType('Eud\TrouveToutBundle\Entity\Type'));
+            $builder->add('type', new EnumType('Ukratio\TrouveToutBundle\Entity\Type'));
         }
 
         $builder->addEventSubscriber(new AddValueSubscriber($builder->getFormFactory()));
@@ -77,7 +77,7 @@ class CaractType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Eud\TrouveToutBundle\Entity\Caract',
+            'data_class' => 'Ukratio\TrouveToutBundle\Entity\Caract',
             'display_type' => 'show',
             'parentType' => Discriminator::$Set,
         ))

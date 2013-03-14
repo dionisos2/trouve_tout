@@ -1,9 +1,9 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Entity;
-use Eud\ToolBundle\Service\Enum;
+namespace Ukratio\TrouveToutBundle\Entity;
+use Ukratio\ToolBundle\Service\Enum;
 
 
-Enum::enum("Discriminator", array("Category", "Set"), 'Eud\TrouveToutBundle\Entity');
+Enum::enum("Discriminator", array("Category", "Set"), 'Ukratio\TrouveToutBundle\Entity');
 
-class_alias('Eud\TrouveToutBundle\Entity\Discriminator', 'Discriminator');
+class_alias('Ukratio\TrouveToutBundle\Entity\Discriminator', 'Discriminator');

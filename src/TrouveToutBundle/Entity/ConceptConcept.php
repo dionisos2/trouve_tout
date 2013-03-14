@@ -1,9 +1,9 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Entity;
+namespace Ukratio\TrouveToutBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Eud\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\Concept;
 
 /**
  * ConceptConcept
@@ -15,18 +15,18 @@ class ConceptConcept
 {
 
     /**
-     * @var Eud\TrouveToutBundle\Entity\Concept
+     * @var Ukratio\TrouveToutBundle\Entity\Concept
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Eud\TrouveToutBundle\Entity\Concept", inversedBy="moreSpecificConcepts")
+     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Concept", inversedBy="moreSpecificConcepts")
      */
     private $moreGeneral;
 
     /**
-     * @var Eud\TrouveToutBundle\Entity\Concept
+     * @var Ukratio\TrouveToutBundle\Entity\Concept
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Eud\TrouveToutBundle\Entity\Concept", inversedBy="moreGeneralConcepts")
+     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Concept", inversedBy="moreGeneralConcepts")
      */
     private $moreSpecific;
 
@@ -40,7 +40,7 @@ class ConceptConcept
     /**
      * Set moreGeneral
      *
-     * @param \Eud\TrouveToutBundle\Entity\Concept $moreGeneral
+     * @param \Ukratio\TrouveToutBundle\Entity\Concept $moreGeneral
      * @return ConceptConcept
      *
      * @codeCoverageIgnore
@@ -55,7 +55,7 @@ class ConceptConcept
     /**
      * Get moreGeneral
      *
-     * @return \Eud\TrouveToutBundle\Entity\Concept
+     * @return \Ukratio\TrouveToutBundle\Entity\Concept
      *
      * @codeCoverageIgnore
      */
@@ -67,7 +67,7 @@ class ConceptConcept
     /**
      * Set moreSpecific
      *
-     * @param \Eud\TrouveToutBundle\Entity\Concept $moreSpecific
+     * @param \Ukratio\TrouveToutBundle\Entity\Concept $moreSpecific
      * @return ConceptConcept
      *
      * @codeCoverageIgnore
@@ -82,7 +82,7 @@ class ConceptConcept
     /**
      * Get moreSpecific
      *
-     * @return \Eud\TrouveToutBundle\Entity\Concept
+     * @return \Ukratio\TrouveToutBundle\Entity\Concept
      *
      * @codeCoverageIgnore
      */

@@ -1,9 +1,9 @@
 <?php
-namespace Eud\TrouveToutBundle\Tests\Entity;
+namespace Ukratio\TrouveToutBundle\Tests\Entity;
 
 
-use Eud\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
-use Eud\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
+use Ukratio\TrouveToutBundle\Entity\Element;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TrueElementToElementTransformerTest extends WebTestCase

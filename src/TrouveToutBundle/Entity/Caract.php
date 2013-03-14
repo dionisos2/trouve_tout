@@ -1,25 +1,25 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Entity;
+namespace Ukratio\TrouveToutBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Eud\ToolBundle\Service\AssertData;
-use Eud\TrouveToutBundle\Constant;
+use Ukratio\ToolBundle\Service\AssertData;
+use Ukratio\TrouveToutBundle\Constant;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\MaxLength;
 use Symfony\Component\Validator\Constraints\Regex;
-use Eud\ToolBundle\Validator as MyAssert;
-use Eud\TrouveToutBundle\Entity\Prefix;
-use Eud\TrouveToutBundle\Entity\Unit;
-use Eud\TrouveToutBundle\Entity\Type;
+use Ukratio\ToolBundle\Validator as MyAssert;
+use Ukratio\TrouveToutBundle\Entity\Prefix;
+use Ukratio\TrouveToutBundle\Entity\Unit;
+use Ukratio\TrouveToutBundle\Entity\Type;
 
 
 /**
  * Caract
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Eud\TrouveToutBundle\Entity\CaractRepository")
+ * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\CaractRepository")
  */
 class Caract
 {
@@ -50,7 +50,7 @@ class Caract
      * @var string
      *
      * @ORM\Column(name="unit", type="string", length=255, nullable=true)
-     * @MyAssert\TypeEnum(enumName="Eud\TrouveToutBundle\Entity\Unit")
+     * @MyAssert\TypeEnum(enumName="Ukratio\TrouveToutBundle\Entity\Unit")
      */
     private $unit;
 
@@ -58,7 +58,7 @@ class Caract
      * @var string
      *
      * @ORM\Column(name="prefix", type="string", length=255, nullable=true)
-     * @MyAssert\TypeEnum(enumName="Eud\TrouveToutBundle\Entity\Prefix")
+     * @MyAssert\TypeEnum(enumName="Ukratio\TrouveToutBundle\Entity\Prefix")
      */
     private $prefix;
 
@@ -74,7 +74,7 @@ class Caract
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=255)
-     * @MyAssert\TypeEnum(enumName="Eud\TrouveToutBundle\Entity\Type")
+     * @MyAssert\TypeEnum(enumName="Ukratio\TrouveToutBundle\Entity\Type")
      */
     private $type;
 
@@ -96,16 +96,16 @@ class Caract
 
 
     /**
-     * @var Eud\TrouveToutBundle\Entity\Concept
+     * @var Ukratio\TrouveToutBundle\Entity\Concept
      *
-     * @ORM\ManyToOne(targetEntity="Eud\TrouveToutBundle\Entity\Concept", inversedBy="caracts")
+     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Concept", inversedBy="caracts")
      */
     private $ownerConcept;
 
     /**
-     * @var Eud\TrouveToutBundle\Entity\Element
+     * @var Ukratio\TrouveToutBundle\Entity\Element
      *
-     * @ORM\ManyToOne(targetEntity="Eud\TrouveToutBundle\Entity\Element", cascade={"persist", "detach", "merge"})
+     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Element", cascade={"persist", "detach", "merge"})
      * @Assert\Valid(traverse=true)
      */
     private $value;
@@ -273,10 +273,10 @@ class Caract
     /**
      * Set ownerConcept
      *
-     * @param \Eud\TrouveToutBundle\Entity\Concept $ownerConcept
+     * @param \Ukratio\TrouveToutBundle\Entity\Concept $ownerConcept
      * @return Caract
      */
-    public function setOwnerConcept(\Eud\TrouveToutBundle\Entity\Concept $ownerConcept = null)
+    public function setOwnerConcept(\Ukratio\TrouveToutBundle\Entity\Concept $ownerConcept = null)
     {
         $this->ownerConcept = $ownerConcept;
         return $this;
@@ -285,7 +285,7 @@ class Caract
     /**
      * Get ownerConcept
      *
-     * @return \Eud\TrouveToutBundle\Entity\Concept 
+     * @return \Ukratio\TrouveToutBundle\Entity\Concept 
      */
     public function getOwnerConcept()
     {
@@ -295,10 +295,10 @@ class Caract
     /**
      * Set value
      *
-     * @param \Eud\TrouveToutBundle\Entity\Element $value
+     * @param \Ukratio\TrouveToutBundle\Entity\Element $value
      * @return Caract
      */
-    public function setValue(\Eud\TrouveToutBundle\Entity\Element $value = null)
+    public function setValue(\Ukratio\TrouveToutBundle\Entity\Element $value = null)
     {
         $this->value = $value;
         return $this;
@@ -307,7 +307,7 @@ class Caract
     /**
      * Get value
      *
-     * @return \Eud\TrouveToutBundle\Entity\Element 
+     * @return \Ukratio\TrouveToutBundle\Entity\Element 
      */
     public function getValue()
     {

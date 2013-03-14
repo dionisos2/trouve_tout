@@ -1,12 +1,12 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Form\Type;
+namespace Ukratio\TrouveToutBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityManager;
-use Eud\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
+use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
 use Doctrine\ORM\EntityRepository;
 
 class ConceptConceptType extends AbstractType
@@ -33,7 +33,7 @@ class ConceptConceptType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Eud\TrouveToutBundle\Entity\ConceptConcept'
+            'data_class' => 'Ukratio\TrouveToutBundle\Entity\ConceptConcept'
         ));
     }
 

@@ -1,27 +1,27 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Entity;
+namespace Ukratio\TrouveToutBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Eud\ToolBundle\Service;
-use Eud\ToolBundle\Service\Enum;
-use Eud\ToolBundle\Service\AssertData;
+use Ukratio\ToolBundle\Service;
+use Ukratio\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\Service\AssertData;
 use Doctrine\Common\Collections\ArrayCollection;
-use Eud\TrouveToutBundle\Constant;
-use Eud\TrouveToutBundle\Entity\Discriminator;
-use Eud\TrouveToutBundle\Entity\Element;
-use Eud\TrouveToutBundle\Entity\Caract;
-use Eud\TrouveToutBundle\Entity\ConceptConcept;
+use Ukratio\TrouveToutBundle\Constant;
+use Ukratio\TrouveToutBundle\Entity\Discriminator;
+use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\Caract;
+use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
 use Symfony\Component\Validator\Constraints as Assert;
-use Eud\ToolBundle\Validator as MyAssert;
+use Ukratio\ToolBundle\Validator as MyAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
- * Eud\TrouveToutBundle\Entity\Concept
+ * Ukratio\TrouveToutBundle\Entity\Concept
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Eud\TrouveToutBundle\Entity\ConceptRepository")
+ * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\ConceptRepository")
  * @UniqueEntity("name")
  */
 class Concept
@@ -44,7 +44,7 @@ class Concept
      * @var string $type
      *
      * @ORM\Column(name="type", type="string", length=255)
-     * @MyAssert\TypeEnum(enumName="Eud\TrouveToutBundle\Entity\Discriminator")
+     * @MyAssert\TypeEnum(enumName="Ukratio\TrouveToutBundle\Entity\Discriminator")
      */
     private $type;
 
@@ -67,21 +67,21 @@ class Concept
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Eud\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreSpecific", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreSpecific", cascade={"persist"}, orphanRemoval=true)
      */
     private $moreGeneralConcepts;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Eud\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreGeneral", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreGeneral", cascade={"persist"}, orphanRemoval=true)
      */
     private $moreSpecificConcepts;
 
     /**
      * @var string $caracts
      *
-     * @ORM\OneToMany(targetEntity="Eud\TrouveToutBundle\Entity\Caract", mappedBy="ownerConcept", cascade={"persist", "detach", "merge"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\Caract", mappedBy="ownerConcept", cascade={"persist", "detach", "merge"}, orphanRemoval=true)
      * @Assert\Valid(traverse=true)
      */
     private $caracts;
@@ -224,7 +224,7 @@ class Concept
     /**
      * Add moreGeneralConcepts
      *
-     * @param \Eud\TrouveToutBundle\Entity\Concept $moreGeneralConcepts
+     * @param \Ukratio\TrouveToutBundle\Entity\Concept $moreGeneralConcepts
      * @return Concept
      *
      */
@@ -240,7 +240,7 @@ class Concept
     /**
      * Add moreGeneralConceptConcepts
      *
-     * @param \Eud\TrouveToutBundle\Entity\ConceptConcept $moreGeneralConceptConcepts
+     * @param \Ukratio\TrouveToutBundle\Entity\ConceptConcept $moreGeneralConceptConcepts
      * @return ConceptConcept
      *
      */
@@ -254,7 +254,7 @@ class Concept
     /**
      * Remove moreGeneralConcept
      *
-     * @param \Eud\TrouveToutBundle\Entity\Concept $moreGeneralConcepts
+     * @param \Ukratio\TrouveToutBundle\Entity\Concept $moreGeneralConcepts
      *
      */
     public function removeMoreGeneralConcept(Concept $moreGeneralConcept)
@@ -306,7 +306,7 @@ class Concept
     /**
      * Add moreSpecificConcepts
      *
-     * @param \Eud\TrouveToutBundle\Entity\Concept $moreSpecificConcepts
+     * @param \Ukratio\TrouveToutBundle\Entity\Concept $moreSpecificConcepts
      * @return Concept
      *
      */
@@ -322,7 +322,7 @@ class Concept
     /**
      * Remove moreSpecificConcepts
      *
-     * @param \Eud\TrouveToutBundle\Entity\Concept $moreSpecificConcepts
+     * @param \Ukratio\TrouveToutBundle\Entity\Concept $moreSpecificConcepts
      *
      */
     public function removeMoreSpecificConcept(Concept $moreSpecificConcept)
@@ -352,7 +352,7 @@ class Concept
     /**
      * Add caracts
      *
-     * @param \Eud\TrouveToutBundle\Entity\Caract $caracts
+     * @param \Ukratio\TrouveToutBundle\Entity\Caract $caracts
      * @return Concept
      *
      */
@@ -366,7 +366,7 @@ class Concept
     /**
      * Remove caracts
      *
-     * @param \Eud\TrouveToutBundle\Entity\Caract $caracts
+     * @param \Ukratio\TrouveToutBundle\Entity\Caract $caracts
      */
     public function removeCaract(Caract $caract)
     {

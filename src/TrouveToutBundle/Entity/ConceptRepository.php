@@ -1,9 +1,9 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Entity;
+namespace Ukratio\TrouveToutBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Eud\TrouveToutBundle\Entity\Discriminator;
+use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Doctrine\ORM\QueryBuilder;
 
 /**

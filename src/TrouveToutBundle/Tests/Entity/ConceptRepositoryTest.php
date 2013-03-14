@@ -1,8 +1,8 @@
 <?php
-namespace Eud\TrouveToutBundle\Tests\Entity;
+namespace Ukratio\TrouveToutBundle\Tests\Entity;
 
-use Eud\TrouveToutBundle\Entity\ConceptRepository;
-use Eud\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
+use Ukratio\TrouveToutBundle\Entity\Concept;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ConceptRepositoryTest extends WebTestCase

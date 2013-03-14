@@ -1,13 +1,13 @@
 <?php
  
-namespace Eud\TrouveToutBundle\DataFixtures\ORM;
+namespace Ukratio\TrouveToutBundle\DataFixtures\ORM;
  
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Eud\TrouveToutBundle\Entity\Concept;
-use Eud\TrouveToutBundle\Entity\Element;
-use Eud\TrouveToutBundle\Entity\Caract;
-use Eud\TrouveToutBundle\Entity\ConceptConcept;
+use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\Caract;
+use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
  
 class TestDataBase implements FixtureInterface
 {

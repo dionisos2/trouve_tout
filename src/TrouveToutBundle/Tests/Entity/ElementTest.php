@@ -1,8 +1,8 @@
 <?php
-namespace Eud\TrouveToutBundle\Tests\Entity;
+namespace Ukratio\TrouveToutBundle\Tests\Entity;
 
-use Eud\TrouveToutBundle\Entity\Element;
-use Eud\ToolBundle\Tests\ValidatorAwareTestCase;
+use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\ToolBundle\Tests\ValidatorAwareTestCase;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class_alias('Doctrine\Common\Collections\ArrayCollection', 'ArrayCollection');
@@ -75,7 +75,7 @@ class ElementTest extends ValidatorAwareTestCase
      */
     public function testGetAndSetMoreGeneral()
     {
-        $moreGeneral = $this->getMockBuilder('Eud\TrouveToutBundle\Entity\Element')->disableOriginalConstructor()->getMock();
+        $moreGeneral = $this->getMockBuilder('Ukratio\TrouveToutBundle\Entity\Element')->disableOriginalConstructor()->getMock();
         $this->element0->setMoreGeneral($moreGeneral);
         $this->assertEquals($moreGeneral, $this->element0->getMoreGeneral());
     }

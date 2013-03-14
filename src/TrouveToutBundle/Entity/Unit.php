@@ -1,8 +1,8 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Entity;
+namespace Ukratio\TrouveToutBundle\Entity;
 
-use Eud\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\Service\Enum;
 
 Enum::enum('Unit', array('∅',
                          'mètre',
@@ -18,6 +18,6 @@ Enum::enum('Unit', array('∅',
                          'farad',
                          'henry',
                          'coulomb',),
-           'Eud\TrouveToutBundle\Entity');
+           'Ukratio\TrouveToutBundle\Entity');
 
-class_alias('Eud\TrouveToutBundle\Entity\Unit', 'Unit');
+class_alias('Ukratio\TrouveToutBundle\Entity\Unit', 'Unit');

@@ -1,19 +1,19 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Entity;
+namespace Ukratio\TrouveToutBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Eud\ToolBundle\Service\AssertData;
+use Ukratio\ToolBundle\Service\AssertData;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Eud\TrouveToutBundle\Entity\Type;
+use Ukratio\TrouveToutBundle\Entity\Type;
 
 
 /**
  * Element
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Eud\TrouveToutBundle\Entity\ElementRepository")
+ * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\ElementRepository")
  */
 class Element
 {
@@ -45,16 +45,16 @@ class Element
 
 
     /**
-     * @var Eud\TrouveToutBundle\Entity\Element
+     * @var Ukratio\TrouveToutBundle\Entity\Element
      *
-     * @ORM\ManyToOne(targetEntity="Eud\TrouveToutBundle\Entity\Element", inversedBy="moreSpecific", cascade={"persist", "detach", "merge"})
+     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Element", inversedBy="moreSpecific", cascade={"persist", "detach", "merge"})
      */
     private $moreGeneral;
 
     /**
-     * @var Eud\TrouveToutBundle\Entity\Element
+     * @var Ukratio\TrouveToutBundle\Entity\Element
      *
-     * @ORM\OneToMany(targetEntity="Eud\TrouveToutBundle\Entity\Element", mappedBy="moreGeneral")
+     * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\Element", mappedBy="moreGeneral")
      */
     private $moreSpecifics;
 
@@ -191,12 +191,12 @@ class Element
     /**
      * SetmoreGeneral
      *
-     * @param \Eud\TrouveToutBundle\Entity\Element $moreGeneral
+     * @param \Ukratio\TrouveToutBundle\Entity\Element $moreGeneral
      * @return Element
      *
      * @codeCoverageIgnore
      */
-    public function setMoreGeneral(\Eud\TrouveToutBundle\Entity\Element $moreGeneral = null)
+    public function setMoreGeneral(\Ukratio\TrouveToutBundle\Entity\Element $moreGeneral = null)
     {
         $this->moreGeneral = $moreGeneral;
     
@@ -206,7 +206,7 @@ class Element
     /**
      * Get moreGeneral
      *
-     * @return \Eud\TrouveToutBundle\Entity\Element 
+     * @return \Ukratio\TrouveToutBundle\Entity\Element 
      *
      * @codeCoverageIgnore
      */
@@ -218,12 +218,12 @@ class Element
     /**
      * Add moreSpecific
      *
-     * @param \Eud\TrouveToutBundle\Entity\Element $moreSpecific
+     * @param \Ukratio\TrouveToutBundle\Entity\Element $moreSpecific
      * @return Element
      *
      * @codeCoverageIgnore
      */
-    public function addMoreSpecific(\Eud\TrouveToutBundle\Entity\Element $moreSpecific)
+    public function addMoreSpecific(\Ukratio\TrouveToutBundle\Entity\Element $moreSpecific)
     {
         $this->moreSpecifics[] = $moreSpecifics;
     
@@ -233,11 +233,11 @@ class Element
     /**
      * Remove moreSpecific
      *
-     * @param \Eud\TrouveToutBundle\Entity\Element $moreSpecific
+     * @param \Ukratio\TrouveToutBundle\Entity\Element $moreSpecific
      *
      * @codeCoverageIgnore
      */
-    public function removeMoreSpecific(\Eud\TrouveToutBundle\Entity\Element $moreSpecific)
+    public function removeMoreSpecific(\Ukratio\TrouveToutBundle\Entity\Element $moreSpecific)
     {
         $this->moreSpecifics->removeElement($moreSpecifics);
     }

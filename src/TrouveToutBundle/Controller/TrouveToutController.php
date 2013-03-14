@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\TrouveToutBundle\Controller;
+namespace Ukratio\TrouveToutBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,10 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Eud\TrouveToutBundle\Entity\Concept;
-use Eud\TrouveToutBundle\Entity\ConceptConcept;
-use Eud\TrouveToutBundle\Entity\Element;
-use Eud\ToolBundle\Form\Type\ChoiceOrTextType;
+use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
+use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\ToolBundle\Form\Type\ChoiceOrTextType;
 
 class TrouveToutController extends ControllerWithTools
 {    
