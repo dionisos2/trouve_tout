@@ -15,19 +15,22 @@ use Doctrine\ORM\QueryBuilder;
 class ConceptRepository extends EntityRepository
 {
 
-    public function myFindOneById($id)
+    public function findByIdWithCaract($id)
     {
+        
         $queryBuilder = $this->createQueryBuilder('concept')
                              ->where('concept.id = :id')
                              ->setParameter('id', $id)
-                             ->leftJoin('concept.moreSpecificConceptConcepts', 'GConceptConcept')
-                             ->addSelect('GConceptConcept')
-
-                             ->leftJoin('concept.moreGeneralConceptConcepts', 'SConceptConcept')
-                             ->addSelect('SConceptConcept');
+                             ->leftJoin('concept.caracts', 'caracts')
+                             ->addSelect('caracts')
+                             ->leftJoin('caracts.value', 'element')
+                             ->addSelect('element')
+                             ->leftJoin('concept.moreGeneralConceptConcepts', 'generalConcept')
+                             ->addSelect('generalConcept');
 
         return $queryBuilder->getQuery()->getResult()[0];
     }
+
 
     public function count()
     {

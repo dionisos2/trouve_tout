@@ -6,7 +6,7 @@
 {% set allow_modif = allow_modif|default(false) %}
 
 <div class="enligne">
-  {% for child in form.getChildren %}
+  {% for child in form.children %}
   {% if child.name == 'childElement' %}
   {{ form_row(child) }}
   {% endif %}

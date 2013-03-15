@@ -15,6 +15,7 @@ use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class ConceptController extends ControllerWithTools
@@ -86,6 +87,7 @@ class ConceptController extends ControllerWithTools
     /**
      * @Route("/modify/{id}", name="edit_concept", requirements={"id" = "\d+"})
      * @Method({"GET"})
+     * @ParamConverter("concept", options={"repository_method": "findByIdWithCaract"})
      * @Template("TrouveToutBundle:TrouveTout:modifyConcept.html.twig")
      */
     public function editConceptAction(Concept $concept)
@@ -99,6 +101,7 @@ class ConceptController extends ControllerWithTools
     /**
      * @Route("/modify/{id}", name="update_concept", requirements={"id" = "\d+"})
      * @Method({"POST"})
+     * @ParamConverter("concept", options={"repository_method": "findByIdWithCaract"})
      * @Template("TrouveToutBundle:TrouveTout:modifyConcept.html.twig")
      */
     public function updateAction(Request $request, Concept $concept)

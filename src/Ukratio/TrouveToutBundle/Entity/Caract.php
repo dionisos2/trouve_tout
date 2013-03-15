@@ -7,7 +7,7 @@ use Ukratio\ToolBundle\Service\AssertData;
 use Ukratio\TrouveToutBundle\Constant;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Image;
-use Symfony\Component\Validator\Constraints\MaxLength;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 use Ukratio\ToolBundle\Validator as MyAssert;
 use Ukratio\TrouveToutBundle\Entity\Prefix;
@@ -341,7 +341,7 @@ class Caract
 	{
         switch (Type::getEnumerator($this->getType())) {
             case Type::$name:
-                return new MaxLength(30);
+                return new Length(30);
             case Type::$number:
                 return new Regex("/^(\d*|[ni])$/");
             case Type::$picture:
