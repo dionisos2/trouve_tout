@@ -20,10 +20,10 @@ class ConceptRepository extends EntityRepository
         $queryBuilder = $this->createQueryBuilder('concept')
                              ->where('concept.id = :id')
                              ->setParameter('id', $id)
-                             ->leftJoin('concept.moreSpecificConcepts', 'GConceptConcept')
+                             ->leftJoin('concept.moreSpecificConceptConcepts', 'GConceptConcept')
                              ->addSelect('GConceptConcept')
 
-                             ->leftJoin('concept.moreGeneralConcepts', 'SConceptConcept')
+                             ->leftJoin('concept.moreGeneralConceptConcepts', 'SConceptConcept')
                              ->addSelect('SConceptConcept');
 
         return $queryBuilder->getQuery()->getResult()[0];
@@ -41,7 +41,7 @@ class ConceptRepository extends EntityRepository
     public function findMoreGeneralCategories(Concept $concept)
     {
         $queryBuilder = $this->createQueryBuilder('concept')
-                             ->leftJoin('concept.moreSpecificConcepts', 'ConceptConcept')
+                             ->leftJoin('concept.moreSpecificConceptConcepts', 'ConceptConcept')
                              ->where('ConceptConcept.moreSpecific = :id')
                              ->setParameter('id', $concept->getId());
         $queryBuilder = $this->whereIsCategory($queryBuilder);

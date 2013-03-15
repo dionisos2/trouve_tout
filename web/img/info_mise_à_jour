@@ -1,0 +1,82 @@
+(52/81) mise à jour de linux                                                                         [############################################################] 100%
+>>> Updating module dependencies. Please wait ...
+>>> Generating initial ramdisk, using mkinitcpio.  Please wait...
+==> Building image from preset: 'default'
+  -> -k /boot/vmlinuz-linux -c /etc/mkinitcpio.conf -g /boot/initramfs-linux.img
+==> Starting build: 3.7.8-1-ARCH
+  -> Running build hook: [base]
+  -> Running build hook: [udev]
+  -> Running build hook: [autodetect]
+==> WARNING: Hook 'pata' is deprecated. Replace it with 'block' in your config
+  -> Running build hook: [block]
+==> WARNING: Hook 'scsi' is deprecated. Replace it with 'block' in your config
+  -> Running build hook: [block]
+==> WARNING: Hook 'sata' is deprecated. Replace it with 'block' in your config
+  -> Running build hook: [block]
+  -> Running build hook: [resume]
+  -> Running build hook: [filesystems]
+==> WARNING: Hook 'usbinput' is deprecated. Replace it with 'keyboard' in your config
+  -> Running build hook: [keyboard]
+  -> Running build hook: [fsck]
+==> Generating module dependencies
+==> Creating gzip initcpio image: /boot/initramfs-linux.img
+==> Image generation successful
+==> Building image from preset: 'fallback'
+  -> -k /boot/vmlinuz-linux -c /etc/mkinitcpio.conf -g /boot/initramfs-linux-fallback.img -S autodetect
+==> Starting build: 3.7.8-1-ARCH
+  -> Running build hook: [base]
+  -> Running build hook: [udev]
+==> WARNING: Hook 'pata' is deprecated. Replace it with 'block' in your config
+  -> Running build hook: [block]
+==> WARNING: Hook 'scsi' is deprecated. Replace it with 'block' in your config
+  -> Running build hook: [block]
+==> WARNING: Hook 'sata' is deprecated. Replace it with 'block' in your config
+  -> Running build hook: [block]
+  -> Running build hook: [resume]
+  -> Running build hook: [filesystems]
+==> WARNING: Hook 'usbinput' is deprecated. Replace it with 'keyboard' in your config
+  -> Running build hook: [keyboard]
+  -> Running build hook: [fsck]
+==> Generating module dependencies
+==> Creating gzip initcpio image: /boot/initramfs-linux-fallback.img
+==> Image generation successful
+(53/81) mise à jour de linux-headers                                                                 [############################################################] 100%
+(54/81) mise à jour de lirc-utils                                                                    [############################################################] 100%
+(55/81) mise à jour de lvm2                                                                          [############################################################] 100%
+Changes to the lvm2 package:
+ + Activating lvm in mkinitcpio now requires both the 'udev' and 'lvm2' hooks.
+ + LVM volumes are automatically activated by udev (full hotplug support).
+ + You MUST have use_lvmetad = 1 in /etc/lvm/lvm.conf (the default).
+ + If you uncomment auto_activation_volume_list in /etc/lvm/lvm.conf, only the
+   volumes listed there will be activated (default: it is commented out).
+(56/81) mise à jour de man-pages                                                                     [############################################################] 100%
+(57/81) mise à jour de mdadm                                                                         [############################################################] 100%
+(58/81) mise à jour de mercurial                                                                     [############################################################] 100%
+(59/81) mise à jour de mplayer                                                                       [############################################################] 100%
+(60/81) mise à jour de mutagen                                                                       [############################################################] 100%
+(61/81) mise à jour de mysql-python                                                                  [############################################################] 100%
+(62/81) mise à jour de poppler                                                                       [############################################################] 100%
+(63/81) mise à jour de poppler-qt                                                                    [############################################################] 100%
+(64/81) mise à jour de nepomuk-core                                                                  [############################################################] 100%
+(65/81) mise à jour de net-snmp                                                                      [############################################################] 100%
+(66/81) mise à jour de openssh                                                                       [############################################################] 100%
+Avertissement : /etc/ssh/sshd_config installé en tant que /etc/ssh/sshd_config.pacnew
+(67/81) mise à jour de pidgin                                                                        [############################################################] 100%
+(68/81) mise à jour de poppler-glib                                                                  [############################################################] 100%
+(69/81) mise à jour de postfix                                                                       [############################################################] 100%
+    COMPATIBILITY: editing /etc/postfix/main.cf, overriding
+    smtpd_relay_restrictions to prevent inbound mail from unexpectedly
+    bouncing.  Specify an empty smtpd_relay_restrictions value to keep
+    using smtpd_recipient_restrictions as before.
+(70/81) mise à jour de python2-lxml                                                                  [############################################################] 100%
+(71/81) mise à jour de qca                                                                           [############################################################] 100%
+(72/81) mise à jour de qtwebkit                                                                      [############################################################] 100%
+(73/81) mise à jour de syslog-ng                                                                     [############################################################] 100%
+(74/81) mise à jour de vlc                                                                           [############################################################] 100%
+(75/81) mise à jour de wine                                                                          [############################################################] 100%
+(76/81) mise à jour de wpa_supplicant                                                                [############################################################] 100%
+(77/81) mise à jour de xf86-video-intel                                                              [############################################################] 100%
+(78/81) mise à jour de xorg-sessreg                                                                  [############################################################] 100%
+(79/81) mise à jour de xorg-xrandr                                                                   [############################################################] 100%
+(80/81) mise à jour de xorg-xvinfo                                                                   [############################################################] 100%
+(81/81) mise à jour de xterm            

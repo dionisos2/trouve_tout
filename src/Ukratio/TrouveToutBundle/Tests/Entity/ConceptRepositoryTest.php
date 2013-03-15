@@ -25,7 +25,9 @@ class ConceptRepositoryTest extends WebTestCase
             ->get('doctrine')
             ->getEntityManager('test')
         ;
-
+        if ($this->em == null) {
+            throw new Exception('problem with database test');
+        }
         $this->repo = $this->em->getRepository('TrouveToutBundle:Concept');
     }
 

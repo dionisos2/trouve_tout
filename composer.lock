@@ -1,5 +1,5 @@
 {
-    "hash": "373c0bc6ee7993b10bbb9611955aea31",
+    "hash": "5e24a916026156d3a9002877a3dccf00",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -608,12 +608,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jdorn/sql-formatter.git",
-                "reference": "999f8125a66f44da7ee53db64e7aee3be8fa91ec"
+                "reference": "248cceb90a7b0e6551155c28e018495052403a25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/999f8125a66f44da7ee53db64e7aee3be8fa91ec",
-                "reference": "999f8125a66f44da7ee53db64e7aee3be8fa91ec",
+                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/248cceb90a7b0e6551155c28e018495052403a25",
+                "reference": "248cceb90a7b0e6551155c28e018495052403a25",
                 "shasum": ""
             },
             "require": {
@@ -650,7 +650,7 @@
                 "highlight",
                 "sql"
             ],
-            "time": "2013-03-11 18:41:07"
+            "time": "2013-03-15 05:47:35"
         },
         {
             "name": "jms/aop-bundle",
@@ -1567,12 +1567,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "edd9a4e3add809a9e95da84e72017618bff27c7b"
+                "reference": "801a7f887bbf679de61b404677dfea8ba8716279"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/edd9a4e3add809a9e95da84e72017618bff27c7b",
-                "reference": "edd9a4e3add809a9e95da84e72017618bff27c7b",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/801a7f887bbf679de61b404677dfea8ba8716279",
+                "reference": "801a7f887bbf679de61b404677dfea8ba8716279",
                 "shasum": ""
             },
             "require": {
@@ -1658,7 +1658,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-03-14 20:52:50"
+            "time": "2013-03-15 10:54:52"
         },
         {
             "name": "twig/extensions",
@@ -1759,11 +1759,10 @@
         {
             "name": "ukratio/tool-bundle",
             "version": "dev-master",
-            "target-dir": "Ukratio/ToolBundle",
             "source": {
                 "type": "git",
-                "url": "git@gitorious.org:ukratiotoolbundle/ukratiotoolbundle.git",
-                "reference": "44b1f52040473733f5328cd416f3c62a91bc01f3"
+                "url": "https://git.gitorious.org/ukratiotoolbundle/ukratiotoolbundle.git",
+                "reference": "4d2d032070290085299f7e30caee1ce2029cd729"
             },
             "require": {
                 "php": ">=5.3.3",
@@ -1772,7 +1771,7 @@
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
-                    "": "Ukratio\\ToolBundle"
+                    "Ukratio\\ToolBundle": "src/"
                 }
             },
             "license": [
@@ -1784,7 +1783,7 @@
                 }
             ],
             "description": "some usefull tolls",
-            "time": "2013-03-14 22:36:51"
+            "time": "2013-03-15 15:44:21"
         }
     ],
     "packages-dev": null,

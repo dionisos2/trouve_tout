@@ -2,7 +2,7 @@
 	"repositories": [
         {
             "type": "vcs",
-            "url": "git@gitorious.org:ukratiotoolbundle/ukratiotoolbundle.git"
+            "url": "https://git.gitorious.org/ukratiotoolbundle/ukratiotoolbundle.git"
         }
     ],
     "name": "symfony/framework-standard-edition",

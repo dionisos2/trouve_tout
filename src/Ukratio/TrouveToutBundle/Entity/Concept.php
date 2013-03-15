@@ -69,14 +69,14 @@ class Concept
      *
      * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreSpecific", cascade={"persist"}, orphanRemoval=true)
      */
-    private $moreGeneralConcepts;
+    private $moreGeneralConceptConcepts;
 
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreGeneral", cascade={"persist"}, orphanRemoval=true)
      */
-    private $moreSpecificConcepts;
+    private $moreSpecificConceptConcepts;
 
     /**
      * @var string $caracts
@@ -121,8 +121,8 @@ class Concept
         }
 
         $this->caracts = new ArrayCollection();
-		$this->moreGeneralConcepts = new ArrayCollection();
-		$this->moreSpecificConcepts = new ArrayCollection();
+		$this->moreGeneralConceptConcepts = new ArrayCollection();
+		$this->moreSpecificConceptConcepts = new ArrayCollection();
         $this->type = Discriminator::$Set->getName();
         $this->number = 1;
         $this->name = null;
@@ -233,7 +233,7 @@ class Concept
         $conceptConcept = new ConceptConcept();
         $conceptConcept->linkConcepts($this, $moreGeneralConcept);
 
-        $this->moreGeneralConcepts[] = $conceptConcept;
+        $this->moreGeneralConceptConcepts[] = $conceptConcept;
         return $this;
     }
 
@@ -247,7 +247,7 @@ class Concept
     public function addMoreGeneralConceptConcept(ConceptConcept $moreGeneralConceptConcept)
     {
         $moreGeneralConceptConcept->setMoreSpecific($this);
-        $this->moreGeneralConcepts[] = $moreGeneralConceptConcept;
+        $this->moreGeneralConceptConcepts[] = $moreGeneralConceptConcept;
         return $this;
     }
 
@@ -260,7 +260,7 @@ class Concept
     public function removeMoreGeneralConcept(Concept $moreGeneralConcept)
     {
         $self = $this;
-        $conceptConcept = $this->moreGeneralConcepts->filter(
+        $conceptConcept = $this->moreGeneralConceptConcepts->filter(
             function($conceptConcept) use ($self, $moreGeneralConcept)
         {
             return ($conceptConcept->getMoreSpecific()->getId() == $self->getId()) and ($conceptConcept->getMoreGeneral()->getId() == $moreGeneralConcept->getId());
@@ -268,17 +268,17 @@ class Concept
 
         
         $conceptConcept->getMoreGeneral()->removeMoreGeneralConceptConcept($conceptConcept);
-        $this->moreGeneralConcepts->removeElement($conceptConcept);
+        $this->moreGeneralConceptConcepts->removeElement($conceptConcept);
     }
 
     public function removeMoreGeneralConceptConcept(ConceptConcept $moreGeneralConceptConcept)
     {
-        $this->moreGeneralConcepts->removeElement($moreGeneralConceptConcept);
+        $this->moreGeneralConceptConcepts->removeElement($moreGeneralConceptConcept);
     }
 
     public function removeMoreSpecificConceptConcept(ConceptConcept $moreSpecificConceptConcept)
     {
-        $this->moreSpecificConcepts->removeElement($moreSpecificConceptConcept);
+        $this->moreSpecificConceptConcepts->removeElement($moreSpecificConceptConcept);
     }
 
     /**
@@ -289,7 +289,7 @@ class Concept
      */
     public function getMoreGeneralConcepts()
     {
-        return $this->moreGeneralConcepts->map(function (ConceptConcept $x) {return $x->getMoreGeneral();});
+        return $this->moreGeneralConceptConcepts->map(function (ConceptConcept $x) {return $x->getMoreGeneral();});
     }
 
     /**
@@ -300,7 +300,7 @@ class Concept
      */
     public function getMoreGeneralConceptConcepts()
     {
-        return $this->moreGeneralConcepts;
+        return $this->moreGeneralConceptConcepts;
     }
 
     /**
@@ -315,7 +315,7 @@ class Concept
         $conceptConcept = new ConceptConcept();
         $conceptConcept->linkConcepts($moreSpecificConcepts, $this);
 
-        $this->moreSpecificConcepts[] = $conceptConcept;
+        $this->moreSpecificConceptConcepts[] = $conceptConcept;
         return $this;
     }
 
@@ -328,14 +328,14 @@ class Concept
     public function removeMoreSpecificConcept(Concept $moreSpecificConcept)
     {
         $self = $this;
-        $conceptConcept = $this->moreSpecificConcepts->filter(
+        $conceptConcept = $this->moreSpecificConceptConcepts->filter(
             function($conceptConcept) use ($moreSpecificConcept, $self)
         {
             return $conceptConcept->getMoreSpecific() == $moreSpecificConcept and $conceptConcept->getMoreGeneral() == $self;
         })->first();
 
         $conceptConcept->getMoreSpecific()->removeMoreSpecificConceptConcept($conceptConcept);
-        $this->moreSpecificConcepts->removeElement($conceptConcept);
+        $this->moreSpecificConceptConcepts->removeElement($conceptConcept);
     }
 
     /**
@@ -346,7 +346,7 @@ class Concept
      */
     public function getMoreSpecificConcepts()
     {
-        return $this->moreSpecificConcepts->map(function (ConceptConcept $x){return $x->getMoreSpecific();});
+        return $this->moreSpecificConceptConcepts->map(function (ConceptConcept $x){return $x->getMoreSpecific();});
     }
 
     /**
