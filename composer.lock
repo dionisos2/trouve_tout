@@ -721,12 +721,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jdorn/sql-formatter.git",
-                "reference": "248cceb90a7b0e6551155c28e018495052403a25"
+                "reference": "46ec57eb77c2aaf6e685ecb9864ac01a5878cc77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/248cceb90a7b0e6551155c28e018495052403a25",
-                "reference": "248cceb90a7b0e6551155c28e018495052403a25",
+                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/46ec57eb77c2aaf6e685ecb9864ac01a5878cc77",
+                "reference": "46ec57eb77c2aaf6e685ecb9864ac01a5878cc77",
                 "shasum": ""
             },
             "require": {
@@ -763,7 +763,7 @@
                 "highlight",
                 "sql"
             ],
-            "time": "2013-03-15 05:47:35"
+            "time": "2013-03-15 20:25:42"
         },
         {
             "name": "jms/aop-bundle",
@@ -1954,10 +1954,11 @@
         {
             "name": "ukratio/tool-bundle",
             "version": "dev-master",
+            "target-dir": "\\",
             "source": {
                 "type": "git",
                 "url": "https://git.gitorious.org/ukratiotoolbundle/ukratiotoolbundle.git",
-                "reference": "4d2d032070290085299f7e30caee1ce2029cd729"
+                "reference": "9c4f344dd13aba271eafcd63a697384dc70aeced"
             },
             "require": {
                 "php": ">=5.3.3",
@@ -1978,7 +1979,7 @@
                 }
             ],
             "description": "some usefull tolls",
-            "time": "2013-03-15 15:44:21"
+            "time": "2013-03-15 22:25:11"
         }
     ],
     "packages-dev": null,

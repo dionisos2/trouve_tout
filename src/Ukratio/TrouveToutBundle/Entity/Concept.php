@@ -43,6 +43,14 @@ class Concept
     private $id;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="linkable", type="boolean")
+     * @Assert\Type(type="bool")
+     */
+    private $linkable;
+
+    /**
      * @var string $type
      *
      * @ORM\Column(name="type", type="string", length=255)
@@ -63,6 +71,7 @@ class Concept
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=true, unique=true)
      * @Assert\Type(type="string")
+     * @Assert\Regex(pattern="/^\d*$/", match=false, message="name can’t be a number")$
      */
     private $name;
 
@@ -171,6 +180,7 @@ class Concept
         $this->type = Discriminator::$Set->getName();
         $this->number = 1;
         $this->name = null;
+        $this->linkable = false;
     }
 
     public function initPaths()
@@ -457,5 +467,51 @@ class Concept
         } else {
             return null;
         }
+    }
+
+    /**
+     * Set linkable
+     *
+     * @param boolean $linkable
+     * @return Concept
+     */
+    public function setLinkable($linkable)
+    {
+        $this->linkable = $linkable;
+    
+        return $this;
+    }
+
+    /**
+     * Get linkable
+     *
+     * @return boolean 
+     */
+    public function getLinkable()
+    {
+        return $this->linkable;
+    }
+
+    /**
+     * Add moreSpecificConceptConcepts
+     *
+     * @param \Ukratio\TrouveToutBundle\Entity\ConceptConcept $moreSpecificConceptConcepts
+     * @return Concept
+     */
+    public function addMoreSpecificConceptConcept(\Ukratio\TrouveToutBundle\Entity\ConceptConcept $moreSpecificConceptConcepts)
+    {
+        $this->moreSpecificConceptConcepts[] = $moreSpecificConceptConcepts;
+    
+        return $this;
+    }
+
+    /**
+     * Get moreSpecificConceptConcepts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMoreSpecificConceptConcepts()
+    {
+        return $this->moreSpecificConceptConcepts;
     }
 }

@@ -22,6 +22,7 @@ class SetType extends AbstractType
     {
         $builder->add('type', 'text', array('disabled' => true))
                 ->add('name', 'text', array('required' => false))
+                ->add('linkable', 'checkbox', array('required' => false))
                 ->add('number', 'integer')
                 ->add('caracts', 'collection', array('type' => 'TrouveTout_Caract',
                                                      'label' => ' ',

@@ -10,6 +10,7 @@ use Ukratio\TrouveToutBundle\Form\EventListener\AddValueSubscriber;
 use Ukratio\TrouveToutBundle\Form\EventListener\SpecifyCaractSubscriber;
 use Doctrine\ORM\EntityManager;
 use Ukratio\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\Service\DataChecking;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
@@ -18,10 +19,12 @@ class CaractType extends AbstractType
 {
 
     private $em;
+    private $dc;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, DataChecking $dataChecking)
     {
         $this->em = $em;
+        $this->dc = $dataChecking;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
@@ -37,7 +40,12 @@ class CaractType extends AbstractType
 
             if ($caract->getType() == 'object') {
                 $objectName = $caract->getValue()->getValue();
-                $object = $this->em->getRepository('TrouveToutBundle:Concept')->findOneByName($objectName);
+
+                if ($this->dc->isNumbers($objectName)) {
+                    $object = $this->em->getRepository('TrouveToutBundle:Concept')->findOneById($objectName);
+                } else {
+                    $object = $this->em->getRepository('TrouveToutBundle:Concept')->findOneByName($objectName);
+                }
                 if ($object != null) {
                     $objectId = $object->getId();
                     $view->vars = array_replace($view->vars, array(

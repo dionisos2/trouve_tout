@@ -73,6 +73,14 @@ class ConceptRepository extends EntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function findLinkableSet()
+    {
+        $queryBuilder = $this->createQueryBuilder('concept');
+        $queryBuilder = $this->whereIsLinkableSet($queryBuilder);
+        
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function QueryBuilderNamedSet()
     {
         $queryBuilder = $this->createQueryBuilder('concept');
@@ -84,6 +92,15 @@ class ConceptRepository extends EntityRepository
     public function whereIsNamedSet(QueryBuilder $queryBuilder)
     {
         $queryBuilder->andWhere('concept.name is NOT NULL');
+        $queryBuilder = $this->whereIsSet($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    public function whereIsLinkableSet(QueryBuilder $queryBuilder)
+    {
+        $queryBuilder->andWhere('concept.linkable = :true')
+                     ->setParameter('true', true);
         $queryBuilder = $this->whereIsSet($queryBuilder);
 
         return $queryBuilder;

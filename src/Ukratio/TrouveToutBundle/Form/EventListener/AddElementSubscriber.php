@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 
 use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 
@@ -72,10 +73,7 @@ class AddElementSubscriber implements EventSubscriberInterface
                                                                                                         'choices' => $choices));
                 break;
             case Type::$object:
-                $builder = $this->factory->createNamedBuilder('value', 'entity', null, array('label' => 'Modifier:',
-                                                                                             'class' => 'TrouveToutBundle:Concept',
-                                                                                             'property' => 'name',
-                                                                                             'query_builder' => function(EntityRepository $er) { return $er->QueryBuilderNamedSet();}));
+                $builder = $this->addObjectForm();
                 break;
             case Type::$text:
                 $builder = $this->factory->createNamedBuilder('value', 'textarea', null, array('label' => 'Modifier:',));
@@ -85,5 +83,23 @@ class AddElementSubscriber implements EventSubscriberInterface
         }
 
         $form->add($builder->getForm());        
+    }
+
+    private function addObjectForm()
+    {
+        $choices1 = array_map(function (Concept $element) {return $element->getName();}, $this->conceptRepo->findNamedSet());
+
+        $choices2 = array_map(function (Concept $element) {return $element->getId();}, $this->conceptRepo->findLinkableSet());
+
+
+        $choices1 = array_combine($choices1, $choices1);
+        $choices2 = array_combine($choices2, $choices2);
+
+        $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'Modifier:',
+                                                                                                'choices' => $choices1,
+                                                                                                'textType' => 'choice',
+                                                                                                'options' => array('choices' => $choices2),));
+
+        return $builder;
     }
 }

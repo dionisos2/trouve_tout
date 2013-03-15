@@ -12,7 +12,7 @@ services:
 
     TrouveTout.form.caract:
         class: Ukratio\TrouveToutBundle\Form\Type\CaractType
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @tool.data_checking]
         tags: 
             - {name: form.type, alias: TrouveTout_Caract}
 
