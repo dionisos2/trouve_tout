@@ -66,7 +66,7 @@ class TrouveToutController extends ControllerWithTools
         $conceptNew = new Concept();
         $conceptNew->setName('conceptNew');
         $this->em->persist($conceptNew);
-        $this->em->flush($conceptNew);
+        /* $this->em->flush($conceptNew); */
 
         $conceptConcept = new ConceptConcept();
         $conceptConcept->setMoreGeneral($conceptMouchoir);

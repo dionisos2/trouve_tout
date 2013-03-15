@@ -13,11 +13,18 @@ use Ukratio\TrouveToutBundle\Entity\Concept;
  */
 class ConceptConcept
 {
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
      * @var Ukratio\TrouveToutBundle\Entity\Concept
      *
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Concept", inversedBy="moreSpecificConcepts")
      */
     private $moreGeneral;
@@ -25,7 +32,6 @@ class ConceptConcept
     /**
      * @var Ukratio\TrouveToutBundle\Entity\Concept
      *
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Concept", inversedBy="moreGeneralConcepts")
      */
     private $moreSpecific;
@@ -90,5 +96,17 @@ class ConceptConcept
     {
         return $this->moreSpecific;
     }
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
 
 }
