@@ -7,63 +7,69 @@ use Ukratio\TrouveToutBundle\Form\Type\CaractType;
 use Ukratio\TrouveToutBundle\Form\Type\ElementType;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Symfony\Component\Form\Tests\Extension\Core\Type\TypeTestCase;
+use Symfony\Bridge\Doctrine\Tests\DoctrineOrmTestCase;
 
-class SetTypeTest extends TypeTestCase
-{
+/* class SetTypeTest extends TypeTestCase */
+/* { */
 
-    public function setUp()
-    {
-        /* parent::setUp(); */
-        /* $this->factory->addType(new CaractType()); */
-        /* $this->factory->addType(new ElementType()); */
-    }
+/*     private $em; */
 
-    /**
-     * @dataProvider getValidTestData
-     */
-    public function testBindValidData($data)
-    {
+/*     public function setUp() */
+/*     { */
+/*         /\* $this->em = DoctrineOrmTestCase::createTestEntityManager(); *\/ */
 
-        /* $type = new SetType(); */
-        /* $form = $this->factory->create($type); */
+/*         /\* parent::setUp(); *\/ */
 
-        /* $set = new Concept(); */
-        /* $set->setType(Discriminator::$Set); */
+/*         /\* $this->factory->addType(new CaractType($this->em)); *\/ */
+/*         /\* $this->factory->addType(new ElementType($this->em)); *\/ */
+/*     } */
 
-        /* $set->fromArray($data); */
+/*     /\** */
+/*      * @dataProvider getValidTestData */
+/*      *\/ */
+/*     public function testBindValidData($data) */
+/*     { */
 
-        /* $form->bind($data); */
+/*         $type = new SetType($this->em); */
+/*         $form = $this->factory->create($type); */
 
-        /* $this->assertTrue($form->isSynchronized()); */
-        /* $this->assertEquals($set, $form->getData()); */
+/*         $set = new Concept(); */
+/*         $set->setType(Discriminator::$Set); */
 
-        /* $view = $form->createView(); */
-        /* $children = $view->children; */
+/*         $set->fromArray($data); */
 
-        /* foreach (array_keys($data) as $key) { */
-        /*     $this->assertArrayHasKey($key, $children); */
-        /* } */
-    }
+/*         $form->bind($data); */
 
-    public function getValidTestData()
-    {
-        return array(
-            array(
-                'data' => array(
-                    'test' => 'test',
-                    'test2' => 'test2',
-                ),
-            ),
-            array(
-                'data' => array(),
-            ),
-            array(
-                'data' => array(
-                    'test' => null,
-                    'test2' => null,
-                ),
-            ),
-        );
-    }
-}
+/*         $this->assertTrue($form->isSynchronized()); */
+/*         $this->assertEquals($set, $form->getData()); */
+
+/*         $view = $form->createView(); */
+/*         $children = $view->children; */
+
+/*         foreach (array_keys($data) as $key) { */
+/*             $this->assertArrayHasKey($key, $children); */
+/*         } */
+/*     } */
+
+/*     public function getValidTestData() */
+/*     { */
+/*         return array( */
+/*             array( */
+/*                 'data' => array( */
+/*                     'test' => 'test', */
+/*                     'test2' => 'test2', */
+/*                 ), */
+/*             ), */
+/*             array( */
+/*                 'data' => array(), */
+/*             ), */
+/*             array( */
+/*                 'data' => array( */
+/*                     'test' => null, */
+/*                     'test2' => null, */
+/*                 ), */
+/*             ), */
+/*         ); */
+/*     } */
+/* } */
 
