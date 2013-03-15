@@ -25,14 +25,14 @@ class ConceptFormManager
     public function saveConcept(Concept $concept)
     {
 
-        // concept have to be flush before conceptConcept
-        foreach ($concept->getMoreGeneralConceptConcepts() as $conceptConcept) {
-            $this->em->persist($conceptConcept);
-        }
-
         $this->em->persist($concept);
         $this->em->flush($concept);
-        
+     
+        foreach ($concept->getMoreGeneralConceptConcepts() as $conceptConcept) {
+            $this->em->persist($conceptConcept);
+            $this->em->flush($conceptConcept);
+        }
+   
         // /!\ caract are not flush because it is the owner of the relationt
         foreach ($concept->getCaracts() as $caract) {
             $this->em->persist($caract);

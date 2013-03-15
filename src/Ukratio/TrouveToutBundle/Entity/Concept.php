@@ -15,6 +15,7 @@ use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ukratio\ToolBundle\Validator as MyAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 
 /**
@@ -23,6 +24,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\ConceptRepository")
  * @UniqueEntity("name")
+ * @Assert\Callback(methods={"moreGeneralConceptUnique"})
  */
 class Concept
 {
@@ -67,14 +69,16 @@ class Concept
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreSpecific", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreSpecific", cascade={"persist", "merge", "remove"}, orphanRemoval=true)
+     * @Assert\Valid(traverse=true)
      */
     private $moreGeneralConceptConcepts;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreGeneral", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\ConceptConcept", mappedBy="moreGeneral", cascade={"persist", "merge", "remove"}, orphanRemoval=true)
+     * @Assert\Valid(traverse=true)
      */
     private $moreSpecificConceptConcepts;
 
@@ -85,6 +89,47 @@ class Concept
      * @Assert\Valid(traverse=true)
      */
     private $caracts;
+
+    public function moreGeneralConceptUnique(ExecutionContextInterface $context)
+    {
+        $concepts = $this->getMoreGeneralConcepts()->toArray();
+        $allMoreGeneralConcepts = $this->getAllMoreGeneralConcepts($concepts);
+
+        foreach($concepts as $key => $concept) {
+            $concepts2 = array_slice($concepts, $key + 1); //TOSEE
+            foreach($concepts2 as $key2 => $concept2) {
+                if($concept == $concept2) {
+                    $context->addViolationAt('moreGeneralConceptConcepts', 'You can’t add two time the same category', array(), null);
+                }
+            }
+
+            if (in_array($concept, $allMoreGeneralConcepts))
+            {
+                $context->addViolationAt('moreGeneralConceptConcepts', $concept->getName() . ' is already in a more general Category', array(), null);
+            }
+        }
+    }
+
+    private function Names($concepts)
+    {
+        return array_map(function($x){return $x->getName();}, $concepts);
+    }
+
+    public function getAllMoreGeneralConcepts($concepts)
+    {
+        $allMoreGeneralConcepts = array();
+
+        foreach($concepts as $concept) {
+            $moreGeneralOfConcept = $concept->getMoreGeneralConcepts()->toArray();
+            
+            $allMoreGeneralConcepts = array_merge($allMoreGeneralConcepts, $moreGeneralOfConcept);
+
+            $allMoreGeneralConcepts = array_merge($allMoreGeneralConcepts, $this->getAllMoreGeneralConcepts($moreGeneralOfConcept));
+        }
+
+
+        return $allMoreGeneralConcepts;
+    }
 
     public function __toString()
     {
@@ -279,6 +324,11 @@ class Concept
     public function removeMoreSpecificConceptConcept(ConceptConcept $moreSpecificConceptConcept)
     {
         $this->moreSpecificConceptConcepts->removeElement($moreSpecificConceptConcept);
+    }
+
+    public function setMoreGeneralConceptConcepts(ArrayCollection $moreGeneralConceptConcepts)
+    {
+        throw new Exception("ok");
     }
 
     /**
