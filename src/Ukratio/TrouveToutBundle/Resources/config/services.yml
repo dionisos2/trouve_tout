@@ -42,6 +42,6 @@ services:
 
     TrouveTout.form.concept_concept:
         class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @tool.array_handling]
         tags: 
             - {name: form.type, alias: TrouveTout_ConceptConcept}

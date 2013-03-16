@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Ukratio\ToolBundle\Service;
 use Ukratio\ToolBundle\Service\Enum;
 use Ukratio\ToolBundle\Service\AssertData;
+use Ukratio\ToolBundle\Service\ArrayHandling;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ukratio\TrouveToutBundle\Constant;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
@@ -23,6 +24,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\ConceptRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("name")
  * @Assert\Callback(methods={"moreGeneralConceptUnique"})
  */
@@ -31,7 +33,12 @@ class Concept
     /**
      * Dependance injection for AssertData
      */
-    private static $ad = null;
+    protected static $assertData = null;
+
+    /**
+     * Dependance injection for ArrayHandling
+     */
+    protected static $arrayHandling = null;
 
     /**
      * @var integer $id
@@ -126,18 +133,12 @@ class Concept
 
     public function getAllMoreGeneralConcepts($concepts)
     {
-        $allMoreGeneralConcepts = array();
-
-        foreach($concepts as $concept) {
-            $moreGeneralOfConcept = $concept->getMoreGeneralConcepts()->toArray();
-            
-            $allMoreGeneralConcepts = array_merge($allMoreGeneralConcepts, $moreGeneralOfConcept);
-
-            $allMoreGeneralConcepts = array_merge($allMoreGeneralConcepts, $this->getAllMoreGeneralConcepts($moreGeneralOfConcept));
-        }
-
-
-        return $allMoreGeneralConcepts;
+        $getChilds = function (Concept $concept)
+        {
+            return $concept->getMoreGeneralConcepts()->toArray();
+        };
+        
+        return Static::$arrayHandling->getValuesRecursively($concepts, $getChilds, 1);
     }
 
     public function __toString()
@@ -167,12 +168,23 @@ class Concept
         return $str;
     }
 
-    
+    /**
+     * @ORM\PostLoad
+     */
+    public function initialize()
+    {
+        if (static::$assertData === null) {
+            static::$assertData = new AssertData();
+        }
+
+        if (static::$arrayHandling === null) {
+            static::$arrayHandling = new ArrayHandling();
+        }
+    }
+
     public function __construct()
     {
-        if (static::$ad === null) {
-            static::$ad = new AssertData();
-        }
+        $this->initialize();
 
         $this->caracts = new ArrayCollection();
 		$this->moreGeneralConceptConcepts = new ArrayCollection();
