@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 
 class ConceptConceptType extends AbstractType
 {
@@ -40,5 +42,21 @@ class ConceptConceptType extends AbstractType
     public function getName()
     {
         return 'TrouveTout_ConceptConcept';
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $conceptConcept = $form->getData();
+        if ($conceptConcept !== null) {
+            $category = $conceptConcept->getMoreGeneral();
+            if ($category != null) {
+                $categoryId = $category->getId();
+                $categoryName = $category->getName();
+                $view->vars = array_replace($view->vars, array(
+                    'categoryName' => $categoryName,
+                    'categoryId' => $categoryId,
+                ));
+            }
+        }
     }
 }

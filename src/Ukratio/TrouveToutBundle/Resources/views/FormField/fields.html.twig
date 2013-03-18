@@ -49,3 +49,17 @@
 {{ form_rest(form) }}
 {% endspaceless %}
 {% endblock %}
+
+{% block TrouveTout_ConceptConcept_widget %}
+{% spaceless %}
+{{ parent() }}
+
+{{ form_row(form.moreGeneral) }}
+
+{% if categoryName is defined %}
+<a href="{{ path('edit_concept', {id: categoryId}) }}">{{categoryName}}</a>
+{% endif %}
+
+{{ form_rest(form) }}
+{% endspaceless %}
+{% endblock %}
