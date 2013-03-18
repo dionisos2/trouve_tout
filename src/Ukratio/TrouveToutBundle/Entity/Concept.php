@@ -26,7 +26,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\ConceptRepository")
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("name")
- * @Assert\Callback(methods={"moreGeneralConceptUnique"})
+ * @Assert\Callback(methods={"validateConcept"})
  */
 class Concept
 {
@@ -106,10 +106,38 @@ class Concept
      */
     private $caracts;
 
+
+    public function validateConcept(ExecutionContextInterface $context)
+    {
+        $this->noRecursionOnConcept($context);
+
+        if ($context->getViolations()->count() > 0) {
+            return;//moreGeneralConceptUnique can’t work with cycle
+        }
+
+        $this->moreGeneralConceptUnique($context);
+
+    }
+
+    public function noRecursionOnConcept(ExecutionContextInterface $context)
+    {
+        $getChilds = function (Concept $concept)
+        {
+            return $concept->getMoreGeneralConcepts()->toArray();
+        };
+
+        $hasCycles = Static::$arrayHandling->hasTrueCycle(array($this), $getChilds);
+
+        if ($hasCycles) {
+            $context->addViolationAt('moreGeneralConceptConcepts', 'You have a cycle in your category', array(), null);
+        }
+
+    }
+
     public function moreGeneralConceptUnique(ExecutionContextInterface $context)
     {
         $concepts = $this->getMoreGeneralConcepts()->toArray();
-        $allMoreGeneralConcepts = $this->getAllMoreGeneralConcepts($concepts);
+        $allMoreGeneralConcepts = $this->getAllMoreGeneralConcepts($concepts, 1);
 
         foreach($concepts as $key => $concept) {
             $concepts2 = array_slice($concepts, $key + 1); //TOSEE
@@ -131,14 +159,14 @@ class Concept
         return array_map(function($x){return $x->getName();}, $concepts);
     }
 
-    public function getAllMoreGeneralConcepts($concepts)
+    public function getAllMoreGeneralConcepts($concepts, $deph = 0)
     {
         $getChilds = function (Concept $concept)
         {
             return $concept->getMoreGeneralConcepts()->toArray();
         };
         
-        return Static::$arrayHandling->getValuesRecursively($concepts, $getChilds, 1);
+        return Static::$arrayHandling->getValuesRecursively($concepts, $getChilds, $deph);
     }
 
     public function __toString()
