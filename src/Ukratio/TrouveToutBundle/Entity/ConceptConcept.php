@@ -25,14 +25,14 @@ class ConceptConcept
     /**
      * @var Ukratio\TrouveToutBundle\Entity\Concept
      *
-     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Concept", inversedBy="moreSpecificConcepts")
+     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Concept", inversedBy="moreSpecificConceptConcepts")
      */
     private $moreGeneral;
 
     /**
      * @var Ukratio\TrouveToutBundle\Entity\Concept
      *
-     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Concept", inversedBy="moreGeneralConcepts")
+     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Concept", inversedBy="moreGeneralConceptConcepts")
      */
     private $moreSpecific;
 

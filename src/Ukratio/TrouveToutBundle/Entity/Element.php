@@ -47,7 +47,7 @@ class Element
     /**
      * @var Ukratio\TrouveToutBundle\Entity\Element
      *
-     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Element", inversedBy="moreSpecific", cascade={"persist", "detach", "merge"})
+     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Element", inversedBy="moreSpecifics", cascade={"persist", "detach", "merge"})
      */
     private $moreGeneral;
 
