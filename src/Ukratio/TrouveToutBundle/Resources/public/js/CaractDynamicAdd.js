@@ -1,23 +1,22 @@
 var collectionHolderConcept = $('ul.concepts');
 
-var $addConceptLink = $('<li><a href="#" class="btn btn-primary">Add a concept</a></li>');
+var $addConceptLink = $('<input type="button" class="btn btn-primary" value="Add a concept">');
 
 var collectionHolderCaract = $('ul.caracts');
 
-var $addCaractLink = $('<li><a href="#" class="btn btn-primary">Add a caract</a></li>');
+var $addCaractLink = $('<input type="button" class="btn btn-primary" value="Add a caract">');
 
 jQuery(document).ready(function() {
 
     collectionHolderCaract.find('li.caract').each(function() {
         addCaractFormDeleteLink($(this));
     });		
-	
-    collectionHolderCaract.append($addCaractLink);
+
+    collectionHolderCaract.append($('<li></li>').append($addCaractLink));
 
     collectionHolderCaract.data('index', collectionHolderCaract.find(':input').length);
 
     $addCaractLink.on('click', function(e) {
-        e.preventDefault();
         addCaractForm(collectionHolderCaract, $addCaractLink);
     });
 
@@ -25,13 +24,11 @@ jQuery(document).ready(function() {
         addConceptFormDeleteLink($(this));
     });		
 	
-    collectionHolderConcept.append($addConceptLink);
+    collectionHolderConcept.append($('<li></li>').append($addConceptLink));
 
     collectionHolderConcept.data('index', collectionHolderConcept.find(':input').length);
 
     $addConceptLink.on('click', function(e) {
-        e.preventDefault();
-
         addConceptForm(collectionHolderConcept, $addConceptLink);
     });
 });
