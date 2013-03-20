@@ -52,10 +52,8 @@ class ConceptConceptType extends AbstractType
             if ($category != null) {
                 $categoryId = $category->getId();
                 $categoryName = $category->getName();
-                $view->vars = array_replace($view->vars, array(
-                    'categoryName' => $categoryName,
-                    'categoryId' => $categoryId,
-                ));
+                $view->vars['categoryName'] = $categoryName;
+                $view->vars['categoryId'] = $categoryId;
             }
         }
     }

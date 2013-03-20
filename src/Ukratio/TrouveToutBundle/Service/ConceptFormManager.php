@@ -22,6 +22,15 @@ class ConceptFormManager
         $this->em = $em;
     }
 
+    public function createConcept($type)
+    {
+        $concept = new Concept();
+        $concept->setType($type->getName());
+
+        $form = $this->createForm($concept);
+        return $this->arrayForTemplate($concept, $form);
+    }
+
     public function saveConcept(Concept $concept)
     {
 
@@ -33,7 +42,7 @@ class ConceptFormManager
             $this->em->flush($conceptConcept);
         }
    
-        // /!\ caract are not flush because it is the owner of the relationt
+        // /!\ caract are not flush because it is the owner of the relation
         foreach ($concept->getCaracts() as $caract) {
             $this->em->persist($caract);
             $this->em->flush($caract);
@@ -47,23 +56,31 @@ class ConceptFormManager
         $concept->initPaths();   
 
         $this->em->persist($concept);
-        if ($concept->getType() === Discriminator::$Set->getName()) {
-            $form = $this->formFactory->create('TrouveTout_Set', $concept, $options);
-        }
 
-        if ($concept->getType() === Discriminator::$Category->getName()) {
-            $form = $this->formFactory->create('TrouveTout_Category', $concept, $options);
+        switch (Discriminator::getEnumerator($concept->getType())) {
+            case Discriminator::$Set:
+                $form = $this->formFactory->create('TrouveTout_Set', $concept, $options);
+                break;
+            case Discriminator::$Category:
+                $form = $this->formFactory->create('TrouveTout_Category', $concept, $options);
+                break;
+            case Discriminator::$Research:
+                $form = $this->formFactory->create('TrouveTout_Research', $concept, $options);
+                break;
+            default:
+                throw new \Exception('impossible case with discriminator = ' . $concept->getType());
         }
         
         return $form;
     }
 
-    public function arrayForTemplate(Concept $concept, FormInterface $form)
+    public function arrayForTemplate(Concept $concept, FormInterface $form, ResearchConcept $researchResults = null)
     {
         return array(
             'concept' => $concept,
             'form' => $form->createView(),
             'conceptType' => $concept->getType(),
+            'researchResults' => $researchResults,
         );
     }
 }

@@ -33,9 +33,7 @@ class CaractType extends AbstractType
         if (($caract !== null) and ($caract->getValue() !== null)) {
             if ($caract->getType() == 'picture') {
                 $image = $caract->getValue()->getValue();
-                $view->vars = array_replace($view->vars, array(
-                    'image'          => $image,
-                ));
+                $view->vars['image'] = $image;
             }
 
             if ($caract->getType() == 'object') {
@@ -48,10 +46,8 @@ class CaractType extends AbstractType
                 }
                 if ($object != null) {
                     $objectId = $object->getId();
-                    $view->vars = array_replace($view->vars, array(
-                        'objectName' => $objectName,
-                        'objectId' => $objectId,
-                    ));
+                    $view->vars['objectName'] = $objectName;
+                    $view->vars['objectId'] = $objectId;
                 }
             }
         }

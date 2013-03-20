@@ -8,42 +8,34 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
 use Doctrine\ORM\EntityRepository;
+use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
 
 class SetType extends AbstractType
 {
     private $em;
+    private $ctf;
         
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, ConceptTypeFunctions $ctf)
     {
         $this->em = $em;
+        $this->ctf = $ctf;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder->add('type', 'text', array('disabled' => true))
                 ->add('name', 'text', array('required' => false))
                 ->add('linkable', 'checkbox', array('required' => false))
-                ->add('number', 'integer')
-                ->add('caracts', 'collection', array('type' => 'TrouveTout_Caract',
-                                                     'label' => ' ',
-                                                     'allow_add' => true,
-                                                     'allow_delete' => true,
-                                                     'by_reference' => false,
-                                                     'options' => array('display_type' => 'edit')));
+                ->add('number', 'integer');
 
-        $options = array('label' => ' ',
-        );
+        $this->ctf->addCaracts($builder);
 
-        $builder->add('moreGeneralConceptConcepts', 'collection', array('type' => 'TrouveTout_ConceptConcept',
-                                                                 'label' => ' ',
-                                                                 'allow_add' => true,
-                                                                 'allow_delete' => true,
-                                                                 'by_reference' => false,
-                                                                 'options' => $options));
+        $this->ctf->addCategories($builder);
+
+
 
         $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory(), $this->em));
-        /* $builder->addEventSubscriber(new FlushBeforeBindData($builder->getFormFactory(), $this->em)); */
-
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -44,7 +44,6 @@ class ElementType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ukratio\TrouveToutBundle\Entity\Element',
             'constraintOnValue' => false,
-            'allow_modif' => true,
             'typeOfValue' => 'name',
         ));
     }
@@ -56,8 +55,5 @@ class ElementType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars = array_replace($view->vars, array(
-            'allow_modif'          => $options['allow_modif'],
-        ));
     }
 }

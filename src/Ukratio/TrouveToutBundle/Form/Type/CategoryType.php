@@ -8,38 +8,27 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Doctrine\ORM\EntityRepository;
+use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
 
 class CategoryType extends AbstractType
 {
 
     private $em;
+    private $ctf;
         
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, ConceptTypeFunctions $ctf)
     {
         $this->em = $em;
+        $this->ctf = $ctf;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('type', 'text', array('disabled' => true))
-                ->add('name', 'text', array('required' => true))
-                ->add('caracts', 'collection', array('type' => 'TrouveTout_Caract',
-                                                     'label' => ' ',
-                                                     'allow_add' => true,
-                                                     'allow_delete' => true,
-                                                     'by_reference' => false,
-                                                     'options' => array('display_type' => 'edit',
-                                                                        'parentType' => Discriminator::$Category)));
-        $options = array('label' => ' ',
-        );
+                ->add('name', 'text', array('required' => true));
 
-        $builder->add('moreGeneralConceptConcepts', 'collection', array('type' => 'TrouveTout_ConceptConcept',
-                                                                 'label' => ' ',
-                                                                 'allow_add' => true,
-                                                                 'allow_delete' => true,
-                                                                 'by_reference' => false,
-                                                                 'options' => $options));
-
+        $this->ctf->addCaracts($builder, Discriminator::$Category);
+        $this->ctf->addCategories($builder);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

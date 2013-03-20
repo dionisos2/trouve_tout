@@ -3,7 +3,6 @@
 {% block TrouveTout_Element_widget %}
 {% spaceless %}
 {{ parent() }}
-{% set allow_modif = allow_modif|default(false) %}
 
 <div class="enligne">
   {% for child in form.children %}
