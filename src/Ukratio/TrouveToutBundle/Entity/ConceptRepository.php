@@ -5,6 +5,7 @@ namespace Ukratio\TrouveToutBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Doctrine\ORM\QueryBuilder;
+use Ukratio\TrouveToutBundle\Entity\Concept;
 
 /**
  * ConceptRepository
@@ -14,6 +15,15 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ConceptRepository extends EntityRepository
 {
+
+    public function findByResearch(Concept $research)
+    {
+        $queryBuilder = $this->createQueryBuilder('concept')
+                             ->where('concept.type = :type')
+                             ->setParameter('type', $research->getResearchedType());
+        
+        return $queryBuilder->getQuery()->getResult();
+    }
 
     public function findByIdWithCaract($id)
     {

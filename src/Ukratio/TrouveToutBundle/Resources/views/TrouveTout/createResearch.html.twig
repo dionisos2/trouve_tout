@@ -1,0 +1,22 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Recherche
+{% endblock %}
+
+{% block TrouveTout %}
+
+{% include "TrouveToutBundle:TrouveTout:ResearchForm.html.twig" %}
+
+{% for result in researchResults %}
+<hr class="separation">
+{{ result }}
+{% endfor %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('bundles/trouvetout/js/CaractDynamicAdd.js')}}" type="text/javascript"></script>
+{% endblock %}

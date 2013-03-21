@@ -15,11 +15,13 @@ class ConceptFormManager
 {
     protected $formFactory;
     protected $em;
+    protected $conceptRepo;
 
     public function __construct(FormFactoryInterface $formFactory, EntityManager $em)
     {
         $this->formFactory = $formFactory;
         $this->em = $em;
+        $this->conceptRepo = $this->em->getRepository('TrouveToutBundle:Concept');
     }
 
     public function createConcept($type)
@@ -74,7 +76,7 @@ class ConceptFormManager
         return $form;
     }
 
-    public function arrayForTemplate(Concept $concept, FormInterface $form, ResearchConcept $researchResults = null)
+    public function arrayForTemplate(Concept $concept, FormInterface $form, $researchResults = null)
     {
         return array(
             'concept' => $concept,
@@ -82,5 +84,18 @@ class ConceptFormManager
             'conceptType' => $concept->getType(),
             'researchResults' => $researchResults,
         );
+    }
+
+    public function runResearch(Concept $research)
+    {
+        $researchResults = $this->conceptRepo->findByResearch($research);
+        
+        $researchResults = array_map(function(Concept $concept)
+                                     {
+                                         return $concept->toString();
+                                     },
+                                     $researchResults);
+
+        return $researchResults;
     }
 }

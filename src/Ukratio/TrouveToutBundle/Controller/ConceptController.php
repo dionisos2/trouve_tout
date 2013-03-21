@@ -27,9 +27,10 @@ class ConceptController extends ControllerWithTools
      * @Method({"GET"})
      * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
      */
-    public function createCategoryAction(Request $request)
+    public function createCategoryAction()
     {
-        return $this->createConcept($request, Discriminator::$Category);
+        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        return $cfc->createConcept(Discriminator::$Category);
     }
 
     /**
@@ -37,19 +38,10 @@ class ConceptController extends ControllerWithTools
      * @Method({"GET"})
      * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
      */
-    public function createSetAction(Request $request)
-    {
-        return $this->createConcept($request, Discriminator::$Set);
-    }
-
-    private function createConcept(Request $request, $type)
+    public function createSetAction()
     {
         $cfc = $this->get('TrouveTout.ConceptFormManager');
-        $concept = new Concept();
-        $concept->setType($type->getName());
-
-        $form = $cfc->createForm($concept);
-        return $cfc->arrayForTemplate($concept, $form);
+        return $cfc->createConcept(Discriminator::$Set);
     }
 
     /**

@@ -21,13 +21,41 @@ class ConceptSeekerController extends ControllerWithTools
 {    
     
     /**
-     * @Route("/find_set", name="find_set")
+     * @Route("/create_research", name="create_research")
      * @Method({"GET"})
-     * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
+     * @Template("TrouveToutBundle:TrouveTout:createResearch.html.twig")
      */
-    public function createSetAction(Request $request)
+    public function createResearchAction()
     {
-        return $this->createConcept($request, Discriminator::$Set);
+        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        return $cfc->createConcept(Discriminator::$Research);
+    }
+
+    /**
+     * @Route("/create_research")
+     * @Method({"POST"})
+     * @Template("TrouveToutBundle:TrouveTout:createResearch.html.twig")
+     */
+    public function runResearchAction(Request $request)
+    {
+        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $research = new Concept();
+        $type = Discriminator::$Research;
+
+        $research->setType($type->getName());
+
+        $form = $cfc->createForm($research);
+
+        $form->bind($request);
+        if ($form->isValid()) {
+            $researchResults = $cfc->runResearch($research);
+
+            return $cfc->arrayForTemplate($research, $form, $researchResults);
+        } else {
+
+            return $cfc->arrayForTemplate($research, $form);
+        }
+
     }
 
 }

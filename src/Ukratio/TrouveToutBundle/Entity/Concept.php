@@ -66,12 +66,28 @@ class Concept
     private $type;
 
     /**
+     * @var string $researchedType
+     *
+     * @ORM\Column(name="researchedType", type="string", length=255, nullable=true)
+     * @MyAssert\TypeEnum(enumName="Ukratio\TrouveToutBundle\Entity\Discriminator")
+     */
+    private $researchedType;
+
+    /**
      * @var string $number
      *
      * @ORM\Column(name="number", type="string", length=16, nullable=true)
      * @Assert\Type(type="int")
      */
     private $number;
+
+    /**
+     * @var string $researchedNumber
+     *
+     * @ORM\Column(name="researchedNumber", type="string", length=16, nullable=true)
+     * @Assert\Type(type="int")
+     */
+    private $researchedNumber;
 
     /**
      * @var string $name
@@ -81,6 +97,15 @@ class Concept
      * @Assert\Regex(pattern="/^\d*$/", match=false, message="name can’t be a number")$
      */
     private $name;
+
+    /**
+     * @var string $researchedName
+     *
+     * @ORM\Column(name="researchedName", type="string", length=255, nullable=true)
+     * @Assert\Type(type="string")
+     * @Assert\Regex(pattern="/^\d*$/", match=false, message="researchedName can’t be a number")$
+     */
+    private $researchedName;
 
     /**
      * @var ArrayCollection
@@ -553,5 +578,74 @@ class Concept
     public function getMoreSpecificConceptConcepts()
     {
         return $this->moreSpecificConceptConcepts;
+    }
+
+    /**
+     * Set researchedType
+     *
+     * @param string $researchedType
+     * @return Concept
+     */
+    public function setResearchedType($researchedType)
+    {
+        $this->researchedType = $researchedType;
+    
+        return $this;
+    }
+
+    /**
+     * Get researchedType
+     *
+     * @return string 
+     */
+    public function getResearchedType()
+    {
+        return $this->researchedType;
+    }
+
+    /**
+     * Set researchedNumber
+     *
+     * @param string $researchedNumber
+     * @return Concept
+     */
+    public function setResearchedNumber($researchedNumber)
+    {
+        $this->researchedNumber = $researchedNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get researchedNumber
+     *
+     * @return string 
+     */
+    public function getResearchedNumber()
+    {
+        return $this->researchedNumber;
+    }
+
+    /**
+     * Set researchedName
+     *
+     * @param string $researchedName
+     * @return Concept
+     */
+    public function setResearchedName($researchedName)
+    {
+        $this->researchedName = $researchedName;
+    
+        return $this;
+    }
+
+    /**
+     * Get researchedName
+     *
+     * @return string 
+     */
+    public function getResearchedName()
+    {
+        return $this->researchedName;
     }
 }
