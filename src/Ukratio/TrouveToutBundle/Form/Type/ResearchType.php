@@ -25,10 +25,13 @@ class ResearchType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $linkableChoices = array('all', 'linkable', 'unlinkable');
+        $linkableChoices = array_combine($linkableChoices, $linkableChoices);
+        
         $builder->add('type', 'text', array('disabled' => true))
                 ->add('name', 'text', array('required' => false))
                 ->add('number', 'text', array('disabled' => true))
-                ->add('linkable', 'checkbox', array('required' => false))
+                ->add('researchedLinkable', 'choice', array('choices' => $linkableChoices))
                 ->add('researchedType', new EnumType('Ukratio\TrouveToutBundle\Entity\Discriminator'))
                 ->add('researchedNumber', 'text', array('required' => false))
                 ->add('researchedName', 'text', array('required' => false));

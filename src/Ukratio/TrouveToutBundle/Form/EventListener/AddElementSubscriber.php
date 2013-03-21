@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManager;
 
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 
@@ -18,17 +19,15 @@ use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransforme
 class AddElementSubscriber implements EventSubscriberInterface
 {
     private $factory;
-    private $em;
-    private $repo;
+    private $elementRepo;
     private $type;
     private $conceptRepo;
     
-    public function __construct(FormFactoryInterface $factory, EntityManager $em, Type $type)
+    public function __construct(FormFactoryInterface $factory, EntityManager $em, ConceptRepository $conceptRepo, Type $type)
     {
         $this->factory = $factory;
-        $this->em = $em;
-        $this->repo = $this->em->getRepository('TrouveToutBundle:Element');
-        $this->conceptRepo = $this->em->getRepository('TrouveToutBundle:Concept');
+        $this->elementRepo = $em->getRepository('TrouveToutBundle:Element');
+        $this->conceptRepo = $conceptRepo;
         $this->type = $type;
     }
 
@@ -50,9 +49,9 @@ class AddElementSubscriber implements EventSubscriberInterface
 
         $general = $data->getMoreGeneral();
         if ($general === null) {
-            $elementChoices = $this->repo->findHeads();
+            $elementChoices = $this->elementRepo->findHeads();
         } else {
-            $elementChoices = $this->repo->findMoreSpecifics($general);
+            $elementChoices = $this->elementRepo->findMoreSpecifics($general);
         }
 
         $choices = array_map(function(Element $element) { return $element->getValue();}, $elementChoices);

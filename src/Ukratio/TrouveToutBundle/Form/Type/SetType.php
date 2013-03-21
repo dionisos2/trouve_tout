@@ -35,7 +35,7 @@ class SetType extends AbstractType
 
 
 
-        $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory(), $this->em));
+        $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

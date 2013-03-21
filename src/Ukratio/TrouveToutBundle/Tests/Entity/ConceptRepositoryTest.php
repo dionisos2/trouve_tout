@@ -28,7 +28,7 @@ class ConceptRepositoryTest extends WebTestCase
         if ($this->em == null) {
             throw new Exception('problem with database test');
         }
-        $this->repo = $this->em->getRepository('TrouveToutBundle:Concept');
+        $this->repo = static::$kernel->getContainer()->get('TrouveTout.repository.concept');
     }
 
     public function testCount()

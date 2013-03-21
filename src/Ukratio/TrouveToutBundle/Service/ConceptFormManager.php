@@ -3,6 +3,7 @@
 namespace Ukratio\TrouveToutBundle\Service;
 
 use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -17,11 +18,11 @@ class ConceptFormManager
     protected $em;
     protected $conceptRepo;
 
-    public function __construct(FormFactoryInterface $formFactory, EntityManager $em)
+    public function __construct(FormFactoryInterface $formFactory, EntityManager $em, ConceptRepository $conceptRepo)
     {
         $this->formFactory = $formFactory;
         $this->em = $em;
-        $this->conceptRepo = $this->em->getRepository('TrouveToutBundle:Concept');
+        $this->conceptRepo = $conceptRepo;
     }
 
     public function createConcept($type)

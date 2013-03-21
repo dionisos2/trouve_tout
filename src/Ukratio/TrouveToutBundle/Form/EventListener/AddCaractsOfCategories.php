@@ -15,14 +15,10 @@ use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransforme
 class AddCaractsOfCategories implements EventSubscriberInterface
 {
     private $factory;
-    private $em;
-    private $repo;
     
-    public function __construct(FormFactoryInterface $factory, EntityManager $em)
+    public function __construct(FormFactoryInterface $factory)
     {
         $this->factory = $factory;
-        $this->em = $em;
-        $this->repo = $this->em->getRepository('TrouveToutBundle:Concept');
     }
 
     public static function getSubscribedEvents()

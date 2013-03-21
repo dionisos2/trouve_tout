@@ -15,22 +15,25 @@ use Ukratio\TrouveToutBundle\Form\EventListener\AddElementSubscriber;
 use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Type;
+use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 
 use Doctrine\ORM\EntityManager;
 
 class ElementType extends AbstractType
 {
     private $em;
+    private $conceptRepo;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, ConceptRepository $conceptRepo)
     {
         $this->em = $em;
+        $this->conceptRepo = $conceptRepo;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         
-        $builder->addEventSubscriber(new AddElementSubscriber($builder->getFormFactory(), $this->em, Type::getEnumerator($options['typeOfValue'])));
+        $builder->addEventSubscriber(new AddElementSubscriber($builder->getFormFactory(), $this->em, $this->conceptRepo, Type::getEnumerator($options['typeOfValue'])));
 
         $builder->addEventSubscriber(new AddOwnerElementSubscriber($builder->getFormFactory(), $this->em));
 

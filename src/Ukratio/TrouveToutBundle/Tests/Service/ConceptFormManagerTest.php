@@ -28,7 +28,7 @@ class ConceptFormManagerTest extends WebTestCase
             ->get('doctrine')
             ->getEntityManager('test')
         ;
-        $this->repo = $this->em->getRepository('TrouveToutBundle:Concept');
+        $this->repo = static::$kernel->getContainer()->get('TrouveTout.repository.concept');
 
         $this->conceptFormManager = static::$kernel->getContainer()->get('TrouveTout.ConceptFormManager');
     }

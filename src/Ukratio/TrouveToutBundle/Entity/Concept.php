@@ -58,6 +58,14 @@ class Concept
     private $linkable;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="researchedLinkable", type="string", length=255, nullable=true)
+     * @Assert\Type(type="string")
+     */
+    private $researchedLinkable;
+
+    /**
      * @var string $type
      *
      * @ORM\Column(name="type", type="string", length=255)
@@ -646,5 +654,28 @@ class Concept
     public function getResearchedName()
     {
         return $this->researchedName;
+    }
+
+    /**
+     * Set researchedLinkable
+     *
+     * @param string $researchedLinkable
+     * @return Concept
+     */
+    public function setResearchedLinkable($researchedLinkable)
+    {
+        $this->researchedLinkable = $researchedLinkable;
+    
+        return $this;
+    }
+
+    /**
+     * Get researchedLinkable
+     *
+     * @return string 
+     */
+    public function getResearchedLinkable()
+    {
+        return $this->researchedLinkable;
     }
 }

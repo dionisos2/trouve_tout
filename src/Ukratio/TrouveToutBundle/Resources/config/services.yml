@@ -8,20 +8,20 @@ services:
 
     TrouveTout.ConceptFormManager:
         class: Ukratio\TrouveToutBundle\Service\ConceptFormManager
-        arguments: [@form.factory, @doctrine.orm.entity_manager]
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @TrouveTout.repository.concept]
 
     TrouveTout.ConceptTypeFunctions:
         class: Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions
 
     TrouveTout.form.caract:
         class: Ukratio\TrouveToutBundle\Form\Type\CaractType
-        arguments: [@doctrine.orm.entity_manager, @tool.data_checking]
+        arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept, @tool.data_checking]
         tags: 
             - {name: form.type, alias: TrouveTout_Caract}
 
     TrouveTout.form.element:
         class: Ukratio\TrouveToutBundle\Form\Type\ElementType
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept]
         tags: 
             - {name: form.type, alias: TrouveTout_Element}
 
@@ -54,3 +54,11 @@ services:
         arguments: [@doctrine.orm.entity_manager, @tool.array_handling]
         tags: 
             - {name: form.type, alias: TrouveTout_ConceptConcept}
+
+    TrouveTout.repository.concept:
+        class: Ukratio\TrouveToutBundle\Entity\ConceptRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments: ['TrouveToutBundle:Concept']
+        calls: 
+          - [setArrayHandling, [@tool.array_handling]]

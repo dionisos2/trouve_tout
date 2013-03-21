@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Doctrine\ORM\QueryBuilder;
 use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\ToolBundle\Service\ArrayHandling;
 
 /**
  * ConceptRepository
@@ -15,6 +16,13 @@ use Ukratio\TrouveToutBundle\Entity\Concept;
  */
 class ConceptRepository extends EntityRepository
 {
+    
+    private $arrayHandling;
+        
+    public function setArrayHandling(ArrayHandling $arrayHandling)
+    {
+        $this->arrayHandling = $arrayHandling;
+    }
 
     public function findByResearch(Concept $research)
     {
@@ -22,9 +30,14 @@ class ConceptRepository extends EntityRepository
                              ->where('concept.type = :type')
                              ->setParameter('type', $research->getResearchedType());
 
-        if($research->getLinkable()) {
+        if($research->getResearchedLinkable() == 'linkable') {
             $queryBuilder->andWhere('concept.linkable = :linkable')
-                         ->setParameter('linkable', $research->getLinkable());
+                         ->setParameter('linkable', true);
+        }
+
+        if($research->getResearchedLinkable() == 'unlinkable') {
+            $queryBuilder->andWhere('concept.linkable = :linkable')
+                         ->setParameter('linkable', false);
         }
         
         if($research->getResearchedName() != null) {
@@ -37,6 +50,9 @@ class ConceptRepository extends EntityRepository
                          ->setParameter('number', $research->getResearchedNumber());
         }
 
+        foreach($research->getMoreGeneralConcepts() as $category) {
+            /* $queryBuilder = $this->whereHaveCategory($queryBuilder, $category); */
+        }
         
         return $queryBuilder->getQuery()->getResult();
     }
@@ -144,5 +160,11 @@ class ConceptRepository extends EntityRepository
         $queryBuilder->andWhere('concept.type = :type')
                      ->setParameter('type', Discriminator::$Category->getName());
         return $queryBuilder;
+    }
+
+    public function whereHaveCategory(QueryBuilder $queryBuilder, Concept $category)
+    {
+        
+        $queryBuilder->leftJoin('concept.moreGeneralConceptConcepts', 'generalConcept');
     }
 }

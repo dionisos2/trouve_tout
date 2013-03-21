@@ -5,26 +5,31 @@ namespace Ukratio\TrouveToutBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+
+use Doctrine\ORM\EntityManager;
+
+use Ukratio\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\Service\DataChecking;
+use Ukratio\TrouveToutBundle\Entity\Discriminator;
+use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\ToolBundle\Form\Type\EnumType;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddValueSubscriber;
 use Ukratio\TrouveToutBundle\Form\EventListener\SpecifyCaractSubscriber;
-use Doctrine\ORM\EntityManager;
-use Ukratio\ToolBundle\Service\Enum;
-use Ukratio\ToolBundle\Service\DataChecking;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-use Ukratio\TrouveToutBundle\Entity\Discriminator;
-
 class CaractType extends AbstractType
 {
 
-    private $em;
+    private $conceptRepo;
+    private $caractRepo;
     private $dc;
 
-    public function __construct(EntityManager $em, DataChecking $dataChecking)
+    public function __construct(EntityManager $em, ConceptRepository $conceptRepo, DataChecking $dataChecking)
     {
         $this->em = $em;
         $this->dc = $dataChecking;
+        $this->conceptRepo = $conceptRepo;
+        $this->caractRepo = $em->getRepository('TrouveToutBundle:Caract');
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
@@ -40,9 +45,9 @@ class CaractType extends AbstractType
                 $objectName = $caract->getValue()->getValue();
 
                 if ($this->dc->isNumbers($objectName)) {
-                    $object = $this->em->getRepository('TrouveToutBundle:Concept')->findOneById($objectName);
+                    $object = $this->conceptRepo->findOneById($objectName);
                 } else {
-                    $object = $this->em->getRepository('TrouveToutBundle:Concept')->findOneByName($objectName);
+                    $object = $this->conceptRepo->findOneByName($objectName);
                 }
                 if ($object != null) {
                     $objectId = $object->getId();
