@@ -21,6 +21,22 @@ class ConceptRepository extends EntityRepository
         $queryBuilder = $this->createQueryBuilder('concept')
                              ->where('concept.type = :type')
                              ->setParameter('type', $research->getResearchedType());
+
+        if($research->getLinkable()) {
+            $queryBuilder->andWhere('concept.linkable = :linkable')
+                         ->setParameter('linkable', $research->getLinkable());
+        }
+        
+        if($research->getResearchedName() != null) {
+            $queryBuilder->andWhere("REGEXP(concept.name, :name) = 1")
+                         ->setParameter('name', $research->getResearchedName());
+        }
+
+        if($research->getResearchedNumber() != null) {
+            $queryBuilder->andWhere("REGEXP(concept.number, :number) = 1")
+                         ->setParameter('number', $research->getResearchedNumber());
+        }
+
         
         return $queryBuilder->getQuery()->getResult();
     }

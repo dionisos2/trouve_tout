@@ -85,7 +85,7 @@ class Concept
      * @var string $researchedNumber
      *
      * @ORM\Column(name="researchedNumber", type="string", length=16, nullable=true)
-     * @Assert\Type(type="int")
+     * @Assert\Type(type="string")
      */
     private $researchedNumber;
 
@@ -103,7 +103,6 @@ class Concept
      *
      * @ORM\Column(name="researchedName", type="string", length=255, nullable=true)
      * @Assert\Type(type="string")
-     * @Assert\Regex(pattern="/^\d*$/", match=false, message="researchedName can’t be a number")$
      */
     private $researchedName;
 
