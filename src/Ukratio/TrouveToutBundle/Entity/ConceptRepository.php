@@ -51,7 +51,11 @@ class ConceptRepository extends EntityRepository
         }
 
         foreach($research->getMoreGeneralConcepts() as $category) {
-            /* $queryBuilder = $this->whereHaveCategory($queryBuilder, $category); */
+            $queryBuilder = $this->whereHaveCategory($queryBuilder, $category);
+        }
+
+        foreach($research->getCaracts() as $caract) {
+            $queryBuilder = $this->whereHaveCaract($queryBuilder, $caract);
         }
         
         return $queryBuilder->getQuery()->getResult();
@@ -162,9 +166,37 @@ class ConceptRepository extends EntityRepository
         return $queryBuilder;
     }
 
-    public function whereHaveCategory(QueryBuilder $queryBuilder, Concept $category)
+    public function whereHaveCaract(QueryBuilder $queryBuilder, Caract $caract)
     {
         
-        $queryBuilder->leftJoin('concept.moreGeneralConceptConcepts', 'generalConcept');
+        return $queryBuilder;
+    }
+
+    public function whereHaveCategory(QueryBuilder $queryBuilder, Concept $category)
+    {
+        static $nbr = 0;
+        $nbr++;
+        $getName = function (Concept $concept)
+        {
+            return $concept->getName();
+        };
+
+        $isCategory = function (Concept $concept)
+        {
+            return Discriminator::getEnumerator($concept->getType()) === Discriminator::$Category;
+        };
+
+        $categories = $category->getAllMoreSpecificConcepts(-1);        
+        $categories = array_filter($categories, $isCategory);
+        $categories = array_map($getName, $categories);
+
+        $queryBuilder->leftJoin('concept.moreGeneralConceptConcepts', "generalConceptConcept$nbr")
+                     ->addSelect("generalConceptConcept$nbr")
+                     ->leftJoin("generalConceptConcept$nbr.moreGeneral", "generalConcept$nbr")
+                     ->addSelect("generalConcept$nbr")
+                     ->andWhere("generalConcept$nbr.name IN (:names)")
+                     ->setParameter('names', $categories);
+
+        return $queryBuilder;
     }
 }

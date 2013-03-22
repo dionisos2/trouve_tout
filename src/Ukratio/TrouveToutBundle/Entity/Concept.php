@@ -169,7 +169,7 @@ class Concept
     public function moreGeneralConceptUnique(ExecutionContextInterface $context)
     {
         $concepts = $this->getMoreGeneralConcepts()->toArray();
-        $allMoreGeneralConcepts = $this->getAllMoreGeneralConcepts($concepts, 1);
+        $allMoreGeneralConcepts = $this->getAllMoreGeneralConcepts(1);
 
         foreach($concepts as $key => $concept) {
             $concepts2 = array_slice($concepts, $key + 1); //TOSEE
@@ -191,14 +191,26 @@ class Concept
         return array_map(function($x){return $x->getName();}, $concepts);
     }
 
-    public function getAllMoreGeneralConcepts($concepts, $deph = 0)
+    public function getAllMoreGeneralConcepts($deph = 0)
     {
+        $deph++;
         $getChilds = function (Concept $concept)
         {
             return $concept->getMoreGeneralConcepts()->toArray();
         };
         
-        return Static::$arrayHandling->getValuesRecursively($concepts, $getChilds, $deph);
+        return Static::$arrayHandling->getValuesRecursively(array($this), $getChilds, $deph);
+    }
+
+    public function getAllMoreSpecificConcepts($deph = 0)
+    {
+        $deph++;
+        $getChilds = function (Concept $concept)
+        {
+            return $concept->getMoreSpecificConcepts()->toArray();
+        };
+        
+        return Static::$arrayHandling->getValuesRecursively(array($this), $getChilds, $deph);
     }
 
     public function __toString()
@@ -238,7 +250,7 @@ class Concept
         }
 
         if (static::$arrayHandling === null) {
-            static::$arrayHandling = new ArrayHandling();
+            static::$arrayHandling = new ArrayHandling(static::$assertData);
         }
     }
 
