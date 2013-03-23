@@ -1,7 +1,7 @@
 {% extends "TrouveToutBundle::layout.html.twig" %}
 
 {% block title %}
-  {{ parent() }} - Téléverser
+  {{ parent() }} - {{ 'Upload' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
@@ -11,15 +11,15 @@
 </form>
 
 {% if imageName is defined %}
-<p> Téléchargement réussi ! </p>
+<p> {{ 'Upload successful!' | trans }} </p>
 <a href="{{ asset('img/')}}{{imageName}}">
 <img src="{{ asset('img/')}}{{imageName}}" alt="uploaded image" height="42" width="42"> 
 </a> 
 {% endif %}
 
 {% if invalideType is defined %}
-<p> Téléchargement raté !<br>
-Mauvais type de fichier: {{invalideType}}
+<p> {{ 'Upload has fail!' | trans }}<br>
+  {{ 'Wrong type of file:' | trans }} {{invalideType}}
 </p>
 {% endif %}
 

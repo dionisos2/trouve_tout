@@ -1,23 +1,23 @@
 {% extends "TrouveToutBundle::layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Modifier un concept
+    {{ parent() }} - {{ 'modify a concept' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
 
     {% if conceptType == "Set" %}
-        <h2>Modifier un objet</h2>
+        <h2>{{ 'modify a object' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:SetForm.html.twig" %}
     {% endif %}
 
     {% if conceptType == "Category" %}
-        <h2>Modifier une catégorie</h2>
+        <h2>{{ 'modify a category' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
     {% endif %}
 
     {% if conceptType == "Research" %}
-        <h2>Modifier une recherche</h2>
+        <h2>{{ 'modify a research' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:ResearchForm.html.twig" %}
     {% endif %}
 

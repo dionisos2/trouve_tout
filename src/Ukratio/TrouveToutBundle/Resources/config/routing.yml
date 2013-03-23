@@ -1,3 +1,6 @@
 TrouveTout_route:
     resource: "@TrouveToutBundle/Controller"
     type: annotation
+    prefix: /{_locale}/
+    requirements:
+      _locale: en|fr

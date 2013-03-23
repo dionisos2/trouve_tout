@@ -65,7 +65,7 @@ class AddOwnerElementSubscriber implements EventSubscriberInterface
         if ($index > 0) {
             $builder = $this->factory->createNamedBuilder('generalize', 'choice', null, array('mapped' => false,
                                                                                               'choices' => $choices,
-                                                                                              'label' => 'generaliser'));
+                                                                                              'label' => 'element.generalize'));
             $form->add($builder->getForm());
         }
     }

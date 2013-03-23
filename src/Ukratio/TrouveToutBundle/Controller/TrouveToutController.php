@@ -57,25 +57,13 @@ class TrouveToutController extends ControllerWithTools
 
     /**
      * @Route("/test", name="test")
+     * @Template()
      */
 	public function testAction(Request $request)
 	{
-        $this->em = $this->getDoctrine()->getManager();
-        $this->conceptRepo = $this->get('TrouveTout.repository.concept');
-        $conceptMouchoir = $this->conceptRepo->findOneByName('mouchoir');
-        $conceptNew = new Concept();
-        $conceptNew->setName('conceptNew');
-        $this->em->persist($conceptNew);
-        /* $this->em->flush($conceptNew); */
-
-        $conceptConcept = new ConceptConcept();
-        $conceptConcept->setMoreGeneral($conceptMouchoir);
-        $conceptNew->addMoreGeneralConceptConcept($conceptConcept);
-
-        $this->em->persist($conceptNew);
-        $this->em->flush($conceptNew);
-
-        return new Response("ok");
+        return array(
+            'name' => "plop"
+        );
 	}
 
    /**

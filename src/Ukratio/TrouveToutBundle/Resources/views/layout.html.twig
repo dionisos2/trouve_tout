@@ -10,23 +10,23 @@
   	<menu>
 		<a href="{{ path('home') }}" class="btn">
 			<i class="icon-chevron-left"></i>
-            accueil
+            {{ 'home' | trans }}
 		</a>
 		<a href="{{ path('create_set') }}" class="btn">
 			<i class="icon-edit"></i>
-            ajouter un objet
+            {{ 'Add a object' | trans }}
 		</a>
 		<a href="{{ path('create_category') }}" class="btn">
 			<i class="icon-edit"></i>
-            ajouter une categorie
+            {{ 'Add a category' | trans }}
 		</a>
 		<a href="{{ path('upload') }}" class="btn">
 			<i class="icon-edit"></i>
-            téléverser une image
+            {{ 'Upload a image' | trans }}
         </a>
 		<a href="{{ path('create_research') }}" class="btn">
 			<i class="icon-edit"></i>
-            faire une recherche
+            {{ 'Do a research' | trans }}
         </a>
 	</menu>
   {% block TrouveTout %}{% endblock %}

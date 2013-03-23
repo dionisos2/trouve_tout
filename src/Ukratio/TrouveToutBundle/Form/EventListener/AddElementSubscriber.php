@@ -60,22 +60,22 @@ class AddElementSubscriber implements EventSubscriberInterface
 
         switch ($this->type) {
             case Type::$name:
-                $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'Modifier:',
+                $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'element.modify',
                                                                                                         'choices' => $choices));
                 break;
             case Type::$number:
-                $builder = $this->factory->createNamedBuilder('value', 'number', null, array('label' => 'Modifier:',               
+                $builder = $this->factory->createNamedBuilder('value', 'number', null, array('label' => 'element.modify',               
                                                                                                         'property_path' => 'standardValue'));
                 break;
             case Type::$picture:
-                $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'Modifier:',
+                $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'element.modify',
                                                                                                         'choices' => $choices));
                 break;
             case Type::$object:
                 $builder = $this->addObjectForm();
                 break;
             case Type::$text:
-                $builder = $this->factory->createNamedBuilder('value', 'textarea', null, array('label' => 'Modifier:',));
+                $builder = $this->factory->createNamedBuilder('value', 'textarea', null, array('label' => 'element.modify',));
                 break;
             default:
                 throw new \Exception('impossible case with type = ' . $this->getType());
@@ -94,7 +94,7 @@ class AddElementSubscriber implements EventSubscriberInterface
         $choices1 = array_combine($choices1, $choices1);
         $choices2 = array_combine($choices2, $choices2);
 
-        $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'Modifier:',
+        $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'element.modify',
                                                                                                 'choices' => $choices1,
                                                                                                 'textType' => 'choice',
                                                                                                 'options' => array('choices' => $choices2),));

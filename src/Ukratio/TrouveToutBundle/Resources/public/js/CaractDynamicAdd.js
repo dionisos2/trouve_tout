@@ -1,10 +1,10 @@
 var collectionHolderConcept = $('ul.concepts');
 
-var $addConceptLink = $('<input type="button" class="btn btn-primary" value="Add a concept">');
+var $addConceptLink = $('<input type="button" class="btn btn-primary" value="Ajouter une catégorie">');
 
 var collectionHolderCaract = $('ul.caracts');
 
-var $addCaractLink = $('<input type="button" class="btn btn-primary" value="Add a caract">');
+var $addCaractLink = $('<input type="button" class="btn btn-primary" value="Ajouter une caractéristique">');
 
 jQuery(document).ready(function() {
 
@@ -50,7 +50,7 @@ function addCaractForm(collectionHolder, $newLinkLi) {
 
 
 function addCaractFormDeleteLink($caractFormLi) {
-    var $removeFormA = $('<a href="#" class="btn btn-primary">delete this caract</a>');
+    var $removeFormA = $('<a href="#" class="btn btn-primary">Supprimer cette caractéristique</a>');
     $caractFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {
@@ -78,7 +78,7 @@ function addConceptForm(collectionHolder, $newLinkLi) {
 
 
 function addConceptFormDeleteLink($conceptFormLi) {
-    var $removeFormA = $('<a href="#" class="btn btn-primary">delete this concept</a>');
+    var $removeFormA = $('<a href="#" class="btn btn-primary">Supprimer cette catégorie</a>');
     $conceptFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {

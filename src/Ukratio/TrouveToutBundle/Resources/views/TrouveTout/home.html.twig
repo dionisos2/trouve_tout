@@ -1,24 +1,23 @@
 {% extends "TrouveToutBundle::layout.html.twig" %}
 
 {% block title %}
-  {{ parent() }} - Accueil
+  {{ parent() }} - {{ 'home' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
 
 <section>
   <aside>
-	<h1>Informations générales</h1>
-	<p>Licence : <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a></p>
-	<p>Auteurs : <a href="http://amopie.org">La communautée amopienne, bergerève</a></p>
-	<p>Code source : <a href="https://gitorious.org/trouve_tout">page gitorious</a></p>
-	<p>Date de création : bientôt</p>
+	<h1>{{ 'General informations' | trans }}'</h1>
+	<p>{{ 'License :' | trans }} <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a></p>
+	<p>{{ 'Authors :' | trans }} <a href="http://ukratio.org">{{ 'the ucratique community' | trans }}, bergerève</a></p>
+	<p>{{ 'Source code :' | trans }} <a href="https://gitorious.org/ukratiotrouvetoutbundle">{{ 'gitorious page' | trans }}</a></p>
+	<p>{{ 'creation date: soon' | trans }}</p>
   </aside>
   <article>                
-	<h1>Trouve tout, retrouvé vos objets en quelques secondes !</h1>
-	<p>Trouve tout est un logiciel libre, dont la fonction est de créer méthodiquement un inventaire d’objets en tout genre, pour pouvoir ensuite les retrouver facilement. uaiesrtur aisetnuarsiterua stienruastierusat ierusatiers uatiersutaie rnstuaiernstua nrietsuras iteruastiersuatie rsutaie rsutaeirsutae irsnutaierstuaisretu iarnsetrsu aitersutiarestuareturi asteruatieratp oédetusira tenrstsruaiters nautier siuterntaldpet aurites rauitersua tiersua ternuitanres etsuiecuits tusrnietue uarinsetuie urasiteunriste uariseturnsite auriseturiest aunirset</p>
+	<h1>{{ 'Trouve tout, find your objects in a few seconds!' | trans}}</h1>
+	<p>{{ 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.' | trans }}</p>
   </article>
 </section>
 
 {% endblock %}
-

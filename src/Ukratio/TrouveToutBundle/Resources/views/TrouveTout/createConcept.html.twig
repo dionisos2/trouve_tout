@@ -1,17 +1,17 @@
 {% extends "TrouveToutBundle::layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Créer un concept
+    {{ parent() }} - {{ 'Create a concept' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
 
     {% if conceptType == "Set" %}
-        <h2>Ajouter un objet</h2>
+        <h2>{{ 'Add a object' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:SetForm.html.twig" %}
     {% endif %}
     {% if conceptType == "Category" %}
-        <h2>Ajouter une catégorie</h2>
+        <h2>{{ 'Add a category' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
     {% endif %}
 

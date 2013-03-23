@@ -47,7 +47,7 @@ class AddChildElementSubscriber implements EventSubscriberInterface
 
         $builder = $this->factory->createNamedBuilder('childElement', 'Tool_ChoiceOrText', null, array('mapped' => false,
                                                                                                        'choices' => $choices,
-                                                                                                       'label' => 'Spécifier: '));
+                                                                                                       'label' => 'element.specify'));
         $form->add($builder->getForm());
     }
 }

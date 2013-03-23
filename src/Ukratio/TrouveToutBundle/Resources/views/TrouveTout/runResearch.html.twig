@@ -7,10 +7,10 @@
 {% block TrouveTout %}
 
 <table class="table-bordered">
-  <caption> {{research.researchedType}} research table </caption>
+  <caption> {{ 'research table' | trans({'%researchedType%': research.researchedType | trans | lower}) }}</caption>
 
   <th>
-    ID
+    {{ 'ID' | trans }}
   </th>
   {% for header in researchResults.headers %}
   <th>
@@ -36,7 +36,7 @@
 </table>
 
 <a href="{{ path('edit_concept', {id: research.id})}}" class="fix btn btn-primary" value="run">
-  modify research
+  {{ 'Modify research' | trans }}
 </a>
 
 {% endblock %}
