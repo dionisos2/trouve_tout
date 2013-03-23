@@ -14,3 +14,9 @@
     bottom          : 10%;
 	right           : 0;
 }
+
+.fix2 {
+	position        : fixed;
+    bottom          : 15%;
+	right           : 0;
+}

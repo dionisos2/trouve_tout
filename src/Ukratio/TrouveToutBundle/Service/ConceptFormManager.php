@@ -11,6 +11,7 @@ use Ukratio\TrouveToutBundle\Form\Type\SetType;
 use Ukratio\TrouveToutBundle\Form\Type\CategoryType;
 use Doctrine\ORM\EntityManager;
 use Ukratio\ToolBundle\debug\Message;
+use Ukratio\TrouveToutBundle\Research\ResearchResults;
 
 class ConceptFormManager
 {
@@ -83,19 +84,15 @@ class ConceptFormManager
             'concept' => $concept,
             'form' => $form->createView(),
             'conceptType' => $concept->getType(),
-            'researchResults' => $researchResults,
         );
     }
 
     public function runResearch(Concept $research)
     {
-        $researchResults = $this->conceptRepo->findByResearch($research);
-        
-        $researchResults = array_map(function(Concept $concept)
-                                     {
-                                         return $concept->toString();
-                                     },
-                                     $researchResults);
+        $arrayResults = $this->conceptRepo->findByResearch($research);
+
+        $researchResults = new ResearchResults($research);
+        $researchResults->setArrayResults($arrayResults);
 
         return $researchResults;
     }

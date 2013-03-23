@@ -30,7 +30,7 @@ class ResearchType extends AbstractType
         
         $builder->add('type', 'text', array('disabled' => true))
                 ->add('name', 'text', array('required' => false))
-                ->add('number', 'text', array('disabled' => true))
+                ->add('number', 'integer', array('read_only' => true))
                 ->add('researchedLinkable', 'choice', array('choices' => $linkableChoices))
                 ->add('researchedType', new EnumType('Ukratio\TrouveToutBundle\Entity\Discriminator'))
                 ->add('researchedNumber', 'text', array('required' => false))

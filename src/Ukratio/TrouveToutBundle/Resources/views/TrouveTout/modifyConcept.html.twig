@@ -10,9 +10,15 @@
         <h2>Modifier un objet</h2>
         {% include "TrouveToutBundle:TrouveTout:SetForm.html.twig" %}
     {% endif %}
+
     {% if conceptType == "Category" %}
         <h2>Modifier une catégorie</h2>
         {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
+    {% endif %}
+
+    {% if conceptType == "Research" %}
+        <h2>Modifier une recherche</h2>
+        {% include "TrouveToutBundle:TrouveTout:ResearchForm.html.twig" %}
     {% endif %}
 
 

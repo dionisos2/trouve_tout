@@ -436,6 +436,22 @@ class Concept
         return $this->moreGeneralConceptConcepts->map(function (ConceptConcept $x) {return $x->getMoreGeneral();});
     }
 
+    public function getMoreGeneralConceptByName($name)
+    {
+        $concepts = array_filter($this->getMoreGeneralConcepts()->toArray(),
+                                function ($concept) use ($name)
+                                {return $concept->getName() == $name;});
+
+        if (count($concepts) > 1) {
+            throw new \RuntimeException("The concept have two concept of name $name, that can’t be possible…");
+        } elseif (count($concepts) === 1) {
+            return current($concepts);
+        } else {
+            return null;
+        }
+        
+    }
+
     /**
      * Get moreGeneralConceptConcepts
      *

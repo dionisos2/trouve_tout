@@ -4,6 +4,7 @@ namespace Ukratio\TrouveToutBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ukratio\ToolBundle\Service\AssertData;
+use Ukratio\ToolBundle\Service\ArrayHandling;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ukratio\TrouveToutBundle\Entity\Type;
@@ -14,6 +15,7 @@ use Ukratio\TrouveToutBundle\Entity\Type;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\ElementRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Element
 {
@@ -21,7 +23,13 @@ class Element
     /**
      * Dependance injection for AssertData
      */
-    private static $ad = null;
+    protected static $assertData = null;
+
+    /**
+     * Dependance injection for ArrayHandling
+     */
+    protected static $arrayHandling = null;
+
 
     private $path;
     private $ratio;
@@ -110,11 +118,23 @@ class Element
         return $this->path;
     }
 
+    /**
+     * @ORM\PostLoad
+     */
+    public function initialize()
+    {
+        if (static::$assertData === null) {
+            static::$assertData = new AssertData();
+        }
+
+        if (static::$arrayHandling === null) {
+            static::$arrayHandling = new ArrayHandling(static::$assertData);
+        }
+    }
+
     public function __construct($value = '')
     {
-        if (static::$ad === null) {
-            static::$ad = new AssertData();
-        }
+        $this->initialize();
         
         $this->moreGeneral = null;
         $this->moreSpecifics = new ArrayCollection();
@@ -252,6 +272,17 @@ class Element
     public function getMoreSpecifics()
     {
         return $this->moreSpecifics;
+    }
+
+    public function getAllMoreSpecifics($deph = 0)
+    {
+        $deph++;
+        $getChilds = function (Element $element)
+        {
+            return $element->getMoreSpecifics()->toArray();
+        };
+
+        return Static::$arrayHandling->getValuesRecursively(array($this), $getChilds, $deph);
     }
 
 }

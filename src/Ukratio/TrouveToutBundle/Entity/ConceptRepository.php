@@ -168,7 +168,29 @@ class ConceptRepository extends EntityRepository
 
     public function whereHaveCaract(QueryBuilder $queryBuilder, Caract $caract)
     {
-        
+        static $nbr = 0;
+        $nbr++;
+        $getValue = function (Element $element)
+        {
+            return $element->getValue();
+        };
+
+        $values = $caract->getAllMoreSpecificValues(-1);
+
+        $queryBuilder->leftJoin('concept.caracts', "caracts$nbr")
+                     ->andWhere("REGEXP(caracts$nbr.name, :name) = 1")
+                     ->setParameter('name', $caract->getName())
+                     ->addSelect("caracts$nbr")
+                     ->leftJoin("caracts$nbr.value", "value$nbr")
+                     ->addSelect("value$nbr");
+
+        if ($values != null) {
+            $values = array_map($getValue, $values);
+            $queryBuilder->andWhere("value$nbr.value IN (:values)")
+                         ->setParameter('values', $values);
+        }
+
+
         return $queryBuilder;
     }
 
@@ -190,9 +212,9 @@ class ConceptRepository extends EntityRepository
         $categories = array_filter($categories, $isCategory);
         $categories = array_map($getName, $categories);
 
-        $queryBuilder->leftJoin('concept.moreGeneralConceptConcepts', "generalConceptConcept$nbr")
-                     ->addSelect("generalConceptConcept$nbr")
-                     ->leftJoin("generalConceptConcept$nbr.moreGeneral", "generalConcept$nbr")
+        $queryBuilder->leftJoin('concept.moreGeneralConceptConcepts', "generalConceptConcepts$nbr")
+                     ->addSelect("generalConceptConcepts$nbr")
+                     ->leftJoin("generalConceptConcepts$nbr.moreGeneral", "generalConcept$nbr")
                      ->addSelect("generalConcept$nbr")
                      ->andWhere("generalConcept$nbr.name IN (:names)")
                      ->setParameter('names', $categories);

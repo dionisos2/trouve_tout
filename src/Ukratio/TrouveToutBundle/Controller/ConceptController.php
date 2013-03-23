@@ -45,7 +45,7 @@ class ConceptController extends ControllerWithTools
     }
 
     /**
-     * @Route("/create_{type}", requirements={"type" = "set|category"}, name="save_concept")
+     * @Route("/create_{type}", requirements={"type" = "set|category|research"}, name="save_concept")
      * @Method({"POST"})
      * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
      */
@@ -53,11 +53,14 @@ class ConceptController extends ControllerWithTools
     {
         $cfc = $this->get('TrouveTout.ConceptFormManager');
         $concept = new Concept();
-        if ($type == "category") {
+
+        if ($type == 'category') {
             $type = Discriminator::$Category;
             $concept->setNumber(null);
-        } else {
+        } elseif($type == 'set') {
             $type = Discriminator::$Set;
+        } else {
+            $type = Discriminator::$Research;
         }
 
         $concept->setType($type->getName());

@@ -1,0 +1,48 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Recherche
+{% endblock %}
+
+{% block TrouveTout %}
+
+<table class="table-bordered">
+  <caption> {{research.researchedType}} research table </caption>
+
+  <th>
+    ID
+  </th>
+  {% for header in researchResults.headers %}
+  <th>
+    {{ header }}
+  </th>
+  {% endfor %}
+
+  {% for conceptLine in researchResults.conceptLines %}
+  <tr>
+    <td>
+      <a href="{{ path('edit_concept', {id: conceptLine.concept.id}) }}">
+        {{ conceptLine.concept.id }}
+      </a>
+    </td>
+
+    {% for value in conceptLine.line %}
+    <td>
+      {{ value }}
+    </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+
+<a href="{{ path('edit_concept', {id: research.id})}}" class="fix btn btn-primary" value="run">
+  modify research
+</a>
+
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('bundles/trouvetout/js/CaractDynamicAdd.js')}}" type="text/javascript"></script>
+{% endblock %}

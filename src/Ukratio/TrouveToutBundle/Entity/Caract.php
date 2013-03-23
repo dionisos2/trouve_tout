@@ -314,6 +314,14 @@ class Caract
         return $this->value;
     }
 
+    public function getAllMoreSpecificValues($deph = 0)
+    {
+        if ($this->value != null) {
+            return $this->value->getAllMoreSpecifics($deph);
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Set name
