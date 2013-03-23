@@ -4,3 +4,9 @@ TrouveTout_route:
     prefix: /{_locale}/
     requirements:
       _locale: en|fr
+
+login_check:
+    pattern:   /{_locale}/login_check
+ 
+logout:
+    pattern:   /{_locale}/logout

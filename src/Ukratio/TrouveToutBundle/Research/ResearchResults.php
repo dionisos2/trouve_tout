@@ -20,6 +20,7 @@ class ResearchResults
     private $conceptLines;
     private $research;
     private $transformsLine;
+    private $columnGroups;
 
     public function __construct(Concept $research)
     {
@@ -43,6 +44,11 @@ class ResearchResults
             $this->conceptLines[] = $this->getConceptLine($conceptResult);
         }
     }
+    
+    public function getColumnGroups()
+    {
+        return $this->columnGroups;
+    }
 
     public function getHeaders()
     {
@@ -59,20 +65,29 @@ class ResearchResults
         $transformsLine = array('name' => function (Concept $concept)
             {
                 return $concept->getName();
-            },
-                                      'linkable' => function (Concept $concept)
+            });
+
+
+        if ($this->research->getResearchedType() == 'Set') {
+            $transformsLine['linkable'] = function (Concept $concept)
             {
-                return $concept->getLinkable();
-            }
-        );
+                if ($concept->getLinkable()) {
+                    return 'o';
+                } else {
+                    return 'X';
+                }
+            };
+        }
 
 
-        if (in_array($this->research->getType(), array('Set','Category'))) {
+        if (in_array($this->research->getResearchedType(), array('Set','Research'))) {
             $transformsLine['number'] = function(Concept $concept)
             {
                 return $concept->getNumber();
             };
         }
+        
+        $this->columnGroups = array(count($transformsLine));
 
         foreach($this->arrayResults as $conceptResult) {
             foreach($conceptResult->getCaracts() as $caract) {
@@ -93,22 +108,24 @@ class ResearchResults
                 };
             }
         }
+        $this->columnGroups[] = count($transformsLine) - $this->columnGroups[0];
 
         foreach($this->arrayResults as $conceptResult) {
-            $index = 1;
             foreach($conceptResult->getMoreGeneralConcepts() as $category) {
                 $name = $category->getName();
-                $transformsLine["category_$index"] = function (Concept $concept) use ($name) 
+                $transformsLine[$name] = function (Concept $concept) use ($name) 
                 {
                     $category = $concept->getMoreGeneralConceptByName($name);
                     if ($category != null) {
-                        return $category->getName();
+                        return 'o';
                     } else {
-                        return "X";
+                        return 'X';
                     }
                 };
             }
         }
+        $this->columnGroups[] = count($transformsLine) - $this->columnGroups[0] - $this->columnGroups[1];
+
 
         return $transformsLine;
     }

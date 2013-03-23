@@ -66,26 +66,4 @@ class TrouveToutController extends ControllerWithTools
         );
 	}
 
-   /**
-     * @Route("/testform", name="testform")
-     * @Template()
-     */
-	public function testFormAction(Request $request)
-	{
-        $element = new Element('humhum');
-        $formFactory = $this->container->get('form.factory');
-
-        $builder = $formFactory->createBuilder('TrouveTout_Element', null);
-
-        $form = $builder->getForm();
-
-
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
-            var_dump($form->getData());
-        }
-
-        return array(
-            'form' => $form->createView());
-	}
 }

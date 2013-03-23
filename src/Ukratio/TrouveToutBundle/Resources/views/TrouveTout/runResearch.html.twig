@@ -9,6 +9,12 @@
 <table class="table-bordered">
   <caption> {{ 'research table' | trans({'%researchedType%': research.researchedType | trans | lower}) }}</caption>
 
+  <colgroup>
+    <col span="{{ researchResults.columnGroups[0] + 1 }}" style="background-color:yellow">
+    <col span="{{ researchResults.columnGroups[1] }}" style="background-color:Aqua">
+    <col span="{{ researchResults.columnGroups[2] }}" style="background-color:Orchid">
+  </colgroup>
+
   <th>
     {{ 'ID' | trans }}
   </th>
