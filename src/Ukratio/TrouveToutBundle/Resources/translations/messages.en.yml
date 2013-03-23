@@ -1,0 +1,11 @@
+element:
+  modify: 'modify:'
+  specify: 'specify:'
+  generalize: 'generalize:'
+
+Bydefault: 'By default'
+Researchedlinkable: 'Connectability'
+Researchedtype: 'Type of wanted concepts'
+Researchedname: 'Name of wanted concepts'
+Researchednumber: 'Cardinality of wanted concepts'
+Set: Object
