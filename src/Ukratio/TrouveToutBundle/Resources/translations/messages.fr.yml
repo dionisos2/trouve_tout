@@ -25,7 +25,7 @@ home: accueil
 'the ucratique community': 'la communautée ucratique'
 'Source code :': 'Code source :'
 'gitorious page': 'page gitorious'
-'creation date: soon': 'date de création: bientôt'
+'Creation date: soon': 'Date de création: bientôt'
 'Trouve tout, find your objects in a few seconds!': 'Trouve tout, trouver vos objets en quelques secondes !'
 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.': 'Trouve tout est un logiciel libre, dont la fonction est de créer méthodologiquement un inventaire d’objets de tout type, pour pouvoir les retrouver facilement'
 Research: Recherche
@@ -33,6 +33,7 @@ Category: Catégorie
 Set: Objet
 all: tout
 linkable: liable
+Linkable: Liable
 unlinkable: non liable
 'Create a concept': 'créer un concept'
 'This site was created by a ucratique community': 'Ce site a été créer par une communauté ucratique'
@@ -43,11 +44,13 @@ element:
   generalize: 'generaliser:'
 Type: Type
 Name: Nom
+name: nom
 Value: Valeur
 Selected: Sélectionné
 Bydefault: 'Par défaut'
 Specificity: Spécificité
 Number: Nombre
+number: nombre
 Researchedlinkable: 'Connectabilité'
 Researchedtype: 'Type de concepts recherchés'
 Researchedname: 'Nom des concepts recherchés'
