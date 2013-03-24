@@ -37,6 +37,7 @@ tools.compute.specificities: 'compute all specificities'
 'Trouve tout, find your objects in a few seconds!': 'Trouve tout, find your objects in a few seconds!'
 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.': 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.'
 Research: Research
+research.do: 'Make/Creating a research'
 'Create a concept': 'Create a concept'
 Bydefault: 'By default'
 Researchedlinkable: Connectability

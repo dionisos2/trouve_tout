@@ -28,8 +28,7 @@ class ResearchType extends AbstractType
         $linkableChoices = array('all', 'linkable', 'unlinkable');
         $linkableChoices = array_combine($linkableChoices, $linkableChoices);
         
-        $builder->add('type', 'text', array('read_only' => true))
-                ->add('name', 'text', array('required' => false))
+        $builder->add('name', 'text', array('required' => false))
                 ->add('number', 'integer', array('read_only' => true))
                 ->add('researchedLinkable', 'choice', array('choices' => $linkableChoices))
                 ->add('researchedType', new EnumType('Ukratio\TrouveToutBundle\Entity\Discriminator'))

@@ -24,8 +24,7 @@ class SetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('type', 'text', array('read_only' => true))
-                ->add('name', 'text', array('required' => false))
+        $builder->add('name', 'text', array('required' => false))
                 ->add('linkable', 'checkbox', array('required' => false))
                 ->add('number', 'integer', array('invalid_message' => 'concept.integer.invalid'));
 

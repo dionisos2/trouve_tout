@@ -3,7 +3,7 @@ home: accueil
 'Add a category': 'Ajouter une categorie'
 'Upload a image': 'Téléverser une image'
 'Do a research': 'Faire une recherche'
-tools: 'outils'
+tools: outils
 'run research': 'Lancer une recherche'
 tools_ok: 'action réussi'
 action.success: 'L’action c’est effectuer avec succès !'
@@ -37,6 +37,7 @@ tools.compute.specificities: 'Calculer les différentes spécificités'
 'Trouve tout, find your objects in a few seconds!': 'Trouve tout, trouver vos objets en quelques secondes !'
 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.': 'Trouve tout est un logiciel libre, dont la fonction est de créer méthodologiquement un inventaire d’objets de tout type, pour pouvoir les retrouver facilement'
 Research: Recherche
+research.do: 'Faire/Créer une recherche'
 'Create a concept': 'créer un concept'
 Category: Catégorie
 Set: Objet

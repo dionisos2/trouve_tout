@@ -24,8 +24,7 @@ class CategoryType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('type', 'text', array('read_only' => true))
-                ->add('name', 'text', array('required' => true));
+        $builder->add('name', 'text', array('required' => true));
 
         $this->ctf->addCaracts($builder, Discriminator::$Category);
         $this->ctf->addCategories($builder);

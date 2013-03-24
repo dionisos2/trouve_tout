@@ -1,6 +1,5 @@
 <div class="well">
   <form method="post" {{ form_enctype(form) }}>
-    {{ form_row(form.type) }}
     {% block specific %}{% endblock %}
     <input type="submit" class="fix btn btn-primary" value="{{ 'send' | trans }}" />
 
