@@ -6,6 +6,18 @@
 
 {% block TrouveTout %}
 
-{{ 'action.success' | trans }}
+<h2>{{ 'action.success' | trans }}</h2>
+
+{% if type == 'researches' %}
+{{ number }} {{ 'tools.deleted.researches' | trans }}
+{% endif %}
+
+{% if type == 'elements' %}
+{{ number }} {{ 'tools.deleted.elements' | trans }}
+{% endif %}
+
+{% if type == 'specificities' %}
+{{ number }} {{ 'tools.computed.specificities' | trans }}
+{% endif %}
 
 {% endblock %}

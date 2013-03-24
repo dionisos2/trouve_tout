@@ -7,6 +7,9 @@ tools: outils
 'run research': 'Lancer une recherche'
 tools_ok: 'action réussi'
 action.success: 'L’action c’est effectuer avec succès !'
+tools.deleted.researches: 'recherches sans nom ont été supprimé'
+tools.deleted.elements: 'elements orphelins ont été supprimé'
+tools.computed.specificities: 'caractéristiques de catégories ont été spécifié'
 send: envoyer
 Caracts: Caractéristiques
 fix: fixer
@@ -22,7 +25,7 @@ Upload: Téléverser
 'Wrong type of file:': 'Mauvais type de fichier:'
 tools.delete.researches: 'Supprimer les recherches sans nom'
 tools.delete.elements: 'Supprimer les elements orphelins'
-tools.compute.specificities: 'Calculer les différentes spécificités'
+tools.compute.specificities: 'Spécifier les caractéristiques'
 'modify a concept': 'modifier un concept'
 'modify a object': 'modifier un objet'
 'modify a category': 'modifier une catégorie'

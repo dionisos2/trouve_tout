@@ -7,6 +7,10 @@ tools: tools
 'run research': 'run research'
 tools_ok: 'action successful'
 action.success: 'action is successfull!'
+tools.deleted.researches: 'unamed researches were deleted'
+tools.deleted.elements: 'orphans elements were deleted'
+tools.computed.specificities: 'characteristics were specified'
+tools.compute.specificities: 'compute all specificities'
 send: send
 Caracts: characteristic
 fix: fix
@@ -22,7 +26,6 @@ Upload: Upload
 'Wrong type of file:': 'Wrong type of file:'
 tools.delete.researches: 'delete unamed research'
 tools.delete.elements: 'delete orphans elements'
-tools.compute.specificities: 'compute all specificities'
 'modify a concept': 'modify a concept'
 'modify a object': 'modify a object'
 'modify a category': 'modify a category'

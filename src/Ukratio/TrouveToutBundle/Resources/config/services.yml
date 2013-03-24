@@ -10,6 +10,10 @@ services:
         class: Ukratio\TrouveToutBundle\Service\ConceptFormManager
         arguments: [@form.factory, @doctrine.orm.entity_manager, @TrouveTout.repository.concept]
 
+    TrouveTout.Tools:
+        class: Ukratio\TrouveToutBundle\Service\Tools
+        arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept]
+
     TrouveTout.ConceptTypeFunctions:
         class: Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions
 

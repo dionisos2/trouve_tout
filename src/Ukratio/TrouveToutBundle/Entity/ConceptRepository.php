@@ -124,6 +124,14 @@ class ConceptRepository extends EntityRepository
         return $queryBuilder;
     }
 
+    public function findUnamedResearches()
+    {
+        $queryBuilder = $this->createQueryBuilder('concept');
+        $queryBuilder = $this->whereIsUnamedResearch($queryBuilder);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function findNamedSet()
     {
         $queryBuilder = $this->createQueryBuilder('concept');
@@ -148,6 +156,14 @@ class ConceptRepository extends EntityRepository
         return $queryBuilder;
     }
 
+    public function whereIsUnamedResearch(QueryBuilder $queryBuilder)
+    {
+        $queryBuilder->andWhere('concept.name is NULL');
+        $queryBuilder = $this->whereIsResearch($queryBuilder);
+
+        return $queryBuilder;
+    }
+
     public function whereIsNamedSet(QueryBuilder $queryBuilder)
     {
         $queryBuilder->andWhere('concept.name is NOT NULL');
@@ -169,6 +185,13 @@ class ConceptRepository extends EntityRepository
     {
         $queryBuilder->andWhere('concept.type = :type')
                      ->setParameter('type', Discriminator::$Set->getName());
+        return $queryBuilder;
+    }
+
+    public function whereIsResearch(QueryBuilder $queryBuilder)
+    {
+        $queryBuilder->andWhere('concept.type = :type')
+                     ->setParameter('type', Discriminator::$Research->getName());
         return $queryBuilder;
     }
 

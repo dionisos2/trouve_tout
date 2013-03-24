@@ -66,12 +66,13 @@ class TrouveToutController extends ControllerWithTools
 	}
 
     /**
-     * @Route("/tools_ok", name="tools_ok")
+     * @Route("/tools_ok/{type}/{number}", requirements={"number" = "\d+", "type" = "elements|researches|specificities"}, name="tools_ok")
      * @Template()
      */
-	public function toolsOkAction()
+	public function toolsOkAction($type, $number)
 	{
-        return array();
+        return array('type' => $type,
+                     'number' => $number);
 	}
 
 
@@ -80,7 +81,9 @@ class TrouveToutController extends ControllerWithTools
      */
 	public function deleteUnamedResearchesAction()
 	{
-        return $this->redirect($this->generateUrl('tools_ok'));
+        $number = $this->get('TrouveTout.Tools')->deleteUnamedResearches();
+        return $this->redirect($this->generateUrl('tools_ok', array('type' => 'researches',
+                                                                    'number' => $number)));
 	}
 
     /**
@@ -88,7 +91,9 @@ class TrouveToutController extends ControllerWithTools
      */
 	public function deleteOrphanElementsAction()
 	{
-        return $this->redirect($this->generateUrl('tools_ok'));
+        $number = $this->get('TrouveTout.Tools')->deleteOrphanElements();
+        return $this->redirect($this->generateUrl('tools_ok', array('type' => 'elements',
+                                                                    'number' => $number)));
 	}
 
     /**
@@ -96,7 +101,9 @@ class TrouveToutController extends ControllerWithTools
      */
 	public function computeSpecificitiesAction()
 	{
-        return $this->redirect($this->generateUrl('tools_ok'));
+        $number = $this->get('TrouveTout.Tools')->computeSpecificities();
+        return $this->redirect($this->generateUrl('tools_ok', array('type' => 'specificities',
+                                                                    'number' => $number)));
 	}
 
 
