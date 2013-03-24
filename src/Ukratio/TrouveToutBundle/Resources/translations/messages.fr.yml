@@ -46,6 +46,9 @@ Type: Type
 Name: Nom
 name: nom
 Value: Valeur
+picture: image
+object: objet
+text: texte
 Selected: Sélectionné
 Bydefault: 'Par défaut'
 Specificity: Spécificité
@@ -55,3 +58,4 @@ Researchedlinkable: 'Connectabilité'
 Researchedtype: 'Type de concepts recherchés'
 Researchedname: 'Nom des concepts recherchés'
 Researchednumber: 'Cardinalité des concepts recherchés'
+'Run research again': 'Relancer la recherche'

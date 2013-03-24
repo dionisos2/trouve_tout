@@ -41,9 +41,22 @@ class ConceptRepository extends EntityRepository
         }
         
         if($research->getResearchedName() != null) {
-            $queryBuilder->andWhere("REGEXP(concept.name, :name) = 1")
-                         ->setParameter('name', $research->getResearchedName());
+            $eqModule = $queryBuilder->expr()->eq('REGEXP(concept.name, :name)', '1');
+
+            $matchEmpty = preg_match('#' . $research->getResearchedName() . '#', '') == 1;
+        
+            if($matchEmpty) {
+                $orModule = $queryBuilder->expr()->orx();
+                $orModule->add($queryBuilder->expr()->isNull("concept.name"));
+                $orModule->add($eqModule);
+                $queryBuilder->andWhere($orModule);
+            } else {
+                $queryBuilder->andWhere($eqModule);
+            }
+
+            $queryBuilder->setParameter('name', $research->getResearchedName());
         }
+
 
         if($research->getResearchedNumber() != null) {
             $queryBuilder->andWhere("REGEXP(concept.number, :number) = 1")
@@ -178,11 +191,11 @@ class ConceptRepository extends EntityRepository
         $values = $caract->getAllMoreSpecificValues(-1);
 
         $queryBuilder->leftJoin('concept.caracts', "caracts$nbr")
+                     /* ->addSelect("caracts$nbr") */
                      ->andWhere("REGEXP(caracts$nbr.name, :name) = 1")
                      ->setParameter('name', $caract->getName())
-                     ->addSelect("caracts$nbr")
-                     ->leftJoin("caracts$nbr.value", "value$nbr")
-                     ->addSelect("value$nbr");
+                     ->leftJoin("caracts$nbr.value", "value$nbr");
+                     /* ->addSelect("value$nbr"); */
 
         if ($values != null) {
             $values = array_map($getValue, $values);

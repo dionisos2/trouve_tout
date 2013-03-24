@@ -41,6 +41,9 @@
   {% endfor %}
 </table>
 
+<a href="{{ path('run_research', {id: research.id})}}" class="fix2 btn btn-primary" value="run">
+  {{ 'Run research again' | trans }}
+</a>
 <a href="{{ path('edit_concept', {id: research.id})}}" class="fix btn btn-primary" value="run">
   {{ 'Modify research' | trans }}
 </a>

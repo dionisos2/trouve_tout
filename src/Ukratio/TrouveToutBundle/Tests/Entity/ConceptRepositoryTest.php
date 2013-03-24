@@ -64,6 +64,12 @@ class ConceptRepositoryTest extends WebTestCase
     }
 
     
+    public function testFindByResearch()
+    {
+        $research = new Concept();
+        /* $research->add( */ //TODO
+    }
+
     protected function tearDown()
     {
         parent::tearDown();

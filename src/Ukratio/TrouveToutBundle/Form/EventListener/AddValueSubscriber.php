@@ -49,10 +49,6 @@ class AddValueSubscriber implements EventSubscriberInterface
         }
 
         $valueType = $data->getType();
-        $constraint = $data->getValueConstraint(); // à ajouter en pre_bind… TODO
-
-
-
 
         if (($data->getValue() !== null) and ($data->getPrefix() != null)) {
             $ratio = Prefix::getEnumerator($data->getPrefix())->getValue();

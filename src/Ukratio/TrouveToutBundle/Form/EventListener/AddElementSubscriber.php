@@ -65,7 +65,8 @@ class AddElementSubscriber implements EventSubscriberInterface
                 break;
             case Type::$number:
                 $builder = $this->factory->createNamedBuilder('value', 'number', null, array('label' => 'element.modify',               
-                                                                                                        'property_path' => 'standardValue'));
+                                                                                             'property_path' => 'standardValue',
+                                                                                             'invalid_message' => 'element.number.invalid'));
                 break;
             case Type::$picture:
                 $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'element.modify',

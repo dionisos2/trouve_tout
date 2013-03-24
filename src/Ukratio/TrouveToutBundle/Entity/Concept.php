@@ -85,7 +85,7 @@ class Concept
      * @var string $number
      *
      * @ORM\Column(name="number", type="string", length=16, nullable=true)
-     * @Assert\Type(type="int")
+     * @Assert\Type(message="auieeua", type="integer")
      */
     private $number;
 
@@ -102,7 +102,7 @@ class Concept
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=true, unique=true)
      * @Assert\Type(type="string")
-     * @Assert\Regex(pattern="/^\d*$/", match=false, message="name can’t be a number")$
+     * @Assert\Regex(pattern="/^\d*$/", match=false, message="concept.name.not.number")$
      */
     private $name;
 
@@ -131,7 +131,7 @@ class Concept
     private $moreSpecificConceptConcepts;
 
     /**
-     * @var string $caracts
+     * @var ArrayCollection $caracts
      *
      * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\Caract", mappedBy="ownerConcept", cascade={"persist", "detach", "merge"}, orphanRemoval=true)
      * @Assert\Valid(traverse=true)
