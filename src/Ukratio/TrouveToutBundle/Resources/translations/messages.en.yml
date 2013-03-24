@@ -1,11 +1,49 @@
-element:
-  modify: 'modify:'
-  specify: 'specify:'
-  generalize: 'generalize:'
-
+home: home
+'Add a object': 'Add a object'
+'Add a category': 'Add a category'
+'Upload a image': 'Upload a image'
+'Do a research': 'Do a research'
+tools: tools
+'run research': 'run research'
+tools_ok: 'action successful'
+action.success: 'action is successfull!'
+send: send
+Caracts: characteristic
+fix: fix
+Categories: Categories
+'research table': 'research table'
+ID: ID
+'Run research again': 'Run research again'
+'Modify research': 'Modify research'
+Hello: Hello
+Upload: Upload
+'Upload successful!': 'Upload successful!'
+'Upload has fail!': 'Upload has fail!'
+'Wrong type of file:': 'Wrong type of file:'
+tools.delete.researches: 'delete unamed research'
+tools.delete.elements: 'delete orphans elements'
+tools.compute.specificities: 'compute all specificities'
+'modify a concept': 'modify a concept'
+'modify a object': 'modify a object'
+'modify a category': 'modify a category'
+'modify a research': 'modify a research'
+'General informations': 'General informations'
+'License :': 'License :'
+'Authors :': 'Authors :'
+'the ucratique community': 'the ucratique community'
+'Source code :': 'Source code :'
+'gitorious page': 'gitorious page'
+'Creation date: soon': 'Creation date: soon'
+'Trouve tout, find your objects in a few seconds!': 'Trouve tout, find your objects in a few seconds!'
+'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.': 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.'
+Research: Research
+'Create a concept': 'Create a concept'
 Bydefault: 'By default'
-Researchedlinkable: 'Connectability'
+Researchedlinkable: Connectability
 Researchedtype: 'Type of wanted concepts'
 Researchedname: 'Name of wanted concepts'
 Researchednumber: 'Cardinality of wanted concepts'
 Set: Object
+element.modify: 'modify:'
+element.specify: 'specify:'
+element.generalize: 'generalize:'

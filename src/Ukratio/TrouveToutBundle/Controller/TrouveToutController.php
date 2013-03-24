@@ -55,6 +55,51 @@ class TrouveToutController extends ControllerWithTools
         }
 	}
 
+
+    /**
+     * @Route("/tools", name="tools")
+     * @Template()
+     */
+	public function toolsAction()
+	{
+        return array();
+	}
+
+    /**
+     * @Route("/tools_ok", name="tools_ok")
+     * @Template()
+     */
+	public function toolsOkAction()
+	{
+        return array();
+	}
+
+
+    /**
+     * @Route("/delete_unamed_researches", name="delete_unamed_researches")
+     */
+	public function deleteUnamedResearchesAction()
+	{
+        return $this->redirect($this->generateUrl('tools_ok'));
+	}
+
+    /**
+     * @Route("/delete_orphan_elements", name="delete_orphan_elements")
+     */
+	public function deleteOrphanElementsAction()
+	{
+        return $this->redirect($this->generateUrl('tools_ok'));
+	}
+
+    /**
+     * @Route("/compute_specificities", name="compute_specificities")
+     */
+	public function computeSpecificitiesAction()
+	{
+        return $this->redirect($this->generateUrl('tools_ok'));
+	}
+
+
     /**
      * @Route("/test", name="test")
      * @Template()

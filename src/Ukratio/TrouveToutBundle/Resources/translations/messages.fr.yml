@@ -1,24 +1,32 @@
+home: accueil
 'Add a object': 'Ajouter un objet'
 'Add a category': 'Ajouter une categorie'
 'Upload a image': 'Téléverser une image'
 'Do a research': 'Faire une recherche'
+tools: 'outils'
 'run research': 'Lancer une recherche'
+tools_ok: 'action réussi'
+action.success: 'L’action c’est effectuer avec succès !'
+send: envoyer
 Caracts: Caractéristiques
 fix: fixer
 Categories: Catégories
 'research table': 'tableau de recherche des %researchedType%s'
 ID: ID
+'Run research again': 'Relancer la recherche'
 'Modify research': 'Modifier la recherche'
 Hello: Bonjour
 Upload: Téléverser
 'Upload successful!': 'Téléchargement réussi !'
 'Upload has fail!': 'Téléchargement raté !'
 'Wrong type of file:': 'Mauvais type de fichier:'
+tools.delete.researches: 'Supprimer les recherches sans nom'
+tools.delete.elements: 'Supprimer les elements orphelins'
+tools.compute.specificities: 'Calculer les différentes spécificités'
 'modify a concept': 'modifier un concept'
 'modify a object': 'modifier un objet'
 'modify a category': 'modifier une catégorie'
 'modify a research': 'modifier une recherche'
-home: accueil
 'General informations': 'Informations générales'
 'License :': 'Licence :'
 'Authors :': 'Auteurs :'
@@ -29,19 +37,14 @@ home: accueil
 'Trouve tout, find your objects in a few seconds!': 'Trouve tout, trouver vos objets en quelques secondes !'
 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.': 'Trouve tout est un logiciel libre, dont la fonction est de créer méthodologiquement un inventaire d’objets de tout type, pour pouvoir les retrouver facilement'
 Research: Recherche
+'Create a concept': 'créer un concept'
 Category: Catégorie
 Set: Objet
 all: tout
 linkable: liable
 Linkable: Liable
-unlinkable: non liable
-'Create a concept': 'créer un concept'
+unlinkable: 'non liable'
 'This site was created by a ucratique community': 'Ce site a été créer par une communauté ucratique'
-send: envoyer
-element:
-  modify: 'modifier:'
-  specify: 'specifier:'
-  generalize: 'generaliser:'
 Type: Type
 Name: Nom
 name: nom
@@ -54,8 +57,10 @@ Bydefault: 'Par défaut'
 Specificity: Spécificité
 Number: Nombre
 number: nombre
-Researchedlinkable: 'Connectabilité'
+Researchedlinkable: Connectabilité
 Researchedtype: 'Type de concepts recherchés'
 Researchedname: 'Nom des concepts recherchés'
 Researchednumber: 'Cardinalité des concepts recherchés'
-'Run research again': 'Relancer la recherche'
+element.modify: 'modifier:'
+element.specify: 'specifier:'
+element.generalize: 'generaliser:'

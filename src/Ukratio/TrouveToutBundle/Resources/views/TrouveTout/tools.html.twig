@@ -1,0 +1,19 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'tools' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+<a href="{{ path('delete_unamed_researches') }}" class="btn">
+  {{'tools.delete.researches' | trans}}
+</a>
+
+<a href="{{ path('delete_orphan_elements') }}" class="btn">
+  {{'tools.delete.elements' | trans}}
+</a>
+
+<a href="{{ path('compute_specificities') }}" class="btn">
+  {{'tools.compute.specificities' | trans}}
+</a>
+{% endblock %}

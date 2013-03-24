@@ -1,2 +1,2 @@
-'concept.integer.invalid': 'This field have to be a integer'
-'element.number.invalid': 'This field have to be a number'
+concept.integer.invalid: 'This field have to be a integer'
+element.number.invalid: 'This field have to be a number'
