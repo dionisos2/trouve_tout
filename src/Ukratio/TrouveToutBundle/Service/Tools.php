@@ -17,16 +17,18 @@ class Tools
     
     protected $em;
     protected $conceptRepo;
+    protected $elementRepo;
 
     public function __construct(EntityManager $em, ConceptRepository $conceptRepo)
     {
         $this->em = $em;
         $this->conceptRepo = $conceptRepo;
+        $this->elementRepo = $this->em->getRepository('TrouveToutBundle:Element');
     }
 
     public function deleteUnamedResearches()
     {
-        $unamedResearches = $this->conceptRepo->findUnamedResearches('');
+        $unamedResearches = $this->conceptRepo->findUnamedResearches();
         $number = count($unamedResearches);
         
         foreach ($unamedResearches as $research) {
@@ -39,7 +41,15 @@ class Tools
 
     public function deleteOrphanElements()
     {
-        return 5;
+        $orphanElements = $this->elementRepo->findOrphanElements();
+        $number = count($orphanElements);
+        
+        foreach ($orphanElements as $research) {
+            $this->em->remove($research);
+        }
+
+        $this->em->flush();
+        return $number;
     }
 
     public function computeSpecificities()

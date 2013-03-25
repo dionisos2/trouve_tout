@@ -13,6 +13,12 @@ use Doctrine\ORM\EntityRepository;
 class ElementRepository extends EntityRepository
 {
 
+    public function findOrphanElements()
+    {
+        /* $queryBuilder = $this->createQueryBuilder('element') */
+        return 0;
+    }
+
     public function findHeads()
     {
         $queryBuilder = $this->createQueryBuilder('head')
