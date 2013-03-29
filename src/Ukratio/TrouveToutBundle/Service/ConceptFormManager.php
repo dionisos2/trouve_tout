@@ -54,6 +54,12 @@ class ConceptFormManager
         
     }
 
+    public function deleteConcept(Concept $concept)
+    {
+        $this->em->remove($concept);
+        $this->em->flush();
+    }
+
     public function createForm(Concept $concept)
     {
         $options = array();

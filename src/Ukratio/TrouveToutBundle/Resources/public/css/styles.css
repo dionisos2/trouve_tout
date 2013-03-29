@@ -20,3 +20,9 @@
     bottom          : 15%;
 	right           : 0;
 }
+
+.fix3 {
+	position        : fixed;
+    bottom          : 10%;
+	right           : 10;
+}

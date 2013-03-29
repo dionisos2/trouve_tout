@@ -115,4 +115,16 @@ class ConceptController extends ControllerWithTools
             
     }
 
+    /**
+     * @Route("/delete/{id}", name="delete_concept", requirements={"id" = "\d+"})
+     * @Method({"GET"})
+     */
+    public function deleteConcept(Request $request, Concept $concept)
+    {
+        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $cfc->deleteConcept($concept);
+
+        return $this->redirect($this->generateUrl('create_set'));
+    }
+
 }

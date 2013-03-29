@@ -1,7 +1,13 @@
 <div class="well">
   <form method="post" {{ form_enctype(form) }}>
     {% block specific %}{% endblock %}
-    <input type="submit" class="fix btn btn-primary" value="{{ 'send' | trans }}" />
+    <input type="submit" class="fix btn btn-primary" value="{{ 'Send' | trans }}" />
+    
+    {% if concept.id != 0 %}
+    <a href="{{ path('delete_concept', {id: concept.id})}}" class="fix3 btn btn-primary" value="delete">
+  {{ 'Delete' | trans }}
+    </a>
+    {% endif %}
 
     <h3>{{ 'Caracts' | trans }}</h3>
     <ul class="caracts" data-prototype="{{ form_widget(form.caracts.vars.prototype)|e }}">

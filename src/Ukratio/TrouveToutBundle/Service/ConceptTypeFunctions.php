@@ -12,7 +12,6 @@ class ConceptTypeFunctions
         if ($parentType === null) {
             $parentType = Discriminator::$Set;
         }
-        
         $builder->add('caracts', 'collection', array('type' => 'TrouveTout_Caract',
                                                      'label' => ' ',
                                                      'allow_add' => true,

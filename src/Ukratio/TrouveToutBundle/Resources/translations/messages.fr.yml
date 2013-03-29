@@ -11,6 +11,7 @@ tools.deleted.researches: 'recherches sans nom ont été supprimé'
 tools.deleted.elements: 'elements orphelins ont été supprimé'
 tools.computed.specificities: 'caractéristiques de catégories ont été spécifié'
 send: envoyer
+Send: Envoyer
 Caracts: Caractéristiques
 fix: fixer
 Categories: Catégories
@@ -68,3 +69,4 @@ Researchednumber: 'Cardinalité des concepts recherchés'
 element.modify: 'modifier:'
 element.specify: 'specifier:'
 element.generalize: 'generaliser:'
+Delete: Supprimer

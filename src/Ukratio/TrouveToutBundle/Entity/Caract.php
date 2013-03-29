@@ -256,7 +256,11 @@ class Caract
      */
     public function setSpecificity($specificity)
     {
-        $this->specificity = $specificity;
+        if ($specificity == null) {
+            $this->specificity = 0;
+        } else {
+            $this->specificity = $specificity;
+        }
         return $this;
     }
 
