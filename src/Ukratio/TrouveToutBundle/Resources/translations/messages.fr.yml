@@ -4,12 +4,12 @@ home: accueil
 'Upload a image': 'Téléverser une image'
 'Do a research': 'Faire une recherche'
 tools: outils
-'run research': 'Lancer une recherche'
-tools_ok: 'action réussi'
-action.success: 'L’action c’est effectuer avec succès !'
-tools.deleted.researches: 'recherches sans nom ont été supprimé'
-tools.deleted.elements: 'elements orphelins ont été supprimé'
-tools.computed.specificities: 'caractéristiques de catégories ont été spécifié'
+'run research': 'Lancer la recherche'
+tools_ok: 'action réussie'
+action.success: 'L’action s’est effectuée avec succès !'
+tools.deleted.researches: 'recherches sans nom ont été supprimées'
+tools.deleted.elements: 'éléments orphelins ont été supprimés'
+tools.computed.specificities: 'caractéristiques de catégories ont été spécifiées'
 send: envoyer
 Send: Envoyer
 Caracts: Caractéristiques
@@ -25,7 +25,7 @@ Upload: Téléverser
 'Upload has fail!': 'Téléchargement raté !'
 'Wrong type of file:': 'Mauvais type de fichier:'
 tools.delete.researches: 'Supprimer les recherches sans nom'
-tools.delete.elements: 'Supprimer les elements orphelins'
+tools.delete.elements: 'Supprimer les éléments orphelins'
 tools.compute.specificities: 'Spécifier les caractéristiques'
 'modify a concept': 'modifier un concept'
 'modify a object': 'modifier un objet'
@@ -49,7 +49,7 @@ all: tout
 linkable: liable
 Linkable: Liable
 unlinkable: 'non liable'
-'This site was created by a ucratique community': 'Ce site a été créer par une communauté ucratique'
+'This site was created by a ucratique community': 'Ce site a été créé par une communauté ucratique'
 Type: Type
 Name: Nom
 name: nom

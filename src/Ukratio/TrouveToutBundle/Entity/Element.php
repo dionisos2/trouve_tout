@@ -8,6 +8,7 @@ use Ukratio\ToolBundle\Service\ArrayHandling;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ukratio\TrouveToutBundle\Entity\Type;
+use Ukratio\TrouveToutBundle\Entity\Caract;
 
 
 /**
@@ -65,6 +66,13 @@ class Element
      * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\Element", mappedBy="moreGeneral")
      */
     private $moreSpecifics;
+
+    /**
+     * @var Ukratio\TrouveToutBundle\Entity\Caract
+     *
+     * @ORM\OneToMany(targetEntity="Ukratio\TrouveToutBundle\Entity\Caract", mappedBy="value")
+     */
+    private $ownerCaracts;
 
     public function setRatio($ratio)
     {
@@ -173,6 +181,23 @@ class Element
     {
         $this->value = (string)$value;
         return $this;
+    }
+
+    public function getAllValues()
+    {
+        $result = array();
+
+        $value = $this->getValue();
+        $element = $this->getMoreGeneral();
+        while ($element !== null) {
+            $result[] = $value;
+            $value = $element->getValue();
+            $element = $element->getMoreGeneral();
+        }
+
+        $result[] = $value;
+        
+        return $result;
     }
 
     /**
@@ -285,4 +310,37 @@ class Element
         return Static::$arrayHandling->getValuesRecursively(array($this), $getChilds, $deph);
     }
 
+
+    /**
+     * Add ownerCaracts
+     *
+     * @param \Ukratio\TrouveToutBundle\Entity\Caract $ownerCaracts
+     * @return Element
+     */
+    public function addOwnerCaract(\Ukratio\TrouveToutBundle\Entity\Caract $ownerCaracts)
+    {
+        $this->ownerCaracts[] = $ownerCaracts;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ownerCaracts
+     *
+     * @param \Ukratio\TrouveToutBundle\Entity\Caract $ownerCaracts
+     */
+    public function removeOwnerCaract(\Ukratio\TrouveToutBundle\Entity\Caract $ownerCaracts)
+    {
+        $this->ownerCaracts->removeElement($ownerCaracts);
+    }
+
+    /**
+     * Get ownerCaracts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOwnerCaracts()
+    {
+        return $this->ownerCaracts;
+    }
 }

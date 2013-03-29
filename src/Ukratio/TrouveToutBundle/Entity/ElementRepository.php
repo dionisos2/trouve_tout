@@ -15,8 +15,13 @@ class ElementRepository extends EntityRepository
 
     public function findOrphanElements()
     {
-        /* $queryBuilder = $this->createQueryBuilder('element') */
-        return 0;
+        $queryBuilder = $this->createQueryBuilder('element')
+                             ->leftJoin('element.moreSpecifics', 'moreSpecifics')
+                             ->where('moreSpecifics IS NULL')
+                             ->leftJoin('element.ownerCaracts', 'caracts')
+                             ->andWhere('caracts.value IS NULL');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function findHeads()

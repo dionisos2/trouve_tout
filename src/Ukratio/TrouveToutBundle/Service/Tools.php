@@ -43,7 +43,7 @@ class Tools
     {
         $orphanElements = $this->elementRepo->findOrphanElements();
         $number = count($orphanElements);
-        
+
         foreach ($orphanElements as $research) {
             $this->em->remove($research);
         }
@@ -54,6 +54,6 @@ class Tools
 
     public function computeSpecificities()
     {
-        return 5;
+        return 0;
     }
 }

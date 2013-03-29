@@ -8,4 +8,5 @@
 /bin/
 /composer.phar
 *~
+/web/img
 composer.lock
