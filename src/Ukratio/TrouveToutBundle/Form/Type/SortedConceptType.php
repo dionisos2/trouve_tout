@@ -29,7 +29,7 @@ class SortedConceptType extends AbstractType
         $choices = array_combine($choices, $choices);
 
         $builder->add('name', 'choice', array('choices' => $choices,
-                                                'label' => ' '));
+                                              'label' => ' '));
         
         $builder->addModelTransformer(new ConceptToStringTransformer($categories));
         
@@ -42,7 +42,7 @@ class SortedConceptType extends AbstractType
 
         $resolver->setRequired(array('childConcept'));
 
-        $resolver->setAllowedTypes(array('childConcept' => 'Ukratio\TrouveToutBundle\Entity\Concept',
+        $resolver->setAllowedTypes(array('childConcept' => array('Ukratio\TrouveToutBundle\Entity\Concept', 'null'),
                                          'options' => 'array'));
     }
 
@@ -51,30 +51,36 @@ class SortedConceptType extends AbstractType
         return 'TrouveTout_SortedConcepts';
     }
 
-    private function getSortedConcepts(Concept $childConcept)
+    private function getSortedConcepts(Concept $childConcept = null)
     {
-
-        $findConnection = function (Concept $category) use ($childConcept)
-        {
-            $connection = 0;
-            foreach ($childConcept->getCaracts() as $caract) {
-                $categoryCaract = $category->getCaract($caract->getName());
-                if ($categoryCaract !== null) {
-                    $connection = $connection + $categoryCaract->getSpecificity() * (1 - $connection);
+        if ($childConcept !== null) {
+            $findConnection = function (Concept $category) use ($childConcept) {
+                $connection = 0;
+                foreach ($childConcept->getCaracts() as $caract) {
+                    $categoryCaract = $category->getCaract($caract->getName());
+                    if ($categoryCaract !== null) {
+                        $connection = $connection + $categoryCaract->getSpecificity() * (1 - $connection);
+                    }
                 }
-            }
             
-            return $connection;
-        };
+                return $connection;
+            };
 
-        $cmpSpecificity = function (Concept $a, Concept $b) use ($findConnection)
-        {
-            if ($findConnection($a) == $findConnection($b)) {
+            $cmpSpecificity = function (Concept $a, Concept $b) use ($findConnection)
+            {
+                if ($findConnection($a) == $findConnection($b)) {
+                    return strcmp($a->getName(), $b->getName());
+                } else {
+                    return $findConnection($a) <= $findConnection($b);
+                }
+            };
+        } else {
+            $cmpSpecificity = function (Concept $a, Concept $b)
+            {
                 return strcmp($a->getName(), $b->getName());
-            } else {
-                return $findConnection($a) <= $findConnection($b);
-            }
-        };
+            };
+        }
+
 
         $categories = $this->conceptRepo->findAllCategories();
 
