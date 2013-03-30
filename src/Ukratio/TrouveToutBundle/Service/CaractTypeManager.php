@@ -65,7 +65,7 @@ class CaractTypeManager
 
     private function addPictureForm(Element $element, $mapped, $label, $name)
     {
-        $choices = array_map(function (Element $element) {return $element->getValue();}, $this->elementManager->filesIn($element));
+        $choices = array_map(function (Element $element) {return $element->getValue();}, $this->elementManager->filesIn($element, $name == 'childElement'));
 
         $choices = array('' => '') + $choices;
         $choices = array_combine($choices, $choices);

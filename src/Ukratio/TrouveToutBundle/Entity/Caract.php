@@ -19,15 +19,11 @@ use Ukratio\TrouveToutBundle\Entity\Type;
  * Caract
  *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\CaractRepository")
  */
 class Caract
 {
-
-    /**
-     * Dependance injection for AssertData
-     */
-    private static $ad = null;
 
     /**
      * @var integer
@@ -132,20 +128,25 @@ class Caract
         }
     }
 
+    /**
+     * @ORM\PostLoad
+     */
+    public function initialize()
+    {
+        
+    }
+
     public function __construct()
     {
-        if (static::$ad === null) {
-            static::$ad = new AssertData();
-        }
-        
+        $this->initialize();
         $this->value = null;
         $this->ownerConcept = null;
-        $this->selected = true;
         $this->unit = '∅';
         $this->prefix = '∅';
-        $this->type = Type::$name->getName();
+        $this->selected = true;
         $this->byDefault = true;
         $this->specificity = 0;
+        $this->type = Type::$name->getName();
         $this->name = Constant::UNDEFINED;
     }
 

@@ -37,7 +37,7 @@ class CaractType extends AbstractType
         $caract = $form->getData();
         if (($caract !== null) and ($caract->getValue() !== null)) {
             if ($caract->getType() == 'picture') {
-                $image = implode('/', $caract->getValue()->getAllValues());
+                $image = implode('/', array_reverse($caract->getValue()->getAllValues()));
                 $view->vars['image'] = $image;
             }
 
@@ -66,13 +66,18 @@ class CaractType extends AbstractType
 
         $builder->add('name', 'text');
 
+        $attr = array();
+
         if ($options['parentType'] === Discriminator::$Set) {
-            $builder->add('selected', 'checkbox', array('required' => false));
+            $builder->add('selected', 'checkbox', array('required' => false,
+                                                        'attr' => $attr));
         }
         
         if ($options['parentType'] === Discriminator::$Category) {
-            $builder->add('selected', 'checkbox', array('required' => false));
-            $builder->add('byDefault', 'checkbox', array('required' => false));
+            $builder->add('selected', 'checkbox', array('required' => false,
+                                                        'attr' => $attr));
+            $builder->add('byDefault', 'checkbox', array('required' => false,
+                                                         'attr' => $attr));
             $builder->add('specificity', null, array('required' => false,
                                                      'read_only' => true));
         }

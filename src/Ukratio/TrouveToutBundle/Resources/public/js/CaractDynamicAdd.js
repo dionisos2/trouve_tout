@@ -39,7 +39,8 @@ function addCaractForm(collectionHolder, $newLinkLi) {
 
     var index = collectionHolder.data('index');
 
-    var newForm = prototype.replace(/__name__/g, index);
+    var newForm = prototype.replace(/checkbox/g, 'checkbox" checked="checked');
+    var newForm = newForm.replace(/__name__/g, index);
 
     collectionHolder.data('index', index + 1);
 

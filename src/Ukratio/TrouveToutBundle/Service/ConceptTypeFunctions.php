@@ -23,18 +23,4 @@ class ConceptTypeFunctions
                                                                         'parentType' => $parentType)));
     }
 
-    /* public function addCategories(FormBuilderInterface $builder, Concept $childConcept) */
-    /* { */
-    /*     $options = array('label' => ' ', */
-    /*                      'childConcept' => $childConcept */
-    /*     ); */
-
-    /*     $builder->add('moreGeneralConceptConcepts', 'collection', array('type' => 'TrouveTout_ConceptConcept', */
-    /*                                                              'label' => ' ', */
-    /*                                                              'allow_add' => true, */
-    /*                                                              'allow_delete' => true, */
-    /*                                                              'by_reference' => false, */
-    /*                                                              'options' => $options)); */
-
-    /* } */
 }
