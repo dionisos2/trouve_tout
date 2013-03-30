@@ -10,6 +10,7 @@ use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Doctrine\ORM\EntityRepository;
 use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
 use Ukratio\ToolBundle\Form\Type\EnumType;
+use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
 
 class ResearchType extends AbstractType
 {
@@ -36,7 +37,8 @@ class ResearchType extends AbstractType
                 ->add('researchedName', 'text', array('required' => false));
 
         $this->ctf->addCaracts($builder, Discriminator::$Research);
-        $this->ctf->addCategories($builder);
+
+        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

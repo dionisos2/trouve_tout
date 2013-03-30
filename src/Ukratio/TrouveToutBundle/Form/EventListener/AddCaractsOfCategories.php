@@ -46,7 +46,7 @@ class AddCaractsOfCategories implements EventSubscriberInterface
     {
         foreach($category->getMoreGeneralConcepts() as $generalCategory) {
             $this->addCaractsOfCategory($set, $generalCategory);
-            $this->addCaractsForAllCategories($set, $generalCategory);
+            /* $this->addCaractsForAllCategories($set, $generalCategory); */
         }
     }
 

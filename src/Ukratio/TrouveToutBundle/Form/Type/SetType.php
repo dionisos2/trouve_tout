@@ -7,8 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
+use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
 use Doctrine\ORM\EntityRepository;
 use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
+use Ukratio\TrouveToutBundle\Entity\Concept;
 
 class SetType extends AbstractType
 {
@@ -25,16 +27,13 @@ class SetType extends AbstractType
     {
 
         $builder->add('name', 'text', array('required' => false))
-                ->add('linkable', 'checkbox', array('required' => false,
-                                                    'value' => true))
+                ->add('linkable', 'checkbox', array('required' => false,))
                 ->add('number', 'integer', array('invalid_message' => 'concept.integer.invalid'));
 
         $this->ctf->addCaracts($builder);
 
-        $this->ctf->addCategories($builder);
 
-
-
+        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
         $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));
     }
 

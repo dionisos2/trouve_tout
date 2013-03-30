@@ -54,6 +54,30 @@ class Tools
 
     public function computeSpecificities()
     {
-        return 0;
+        $categories = $this->conceptRepo->findAllCategories();
+
+        $caractsNumber = array();
+        foreach ($categories as $category) {
+            foreach ($category->getCaracts() as $caract) {
+                if (! isset($caractsNumber[$caract->getName()])) {
+                    $caractsNumber[$caract->getName()] = 0;
+                }
+                $caractsNumber[$caract->getName()]++;
+            }
+        }
+        
+        $number = 0;
+        $numberOfCategories = count($categories);
+
+        foreach ($categories as $category) {
+            foreach ($category->getCaracts() as $caract) {
+                $specificity = ($numberOfCategories + 1 - $caractsNumber[$caract->getName()]) / $numberOfCategories;
+                $caract->setSpecificity($specificity);
+                $number++;
+            }
+        }
+
+        $this->em->flush();
+        return $number;
     }
 }

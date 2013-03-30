@@ -22,20 +22,20 @@ class ConceptConceptType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $childConcept = $options['childConcept'];
 
         $options = array('label' => ' ',
-                         'class' => 'TrouveToutBundle:Concept',
-                         'property' => 'name',
-                         'query_builder' => function(EntityRepository $er){return $er->QueryBuilderAllCategories();});
+                         'childConcept' => $childConcept);
 
-        $builder->add('moreGeneral', 'entity', $options);
+        $builder->add('moreGeneral', 'TrouveTout_SortedConcepts', $options);
 
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ukratio\TrouveToutBundle\Entity\ConceptConcept'
+            'data_class' => 'Ukratio\TrouveToutBundle\Entity\ConceptConcept',
+            'childConcept' => null
         ));
     }
 

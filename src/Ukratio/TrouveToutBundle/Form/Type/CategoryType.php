@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Doctrine\ORM\EntityRepository;
 use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
+use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
+use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
 
 class CategoryType extends AbstractType
 {
@@ -27,7 +29,9 @@ class CategoryType extends AbstractType
         $builder->add('name', 'text', array('required' => true));
 
         $this->ctf->addCaracts($builder, Discriminator::$Category);
-        $this->ctf->addCategories($builder);
+
+        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
+        $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
