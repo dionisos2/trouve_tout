@@ -12,8 +12,8 @@
 
 {% if imageName is defined %}
 <p> {{ 'Upload successful!' | trans }} </p>
-<a href="{{ asset('img/')}}{{imageName}}">
-<img src="{{ asset('img/')}}{{imageName}}" alt="uploaded image" height="42" width="42"> 
+<a href="{{ asset('img/')}}{{imagePath}}{{imageName}}">
+<img src="{{ asset('img/')}}{{imagePath}}{{imageName}}" alt="uploaded image" height="42" width="42"> 
 </a> 
 {% endif %}
 

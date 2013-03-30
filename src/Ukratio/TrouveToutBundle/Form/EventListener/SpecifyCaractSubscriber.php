@@ -75,8 +75,7 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
             $childElement->setValue($childElementName);
             $childElement->setMoreGeneral($element);
         }
-            
-        $caract->setType(Type::$name->getName());
+
         $caract->setValue($childElement);
     }
 

@@ -34,18 +34,26 @@ class TrouveToutController extends ControllerWithTools
 	{
         $form = $this->createFormBuilder()
                      ->add('image', 'file')
+                     ->add('category', 'TrouveTout_ConceptConcept')
                      ->getForm();
 
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
             $image = $form->getData()['image'];
-
+            $category = $form->getData()['category']->getMoreGeneral();
+            
             if (substr($image->getMimeType(), 0, 5) == 'image') {
-                $webPath = $this->get('kernel')->getRootDir() . '/../web/img';
+                $subDir = array_map(function($x){return $x->getName();},  $category->getAllMoreGeneralConcepts(-1));
+                $subDir = array_reverse($subDir);
+
+                $webPath = $this->get('kernel')->getRootDir() . '/../web/img/';
+
+                $imagePath = 'picture/' . implode('/', $subDir) . '/';
                 $imageName = $image->getClientOriginalName();
-                $image->move($webPath, $imageName);
+                $image->move($webPath . $imagePath, $imageName);
                 return array('form' => $form->createView(),
-                             'imageName' => "$imageName");
+                             'imageName' => "$imageName",
+                             'imagePath' => "$imagePath");
             } else {
                 return array('form' => $form->createView(),
                              'invalideType' => $image->getMimeType());

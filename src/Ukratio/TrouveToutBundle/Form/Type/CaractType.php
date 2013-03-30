@@ -37,22 +37,25 @@ class CaractType extends AbstractType
         $caract = $form->getData();
         if (($caract !== null) and ($caract->getValue() !== null)) {
             if ($caract->getType() == 'picture') {
-                $image = $caract->getValue()->getValue();
+                $image = implode('/', $caract->getValue()->getAllValues());
                 $view->vars['image'] = $image;
             }
 
             if ($caract->getType() == 'object') {
-                $objectName = $caract->getValue()->getValue();
+                $objectNames = $caract->getValue()->getAllValues();
 
-                if ($this->dc->isNumbers($objectName)) {
-                    $object = $this->conceptRepo->findOneById($objectName);
-                } else {
-                    $object = $this->conceptRepo->findOneByName($objectName);
-                }
-                if ($object != null) {
-                    $objectId = $object->getId();
-                    $view->vars['objectName'] = $objectName;
-                    $view->vars['objectId'] = $objectId;
+                $view->vars['objects'] = array();
+                foreach ($objectNames as $objectName) {
+                    if ($this->dc->isNumbers($objectName)) {
+                        $object = $this->conceptRepo->findOneById($objectName);
+                    } else {
+                        $object = $this->conceptRepo->findOneByName($objectName);
+                    }
+                    if ($object != null) {
+                        $objectId = $object->getId();
+                        $view->vars['objects'][] = array('name' => $objectName,
+                                                         'id' => $objectId);
+                    }
                 }
             }
         }

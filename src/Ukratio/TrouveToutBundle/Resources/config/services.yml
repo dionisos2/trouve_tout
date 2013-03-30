@@ -6,6 +6,14 @@ services:
 #        class: %TrouveTout.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
 
+
+    TrouveTout.ElementManager:
+        class: Ukratio\TrouveToutBundle\Service\ElementManager
+
+    TrouveTout.CaractTypeManager:
+        class: Ukratio\TrouveToutBundle\Service\CaractTypeManager
+        arguments: [@form.factory, @TrouveTout.repository.concept, @TrouveTout.ElementManager]
+
     TrouveTout.ConceptFormManager:
         class: Ukratio\TrouveToutBundle\Service\ConceptFormManager
         arguments: [@form.factory, @doctrine.orm.entity_manager, @TrouveTout.repository.concept]
@@ -25,7 +33,7 @@ services:
 
     TrouveTout.form.element:
         class: Ukratio\TrouveToutBundle\Form\Type\ElementType
-        arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept]
+        arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept, @TrouveTout.CaractTypeManager]
         tags: 
             - {name: form.type, alias: TrouveTout_Element}
 

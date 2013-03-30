@@ -9,19 +9,25 @@ use Symfony\Component\Form\FormEvents;
 use Doctrine\ORM\EntityManager;
 
 use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
+use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
 
 class AddChildElementSubscriber implements EventSubscriberInterface
 {
     private $factory;
     private $em;
+    private $type;
     private $repo;
-    
-    public function __construct(FormFactoryInterface $factory, EntityManager $em)
+    private $caractTypeManager;
+
+    public function __construct(FormFactoryInterface $factory, EntityManager $em, Type $type, CaractTypeManager $caractTypeManager)
     {
+        $this->type = $type;
         $this->factory = $factory;
         $this->em = $em;
         $this->repo = $this->em->getRepository('TrouveToutBundle:Element');
+        $this->caractTypeManager = $caractTypeManager;
     }
 
     public static function getSubscribedEvents()
@@ -40,14 +46,8 @@ class AddChildElementSubscriber implements EventSubscriberInterface
         
         $moreSpecifics = $this->repo->findMoreSpecifics($data);
 
-        $choices = array_map(function(Element $element) { return $element->getValue();}, $moreSpecifics);
+        $builder = $this->caractTypeManager->getValueForm($data, $this->type, $moreSpecifics, false, 'element.specify');
 
-        $choices = array_combine($choices, $choices);
-
-
-        $builder = $this->factory->createNamedBuilder('childElement', 'Tool_ChoiceOrText', null, array('mapped' => false,
-                                                                                                       'choices' => $choices,
-                                                                                                       'label' => 'element.specify'));
         $form->add($builder->getForm());
     }
 }

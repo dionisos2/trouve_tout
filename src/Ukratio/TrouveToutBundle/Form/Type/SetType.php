@@ -25,7 +25,8 @@ class SetType extends AbstractType
     {
 
         $builder->add('name', 'text', array('required' => false))
-                ->add('linkable', 'checkbox', array('required' => false))
+                ->add('linkable', 'checkbox', array('required' => false,
+                                                    'value' => true))
                 ->add('number', 'integer', array('invalid_message' => 'concept.integer.invalid'));
 
         $this->ctf->addCaracts($builder);

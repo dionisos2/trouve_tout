@@ -1,4 +1,4 @@
-/web/bundles/
+/web
 /app/
 /app/bootstrap.php.cache
 /app/cache/*
@@ -8,5 +8,4 @@
 /bin/
 /composer.phar
 *~
-/web/img
 composer.lock

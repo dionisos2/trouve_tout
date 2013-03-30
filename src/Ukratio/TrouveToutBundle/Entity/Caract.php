@@ -105,7 +105,7 @@ class Caract
     /**
      * @var Ukratio\TrouveToutBundle\Entity\Element
      *
-     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Element", cascade={"persist", "detach", "merge"})
+     * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Element", cascade={"persist", "detach", "merge"}, inversedBy="ownerCaracts")
      * @Assert\Valid(traverse=true)
      */
     private $value;

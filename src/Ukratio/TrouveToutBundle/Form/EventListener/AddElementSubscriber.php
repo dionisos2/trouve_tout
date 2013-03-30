@@ -14,7 +14,7 @@ use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
-
+use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
 
 class AddElementSubscriber implements EventSubscriberInterface
 {
@@ -22,13 +22,15 @@ class AddElementSubscriber implements EventSubscriberInterface
     private $elementRepo;
     private $type;
     private $conceptRepo;
+    private $caractTypeManager;
     
-    public function __construct(FormFactoryInterface $factory, EntityManager $em, ConceptRepository $conceptRepo, Type $type)
+    public function __construct(FormFactoryInterface $factory, EntityManager $em, ConceptRepository $conceptRepo, Type $type, CaractTypeManager $caractTypeManager)
     {
         $this->factory = $factory;
         $this->elementRepo = $em->getRepository('TrouveToutBundle:Element');
         $this->conceptRepo = $conceptRepo;
         $this->type = $type;
+        $this->caractTypeManager = $caractTypeManager;
     }
 
     public static function getSubscribedEvents()
@@ -54,52 +56,9 @@ class AddElementSubscriber implements EventSubscriberInterface
             $elementChoices = $this->elementRepo->findMoreSpecifics($general);
         }
 
-        $choices = array_map(function(Element $element) { return $element->getValue();}, $elementChoices);
-
-        $choices = array_combine($choices, $choices);
-
-        switch ($this->type) {
-            case Type::$name:
-                $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'element.modify',
-                                                                                                        'choices' => $choices));
-                break;
-            case Type::$number:
-                $builder = $this->factory->createNamedBuilder('value', 'number', null, array('label' => 'element.modify',               
-                                                                                             'property_path' => 'standardValue',
-                                                                                             'invalid_message' => 'element.number.invalid'));
-                break;
-            case Type::$picture:
-                $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'element.modify',
-                                                                                                        'choices' => $choices));
-                break;
-            case Type::$object:
-                $builder = $this->addObjectForm();
-                break;
-            case Type::$text:
-                $builder = $this->factory->createNamedBuilder('value', 'textarea', null, array('label' => 'element.modify',));
-                break;
-            default:
-                throw new \Exception('impossible case with type = ' . $this->getType());
-        }
+        $builder = $this->caractTypeManager->getValueForm($data, $this->type, $elementChoices);
 
         $form->add($builder->getForm());        
     }
 
-    private function addObjectForm()
-    {
-        $choices1 = array_map(function (Concept $element) {return $element->getName();}, $this->conceptRepo->findNamedSet());
-
-        $choices2 = array_map(function (Concept $element) {return $element->getId();}, $this->conceptRepo->findLinkableSet());
-
-
-        $choices1 = array_combine($choices1, $choices1);
-        $choices2 = array_combine($choices2, $choices2);
-
-        $builder = $this->factory->createNamedBuilder('value', 'Tool_ChoiceOrText', null, array('label' => 'element.modify',
-                                                                                                'choices' => $choices1,
-                                                                                                'textType' => 'choice',
-                                                                                                'options' => array('choices' => $choices2),));
-
-        return $builder;
-    }
 }

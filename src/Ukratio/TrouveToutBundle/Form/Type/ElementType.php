@@ -16,6 +16,7 @@ use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransforme
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
+use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
 
 use Doctrine\ORM\EntityManager;
 
@@ -23,21 +24,25 @@ class ElementType extends AbstractType
 {
     private $em;
     private $conceptRepo;
+    private $caractTypeManager;
 
-    public function __construct(EntityManager $em, ConceptRepository $conceptRepo)
+    public function __construct(EntityManager $em, ConceptRepository $conceptRepo, CaractTypeManager $caractTypeManager)
     {
         $this->em = $em;
         $this->conceptRepo = $conceptRepo;
+        $this->caractTypeManager = $caractTypeManager;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        
-        $builder->addEventSubscriber(new AddElementSubscriber($builder->getFormFactory(), $this->em, $this->conceptRepo, Type::getEnumerator($options['typeOfValue'])));
+
+        $type = Type::getEnumerator($options['typeOfValue']);
+
+        $builder->addEventSubscriber(new AddElementSubscriber($builder->getFormFactory(), $this->em, $this->conceptRepo, $type, $this->caractTypeManager));
 
         $builder->addEventSubscriber(new AddOwnerElementSubscriber($builder->getFormFactory(), $this->em));
 
-        $builder->addEventSubscriber(new AddChildElementSubscriber($builder->getFormFactory(), $this->em));
+        $builder->addEventSubscriber(new AddChildElementSubscriber($builder->getFormFactory(), $this->em, $type, $this->caractTypeManager));
 
         $builder->addModelTransformer(new TrueElementToElementTransformer($this->em));
     }

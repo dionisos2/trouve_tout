@@ -9,6 +9,21 @@
     </a>
     {% endif %}
 
+    <h3>{{ 'Categories' | trans }}</h3>
+    <ul class="concepts" data-prototype="{{ form_widget(form.moreGeneralConceptConcepts.vars.prototype)|e }}">
+      <a id="concept_all"></a>
+      <a href="#concept_all">
+        <p class="btn btn-primary">{{ 'fix' | trans }}</p>
+      </a>
+      {% for concept in form.moreGeneralConceptConcepts %}
+      <hr class="separation">
+      <li class="concept">
+        {{ form_errors(concept) }}
+        {{ form_widget(concept) }}
+      </li>
+      {% endfor %}
+    </ul>
+
     <h3>{{ 'Caracts' | trans }}</h3>
     <ul class="caracts" data-prototype="{{ form_widget(form.caracts.vars.prototype)|e }}">
       {% for caract in form.caracts %}
@@ -21,21 +36,6 @@
         <a href="#caract_{{caract.vars.value.id}}">
           <p class="btn btn-primary">{{ 'fix' | trans }}</p>
         </a>
-      </li>
-      {% endfor %}
-    </ul>
-
-    <h3>{{ 'Categories' | trans }}</h3>
-    <ul class="concepts" data-prototype="{{ form_widget(form.moreGeneralConceptConcepts.vars.prototype)|e }}">
-      <a id="concept_all"></a>
-      <a href="#concept_all">
-        <p class="btn btn-primary">{{ 'fix' | trans }}</p>
-      </a>
-      {% for concept in form.moreGeneralConceptConcepts %}
-      <hr class="separation">
-      <li class="concept">
-        {{ form_errors(concept) }}
-        {{ form_widget(concept) }}
       </li>
       {% endfor %}
     </ul>

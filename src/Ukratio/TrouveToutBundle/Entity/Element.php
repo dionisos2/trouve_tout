@@ -5,6 +5,8 @@ namespace Ukratio\TrouveToutBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Ukratio\ToolBundle\Service\AssertData;
 use Ukratio\ToolBundle\Service\ArrayHandling;
+use Ukratio\ToolBundle\Service\DataChecking;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ukratio\TrouveToutBundle\Entity\Type;
@@ -30,6 +32,7 @@ class Element
      * Dependance injection for ArrayHandling
      */
     protected static $arrayHandling = null;
+    protected static $dataChecking = null;
 
 
     private $path;
@@ -131,6 +134,11 @@ class Element
      */
     public function initialize()
     {
+
+        if (static::$dataChecking === null) {
+            static::$dataChecking = new DataChecking();
+        }
+        
         if (static::$assertData === null) {
             static::$assertData = new AssertData();
         }
@@ -219,7 +227,12 @@ class Element
      */
     public function setStandardValue($standardValue)
     {
-        $this->value = (string)round((float)$standardValue * $this->ratio, 5);
+        if (static::$dataChecking->isFloatOrInt($standardValue, true)) {
+            $this->value = (string)round((float)$standardValue * $this->ratio, 5);
+        } else {
+            $this->setValue($standardValue);
+        }
+
         return $this;
     }
 
@@ -230,7 +243,11 @@ class Element
      */
     public function getStandardValue()
     {
-        return (string)round((float)$this->value / $this->ratio, 5);
+        if (static::$dataChecking->isFloatOrInt($this->value, true)) {
+            return (string)round((float)$this->value / $this->ratio, 5);
+        } else {
+            return $this->getValue();
+        }
     }
 
     /**
