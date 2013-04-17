@@ -23,10 +23,12 @@ class SortedConceptType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $categories = $this->getSortedConcepts($options['childConcept']);
+        $categories = $this->getSortedConceptsWithSpecificities($options['childConcept'])['categories'];
+        $specificities = $this->getSortedConceptsWithSpecificities($options['childConcept'])['specificities'];
 
         $choices = array_map(function(Concept $category){return $category->getName();}, $categories);
-        $choices = array_combine($choices, $choices);
+        $choices_name = array_map(function($choice, $specificity){return $choice . '->' . round($specificity, 3);}, $choices, $specificities);
+        $choices = array_combine($choices, $choices_name);
 
         $builder->add('name', 'choice', array('choices' => $choices,
                                               'label' => ' '));
@@ -51,7 +53,7 @@ class SortedConceptType extends AbstractType
         return 'TrouveTout_SortedConcepts';
     }
 
-    private function getSortedConcepts(Concept $childConcept = null)
+    private function getSortedConceptsWithSpecificities(Concept $childConcept = null)
     {
         if ($childConcept !== null) {
             $findConnection = function (Concept $category) use ($childConcept) {
@@ -86,6 +88,7 @@ class SortedConceptType extends AbstractType
 
         usort($categories, $cmpSpecificity);
         
-        return $categories;
+        return array('categories' => $categories, 
+                     'specificities' => array_map($findConnection, $categories));
     }
 }
