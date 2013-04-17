@@ -25,7 +25,7 @@ class ConceptSeekerController extends ControllerWithTools
      *
      * @Route("/create_research", name="create_research")
      * @Method({"GET"})
-     * @Template("TrouveToutBundle:TrouveTout:createResearch.html.twig")
+     * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
      */
     public function createResearchAction()
     {

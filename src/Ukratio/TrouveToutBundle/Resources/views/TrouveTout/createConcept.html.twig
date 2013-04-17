@@ -10,17 +10,20 @@
         <h2>{{ 'Add a object' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:SetForm.html.twig" %}
     {% endif %}
+
     {% if conceptType == "Category" %}
         <h2>{{ 'Add a category' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
     {% endif %}
 
-
+    {% if conceptType == "Research" %}
+        <h2>{{ 'research.do' | trans }}</h2>
+        {% include "TrouveToutBundle:TrouveTout:ResearchForm.html.twig" %}
+    {% endif %}
 
 {% endblock %}
 
-
 {% block javascripts %}
-{{ parent() }}
-<script src="{{ asset('bundles/trouvetout/js/CaractDynamicAdd.js')}}" type="text/javascript"></script>
+        {{ parent() }}
+        {% include "TrouveToutBundle:TrouveTout:ConceptFormJavascript.html.twig" %}
 {% endblock %}

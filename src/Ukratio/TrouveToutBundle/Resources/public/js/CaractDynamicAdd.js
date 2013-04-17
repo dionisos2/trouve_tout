@@ -1,89 +1,54 @@
-var collectionHolderConcept = $('ul.concepts');
+function addButtonsForCaracts()
+{
+	var caracts;
+	var addCaractLink;
+	var addCaractLinkLi;
 
-var $addConceptLink = $('<input type="button" class="btn btn-primary" value="Ajouter une catégorie">');
-
-var collectionHolderCaract = $('ul.caracts');
-
-var $addCaractLink = $('<input type="button" class="btn btn-primary" value="Ajouter une caractéristique">');
-
-jQuery(document).ready(function() {
-
-    collectionHolderCaract.find('li.caract').each(function() {
-        addCaractFormDeleteLink($(this));
-    });		
-
-    collectionHolderCaract.append($('<li></li>').append($addCaractLink));
-
-    collectionHolderCaract.data('index', collectionHolderCaract.find(':input').length);
-
-    $addCaractLink.on('click', function(e) {
-        addCaractForm(collectionHolderCaract, $addCaractLink);
-    });
-
-    collectionHolderConcept.find('li.concept').each(function() {
-        addConceptFormDeleteLink($(this));
-    });		
+	caracts = $('ul.caracts');
+	addCaractLink = $('<input type="button" class="btn btn-primary" value="Ajouter une caractéristique">');
+	addCaractLinkLi = $('<li></li>').append(addCaractLink);
+    caracts.append(addCaractLinkLi);
 	
-    collectionHolderConcept.append($('<li></li>').append($addConceptLink));
+    caracts.find('li.caract').each(function() {
+        addDeleteCaractLink($(this));
+    });		
 
-    collectionHolderConcept.data('index', collectionHolderConcept.find(':input').length);
-
-    $addConceptLink.on('click', function(e) {
-        addConceptForm(collectionHolderConcept, $addConceptLink);
-    });
-});
-
-
-function addCaractForm(collectionHolder, $newLinkLi) {
-    var prototype = collectionHolder.data('prototype');
-
-    var index = collectionHolder.data('index');
-
-    var newForm = prototype.replace(/checkbox/g, 'checkbox" checked="checked');
-    var newForm = newForm.replace(/__name__/g, index);
-
-    collectionHolder.data('index', index + 1);
-
-    var $newFormLi = $('<li class="caract"></li>').append(newForm);
-    $newLinkLi.before($newFormLi);
-    addCaractFormDeleteLink($newFormLi);
-}
-
-
-function addCaractFormDeleteLink($caractFormLi) {
-    var $removeFormA = $('<a href="#" class="btn btn-primary">Supprimer cette caractéristique</a>');
-    $caractFormLi.append($removeFormA);
-
-    $removeFormA.on('click', function(e) {
-        e.preventDefault();
-
-        $caractFormLi.remove();
+    addCaractLink.on('click', function(e) {
+        addCaract(caracts, addCaractLinkLi);
     });
 }
 
 
+function addCaract(caracts, addCaractLinkLi) {
+	var prototype;
+	var index;
+	var newForm;
+	var newFormL;
 
-function addConceptForm(collectionHolder, $newLinkLi) {
-    var prototype = collectionHolder.data('prototype');
+    prototype = caracts.data('prototype');
 
-    var index = collectionHolder.data('index');
+    index = caracts.find('.caract').length;
+	
+    caractForm = prototype.replace(/__name__/g, index);
 
-    var newForm = prototype.replace(/__name__/g, index);
+    caractFormLi = $('<li class="caract"></li>').append(caractForm);
+    caractFormLi.find('[id*=selected]').attr('checked', 'checked');
+    addDeleteCaractLink(caractFormLi);
 
-    collectionHolder.data('index', index + 1);
-
-    var $newFormLi = $('<li></li>').append(newForm);
-    $newLinkLi.before($newFormLi);
-    addConceptFormDeleteLink($newFormLi);
+    caractFormLi.insertBefore(addCaractLinkLi);
 }
 
 
-function addConceptFormDeleteLink($conceptFormLi) {
-    var $removeFormA = $('<a href="#" class="btn btn-primary">Supprimer cette catégorie</a>');
-    $conceptFormLi.append($removeFormA);
+function addDeleteCaractLink(caractFormLi) {
+	var deleteCaractLink;
 
-    $removeFormA.on('click', function(e) {
-        e.preventDefault();
-        $conceptFormLi.remove();
+    deleteCaractLink = $('<a href="#" class="btn btn-primary">Supprimer cette caractéristique</a>');
+
+    deleteCaractLink.on('click', function(event) {
+        event.preventDefault();
+        caractFormLi.remove();
     });
+
+    caractFormLi.append(deleteCaractLink);
+
 }
