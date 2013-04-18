@@ -33,6 +33,9 @@ function addCaract(caracts, addCaractLinkLi) {
 
     caractFormLi = $('<li class="caract"></li>').append(caractForm);
     caractFormLi.find('[id*=selected]').attr('checked', 'checked');
+
+    caractFormLi.find('[id*=byDefault]').attr('checked', 'checked');
+
     addDeleteCaractLink(caractFormLi);
 
     caractFormLi.insertBefore(addCaractLinkLi);

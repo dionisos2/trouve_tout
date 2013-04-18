@@ -12,10 +12,12 @@ use Symfony\Component\Finder\Finder;
 class ElementManager
 {
     private $rootDir;
+    private $imageError;
 
     public function __construct($rootDir)
     {
         $this->rootDir = $rootDir;
+        $this->imageError = $this->rootDir . '/../web/img/error.jpeg';
     }
 
     public function filesIn(Element $element, $isChild)
@@ -37,8 +39,13 @@ class ElementManager
             $values = array_slice($values, 0, -1);
             $imagesPath = $this->rootDir . '/../web/img/' . implode('/', $values);
         }
+        
+        if (file_exists($imagesPath)) {
+            $finder->in($imagesPath)->depth("== 0");
+        } else {
+            $finder = array();
+        }
 
-        $finder->in($imagesPath)->depth("== 0");
 
         $choices = array();
         foreach ($finder as $file) {
