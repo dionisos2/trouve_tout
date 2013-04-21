@@ -1,4 +1,10 @@
 $(document).ready(function() {
-	addButtonsForCaracts();
-	addButtonsForCategories();
+	var caractsManager;
+	var categoriesManager;
+
+	caractsManager = new CaractsManager();
+	caractsManager.addButtonsForDynamicForms();
+
+	categoriesManager = new CategoriesManager();
+	categoriesManager.addButtonsForDynamicForms();
 });
