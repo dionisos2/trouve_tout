@@ -15,11 +15,11 @@
       <a href="#concept_all">
         <p class="btn btn-primary">{{ 'fix' | trans }}</p>
       </a>
-      {% for concept in form.moreGeneralConceptConcepts %}
+      {% for category in form.moreGeneralConceptConcepts %}
       <hr class="separation">
-      <li class="concept">
-        {{ form_errors(concept) }}
-        {{ form_widget(concept) }}
+      <li class="category">
+        {{ form_errors(category) }}
+        {{ form_widget(category) }}
       </li>
       {% endfor %}
     </ul>

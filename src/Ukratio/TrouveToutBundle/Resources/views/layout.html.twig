@@ -34,7 +34,8 @@
 {% block javascripts %}
 {{ parent() }}
 
-<script src="{{ asset('bundles/trouvetout/js/jquery-1.9.1.min.js') }}"></script>
+    <script src="{{ asset('bundles/trouvetout/js/jquery-1.9.1.js') }}"></script>
+    {% include 'TrouveToutBundle:TrouveTout:phpTojs.js.twig' %}
 
 {% endblock %}
   

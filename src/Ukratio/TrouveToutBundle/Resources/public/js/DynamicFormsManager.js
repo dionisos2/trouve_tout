@@ -7,8 +7,8 @@ function DynamicFormsManager(ulName, liName, buttonAddFormValue, buttonDeleteFor
 
 	this.addDynamicFormLink = $('<input type="button" class="btn btn-primary" value="' + buttonAddFormValue + '">');
 
-	self = this; // for that the closure are wellformed
-    this.addDynamicFormLink.on('click', function(e) {
+	self = this; // so that the closure are wellformed
+    this.addDynamicFormLink.on('click', function(event) {
         self.addDynamicForm();
     });
 	this.addDynamicFormLinkLi = $('<li></li>').append(this.addDynamicFormLink);
@@ -22,11 +22,10 @@ function DynamicFormsManager(ulName, liName, buttonAddFormValue, buttonDeleteFor
 
 
 DynamicFormsManager.prototype.addButtonsForDynamicForms = function () {
-
+	var self = this;
     this.dynamicForms.append(this.addDynamicFormLinkLi);
-	
     this.dynamicForms.find('li.' + this.liName).each(function() {
-        this.addDeleteDynamicFormLink($(this));
+        self.addDeleteDynamicFormLink($(this));
     });		
 }
 
@@ -36,6 +35,7 @@ DynamicFormsManager.prototype.addDynamicForm = function () {
 	var dynamicFormLi;
 
 	this.numberOfForm++;
+
 	dynamicForm = this.symfonyPrototype.replace(/__name__/g, this.numberOfForm);
 
     dynamicFormLi = $('<li class="' + this.liName + '"></li>').append(dynamicForm);

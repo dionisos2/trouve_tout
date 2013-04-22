@@ -17,6 +17,8 @@ use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\ToolBundle\Form\Type\EnumType;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddValueSubscriber;
 use Ukratio\TrouveToutBundle\Form\EventListener\SpecifyCaractSubscriber;
+
+
 class CaractType extends AbstractType
 {
 
