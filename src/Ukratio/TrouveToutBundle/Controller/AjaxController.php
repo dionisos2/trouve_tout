@@ -28,10 +28,27 @@ class AjaxController extends ControllerWithTools
      */
     public function createCategoryAction()
     {
-        $elementList = $_POST['elementList'];
-        $elementList["test"] = "anuritse";
+        $elementRepo = $this->getDoctrine()->getRepository('TrouveToutBundle:Element');
 
-        return new Response(json_encode($elementList));
+        $elementList = $_POST['completeElement'];
+        $type = $_POST['type'];
+
+        $element = $elementRepo->findByPath($elementList, true);
+        
+        if($element !== null) {
+            $elements = $elementRepo->findMoreSpecifics($element);
+        } else {
+            return new Response(json_encode(array()));
+        }
+
+        $elementNames = array();
+        foreach ($elements as $element) {
+            $elementNames[] = $element->getValue();
+        }
+
+        $elementNames = array_combine($elementNames, $elementNames);
+
+        return new Response(json_encode($elementNames));
     }
 
 }

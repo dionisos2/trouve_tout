@@ -22,27 +22,23 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
 
 CaractsManager.prototype.addOnChangeEvent = function (caractFormLinkLi) {
 	var self = this;
-	var parentElements;
-
-	parentElements = this.getParentElement(caractFormLinkLi);
 
 	caractFormLinkLi.find('[id$=value_value]').on('change', function (event)
 												  {
-													  self.modifyValue($(this), parentElements);
+													  self.modifyValue(caractFormLinkLi);
 												  }
 												 );
 
 	caractFormLinkLi.find('[id$=value_childElement]').on('change', function (event)
 														 {
-															 self.specifyValue($(this), parentElements);
+															 self.specifyValue(caractFormLinkLi);
 														 }
 														);
 }
 
-CaractsManager.prototype.getParentElement = function (caractForm) {
-	var parentElements = {};
+CaractsManager.prototype.getParentElements = function (caractForm) {
+	var parentElements = [];
 	var parentBalises = caractForm.find('input[id*=value_element]');
-	var parent;
 
 	$.each(parentBalises, 
 		   function (index, value) {
@@ -50,49 +46,47 @@ CaractsManager.prototype.getParentElement = function (caractForm) {
 		   }
 		  );
 
+	parentElements.reverse();
+	
 	return parentElements;
 }
 
 CaractsManager.prototype.getElement = function(caractForm, specified) {
-	var data;
-	return {ei:"auie",
-			uei:"eiu",
-			aue:"aue"};
+	var element;
+	var valueForm;
 
-	if (caractForm.get(0).tagName == 'DIV') {
-		var test = caractForm.find('[id$=_choice]');
-		var hum = caractForm.find('[id$=_choice] option:selected').val();
-		if (caractForm.find('[id$=_choice] option:selected').val() == 'other') {
-			data = caractForm.find('[id$=_text]').val();
+	valueForm = caractForm.find('[id$=value_value]');
+
+	if (valueForm.get(0).tagName == 'DIV') {
+		if (valueForm.find('[id$=_choice] option:selected').val() == 'other') {
+			element = valueForm.find('[id$=_text]').val();
 		} else {
-			data = caractForm.find('[id$=_choice] option:selected').val();
+			element = valueForm.find('[id$=_choice] option:selected').val();
 		}
 	} else {
-		data = caractForm.val();
+		element = valueForm.val();
 	}
 
-	return data;
+	return element;
 }
 
-CaractsManager.prototype.modifyValue = function (caractForm, parentElements) {
-	var data;
+CaractsManager.prototype.modifyValue = function (caractForm) {
+	var completeElement;
 	var self = this;
-
-	data = $.extend(parentElements, this.getElement(caractForm, false));
 	
-	for (var index in data) {
-		alert(index + "->" + data[index]);
-	}	
+	completeElement = this.getParentElements(caractForm);
+	completeElement.push(this.getElement(caractForm, false));
 
-	if (typeof(data) !== 'undefined') {
+	if (typeof(completeElement) !== 'undefined') {
 		$.ajax({
 			type: 'POST',
 			url: ajaxUrl,
 			dataType: 'json',
-			data: {elementList: data},
+			data: {completeElement: completeElement,
+				   type: caractForm.find('[id$=type]').val()},
 
-			success: function(data, textStatus, jqXHR) {
-				self.updateChildElement(data);
+			success: function(elementsList, textStatus, jqXHR) {
+				self.updateChildElement(caractForm, elementsList);
 			},
 
 			error: function(jqXHR, textStatus, errorThrown) {
@@ -102,9 +96,37 @@ CaractsManager.prototype.modifyValue = function (caractForm, parentElements) {
 	}
 }
 
-CaractsManager.prototype.updateChildElement = function (data) {
+CaractsManager.prototype.getChildForm = function (caractForm) {
+	
+	if (caractForm.find('[id$=value_childElement_choice]').length > 0) {
+		return caractForm.find('[id$=value_childElement_choice]');
+	} else {
+		return caractForm.find('[id$=value_childElement]');
+	}
+}
+
+CaractsManager.prototype.updateChildElement = function (caractForm, elementsList) {
 	var childIndex;
-	// for (childIndex in data) {
-	// 	alert(childIndex + "->" + data[childIndex]);
+	var childFormSelect;
+	var options;
+
+	
+	childFormSelect = this.getChildForm(caractForm);
+
+	$('option', childFormSelect).remove();
+
+	if(childFormSelect.prop) {
+	  options = childFormSelect.prop('options');
+	}
+	else {
+	  options = childFormSelect.attr('options');
+	}
+
+	$.each(elementsList, function(value, text) {
+		options[options.length] = new Option(text, value);
+	});
+	
+	// for (childIndex in elementsList) {
+	// 	alert(childIndex + "->" + elementsList[childIndex]);
 	// }
 }
