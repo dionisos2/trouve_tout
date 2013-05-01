@@ -23,9 +23,6 @@ services:
         class: Ukratio\TrouveToutBundle\Service\Tools
         arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept]
 
-    TrouveTout.ConceptTypeFunctions:
-        class: Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions
-
     TrouveTout.form.caract:
         class: Ukratio\TrouveToutBundle\Form\Type\CaractType
         arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept, @tool.data_checking]
@@ -40,19 +37,19 @@ services:
 
     TrouveTout.form.set:
         class: Ukratio\TrouveToutBundle\Form\Type\SetType
-        arguments: [@doctrine.orm.entity_manager, @TrouveTout.ConceptTypeFunctions]
+        arguments: [@doctrine.orm.entity_manager]
         tags: 
             - {name: form.type, alias: TrouveTout_Set}
 
     TrouveTout.form.category:
         class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
-        arguments: [@doctrine.orm.entity_manager, @TrouveTout.ConceptTypeFunctions]
+        arguments: [@doctrine.orm.entity_manager]
         tags: 
             - {name: form.type, alias: TrouveTout_Category}
 
     TrouveTout.form.research:
         class: Ukratio\TrouveToutBundle\Form\Type\ResearchType
-        arguments: [@doctrine.orm.entity_manager, @TrouveTout.ConceptTypeFunctions]
+        arguments: [@doctrine.orm.entity_manager]
         tags: 
             - {name: form.type, alias: TrouveTout_Research}
 

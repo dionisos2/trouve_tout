@@ -9,39 +9,27 @@ use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
 use Doctrine\ORM\EntityRepository;
-use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
 use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\Discriminator;
 
-class SetType extends AbstractType
+class SetType extends ConceptType
 {
-    private $em;
-    private $ctf;
-        
-    public function __construct(EntityManager $em, ConceptTypeFunctions $ctf)
+    public function __construct(EntityManager $em)
     {
-        $this->em = $em;
-        $this->ctf = $ctf;
+        parent::__construct($em, Discriminator::$Set);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
 
         $builder->add('name', 'text', array('required' => false))
                 ->add('linkable', 'checkbox', array('required' => false,))
                 ->add('number', 'integer', array('invalid_message' => 'concept.integer.invalid'));
 
-        $this->ctf->addCaracts($builder);
-
 
         $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
         $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ukratio\TrouveToutBundle\Entity\Concept'
-        ));
     }
 
     public function getName()

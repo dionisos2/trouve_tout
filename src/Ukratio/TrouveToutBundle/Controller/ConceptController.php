@@ -105,6 +105,8 @@ class ConceptController extends ControllerWithTools
         $form = $cfc->createForm($concept);
 
         $form->bind($request);
+
+
         if ($form->isValid()) {
             $cfc->saveConcept($concept);
 

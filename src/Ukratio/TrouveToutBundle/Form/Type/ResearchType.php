@@ -12,20 +12,17 @@ use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
 use Ukratio\ToolBundle\Form\Type\EnumType;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
 
-class ResearchType extends AbstractType
+class ResearchType extends ConceptType
 {
-
-    private $em;
-    private $ctf;
-        
-    public function __construct(EntityManager $em, ConceptTypeFunctions $ctf)
+    public function __construct(EntityManager $em)
     {
-        $this->em = $em;
-        $this->ctf = $ctf;
+        parent::__construct($em, Discriminator::$Research);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
+
         $linkableChoices = array('all', 'linkable', 'unlinkable');
         $linkableChoices = array_combine($linkableChoices, $linkableChoices);
         
@@ -36,16 +33,7 @@ class ResearchType extends AbstractType
                 ->add('researchedNumber', 'text', array('required' => false))
                 ->add('researchedName', 'text', array('required' => false));
 
-        $this->ctf->addCaracts($builder, Discriminator::$Research);
-
         $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ukratio\TrouveToutBundle\Entity\Concept'
-        ));
     }
 
     public function getName()

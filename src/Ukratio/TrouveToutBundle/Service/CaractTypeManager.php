@@ -43,7 +43,7 @@ class CaractTypeManager
                 $builder = $this->factory->createNamedBuilder($name, 'Tool_ChoiceOrText', null, array('label' => $label,               
                                                                                                       'property_path' => 'standardValue',
                                                                                                       'choices' => $choices,
-                                                                                                      'invalid_message' => 'elemoment.number.invalid',
+                                                                                                      'invalid_message' => 'element.number.invalid',
                                                                                                       'mapped' => $mapped));
                 break;
             case Type::$picture:

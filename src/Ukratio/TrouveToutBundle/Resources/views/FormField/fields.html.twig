@@ -65,6 +65,37 @@
 {% endspaceless %}
 {% endblock %}
 
-{% block TrouveTout_Set_widget %}
 
+{% macro addPrototype(context) %}
+
+data-prototype_specify_name="{{ form_row(context.prototype_specify_name) | trans({}, context.translation_domain)}}"
+data-prototype_specify_number="{{ form_row(context.prototype_specify_number) | trans({}, context.translation_domain)}}"
+data-prototype_specify_picture="{{ form_row(context.prototype_specify_picture) | trans({}, context.translation_domain)}}"
+data-prototype_specify_object="{{ form_row(context.prototype_specify_object) | trans({}, context.translation_domain)}}"
+data-prototype_specify_text="{{ form_row(context.prototype_specify_text) | trans({}, context.translation_domain)}}"
+
+{% endmacro %}
+
+{% block TrouveTout_Set_enctype %}
+{% import _self as __self %}
+{% spaceless %}
+{{ parent() }}
+{{ __self.addPrototype(_context) }}
+{% endspaceless %}
+{% endblock %}
+
+{% block TrouveTout_Category_widget %}
+{% import _self as __self %}
+{% spaceless %}
+{{ parent() }}
+{{ __self.addPrototype(_context) }}
+{% endspaceless %}
+{% endblock %}
+
+{% block TrouveTout_Research_widget %}
+{% import _self as __self %}
+{% spaceless %}
+{{ parent() }}
+{{ __self.addPrototype(_context) }}
+{% endspaceless %}
 {% endblock %}

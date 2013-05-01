@@ -38,10 +38,10 @@ class AjaxController extends ControllerWithTools
         if($element !== null) {
             $elements = $elementRepo->findMoreSpecifics($element);
         } else {
-            return new Response(json_encode(array()));
+            return new Response(json_encode(array('other' => 'other')));
         }
 
-        $elementNames = array();
+        $elementNames = array('other' => 'other');
         foreach ($elements as $element) {
             $elementNames[] = $element->getValue();
         }
