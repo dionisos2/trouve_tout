@@ -50,8 +50,8 @@ linkable: liable
 Linkable: Liable
 unlinkable: 'non liable'
 'This site was created by a ucratique community': 'Ce site a été créé par une communauté ucratique'
-Type: Type
-Name: Nom
+Type: 'Type: '
+Name: 'Nom: '
 name: nom
 Value: Valeur
 picture: image

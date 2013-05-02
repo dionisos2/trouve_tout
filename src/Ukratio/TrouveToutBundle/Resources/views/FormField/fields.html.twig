@@ -25,8 +25,15 @@
 {% spaceless %}
 {{ parent() }}
 
-{{ form_row(form.name) }}
-{{ form_row(form.type) }}
+
+<div class="enligne">
+{% endspaceless %}
+{{ form_row(form.name) }} {{ form_row(form.type) }}
+{% spaceless %}
+</div>
+
+
+
 {% if form.value is defined %}
 {{ form_row(form.value) }}
 {% else %}
