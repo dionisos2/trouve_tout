@@ -45,6 +45,7 @@ DynamicFormsManager.prototype.addDynamicForm = function () {
     this.addDeleteDynamicFormLink(dynamicFormLi);
 
     dynamicFormLi.insertBefore(this.addDynamicFormLinkLi);
+	return {'dynamicFormLi':dynamicFormLi, 'index':this.numberOfForm};
 }
 
 

@@ -43,14 +43,14 @@ class AddChildElementSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
 
         $dataTransformer = new StringToChoiceOrTextTransformer(array());
-        if (isset($data['childElement'])) {
-            if (is_array($data['childElement'])) {
-                $choices = array($data['childElement']['choice'] => $data['childElement']['choice']); // avoid TransformationFailedException exception…
-                $builder = $this->factory->createNamedBuilder('childElement', 'Tool_ChoiceOrText', null, array('label' => 'element.specify',
+        if (isset($data['childValue'])) {
+            if (is_array($data['childValue'])) {
+                $choices = array($data['childValue']['choice'] => $data['childValue']['choice']); // avoid TransformationFailedException exception…
+                $builder = $this->factory->createNamedBuilder('childValue', 'Tool_ChoiceOrText', null, array('label' => 'element.specify',
                                                                                                                'choices' => $choices,
                                                                                                                'mapped' => false));
             } else {
-                $builder = $this->factory->createNamedBuilder('childElement', 'textarea', null, array('label' => 'element.specify',
+                $builder = $this->factory->createNamedBuilder('childValue', 'textarea', null, array('label' => 'element.specify',
                                                                                                       'mapped' => false,
                                                                                                       'required' => false));
             }

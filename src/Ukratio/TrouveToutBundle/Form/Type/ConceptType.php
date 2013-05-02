@@ -42,11 +42,19 @@ abstract class ConceptType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
 
-        $view->vars['prototype_specify_name'] = $form->getConfig()->getAttribute('prototype_specify_name')->createView($view);
-        $view->vars['prototype_specify_number'] = $form->getConfig()->getAttribute('prototype_specify_number')->createView($view);
-        $view->vars['prototype_specify_picture'] = $form->getConfig()->getAttribute('prototype_specify_picture')->createView($view);
-        $view->vars['prototype_specify_object'] = $form->getConfig()->getAttribute('prototype_specify_object')->createView($view);
-        $view->vars['prototype_specify_text'] = $form->getConfig()->getAttribute('prototype_specify_text')->createView($view);
+        $view->vars['prototypeOfChildValueName'] = $form->getConfig()->getAttribute('prototypeOfChildValueName')->createView($view);
+        $view->vars['prototypeOfChildValueNumber'] = $form->getConfig()->getAttribute('prototypeOfChildValueNumber')->createView($view);
+        $view->vars['prototypeOfChildValuePicture'] = $form->getConfig()->getAttribute('prototypeOfChildValuePicture')->createView($view);
+        $view->vars['prototypeOfChildValueObject'] = $form->getConfig()->getAttribute('prototypeOfChildValueObject')->createView($view);
+        $view->vars['prototypeOfChildValueText'] = $form->getConfig()->getAttribute('prototypeOfChildValueText')->createView($view);
+
+        $view->vars['prototypeOfValueName'] = $form->getConfig()->getAttribute('prototypeOfValueName')->createView($view);
+        $view->vars['prototypeOfValueNumber'] = $form->getConfig()->getAttribute('prototypeOfValueNumber')->createView($view);
+        $view->vars['prototypeOfValuePicture'] = $form->getConfig()->getAttribute('prototypeOfValuePicture')->createView($view);
+        $view->vars['prototypeOfValueObject'] = $form->getConfig()->getAttribute('prototypeOfValueObject')->createView($view);
+        $view->vars['prototypeOfValueText'] = $form->getConfig()->getAttribute('prototypeOfValueText')->createView($view);
+
+        $view->vars['prototypeOfOwnerElement'] = $form->getConfig()->getAttribute('prototypeOfOwnerElement')->createView($view);
 
     }
 
@@ -64,26 +72,52 @@ abstract class ConceptType extends AbstractType
 
     public function addPrototypes(FormBuilderInterface $builder) 
     {
+        $optionsTextChildValue = array('choices' => array(),
+                                       'label' => 'element.specify');
 
-        $optionsLabel = array('label' => 'element.specify');
-        $optionsText = array('choices' => array(),
-                             'label' => 'element.specify');
+        $optionsChoiceChildValue = array('choices' => array(),
+                                         'label' => 'element.specify',
+                                         'textType' => 'choice');
 
-        $optionsChoice = array('choices' => array(),
-                               'label' => 'element.specify',
-                               'textType' => 'choice');
+        $optionsTextValue = array('choices' => array(),
+                                  'label' => 'element.modify');
 
-        $prototype_specify_name = $builder->create('childElement', 'Tool_ChoiceOrText', $optionsText);
-        $prototype_specify_number = $builder->create('childElement', 'Tool_ChoiceOrText', $optionsText);
-        $prototype_specify_picture = $builder->create('childElement', 'choice', $optionsText);
-        $prototype_specify_object = $builder->create('childElement', 'Tool_ChoiceOrText', $optionsChoice);
-        $prototype_specify_text = $builder->create('childElement', 'textarea', $optionsLabel);
+        $optionsChoiceValue = array('choices' => array(),
+                                         'label' => 'element.modify',
+                                         'textType' => 'choice');
 
-        $builder->setAttribute('prototype_specify_name', $prototype_specify_name->getForm());
-        $builder->setAttribute('prototype_specify_number', $prototype_specify_number->getForm());
-        $builder->setAttribute('prototype_specify_picture', $prototype_specify_picture->getForm());
-        $builder->setAttribute('prototype_specify_object', $prototype_specify_object->getForm());
-        $builder->setAttribute('prototype_specify_text', $prototype_specify_text->getForm());
+        $optionsElement = array('label' => ' ',
+                                'read_only' => true,
+                                'mapped' => false,
+        );
+
+        $prototypeOfChildValueName = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
+        $prototypeOfChildValueNumber = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
+        $prototypeOfChildValuePicture = $builder->create('__name__', 'choice', $optionsTextChildValue);
+        $prototypeOfChildValueObject = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsChoiceChildValue);
+        $prototypeOfChildValueText = $builder->create('__name__', 'textarea', array('label' => 'element.specify'));
+
+        $prototypeOfValueName = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
+        $prototypeOfValueNumber = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
+        $prototypeOfValuePicture = $builder->create('__name__', 'choice', $optionsTextValue);
+        $prototypeOfValueObject = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsChoiceValue);
+        $prototypeOfValueText = $builder->create('__name__', 'textarea', array('label' => 'element.modify'));
+
+        $prototypeOfOwnerElement = $builder->create('__name__', 'text',  $optionsElement);
+
+        $builder->setAttribute('prototypeOfChildValueName', $prototypeOfChildValueName->getForm());
+        $builder->setAttribute('prototypeOfChildValueNumber', $prototypeOfChildValueNumber->getForm());
+        $builder->setAttribute('prototypeOfChildValuePicture', $prototypeOfChildValuePicture->getForm());
+        $builder->setAttribute('prototypeOfChildValueObject', $prototypeOfChildValueObject->getForm());
+        $builder->setAttribute('prototypeOfChildValueText', $prototypeOfChildValueText->getForm());
+
+        $builder->setAttribute('prototypeOfValueName', $prototypeOfValueName->getForm());
+        $builder->setAttribute('prototypeOfValueNumber', $prototypeOfValueNumber->getForm());
+        $builder->setAttribute('prototypeOfValuePicture', $prototypeOfValuePicture->getForm());
+        $builder->setAttribute('prototypeOfValueObject', $prototypeOfValueObject->getForm());
+        $builder->setAttribute('prototypeOfValueText', $prototypeOfValueText->getForm());
+
+        $builder->setAttribute('prototypeOfOwnerElement', $prototypeOfOwnerElement->getForm());
     }
 
     public function getDiscriminator()

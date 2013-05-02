@@ -4,15 +4,17 @@
 {% spaceless %}
 {{ parent() }}
 
-<div class="enligne">
-  {% for child in form.children %}
-  {% if child.name == 'childElement' %}
-  {{ form_row(child) }}
+<div class="enligne" id="childValueDiv">
+  {% if form.childValue is defined%}
+  {{ form_row(form.childValue) }}
   {% endif %}
-  {% endfor %}
 </div>
 
-<div class="enligne">
+<div class="enligne" id="valueDiv">
+  {{ form_row(form.value) }}
+</div>
+
+<div class="enligne" id="restDiv">
   {{ form_rest(form) }}
 </div>
 
@@ -27,6 +29,16 @@
 {{ form_row(form.type) }}
 {% if form.value is defined %}
 {{ form_row(form.value) }}
+{% else %}
+<div>
+  <label class="required">{{'Value' | trans}}</label>
+  <div id="childValueDiv" class="enligne">
+  </div>
+  <div id="valueDiv" class="enligne">
+  </div>
+  <div id="restDiv" class="enligne">
+  </div>
+</div>
 {% endif %}
 
 
@@ -46,6 +58,24 @@
   {{ form_row(form.unit) }}
 {% endif %}
 </div>
+
+{% if form.selected is defined %}
+<div class="enligne">
+{{ form_row(form.selected) }}
+</div>
+{% endif %}
+
+{% if form.byDefault is defined %}
+<div class="enligne">
+{{ form_row(form.byDefault) }}
+</div>
+{% endif %}
+
+{% if form.specificity is defined %}
+<div class="enligne">
+{{ form_row(form.specificity) }}
+</div>
+{% endif %}
 
 {{ form_rest(form) }}
 {% endspaceless %}
@@ -68,11 +98,19 @@
 
 {% macro addPrototype(context) %}
 
-data-prototype_specify_name="{{ form_row(context.prototype_specify_name) | trans({}, context.translation_domain)}}"
-data-prototype_specify_number="{{ form_row(context.prototype_specify_number) | trans({}, context.translation_domain)}}"
-data-prototype_specify_picture="{{ form_row(context.prototype_specify_picture) | trans({}, context.translation_domain)}}"
-data-prototype_specify_object="{{ form_row(context.prototype_specify_object) | trans({}, context.translation_domain)}}"
-data-prototype_specify_text="{{ form_row(context.prototype_specify_text) | trans({}, context.translation_domain)}}"
+data-prototype of child value name="{{ form_row(context.prototypeOfChildValueName) | trans({}, context.translation_domain)}}"
+data-prototype of child value number="{{ form_row(context.prototypeOfChildValueNumber) | trans({}, context.translation_domain)}}"
+data-prototype of child value picture="{{ form_row(context.prototypeOfChildValuePicture) | trans({}, context.translation_domain)}}"
+data-prototype of child value object="{{ form_row(context.prototypeOfChildValueObject) | trans({}, context.translation_domain)}}"
+data-prototype of child value text="{{ form_row(context.prototypeOfChildValueText) | trans({}, context.translation_domain)}}"
+
+data-prototype of value name="{{ form_row(context.prototypeOfValueName) | trans({}, context.translation_domain)}}"
+data-prototype of value number="{{ form_row(context.prototypeOfValueNumber) | trans({}, context.translation_domain)}}"
+data-prototype of value picture="{{ form_row(context.prototypeOfValuePicture) | trans({}, context.translation_domain)}}"
+data-prototype of value object="{{ form_row(context.prototypeOfValueObject) | trans({}, context.translation_domain)}}"
+data-prototype of value text="{{ form_row(context.prototypeOfValueText) | trans({}, context.translation_domain)}}"
+
+data-prototype of owner element="{{ form_row(context.prototypeOfOwnerElement) | trans({}, context.translation_domain)}}"
 
 {% endmacro %}
 
@@ -84,7 +122,7 @@ data-prototype_specify_text="{{ form_row(context.prototype_specify_text) | trans
 {% endspaceless %}
 {% endblock %}
 
-{% block TrouveTout_Category_widget %}
+{% block TrouveTout_Category_enctype %}
 {% import _self as __self %}
 {% spaceless %}
 {{ parent() }}
@@ -92,7 +130,7 @@ data-prototype_specify_text="{{ form_row(context.prototype_specify_text) | trans
 {% endspaceless %}
 {% endblock %}
 
-{% block TrouveTout_Research_widget %}
+{% block TrouveTout_Research_enctype %}
 {% import _self as __self %}
 {% spaceless %}
 {{ parent() }}

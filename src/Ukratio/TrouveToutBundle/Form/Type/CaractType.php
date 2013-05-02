@@ -72,16 +72,20 @@ class CaractType extends AbstractType
 
         if ($options['parentType'] === Discriminator::$Set) {
             $builder->add('selected', 'checkbox', array('required' => false,
-                                                        'attr' => $attr));
+                                                        'attr' => $attr,
+                                                        'label' => 'caract.selected'));
         }
         
         if ($options['parentType'] === Discriminator::$Category) {
             $builder->add('selected', 'checkbox', array('required' => false,
-                                                        'attr' => $attr));
+                                                        'attr' => $attr,
+                                                        'label' => 'caract.selected'));
             $builder->add('byDefault', 'checkbox', array('required' => false,
-                                                         'attr' => $attr));
+                                                         'attr' => $attr,
+                                                         'label' => 'caract.byDefault'));
             $builder->add('specificity', null, array('required' => false,
-                                                     'read_only' => true));
+                                                     'read_only' => true,
+                                                     'label' => 'caract.specificity'));
         }
 
         if ($options['display_type'] == 'show') {

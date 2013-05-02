@@ -26,19 +26,23 @@ class AjaxController extends ControllerWithTools
      * @Route("/ajax_modify_caract", name="ajax_modify_caract")
      * @Method({"POST"})
      */
-    public function createCategoryAction()
+    public function ajaxModifyCaract()
     {
         $elementRepo = $this->getDoctrine()->getRepository('TrouveToutBundle:Element');
 
         $elementList = $_POST['completeElement'];
         $type = $_POST['type'];
 
-        $element = $elementRepo->findByPath($elementList, true);
-        
-        if($element !== null) {
-            $elements = $elementRepo->findMoreSpecifics($element);
+        if ($elementList == 'empty') {
+            $elements = $elementRepo->findHeads();
         } else {
-            return new Response(json_encode(array('other' => 'other')));
+            $element = $elementRepo->findByPath($elementList, true);
+
+            if($element !== null) {
+                $elements = $elementRepo->findMoreSpecifics($element);
+            } else {
+                return new Response(json_encode(array('other' => 'other')));
+            }
         }
 
         $elementNames = array('other' => 'other');

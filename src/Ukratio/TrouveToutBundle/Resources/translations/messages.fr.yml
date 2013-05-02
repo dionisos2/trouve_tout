@@ -57,9 +57,9 @@ Value: Valeur
 picture: image
 object: objet
 text: texte
-Selected: Sélectionné
-Bydefault: 'Par défaut'
-Specificity: Spécificité
+caract.selected: 'Sélectionné: '
+caract.bydefault: 'Par défaut: '
+caract.specificity: 'Spécificité: '
 Number: Nombre
 number: nombre
 Researchedlinkable: Connectabilité

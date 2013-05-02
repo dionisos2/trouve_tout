@@ -43,30 +43,26 @@ class AddOwnerElementSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $index = 0;
+
         $choices = array(0);
         if ($data->getPath() === null) {
             $data->initPaths();
         }
 
-        foreach (array_slice($data->getPath(), 1) as $pathElement) {
+        $ownerElements = array_slice($data->getPath(), 1);
+        $index = count($ownerElements) - 1;
+        foreach ($ownerElements as $pathElement) {
             $optionsElement = array('label' => ' ',
-                             'disabled' => true,
+                             'read_only' => true,
                              'mapped' => false,
             );
 
             
             $builder = $this->factory->createNamedBuilder("element_$index", 'text', $pathElement, $optionsElement);
             $form->add($builder->getForm());
-            $index += 1;
+            $index -= 1;
             $choices[] = $index;
         }
 
-        if ($index > 0) {
-            $builder = $this->factory->createNamedBuilder('generalize', 'choice', null, array('mapped' => false,
-                                                                                              'choices' => $choices,
-                                                                                              'label' => 'element.generalize'));
-            $form->add($builder->getForm());
-        }
     }
 }

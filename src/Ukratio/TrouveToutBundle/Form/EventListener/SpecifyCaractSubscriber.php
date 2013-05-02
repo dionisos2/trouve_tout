@@ -41,12 +41,12 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (($caract->getValue() === null)||(! $form->get('value')->has('childElement'))) {
+        if (($caract->getValue() === null)||(! $form->get('value')->has('childValue'))) {
             return;
         }
         
         $element = $form->get('value')->getData();
-        $childElementName = $form->get('value')->get('childElement')->getData();
+        $childValueName = $form->get('value')->get('childValue')->getData();
 
         if ($form->get('value')->has('generalize')) {
             $generalize = $form->get('value')->get('generalize')->getData();
@@ -55,28 +55,28 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
         }
 
         if ($element->getPath() != null) {
-            if ($childElementName != null) {
-                $this->specify($caract, $element, $childElementName);
+            if ($childValueName != null) {
+                $this->specify($caract, $element, $childValueName);
             } elseif ($generalize != 0) {
                 $this->generalize($caract, $element, $generalize);
             } //else modification
         }// else creation
     }
     
-    private function specify(Caract $caract, Element $element, $childElementName)
+    private function specify(Caract $caract, Element $element, $childValueName)
     {
 
-        $path = array_merge(array($childElementName) ,$element->getPath());
+        $path = array_merge(array($childValueName) ,$element->getPath());
 
-        $childElement = $this->repo->findByPath($path);
+        $childValue = $this->repo->findByPath($path);
 
-        if ($childElement === null) { //création
-            $childElement = new Element();
-            $childElement->setValue($childElementName);
-            $childElement->setMoreGeneral($element);
+        if ($childValue === null) { //création
+            $childValue = new Element();
+            $childValue->setValue($childValueName);
+            $childValue->setMoreGeneral($element);
         }
 
-        $caract->setValue($childElement);
+        $caract->setValue($childValue);
     }
 
     private function generalize(Caract $caract, Element $element, $generalize)
