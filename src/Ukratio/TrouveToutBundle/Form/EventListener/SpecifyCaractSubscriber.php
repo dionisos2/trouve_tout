@@ -18,13 +18,13 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
 {
     private $factory;
     private $em;
-    private $repo;
+    private $elementRepo;
     
     public function __construct(FormFactoryInterface $factory, EntityManager $em)
     {
         $this->factory = $factory;
         $this->em = $em;
-        $this->repo = $this->em->getRepository('TrouveToutBundle:Element');
+        $this->elementRepo = $this->em->getRepository('TrouveToutBundle:Element');
     }
 
     public static function getSubscribedEvents()
@@ -41,54 +41,55 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (($caract->getValue() === null)||(! $form->get('value')->has('childValue'))) {
+        if ($form->get('value') === null) {
             return;
         }
         
         $element = $form->get('value')->getData();
-        $childValueName = $form->get('value')->get('childValue')->getData();
 
-        if ($form->get('value')->has('generalize')) {
-            $generalize = $form->get('value')->get('generalize')->getData();
+        $ownerElements = array();
+        $index = 0;
+        while ($form->get('value')->has('element_'.$index)) {
+            $ownerElements['element_'.$index] = $form->get('value')->get('element_'.$index)->getData();
+            $index++;
+        }
+
+        
+        $pathElement = array_values($ownerElements);
+
+        if ($element->getValue() != null) {
+            $pathElement[] = $element->getValue();
         } else {
-            $generalize = 0;
+            return; //the form is invalid
         }
 
-        if ($element->getPath() != null) {
-            if ($childValueName != null) {
-                $this->specify($caract, $element, $childValueName);
-            } elseif ($generalize != 0) {
-                $this->generalize($caract, $element, $generalize);
-            } //else modification
-        }// else creation
-    }
-    
-    private function specify(Caract $caract, Element $element, $childValueName)
-    {
+        $pathElement = array_reverse($pathElement);
+        
+        $trueElement = $this->elementRepo->findByPath($pathElement, true);
 
-        $path = array_merge(array($childValueName) ,$element->getPath());
-
-        $childValue = $this->repo->findByPath($path);
-
-        if ($childValue === null) { //création
-            $childValue = new Element();
-            $childValue->setValue($childValueName);
-            $childValue->setMoreGeneral($element);
+        if ($trueElement !== null) {
+            $caract->setValue($trueElement);
+        } else {//creation
+            $trueElement = $this->createElementByPath($pathElement);
+            $caract->setValue($trueElement);
         }
-
-        $caract->setValue($childValue);
     }
 
-    private function generalize(Caract $caract, Element $element, $generalize)
+    public function createElementByPath($pathElement)
     {
-        $path = array_slice($element->getPath(), $generalize);
-        $parentElement = $this->repo->findByPath($path);
-            
-        if ($parentElement === null) {
-            throw new \RuntimeException('generalized element not found, this situation is theoretically impossible');
+        $value = $pathElement[0];
+
+        $pathElement = array_slice($pathElement, 1);
+
+        $newElement = new Element($value);
+        if (count($pathElement) != 0) {
+            $element = $this->elementRepo->findByPath($pathElement, true);
+            if ($element === null) {
+                $element = $this->createElementByPath($pathElement);
+            }
+            $newElement->setMoreGeneral($element);
         }
 
-        $caract->setType(Type::$name->getName());
-        $caract->setValue($parentElement);        
+        return $newElement;
     }
 }

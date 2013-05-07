@@ -63,7 +63,6 @@ class ConceptFormManager
     public function createForm(Concept $concept)
     {
         $options = array();
-        $concept->initPaths();   
 
         $this->em->persist($concept);
 

@@ -15,6 +15,7 @@ use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
+use Ukratio\TrouveToutBundle\Entity\Type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
@@ -29,30 +30,22 @@ class AjaxController extends ControllerWithTools
     public function ajaxModifyCaract()
     {
         $elementRepo = $this->getDoctrine()->getRepository('TrouveToutBundle:Element');
+        $caractTypeManager = $this->get('TrouveTout.CaractTypeManager');
 
-        $elementList = $_POST['completeElement'];
-        $type = $_POST['type'];
+        $pathElement = $_POST['completeElement'];
+        $type = Type::getEnumerator($_POST['type']);
 
-        if ($elementList == 'empty') {
-            $elements = $elementRepo->findHeads();
-        } else {
-            $element = $elementRepo->findByPath($elementList, true);
-
-            if($element !== null) {
-                $elements = $elementRepo->findMoreSpecifics($element);
-            } else {
-                return new Response(json_encode(array('other' => 'other')));
-            }
+        if ($pathElement == 'empty') {
+            $pathElement = array();
         }
 
-        $elementNames = array('other' => 'other');
-        foreach ($elements as $element) {
-            $elementNames[] = $element->getValue();
+        $choices = $caractTypeManager->getChoicesFor($type, $pathElement);
+
+        if (in_array($type, array(Type::$name, Type::$number))) {
+            $choices = array('other' => 'other') + $choices;
         }
 
-        $elementNames = array_combine($elementNames, $elementNames);
-
-        return new Response(json_encode($elementNames));
+        return new Response(json_encode($choices));
     }
 
 }

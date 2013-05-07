@@ -2,7 +2,7 @@
 
 namespace Ukratio\TrouveToutBundle\Form\EventListener;
 
-use Symfony\Component\Form\Event\DataEvent;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
@@ -24,32 +24,44 @@ class AddOwnerElementSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        // Tells the dispatcher that you want to listen on the form.pre_set_data
-        // event and that the preSetData method should be called.
-        return array(FormEvents::PRE_SET_DATA => 'preSetData');
+        return array(FormEvents::PRE_SET_DATA => 'preSetData',
+                     FormEvents::PRE_BIND => 'preBind');
     }
 
-    public function preSetData(DataEvent $event)
+    public function preBind(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
 
-        // During form creation setData() is called with null as an argument
-        // by the FormBuilder constructor. You're only concerned with when
-        // setData is called with an actual Entity object in it (whether new
-        // or fetched with Doctrine). This if statement lets you skip right
-        // over the null condition.
+        $ownerElements = array();
+        $index = 0;
+        while (isset($data['element_'.$index])) {
+            $ownerElements['element_'.$index] = $data['element_'.$index];
+            $index++;
+        }
+
+
+        foreach ($ownerElements as $key => $ownerElement) {
+            $form->add($this->factory->createNamed($key, 'text', $ownerElement, array('mapped' => false,
+                                                                                      'label' => ' ',
+                                                                                      'read_only' => true)));
+        }
+    }
+
+    public function preSetData(FormEvent $event)
+    {
+        $data = $event->getData();
+        $form = $event->getForm();
+
         if (! $data instanceof Element) {
             return;
         }
 
 
         $choices = array(0);
-        if ($data->getPath() === null) {
-            $data->initPaths();
-        }
 
         $ownerElements = array_slice($data->getPath(), 1);
+
         $index = count($ownerElements) - 1;
         foreach ($ownerElements as $pathElement) {
             $optionsElement = array('label' => ' ',

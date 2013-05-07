@@ -102,7 +102,7 @@ CaractsManager.prototype.addOwnerElement = function (caractForm, index, value) {
 	ownerIndex = this.getParentElements(caractForm).length.toString();
 
 	ownerElementForm = this.prototypeOf['ownerElement'].replace(/__name__/g, 'caracts_' + (index).toString() + '_value_element_' + ownerIndex);
-	ownerElementForm = ownerElementForm.replace(/(name=.*?)\[.*?\]/g, '$1[caracts][' + (index).toString() + '][value][value][element_' + ownerIndex + ']');
+	ownerElementForm = ownerElementForm.replace(/(name=.*?)\[.*?\]/g, '$1[caracts][' + (index).toString() + '][value][element_' + ownerIndex + ']');
 	ownerElementForm = $(ownerElementForm); // /!\ warning here
 	ownerElementForm.find('input').val(value);
 	ownerElementForm.find('input').on('dblclick', function (event) {
@@ -127,10 +127,11 @@ CaractsManager.prototype.changeValueType = function (caractForm, index) {
 
 	this.changeOrBuildValueForm(caractForm, index, false);
 	this.changeOrBuildValueForm(caractForm, index, true);
-	this.updateValueForm(caractForm, index, false);
-	this.updateValueForm(caractForm, index, true);
 
+	this.updateValueForm(caractForm, index, false);
 	this.setValue(caractForm, value, false);
+
+	this.updateValueForm(caractForm, index, true);
 	this.setValue(caractForm, childValue, true);
 }
 
@@ -331,10 +332,16 @@ CaractsManager.prototype.updateValueFormCallBack = function (caractForm, element
 
 	$('option', formSelect).remove();
 
-	if (formSelect.is('select')) {
-		$.each(elementsList, function(value, text) {
+	if ('choices1' in elementsList) { //TOSEE ! we have to look if choices1 is a object
+		$.each(elementsList['choices1'], function(value, text) {
 			formSelect.append(new Option(text, value));
 		});
+	} else {
+		if (formSelect.is('select')) {
+			$.each(elementsList, function(value, text) {
+				formSelect.append(new Option(text, value));
+			});
+		}
 	}
 	
 }

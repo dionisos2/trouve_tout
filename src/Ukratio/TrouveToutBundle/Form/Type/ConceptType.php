@@ -73,18 +73,20 @@ abstract class ConceptType extends AbstractType
     public function addPrototypes(FormBuilderInterface $builder) 
     {
         $optionsTextChildValue = array('choices' => array(),
-                                       'label' => 'element.specify');
+                                       'label' => 'element.specify',
+                                       'required' => false);
 
         $optionsChoiceChildValue = array('choices' => array(),
                                          'label' => 'element.specify',
-                                         'textType' => 'choice');
+                                         'textType' => 'choice',
+                                         'required' => false);
 
         $optionsTextValue = array('choices' => array(),
                                   'label' => 'element.modify');
 
         $optionsChoiceValue = array('choices' => array(),
-                                         'label' => 'element.modify',
-                                         'textType' => 'choice');
+                                    'label' => 'element.modify',
+                                    'textType' => 'choice');
 
         $optionsElement = array('label' => ' ',
                                 'read_only' => true,

@@ -3,7 +3,7 @@
 namespace Ukratio\TrouveToutBundle\Form\EventListener;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\Event\DataEvent;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
@@ -30,12 +30,21 @@ class AddValueSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        // Tells the dispatcher that you want to listen on the form.post_bin
-        // event and that the setBind method should be called.
-        return array(FormEvents::PRE_SET_DATA => 'preSet');
+        return array(FormEvents::PRE_SET_DATA => 'preSet',
+                     FormEvents::PRE_BIND => 'preBind');
     }
 
-    public function preSet(DataEvent $event)
+    public function preBind(FormEvent $event)
+    {
+        $data = $event->getData();
+        $form = $event->getForm();
+        
+        if (isset($data['type'] )) {
+            $form->add($this->factory->createNamed('value', 'TrouveTout_Element', null, array('typeOfValue' => $data['type'])));
+        }
+    }
+
+    public function preSet(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();

@@ -39,12 +39,12 @@ class CaractType extends AbstractType
         $caract = $form->getData();
         if (($caract !== null) and ($caract->getValue() !== null)) {
             if ($caract->getType() == 'picture') {
-                $image = implode('/', array_reverse($caract->getValue()->getAllValues()));
+                $image = implode('/', array_reverse($caract->getValue()->getPath()));
                 $view->vars['image'] = $image;
             }
 
             if ($caract->getType() == 'object') {
-                $objectNames = $caract->getValue()->getAllValues();
+                $objectNames = $caract->getValue()->getPath();
 
                 $view->vars['objects'] = array();
                 foreach ($objectNames as $objectName) {

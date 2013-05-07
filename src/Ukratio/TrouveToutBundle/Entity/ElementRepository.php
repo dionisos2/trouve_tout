@@ -68,8 +68,6 @@ class ElementRepository extends EntityRepository
 
             $result = $queryBuilder->getQuery()->getResult();
             if (count($result) > 1) {
-                var_dump($queryBuilder->getQuery()->getParameters());
-                var_dump($result);
                 throw new \RuntimeException('impossible case in Element::findByPath');
             }
             $result = empty($result)?null:$result[0];

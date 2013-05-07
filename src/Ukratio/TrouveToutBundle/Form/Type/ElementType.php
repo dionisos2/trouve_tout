@@ -40,11 +40,9 @@ class ElementType extends AbstractType
 
         $builder->addEventSubscriber(new AddElementSubscriber($builder->getFormFactory(), $this->em, $this->conceptRepo, $type, $this->caractTypeManager));
 
-        $builder->addEventSubscriber(new AddOwnerElementSubscriber($builder->getFormFactory(), $this->em));
-
         $builder->addEventSubscriber(new AddChildElementSubscriber($builder->getFormFactory(), $this->em, $type, $this->caractTypeManager));
 
-        $builder->addModelTransformer(new TrueElementToElementTransformer($this->em));
+        $builder->addEventSubscriber(new AddOwnerElementSubscriber($builder->getFormFactory(), $this->em));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -121,12 +121,6 @@ class Caract
         return $str;
     }
 
-    public function initPaths()
-    {
-        if ($this->value !== null) {
-            $this->value->initPaths();
-        }
-    }
 
     /**
      * @ORM\PostLoad

@@ -20,37 +20,29 @@ class ElementManager
         $this->imageError = $this->rootDir . '/../web/img/error.jpeg';
     }
 
-    public function filesIn(Element $element, $isChild)
+    public function filesIn($elementPath)
     {
         $finder = new Finder();
 
-        $values = $element->getAllValues();
-        $values = array_reverse($values);
-
-        if (! $isChild) {
-            $values = array_slice($values, 0, -1);
-        }
-
-        $imagesPath = $this->rootDir . '/../web/img/' . implode('/', $values);
+        $elementPath = array_reverse($elementPath);
+        $imagesPath = $this->rootDir . '/../web/img/' . implode('/', $elementPath);
 
         $imageFile = new \SplFileInfo($imagesPath);
 
-        if (! $imageFile->isDir()) {
-            $values = array_slice($values, 0, -1);
-            $imagesPath = $this->rootDir . '/../web/img/' . implode('/', $values);
-        }
-        
         if (file_exists($imagesPath)) {
-            $finder->in($imagesPath)->depth("== 0");
+            if (! $imageFile->isDir()) {
+                $choices = array();
+            } else {
+                $finder->in($imagesPath)->depth("== 0");
+                $choices = array();
+                foreach ($finder as $file) {
+                    $choices[] = new Element($file->getBasename());
+                }
+            }
         } else {
-            $finder = array();
+            $choices = array();
         }
 
-
-        $choices = array();
-        foreach ($finder as $file) {
-            $choices[] = new Element($file->getBasename());
-        }
         
         return $choices;
     }

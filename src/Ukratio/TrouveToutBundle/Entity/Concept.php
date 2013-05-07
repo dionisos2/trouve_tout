@@ -267,12 +267,6 @@ class Concept
         $this->linkable = false;
     }
 
-    public function initPaths()
-    {
-        foreach ($this->caracts as $caract) {
-            $caract->initPaths();
-        }
-    }
 
     /**
      * Get id

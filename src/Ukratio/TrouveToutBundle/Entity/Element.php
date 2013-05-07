@@ -34,8 +34,6 @@ class Element
     protected static $arrayHandling = null;
     protected static $dataChecking = null;
 
-
-    private $path;
     private $ratio;
 
     /**
@@ -92,42 +90,22 @@ class Element
     {
         $str = 'id: ' . $this->getId() . ' | ';
         $str .= 'value: ' . $this->getValue() . ' | ';
-        if ($this->getPath()) {
-            $str .= 'path: ' . implode('/', $this->getPath()) . ' | ';
-        } else {
-            $str .= 'no path | ';
-        }
-        $str .= 'realPath: ' . implode('/', $this->getRealPath()) . ' | ';
+        $str .= 'realPath: ' . implode('/', $this->getPath()) . ' | ';
 
         return $str;
     }
 
-    public function initPaths()
-    {
-        $this->path = array($this->getValue());
-
-        if ($this->getMoreGeneral() !== null) {
-            $this->path = array_merge($this->path, $this->moreGeneral->initPaths());
-        }
-        
-        return $this->path;
-    }
-
-    public function getRealPath()
+    public function getPath()
     {
         $path = array($this->getValue());
 
         if ($this->getMoreGeneral() !== null) {
-            $path = array_merge($path, $this->moreGeneral->getRealPath());
+            $path = array_merge($path, $this->moreGeneral->getPath());
         }
         
         return $path;
     }
 
-    public function getPath()
-    {
-        return $this->path;
-    }
 
     /**
      * @ORM\PostLoad
@@ -191,22 +169,6 @@ class Element
         return $this;
     }
 
-    public function getAllValues()
-    {
-        $result = array();
-
-        $value = $this->getValue();
-        $element = $this->getMoreGeneral();
-        while ($element !== null) {
-            $result[] = $value;
-            $value = $element->getValue();
-            $element = $element->getMoreGeneral();
-        }
-
-        $result[] = $value;
-        
-        return $result;
-    }
 
     /**
      * Get value

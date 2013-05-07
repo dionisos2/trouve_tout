@@ -42,22 +42,11 @@ class AddChildElementSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
 
-        $dataTransformer = new StringToChoiceOrTextTransformer(array());
         if (isset($data['childValue'])) {
-            if (is_array($data['childValue'])) {
-                $choices = array($data['childValue']['choice'] => $data['childValue']['choice']); // avoid TransformationFailedException exception…
-                $builder = $this->factory->createNamedBuilder('childValue', 'Tool_ChoiceOrText', null, array('label' => 'element.specify',
-                                                                                                               'choices' => $choices,
-                                                                                                               'mapped' => false));
-            } else {
-                $builder = $this->factory->createNamedBuilder('childValue', 'textarea', null, array('label' => 'element.specify',
-                                                                                                      'mapped' => false,
-                                                                                                      'required' => false));
-            }
-
-
-            $form->add($builder->getForm());
+            unset($data['childValue']);
         }
+
+        $event->setData($data); // don’t forget this
     }
 
     public function preSetData(FormEvent $event)
@@ -69,10 +58,6 @@ class AddChildElementSubscriber implements EventSubscriberInterface
             return;
         }
         
-        $moreSpecifics = $this->repo->findMoreSpecifics($data);
-
-        $builder = $this->caractTypeManager->getValueForm($data, $this->type, $moreSpecifics, false, 'element.specify');
-
-        $form->add($builder->getForm());
+        $form->add($this->caractTypeManager->createElementForm('childValue', $this->type, $data->getPath(), 'element.specify', false));
     }
 }

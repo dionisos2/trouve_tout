@@ -2,7 +2,7 @@
 
 namespace Ukratio\TrouveToutBundle\Form\EventListener;
 
-use Symfony\Component\Form\Event\DataEvent;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
@@ -35,30 +35,41 @@ class AddElementSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        // Tells the dispatcher that you want to listen on the form.pre_set_data
-        // event and that the preSetData method should be called.
-        return array(FormEvents::PRE_SET_DATA => 'preSetData');
+        return array(FormEvents::PRE_SET_DATA => 'preSetData',
+                     FormEvents::PRE_BIND => 'preBind');
     }
 
-    public function preSetData(DataEvent $event)
+    public function preBind(FormEvent $event)
+    {
+        $data = $event->getData();
+        $form = $event->getForm();
+
+        if (is_array($data['value'])) {
+            if ($data['value']['choice'] == 'other') { //TOSEE
+                $possibleValues = $data['value']['text'];
+            } else {
+                $possibleValues = $data['value']['choice'];
+            }
+        } else {
+            $possibleValues = $data['value'];
+        }
+
+        $form->add($this->caractTypeManager->createElementForm('value', $this->type, $possibleValues));
+
+    }
+
+    public function preSetData(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
 
         if (! $data instanceof Element) {
-            $data = new Element();
-        }
-
-        $general = $data->getMoreGeneral();
-        if ($general === null) {
-            $elementChoices = $this->elementRepo->findHeads();
+            $path = array();
         } else {
-            $elementChoices = $this->elementRepo->findMoreSpecifics($general);
+            $path = array_slice($data->getPath(), 1);
         }
 
-        $builder = $this->caractTypeManager->getValueForm($data, $this->type, $elementChoices);
-
-        $form->add($builder->getForm());        
+        $form->add($this->caractTypeManager->createElementForm('value', $this->type, $path));
     }
 
 }
