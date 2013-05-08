@@ -98,7 +98,7 @@ class ResearchResults
                     if ($caract != null) {
                         $element = $caract->getValue();
                         if ($element != null) {
-                            return implode('/', $element->getAllValues());
+                            return implode('/', $element->getPath());
                         } else {
                             return 'o';
                         }

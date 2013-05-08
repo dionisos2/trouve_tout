@@ -8,10 +8,4 @@
     {{ form_row(form.researchedName) }}
     {{ form_row(form.researchedNumber) }}
 
-{% if concept.id != 0 %}
-<a href="{{ path('run_research', {id: concept.id})}}" class="fix2 btn btn-primary" value="run">
-  {{ 'run research' | trans }}
-</a>
-{% endif %}
-
 {% endblock %}

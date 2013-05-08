@@ -58,7 +58,7 @@ picture: image
 object: objet
 text: texte
 caract.selected: 'Sélectionné: '
-caract.bydefault: 'Par défaut: '
+caract.byDefault: 'Par défaut: '
 caract.specificity: 'Spécificité: '
 Number: Nombre
 number: nombre

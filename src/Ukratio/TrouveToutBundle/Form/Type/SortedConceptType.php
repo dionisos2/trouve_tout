@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Concept;
-use Ukratio\TrouveToutBundle\Form\DataTransformer\ConceptToStringTransformer;
 
 use Ukratio\ToolBundle\Form\DataTransformer\StringToChoiceOrTextTransformer;
 
@@ -23,23 +22,23 @@ class SortedConceptType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $categories = $this->getSortedConceptsWithSpecificities($options['childConcept'])['categories'];
-        $specificities = $this->getSortedConceptsWithSpecificities($options['childConcept'])['specificities'];
+        $conceptWithSpecificities = $this->getSortedConceptsWithSpecificities($options['childConcept']);
+        $categories = $conceptWithSpecificities['categories'];
+        $specificities = $conceptWithSpecificities['specificities'];
 
         $choices = array_map(function(Concept $category){return $category->getName();}, $categories);
         $choices_name = array_map(function($choice, $specificity){return $choice . '->' . round($specificity, 3);}, $choices, $specificities);
-        $choices = array_combine($choices, $choices_name);
+        $choices = array_combine($choices, $choices);
 
         $builder->add('name', 'choice', array('choices' => $choices,
-                                              'label' => ' '));
-        
-        $builder->addModelTransformer(new ConceptToStringTransformer($categories));
+                                              'label' => ' '));        
         
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array('options' => array(),
+                                     'data_class' => 'Ukratio\TrouveToutBundle\Entity\Concept',
         ));
 
         $resolver->setRequired(array('childConcept'));
@@ -55,6 +54,7 @@ class SortedConceptType extends AbstractType
 
     private function getSortedConceptsWithSpecificities(Concept $childConcept = null)
     {
+
         if ($childConcept !== null) {
             $findConnection = function (Concept $category) use ($childConcept) {
                 $connection = 0;
@@ -77,6 +77,10 @@ class SortedConceptType extends AbstractType
                 }
             };
         } else {
+            $findConnection = function (Concept $category) use ($childConcept) {
+                return 0;
+            };
+
             $cmpSpecificity = function (Concept $a, Concept $b)
             {
                 return strcmp($a->getName(), $b->getName());

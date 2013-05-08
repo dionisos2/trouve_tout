@@ -41,7 +41,7 @@ class AjaxController extends ControllerWithTools
 
         $choices = $caractTypeManager->getChoicesFor($type, $pathElement);
 
-        if (in_array($type, array(Type::$name, Type::$number))) {
+        if (in_array($type, array(Type::$name, Type::$number, Type::$object))) {
             $choices = array('other' => 'other') + $choices;
         }
 

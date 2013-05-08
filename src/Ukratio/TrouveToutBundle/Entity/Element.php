@@ -50,6 +50,7 @@ class Element
      *
      * @ORM\Column(name="value", type="string", length=255)
      * @Assert\Type(type="string")
+     * @Assert\NotBlank()
      */
     private $value;
 

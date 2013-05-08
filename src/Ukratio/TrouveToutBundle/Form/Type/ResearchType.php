@@ -33,7 +33,6 @@ class ResearchType extends ConceptType
                 ->add('researchedNumber', 'text', array('required' => false))
                 ->add('researchedName', 'text', array('required' => false));
 
-        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
     }
 
     public function getName()

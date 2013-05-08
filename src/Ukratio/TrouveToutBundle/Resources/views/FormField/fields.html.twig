@@ -95,7 +95,9 @@
 {{ form_row(form.moreGeneral) }}
 
 {% if categoryName is defined %}
+<div>
 <a href="{{ path('edit_concept', {id: categoryId}) }}">{{categoryName}}</a>
+</div>
 {% endif %}
 
 {{ form_rest(form) }}

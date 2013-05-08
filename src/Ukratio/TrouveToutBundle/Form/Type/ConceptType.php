@@ -24,6 +24,8 @@ abstract class ConceptType extends AbstractType
     {
         $this->addCaracts($builder);
         $this->addPrototypes($builder);
+
+        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
     }
 
     public function __construct(EntityManager $em, Discriminator $discriminator = null)
@@ -76,17 +78,9 @@ abstract class ConceptType extends AbstractType
                                        'label' => 'element.specify',
                                        'required' => false);
 
-        $optionsChoiceChildValue = array('choices' => array(),
-                                         'label' => 'element.specify',
-                                         'textType' => 'choice',
-                                         'required' => false);
-
         $optionsTextValue = array('choices' => array(),
                                   'label' => 'element.modify');
 
-        $optionsChoiceValue = array('choices' => array(),
-                                    'label' => 'element.modify',
-                                    'textType' => 'choice');
 
         $optionsElement = array('label' => ' ',
                                 'read_only' => true,
@@ -96,13 +90,13 @@ abstract class ConceptType extends AbstractType
         $prototypeOfChildValueName = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
         $prototypeOfChildValueNumber = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
         $prototypeOfChildValuePicture = $builder->create('__name__', 'choice', $optionsTextChildValue);
-        $prototypeOfChildValueObject = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsChoiceChildValue);
+        $prototypeOfChildValueObject = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
         $prototypeOfChildValueText = $builder->create('__name__', 'textarea', array('label' => 'element.specify'));
 
         $prototypeOfValueName = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
         $prototypeOfValueNumber = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
         $prototypeOfValuePicture = $builder->create('__name__', 'choice', $optionsTextValue);
-        $prototypeOfValueObject = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsChoiceValue);
+        $prototypeOfValueObject = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
         $prototypeOfValueText = $builder->create('__name__', 'textarea', array('label' => 'element.modify'));
 
         $prototypeOfOwnerElement = $builder->create('__name__', 'text',  $optionsElement);

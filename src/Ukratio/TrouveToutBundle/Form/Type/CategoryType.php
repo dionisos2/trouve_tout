@@ -25,7 +25,6 @@ class CategoryType extends ConceptType
         parent::buildForm($builder, $options);
         $builder->add('name', 'text', array('required' => true));
 
-        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
         $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));
     }
 

@@ -80,9 +80,9 @@ class CaractTypeManager
 
                 $choices1 = array_combine($choices1, $choices1);
                 $choices2 = array_combine($choices2, $choices2);
-                $choices2 = array('' => '') + $choices2;
+                $choices = $choices1 + $choices2;
 
-                return array('choices1' => $choices1, 'choices2' => $choices2);
+                return $choices;
             case Type::$text:
                 return null;
             default:

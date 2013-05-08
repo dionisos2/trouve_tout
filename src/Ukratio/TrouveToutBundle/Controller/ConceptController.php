@@ -70,8 +70,12 @@ class ConceptController extends ControllerWithTools
         $form->bind($request);
         if ($form->isValid()) {
             $cfc->saveConcept($concept);
-
-            return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
+            
+            if ($type == Discriminator::$Research) {
+                return $this->redirect($this->generateUrl('run_research', array('id' => $concept->getId())));
+            } else {
+                return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
+            }
         } else {
 
             return $cfc->arrayForTemplate($concept, $form);
@@ -105,12 +109,16 @@ class ConceptController extends ControllerWithTools
         $form = $cfc->createForm($concept);
 
         $form->bind($request);
-
+        $type = Discriminator::getEnumerator($concept->getType());
 
         if ($form->isValid()) {
             $cfc->saveConcept($concept);
 
-            return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
+            if ($type == Discriminator::$Research) {
+                return $this->redirect($this->generateUrl('run_research', array('id' => $concept->getId())));
+            } else {
+                return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
+            }
         } else {
             return $cfc->arrayForTemplate($concept, $form);
         }

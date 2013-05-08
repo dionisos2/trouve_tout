@@ -28,7 +28,6 @@ class SetType extends ConceptType
                 ->add('number', 'integer', array('invalid_message' => 'concept.integer.invalid'));
 
 
-        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
         $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));
     }
 
