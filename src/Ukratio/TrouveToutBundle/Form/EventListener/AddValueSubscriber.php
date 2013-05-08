@@ -59,10 +59,10 @@ class AddValueSubscriber implements EventSubscriberInterface
 
         $valueType = $data->getType();
 
-        if (($data->getValue() !== null) and ($data->getPrefix() != null)) {
-            $ratio = Prefix::getEnumerator($data->getPrefix())->getValue();
-            $data->getValue()->setRatio($ratio);
-        }
+        /* if (($data->getValue() !== null) and ($data->getPrefix() != null)) { */
+        /*     $ratio = Prefix::getEnumerator($data->getPrefix())->getValue(); */
+        /*     $data->getValue()->setRatio($ratio); */
+        /* } */
 
         $form->add($this->factory->createNamed('value', 'TrouveTout_Element', null, array('typeOfValue' => $valueType)));
 

@@ -188,30 +188,30 @@ class Element
      * @param string $standardValue
      * @return Element
      */
-    public function setStandardValue($standardValue)
-    {
-        if (static::$dataChecking->isFloatOrInt($standardValue, true)) {
-            $this->value = (string)round((float)$standardValue * $this->ratio, 5);
-        } else {
-            $this->setValue($standardValue);
-        }
+    /* public function setStandardValue($standardValue) */
+    /* { */
+    /*     if (static::$dataChecking->isFloatOrInt($standardValue, true)) { */
+    /*         $this->value = (string)round((float)$standardValue * $this->ratio, 5); */
+    /*     } else { */
+    /*         $this->setValue($standardValue); */
+    /*     } */
 
-        return $this;
-    }
+    /*     return $this; */
+    /* } */
 
     /**
      * Get standardValue
      *
      * @return string 
      */
-    public function getStandardValue()
-    {
-        if (static::$dataChecking->isFloatOrInt($this->value, true)) {
-            return (string)round((float)$this->value / $this->ratio, 5);
-        } else {
-            return $this->getValue();
-        }
-    }
+    /* public function getStandardValue() */
+    /* { */
+    /*     if (static::$dataChecking->isFloatOrInt($this->value, true)) { */
+    /*         return (string)round((float)$this->value / $this->ratio, 5); */
+    /*     } else { */
+    /*         return $this->getValue(); */
+    /*     } */
+    /* } */
 
     /**
      * SetmoreGeneral

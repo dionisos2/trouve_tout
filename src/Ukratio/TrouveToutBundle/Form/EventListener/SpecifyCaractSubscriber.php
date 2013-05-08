@@ -60,7 +60,8 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
         if ($element->getValue() != null) {
             $pathElement[] = $element->getValue();
         } else {
-            return; //the form is invalid
+            $caract->setValue(null);
+            return;
         }
 
         $pathElement = array_reverse($pathElement);
