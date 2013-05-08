@@ -35,6 +35,7 @@ class AddOwnerElementSubscriber implements EventSubscriberInterface
 
         $ownerElements = array();
         $index = 0;
+
         while (isset($data['element_'.$index])) {
             $ownerElements['element_'.$index] = $data['element_'.$index];
             $index++;

@@ -54,7 +54,8 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
             $index++;
         }
 
-        
+        $ownerElements = array_filter($ownerElements, function ($elementValue) {return $elementValue !== null;});
+
         $pathElement = array_values($ownerElements);
 
         if ($element->getValue() != null) {

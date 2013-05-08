@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 
-use Ukratio\ToolBundle\Form\DataTransformer\StringToChoiceOrTextTransformer;
+use Ukratio\TrouveToutBundle\Form\EventListener\CategoriesGetter;
 
 class SortedConceptType extends AbstractType
 {
@@ -28,11 +28,12 @@ class SortedConceptType extends AbstractType
 
         $choices = array_map(function(Concept $category){return $category->getName();}, $categories);
         $choices_name = array_map(function($choice, $specificity){return $choice . '->' . round($specificity, 3);}, $choices, $specificities);
-        $choices = array_combine($choices, $choices);
+        $choices = array_combine($choices, $choices_name);
 
         $builder->add('name', 'choice', array('choices' => $choices,
                                               'label' => ' '));        
-        
+
+        $builder->addEventSubscriber(new CategoriesGetter($categories));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
