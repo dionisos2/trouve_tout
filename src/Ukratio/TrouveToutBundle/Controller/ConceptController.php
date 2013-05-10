@@ -5,9 +5,13 @@ namespace Ukratio\TrouveToutBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Ukratio\ToolBundle\Service\Enum;
 use Ukratio\ToolBundle\debug\Message;
@@ -15,7 +19,7 @@ use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 
 
 class ConceptController extends ControllerWithTools
@@ -47,6 +51,7 @@ class ConceptController extends ControllerWithTools
     /**
      * @Route("/create_{type}", requirements={"type" = "set|category|research"}, name="save_concept")
      * @Method({"POST"})
+     * @Secure(roles="ROLE_USER")
      * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
      */
     public function saveConcept(Request $request, $type)
@@ -101,6 +106,7 @@ class ConceptController extends ControllerWithTools
     /**
      * @Route("/modify/{id}", name="update_concept", requirements={"id" = "\d+"})
      * @Method({"POST"})
+     * @Secure(roles="ROLE_USER")
      * @ParamConverter("concept", options={"repository_method": "findByIdWithCaract"})
      * @Template("TrouveToutBundle:TrouveTout:modifyConcept.html.twig")
      */
@@ -128,6 +134,7 @@ class ConceptController extends ControllerWithTools
 
     /**
      * @Route("/delete/{id}", name="delete_concept", requirements={"id" = "\d+"})
+     * @Secure(roles="ROLE_USER")
      * @Method({"GET"})
      */
     public function deleteConcept(Request $request, Concept $concept)

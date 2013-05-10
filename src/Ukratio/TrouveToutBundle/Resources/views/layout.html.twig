@@ -26,6 +26,15 @@
 		<a href="{{ path('tools') }}" class="btn">
             {{ 'tools' | trans }}
         </a>
+        {% if app.user %}
+		<a href="{{ path('logout') }}" class="btn">
+            {{ 'logout' | trans }}
+        </a>
+        {% else %}
+		<a href="{{ path('login') }}" class="btn">
+            {{ 'connection' | trans }}
+        </a>        
+        {% endif %}
 	</menu>
   {% block TrouveTout %}{% endblock %}
 

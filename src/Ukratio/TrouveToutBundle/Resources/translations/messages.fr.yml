@@ -1,20 +1,22 @@
+Value: Valeur
 home: accueil
 'Add a object': 'Ajouter un objet'
 'Add a category': 'Ajouter une categorie'
 'Upload a image': 'Téléverser une image'
 'Do a research': 'Faire une recherche'
 tools: outils
-'run research': 'Lancer la recherche'
+logout: Déconnexion
 tools_ok: 'action réussie'
 action.success: 'L’action s’est effectuée avec succès !'
 tools.deleted.researches: 'recherches sans nom ont été supprimées'
 tools.deleted.elements: 'éléments orphelins ont été supprimés'
 tools.computed.specificities: 'caractéristiques de catégories ont été spécifiées'
-send: envoyer
+login: Login
+password: Mot de passe
 Send: Envoyer
-Caracts: Caractéristiques
-fix: fixer
+Delete: Supprimer
 Categories: Catégories
+Caracts: Caractéristiques
 'research table': 'tableau de recherche des %researchedType%s'
 ID: ID
 'Run research again': 'Relancer la recherche'
@@ -40,9 +42,12 @@ tools.compute.specificities: 'Spécifier les caractéristiques'
 'Creation date: soon': 'Date de création: bientôt'
 'Trouve tout, find your objects in a few seconds!': 'Trouve tout, trouver vos objets en quelques secondes !'
 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.': 'Trouve tout est un logiciel libre, dont la fonction est de créer méthodologiquement un inventaire d’objets de tout type, pour pouvoir les retrouver facilement'
-Research: Recherche
-research.do: 'Faire/Créer une recherche'
 'Create a concept': 'créer un concept'
+research.do: 'Faire/Créer une recherche'
+'run research': 'Lancer la recherche'
+send: envoyer
+fix: fixer
+Research: Recherche
 Category: Catégorie
 Set: Objet
 all: tout
@@ -53,7 +58,6 @@ unlinkable: 'non liable'
 Type: 'Type: '
 Name: 'Nom: '
 name: nom
-Value: Valeur
 picture: image
 object: objet
 text: texte
@@ -69,4 +73,4 @@ Researchednumber: 'Cardinalité des concepts recherchés'
 element.modify: 'modifier:'
 element.specify: 'specifier:'
 element.generalize: 'generaliser:'
-Delete: Supprimer
+connection: Connexion

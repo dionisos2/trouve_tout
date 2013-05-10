@@ -5,9 +5,13 @@ namespace Ukratio\TrouveToutBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContext;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
@@ -16,6 +20,35 @@ use Ukratio\ToolBundle\Form\Type\ChoiceOrTextType;
 
 class TrouveToutController extends ControllerWithTools
 {    
+
+    
+    /**
+     * @Route("/login", name="login")
+     * @Template()
+     */
+	public function loginAction()
+	{
+        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('home'));
+        }
+ 
+        $request = $this->getRequest();
+        $session = $request->getSession();
+ 
+        // On vérifie s'il y a des erreurs d'une précédente soumission du formulaire
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+ 
+        return array(
+            // Valeur du précédent nom d'utilisateur entré par l'internaute
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'error'         => $error,
+        );
+	}
 
     /**
      * @Route("/", name="home")
@@ -29,6 +62,7 @@ class TrouveToutController extends ControllerWithTools
     /**
      * @Route("/upload", name="upload")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
 	public function uploadAction(Request $request)
 	{
@@ -67,6 +101,7 @@ class TrouveToutController extends ControllerWithTools
     /**
      * @Route("/tools", name="tools")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
 	public function toolsAction()
 	{
@@ -76,6 +111,7 @@ class TrouveToutController extends ControllerWithTools
     /**
      * @Route("/tools_ok/{type}/{number}", requirements={"number" = "\d+", "type" = "elements|researches|specificities"}, name="tools_ok")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
 	public function toolsOkAction($type, $number)
 	{
@@ -86,6 +122,7 @@ class TrouveToutController extends ControllerWithTools
 
     /**
      * @Route("/delete_unamed_researches", name="delete_unamed_researches")
+     * @Secure(roles="ROLE_USER")
      */
 	public function deleteUnamedResearchesAction()
 	{
@@ -96,6 +133,7 @@ class TrouveToutController extends ControllerWithTools
 
     /**
      * @Route("/delete_orphan_elements", name="delete_orphan_elements")
+     * @Secure(roles="ROLE_USER")
      */
 	public function deleteOrphanElementsAction()
 	{
@@ -106,6 +144,7 @@ class TrouveToutController extends ControllerWithTools
 
     /**
      * @Route("/compute_specificities", name="compute_specificities")
+     * @Secure(roles="ROLE_USER")
      */
 	public function computeSpecificitiesAction()
 	{

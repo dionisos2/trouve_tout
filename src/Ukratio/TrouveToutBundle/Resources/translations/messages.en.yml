@@ -1,20 +1,22 @@
+Value: Value
 home: home
 'Add a object': 'Add a object'
 'Add a category': 'Add a category'
 'Upload a image': 'Upload a image'
 'Do a research': 'Do a research'
 tools: tools
-'run research': 'run research'
+logout: logout
 tools_ok: 'action successful'
 action.success: 'action is successfull!'
 tools.deleted.researches: 'unamed researches were deleted'
 tools.deleted.elements: 'orphans elements were deleted'
 tools.computed.specificities: 'characteristics were specified'
-tools.compute.specificities: 'compute all specificities'
-send: send
-Caracts: characteristic
-fix: fix
+login: login
+password: password
+Send: Send
+Delete: Delete
 Categories: Categories
+Caracts: characteristic
 'research table': 'research table'
 ID: ID
 'Run research again': 'Run research again'
@@ -26,6 +28,7 @@ Upload: Upload
 'Wrong type of file:': 'Wrong type of file:'
 tools.delete.researches: 'delete unamed research'
 tools.delete.elements: 'delete orphans elements'
+tools.compute.specificities: 'compute all specificities'
 'modify a concept': 'modify a concept'
 'modify a object': 'modify a object'
 'modify a category': 'modify a category'
@@ -39,9 +42,12 @@ tools.delete.elements: 'delete orphans elements'
 'Creation date: soon': 'Creation date: soon'
 'Trouve tout, find your objects in a few seconds!': 'Trouve tout, find your objects in a few seconds!'
 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.': 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.'
-Research: Research
-research.do: 'Make/Creating a research'
 'Create a concept': 'Create a concept'
+research.do: 'Make/Creating a research'
+'run research': 'run research'
+send: send
+fix: fix
+Research: Research
 Bydefault: 'By default'
 Researchedlinkable: Connectability
 Researchedtype: 'Type of wanted concepts'
@@ -51,3 +57,4 @@ Set: Object
 element.modify: 'modify:'
 element.specify: 'specify:'
 element.generalize: 'generalize:'
+connection: Connection
