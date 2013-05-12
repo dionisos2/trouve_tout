@@ -1,0 +1,38 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'create_category_object' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+
+<section>
+  <p>{{ 'tutorial.create_category_object.goal' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.create_category_object.characteristic' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.create_category_object.composition' | trans({}, 'tutorial') }}</p>
+  <ul>
+    <li> <p>{{ 'tutorial.create_category_object.composition_picture' | trans({}, 'tutorial') }}</p> </li>
+    <li> <p>{{ 'tutorial.create_category_object.composition_localization' | trans({}, 'tutorial') }}</p> </li>
+  </ul>
+
+  <p>{{ 'tutorial.create_category_object.four_step' | trans({}, 'tutorial') }}</p>
+  <ul>
+    <li> <p>{{ 'tutorial.create_category_object.step_name' | trans({}, 'tutorial') }}</p> </li>
+    <li> <p>{{ 'tutorial.create_category_object.step_image' | trans({}, 'tutorial') }}</p> </li>
+    <li> <p>{{ 'tutorial.create_category_object.step_localization' | trans({}, 'tutorial') }}</p> </li>
+    <li> <p>{{ 'tutorial.create_category_object.step_send' | trans({}, 'tutorial') }}</p> </li>
+  </ul>
+</section>
+
+<section>
+  {% set link = {'button': '', 'target': '' } %}
+  {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
+  {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
+</section>
+
+{% endblock %}
+
+{% block javascripts %}
+        {{ parent() }}
+        {% include "TrouveToutBundle:TrouveTout:ConceptFormJavascript.html.twig" %}
+{% endblock %}

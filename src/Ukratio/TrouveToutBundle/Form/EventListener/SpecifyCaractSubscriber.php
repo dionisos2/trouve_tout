@@ -41,7 +41,7 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($form->get('value') === null) {
+        if ((!$form->has('value')) || ($form->get('value') === null)) {
             return;
         }
         

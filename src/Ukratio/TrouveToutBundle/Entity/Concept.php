@@ -22,7 +22,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
 /**
  * Ukratio\TrouveToutBundle\Entity\Concept
  *
- * @ORM\Table()
+ * @ORM\Table(name="TrouveTout_Concept")
  * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\ConceptRepository")
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("name")

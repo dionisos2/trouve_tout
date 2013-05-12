@@ -26,6 +26,9 @@
 		<a href="{{ path('tools') }}" class="btn">
             {{ 'tools' | trans }}
         </a>
+        <a href="{{ path('tutorial_introduction') }}" class="btn">
+            {{ 'tutorial' | trans }}
+        </a>
         {% if app.user %}
 		<a href="{{ path('logout') }}" class="btn">
             {{ 'logout' | trans }}

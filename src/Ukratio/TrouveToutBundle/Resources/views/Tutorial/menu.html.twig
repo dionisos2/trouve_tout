@@ -1,0 +1,64 @@
+<h1> trouve tout ! </h1>
+<menu>
+  <a href="" class="btn">
+    {{ 'home' | trans }}
+  </a>
+
+  {% if link.button == "add_object" %}
+  <a href="{{ link.target }}" class="btn">
+    <strong>{{ 'Add a object' | trans }}</strong>
+  </a>
+  {% else %}
+  <a href="" class="btn">
+    {{ 'Add a object' | trans }}
+  </a>
+  {% endif %}
+
+  {% if link.button == "add_category" %}
+  <a href="{{ link.target }}" class="btn">
+    <strong>{{ 'Add a category' | trans }}</strong>
+  </a>
+  {% else %}
+  <a href="" class="btn">
+    {{ 'Add a category' | trans }}
+  </a>  
+  {% endif %}
+
+  {% if link.button == "upload_image" %}
+  <a href="{{ link.target }}" class="btn">
+    <strong>{{ 'Upload a image' | trans }}</strong>
+  </a>
+  {% else %}
+  <a href="" class="btn">
+    {{ 'Upload a image' | trans }}
+  </a>
+  {% endif %}
+
+  {% if link.button == "do_research" %}
+  <a href="{{ link.target }}" class="btn">
+    <strong>{{ 'Do a research' | trans }}</strong>
+  </a>
+  {% else %}
+  <a href="" class="btn">
+    {{ 'Do a research' | trans }}
+  </a>
+  {% endif %}
+
+
+  {% if link.button == "tools" %}
+  <a href="{{ link.target }}" class="btn">
+    <strong>{{ 'tools' | trans }}</strong>
+  </a>
+  {% else %}
+  <a href="" class="btn">
+    {{ 'tools' | trans }}
+  </a>
+  {% endif %}
+
+  <a href="" class="btn">
+    {{ 'tutorial' | trans }}
+  </a>
+  <a href="" class="btn">
+    {{ 'logout' | trans }}
+  </a>
+</menu>

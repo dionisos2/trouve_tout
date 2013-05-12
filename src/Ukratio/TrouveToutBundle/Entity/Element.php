@@ -16,7 +16,7 @@ use Ukratio\TrouveToutBundle\Entity\Caract;
 /**
  * Element
  *
- * @ORM\Table()
+ * @ORM\Table(name="TrouveTout_Element")
  * @ORM\Entity(repositoryClass="Ukratio\TrouveToutBundle\Entity\ElementRepository")
  * @ORM\HasLifecycleCallbacks()
  */

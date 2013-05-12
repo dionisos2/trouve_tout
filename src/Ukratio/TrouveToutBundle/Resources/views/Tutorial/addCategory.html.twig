@@ -1,0 +1,27 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'add_category' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+
+<section>
+  <p>{{ 'tutorial.add_category.three_concepts' | trans({}, 'tutorial') }}</p>
+  <dl>
+    <dt>{{ 'tutorial.add_category.objects_concept_term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.add_category.objects_concept_definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.add_category.categories_concept_term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.add_category.categories_concept_definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.add_category.researches_concept_term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.add_category.researches_concept_definition' | trans({}, 'tutorial') }}</dd>
+  </dl>
+  <p>{{ 'tutorial.add_category.first_step' | trans({}, 'tutorial') }}</p>
+</section>
+
+<section>
+  {% set link = {'button': 'add_category', 'target': path('create_category_object') } %}
+  {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
+</section>
+
+{% endblock %}

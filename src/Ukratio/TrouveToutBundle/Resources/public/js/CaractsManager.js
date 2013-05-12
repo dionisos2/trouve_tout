@@ -33,7 +33,7 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
 	this._super('addButtonsForDynamicForms');
 
 	this.dynamicForms.find('li.' + this.liName).each(function(index) {
-        self.addOnChangeEvent($(this), index);
+        self.addOnChangeEvent($(this), index + 1);
     });
 }
 

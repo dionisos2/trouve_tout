@@ -35,7 +35,6 @@ DynamicFormsManager.prototype.addDynamicForm = function () {
 	var dynamicFormLi;
 
 	this.numberOfForm++;
-
 	dynamicForm = this.symfonyPrototype.replace(/__name__/g, this.numberOfForm);
 
     dynamicFormLi = $('<li class="' + this.liName + '"></li>').append(dynamicForm);
@@ -45,6 +44,7 @@ DynamicFormsManager.prototype.addDynamicForm = function () {
     this.addDeleteDynamicFormLink(dynamicFormLi);
 
     dynamicFormLi.insertBefore(this.addDynamicFormLinkLi);
+
 	return {'dynamicFormLi':dynamicFormLi, 'index':this.numberOfForm};
 }
 

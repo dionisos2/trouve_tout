@@ -8,7 +8,7 @@ use Ukratio\TrouveToutBundle\Entity\Concept;
 /**
  * ConceptConcept
  *
- * @ORM\Table()
+ * @ORM\Table(name="TrouveTout_ConceptConcept")
  * @ORM\Entity
  */
 class ConceptConcept
