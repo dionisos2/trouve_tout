@@ -72,8 +72,8 @@ class TutorialController extends ControllerWithTools
         
         if ($form->isValid()) {
             $valid = ($translator->trans('object') == $concept->getName());
-            $valid = $valid && $this->hasCaract($concept, 'picture', Type::$picture);
-            $valid = $valid && $this->hasCaract($concept, 'localization', Type::$object);
+            $valid = $valid && $this->hasCaract($concept, 'picture', Type::$picture, null);
+            $valid = $valid && $this->hasCaract($concept, 'localization', Type::$object, null);
 
             if ($valid) {
                 echo 'Bien joué !';
@@ -86,7 +86,7 @@ class TutorialController extends ControllerWithTools
         }
 	}
 
-    private function hasCaract(Concept $concept, $caractName, Type $type = null, $value = null)
+    private function hasCaract(Concept $concept, $caractName, Type $type = null, $value = null, $selected = true, $byDefault = true)
     {
         $translator = $this->get('translator');
         $caract = $concept->getCaract($translator->trans($caractName));
@@ -101,6 +101,7 @@ class TutorialController extends ControllerWithTools
             $valid = $valid && $caract->getType() == $type->getName();
         }
 
+        
         return $valid;
     }
 }
