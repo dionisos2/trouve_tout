@@ -42,7 +42,7 @@ class CaractTypeManager
         }
     }
 
-    public function getChoicesFor($type, $path)
+    public function getChoicesFor($type, $path, $isChildElement)
     {
 
         if ($path == null) { //TODO should be in the repo
@@ -71,8 +71,10 @@ class CaractTypeManager
                 $choices = array_map(function (Element $element) {return $element->getValue();}, $this->elementManager->filesIn($path));
 
                 $choices = array_combine($choices, $choices);
-                $choices = array('' => '') + $choices;
-                return $choices;
+                if ($isChildElement) {
+                    $choices = array('' => '') + $choices;
+                }
+                    return $choices;
             case Type::$object:
                 $choices1 = array_map(function (Concept $element) {return $element->getName();}, $this->conceptRepo->findNamedSet());
 
@@ -95,7 +97,11 @@ class CaractTypeManager
         $options = array('label' => $label, 'mapped' => $mapped, 'required' => $mapped);
 
         if (is_array($path)) {
-            $choices = $this->getChoicesFor($type, $path);
+            if ($label == 'element.modify') {
+                $choices = $this->getChoicesFor($type, $path, false);
+            } else {
+                $choices = $this->getChoicesFor($type, $path, true);
+            }
         } else {
             $choices = array($path => $path);
         }

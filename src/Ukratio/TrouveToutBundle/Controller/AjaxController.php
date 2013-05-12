@@ -34,12 +34,14 @@ class AjaxController extends ControllerWithTools
 
         $pathElement = $_POST['completeElement'];
         $type = Type::getEnumerator($_POST['type']);
+        $isChildElement = $_POST['isChildElement'] == 'true';
 
         if ($pathElement == 'empty') {
             $pathElement = array();
         }
 
-        $choices = $caractTypeManager->getChoicesFor($type, $pathElement);
+
+        $choices = $caractTypeManager->getChoicesFor($type, $pathElement, $isChildElement);
 
         if (in_array($type, array(Type::$name, Type::$number, Type::$object))) {
             $choices = array('other' => 'other') + $choices;

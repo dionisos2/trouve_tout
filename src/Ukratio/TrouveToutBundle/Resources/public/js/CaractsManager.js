@@ -147,12 +147,12 @@ CaractsManager.prototype.getParentElements = function (caractForm) {
 	
 	return parentElements;
 }
-CaractsManager.prototype.setValue = function(caractForm, value, childValue) {
+CaractsManager.prototype.setValue = function(caractForm, value, isChildElement) {
 	var valueForm;
 	var options;
 	var selectForm;
 
-	if(childValue) {
+	if(isChildElement) {
 		valueForm = caractForm.find('[id$=value_childValue]');
 	} else {
 		valueForm = caractForm.find('[id$=value_value]');
@@ -178,11 +178,11 @@ CaractsManager.prototype.setValue = function(caractForm, value, childValue) {
 	
 }
 
-CaractsManager.prototype.getValue = function(caractForm, childValue) {
+CaractsManager.prototype.getValue = function(caractForm, isChildElement) {
 	var element;
 	var valueForm;
 
-	if(childValue) {
+	if(isChildElement) {
 		valueForm = caractForm.find('[id$=value_childValue]');
 	} else {
 		valueForm = caractForm.find('[id$=value_value]');
@@ -206,9 +206,9 @@ CaractsManager.prototype.getValue = function(caractForm, childValue) {
 	return value;
 }
 
-CaractsManager.prototype.getValueFirstForm = function (caractForm, childValue) {
+CaractsManager.prototype.getValueFirstForm = function (caractForm, isChildElement) {
 	
-	if (childValue) {
+	if (isChildElement) {
 		if (caractForm.find('[id$=value_childValue_choice]').length > 0) {
 			return caractForm.find('[id$=value_childValue_choice]');
 		} else {
@@ -227,24 +227,24 @@ CaractsManager.prototype.modifyValue = function (caractForm, index) {
 	this.updateValueForm(caractForm, index, true);
 }
 
-CaractsManager.prototype.updateValueForm = function (caractForm, index, childValue) {
+CaractsManager.prototype.updateValueForm = function (caractForm, index, isChildElement) {
 	var completeElement;
 	var self = this;
 	
 	completeElement = this.getParentElements(caractForm);
 
-	if (childValue) {
+	if (isChildElement) {
 		if (this.getValue(caractForm, false)) {
 			completeElement.unshift(this.getValue(caractForm, false));
 		} else {
-			self.updateValueFormCallBack(caractForm, {'other':'other'}, index, childValue);
+			self.updateValueFormCallBack(caractForm, {'other':'other'}, index, isChildElement);
 			return 0;
 		}
 	}
 
 	if (completeElement.length == 0) {
-		if (childValue) {
-			self.updateValueFormCallBack(caractForm, {'other':'other'}, index, childValue);
+		if (isChildElement) {
+			self.updateValueFormCallBack(caractForm, {'other':'other'}, index, isChildElement);
 			return 0;
 		} else {
 			completeElement = 'empty'; //strange problem with .ajax
@@ -258,11 +258,12 @@ CaractsManager.prototype.updateValueForm = function (caractForm, index, childVal
 			url: ajaxUrl,
 			dataType: 'json',
 			data: {'completeElement': completeElement,
-				   'type': this.getType(caractForm)
+				   'type': this.getType(caractForm),
+				   'isChildElement': isChildElement
 				  },
 
 			success: function(elementsList, textStatus, jqXHR) {
-				self.updateValueFormCallBack(caractForm, elementsList, index, childValue);
+				self.updateValueFormCallBack(caractForm, elementsList, index, isChildElement);
 			},
 
 			error: function(jqXHR, textStatus, errorThrown) {
@@ -276,7 +277,7 @@ CaractsManager.prototype.getType = function (caractForm) {
 	return caractForm.find('[id$=_type]').val();
 }
 
-CaractsManager.prototype.buildValueForm = function(caractForm, index, childValue) {
+CaractsManager.prototype.buildValueForm = function(caractForm, index, isChildElement) {
 	var type;
 	var childFormSelectDiv;
 	var FormSelectDiv;
@@ -284,7 +285,7 @@ CaractsManager.prototype.buildValueForm = function(caractForm, index, childValue
 
 	type = this.getType(caractForm);
 
-	if (childValue) {
+	if (isChildElement) {
 		FormSelectDiv = this.prototypeOf['childValue'][type].replace(/__name__/g, 'caracts_' + (index).toString() + '_value_childValue');
 		FormSelectDiv = FormSelectDiv.replace(/(name=.*?)\[.*?\]/g, '$1[caracts][' + (index).toString() + '][value][childValue]');
 		caractForm.find('#childValueDiv').prepend(FormSelectDiv);
@@ -297,38 +298,38 @@ CaractsManager.prototype.buildValueForm = function(caractForm, index, childValue
 	this.addOnChangeEvent(caractForm, index);
 }
 
-CaractsManager.prototype.removeValueForm = function(caractForm, childValue) {
+CaractsManager.prototype.removeValueForm = function(caractForm, isChildElement) {
 
-	if (childValue) {
+	if (isChildElement) {
 		caractForm.find('[id$=value_childValue]').parent().remove();
 	} else {
 		caractForm.find('[id$=value_value]').parent().remove();
 	}
 }
 
-CaractsManager.prototype.changeOrBuildValueForm = function (caractForm, index, childValue) {
-	this.removeValueForm(caractForm, childValue);
-	this.buildValueForm(caractForm, index, childValue);
+CaractsManager.prototype.changeOrBuildValueForm = function (caractForm, index, isChildElement) {
+	this.removeValueForm(caractForm, isChildElement);
+	this.buildValueForm(caractForm, index, isChildElement);
 }
 
-CaractsManager.prototype.getFirstOrBuildValueForm = function (caractForm, index, childValue) {
+CaractsManager.prototype.getFirstOrBuildValueForm = function (caractForm, index, isChildElement) {
 	var formSelect;
 
-	formSelect = this.getValueFirstForm(caractForm, childValue);
+	formSelect = this.getValueFirstForm(caractForm, isChildElement);
 
 	if (formSelect.length > 0) {
 		return formSelect;
 	} else {
-		this.buildValueForm(caractForm, index, childValue);
-		formSelect = this.getValueFirstForm(caractForm, childValue);
+		this.buildValueForm(caractForm, index, isChildElement);
+		formSelect = this.getValueFirstForm(caractForm, isChildElement);
 		return formSelect;
 	}
 }
 
-CaractsManager.prototype.updateValueFormCallBack = function (caractForm, elementsList, index, childValue) {
+CaractsManager.prototype.updateValueFormCallBack = function (caractForm, elementsList, index, isChildElement) {
 	var formSelect;
 	
-	formSelect = this.getFirstOrBuildValueForm(caractForm, index, childValue);
+	formSelect = this.getFirstOrBuildValueForm(caractForm, index, isChildElement);
 
 	$('option', formSelect).remove();
 
