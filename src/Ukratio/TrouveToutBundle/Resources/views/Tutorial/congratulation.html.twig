@@ -1,0 +1,17 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'congratulation' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+
+<section>
+  <p>{{ 'tutorial.congratulation' | trans({}, 'tutorial') }}</p>
+  <a href="{{ path(route) }}" class="btn">
+    {{ 'next' | trans }}
+  </a>
+</section>
+
+{% endblock %}
+

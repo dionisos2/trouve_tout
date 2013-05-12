@@ -27,12 +27,18 @@
 <section>
   {% set link = {'button': '', 'target': '' } %}
   {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
+  <h2>{{ 'Add a category' | trans }}</h2>
   {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
 </section>
 
 {% endblock %}
 
 {% block javascripts %}
-        {{ parent() }}
-        {% include "TrouveToutBundle:TrouveTout:ConceptFormJavascript.html.twig" %}
+  {{ parent() }}
+  {% include "TrouveToutBundle:TrouveTout:ConceptFormJavascript.html.twig" %}
+  {% if error is defined %}
+  <script type="text/javascript">
+  $().ready(function () { alert("{{ error | trans({}, 'tutorial' )}}");});
+  </script>
+  {% endif %}
 {% endblock %}

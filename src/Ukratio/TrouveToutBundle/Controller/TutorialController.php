@@ -16,6 +16,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
 use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\ToolBundle\Form\Type\ChoiceOrTextType;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
@@ -25,7 +26,7 @@ class TutorialController extends ControllerWithTools
 
     
     /**
-     * @Route("/tutorial/introduction", name="tutorial_introduction")
+     * @Route("/tutorial/{introduction}", requirements={"introduction" = "(introduction||)"}, defaults={"introduction" = "introduction"}, name="tutorial_introduction")
      * @Template()
      */
 	public function introductionAction()
@@ -43,7 +44,19 @@ class TutorialController extends ControllerWithTools
 	}
 
     /**
-     * @Route("/tutorial/create_category_object", name="create_category_object")
+     * @Route("/tutorial/add_category2", name="tutorial_add_category2")
+     * @Template()
+     */
+	public function addCategory2Action()
+	{
+        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $concept = $this->getObjectCategory();
+        $form = $cfc->createForm($concept);
+        return $cfc->arrayForTemplate($concept, $form);
+	}
+
+    /**
+     * @Route("/tutorial/create_category_object", name="tutorial_create_category_object")
      * @Method({"GET"})
      * @Template()
      */
@@ -54,7 +67,17 @@ class TutorialController extends ControllerWithTools
 	}
 
     /**
-     * @Route("/tutorial/create_category_object", name="verify_category_object")
+     * @Route("/tutorial/congratulation/{route}", name="tutorial_congratulation")
+     * @Method({"GET"})
+     * @Template()
+     */
+	public function congratulationAction($route)
+	{
+        return array('route' => $route);
+	}
+
+    /**
+     * @Route("/tutorial/create_category_object", name="tutorial_verify_category_object")
      * @Method({"POST"})
      * @Template("TrouveToutBundle:Tutorial:createCategoryObject.html.twig")
      */
@@ -76,15 +99,35 @@ class TutorialController extends ControllerWithTools
             $valid = $valid && $this->hasCaract($concept, 'localization', Type::$object, null);
 
             if ($valid) {
-                echo 'Bien joué !';
+                return $this->redirect($this->generateUrl('tutorial_congratulation', array('route' => 'tutorial_add_category2')));
             } else {
-                echo 'Raté !';
+                return $cfc->arrayForTemplate($concept, $form) + array('error' => 'tutorial.miss');
             }
-            return $cfc->arrayForTemplate($concept, $form);
         } else {
             return $cfc->arrayForTemplate($concept, $form);
         }
 	}
+
+    private function getObjectCategory()
+    {
+        $translator = $this->get('translator');
+
+        $concept = new Concept();
+        $concept->setType(Discriminator::$Category->getName());
+
+        $concept->setName($translator->trans('object'));
+        $caractPicture = new Caract();
+        $caractPicture->setName($translator->trans('picture'));
+        $caractPicture->setType(Type::$picture->getName());
+        $caractObject = new Caract();
+        $caractObject->setName($translator->trans('object'));
+        $caractObject->setType(Type::$object->getName());
+
+        $concept->addCaract($caractPicture);
+        $concept->addCaract($caractObject);
+        
+        return $concept;
+    }
 
     private function hasCaract(Concept $concept, $caractName, Type $type = null, $value = null, $selected = true, $byDefault = true)
     {

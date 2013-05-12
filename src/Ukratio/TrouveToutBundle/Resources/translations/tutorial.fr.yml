@@ -1,4 +1,6 @@
 tutorial:
+  miss: 'Désolé vous avez fait une ou plusieurs erreurs, reéssayez'
+  congratulation: 'Félicitation vous avez correctement accomplie l’exercice, cliquez sur suivant pour continuer'
   introduction:
     welcome: 'Bonjour et bien venue dans le tutoriel de présentation de TrouveTout!'
     approach: 'Dans la suite nous allons vous présentez les différentes fonctionnalitées du logiciel, à chaque étape vous serez amené à effectuer la tache qui vous est demander.'
@@ -28,3 +30,7 @@ tutorial:
     step_image: 'Cliquez sur "Ajouter une caractéristique", puis donnez lui comme nom: "image", et comme type: "image"'
     step_localization: 'Ajouter une autre caractéristique, donnez lui comme nom: "localization", et comme type: "objet" (nous verrons par la suite à quoi cela correspond)'
     step_send: 'Cliquez sur le boutton envoyer, si vous n’avez pas fait d’erreur vous passerez à la suite du tutoriel.'
+
+  add_category2:
+    modify_category: 'La categorie "objet" a maintenant été enregistré en base de donnée, et vous avez été redirigé vers une page où vous pouvez la modifier.'
+    new_category: 'L’on va maintenant ajouter une nouvelle categorie "vaisselle", cliquez sur "Ajouter une categorie"'
