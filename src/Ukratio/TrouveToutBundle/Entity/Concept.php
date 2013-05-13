@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Ukratio\TrouveToutBundle\Constant;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -138,6 +139,68 @@ class Concept
      */
     private $caracts;
 
+
+    public function hasCaract($caractName, Type $type = null, $value = null, $selected = null, $byDefault = null)
+    {
+        $caract = $this->getCaract($caractName);
+
+
+        if ($caract === null) {
+            return false;
+        } else {
+            $valid = true;
+        }
+
+        if ($type !== null) {
+            $valid = $valid && $caract->getType() == $type->getName();
+        }
+
+        if ($value !== null) {
+            if ($caract->getValue() !== null) {
+                $goodValue = $caract->getValue()->getValue();
+            } else {
+                $goodValue = null;
+            }
+
+            $valid = $valid && ($goodValue == $value); //TODO, also verify parent value, then pass a array for $value
+        }
+
+        if ($selected !== null) {
+            $valid = $valid && $caract->getSelected() == $selected;
+        }
+
+        if ($byDefault !== null) {
+            $valid = $valid && $caract->getByDefault() == $byDefault;
+        }
+        
+        return $valid;
+    }
+
+    public function equals(Concept $concept)
+    {
+        
+        $valid = ($this->getType() === $concept->getType());
+        $valid = $valid && ($this->getName() == $concept->getName());
+        
+        /* foreach ($this->getMoreGeneralConcepts() as $category) { */ // TODO
+        /*     $valid = $valid && $concept->hasCategory(); */
+        /* } */
+
+        $valid = $valid && (count($this->getCaracts()) == count($concept->getCaracts()));
+
+
+        foreach ($this->getCaracts() as $caract) {
+            if ($caract->getValue() !== null) {
+                $value = $caract->getValue()->getValue();
+            } else {
+                $value = null;
+            }
+
+            $valid = $valid && $concept->hasCaract($caract->getName(), Type::getEnumerator($caract->getType()), $value, $caract->getSelected(), $caract->getByDefault());
+        }
+
+        return $valid;
+    }
 
     public function validateConcept(ExecutionContextInterface $context)
     {

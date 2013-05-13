@@ -94,9 +94,7 @@ class TutorialController extends ControllerWithTools
 
         
         if ($form->isValid()) {
-            $valid = ($translator->trans('object') == $concept->getName());
-            $valid = $valid && $this->hasCaract($concept, 'picture', Type::$picture, null);
-            $valid = $valid && $this->hasCaract($concept, 'localization', Type::$object, null);
+            $valid = $concept->equals($this->getObjectCategory());
 
             if ($valid) {
                 return $this->redirect($this->generateUrl('tutorial_congratulation', array('route' => 'tutorial_add_category2')));
@@ -119,8 +117,9 @@ class TutorialController extends ControllerWithTools
         $caractPicture = new Caract();
         $caractPicture->setName($translator->trans('picture'));
         $caractPicture->setType(Type::$picture->getName());
+        $caractPicture->setValue(new Element('picture'));
         $caractObject = new Caract();
-        $caractObject->setName($translator->trans('object'));
+        $caractObject->setName($translator->trans('localization'));
         $caractObject->setType(Type::$object->getName());
 
         $concept->addCaract($caractPicture);
@@ -129,22 +128,4 @@ class TutorialController extends ControllerWithTools
         return $concept;
     }
 
-    private function hasCaract(Concept $concept, $caractName, Type $type = null, $value = null, $selected = true, $byDefault = true)
-    {
-        $translator = $this->get('translator');
-        $caract = $concept->getCaract($translator->trans($caractName));
-
-        if ($caract === null) {
-            return false;
-        } else {
-            $valid = true;
-        }
-
-        if ($type !== null) {
-            $valid = $valid && $caract->getType() == $type->getName();
-        }
-
-        
-        return $valid;
-    }
 }

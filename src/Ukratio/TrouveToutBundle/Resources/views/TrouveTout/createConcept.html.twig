@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block TrouveTout %}
+{{ parent() }}
 
     {% if conceptType == "Set" %}
         <h2>{{ 'Add a object' | trans }}</h2>

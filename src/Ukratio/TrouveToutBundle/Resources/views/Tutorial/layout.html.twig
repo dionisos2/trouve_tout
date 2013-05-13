@@ -1,0 +1,20 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+	{{ parent() }} - {{ 'Tutorial' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+{{ parent() }}
+
+<h2>{{ 'tutorial' | trans }}</h2>
+{% endblock %}
+  
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}
+  
+  
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}

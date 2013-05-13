@@ -1,10 +1,11 @@
-{% extends "TrouveToutBundle::layout.html.twig" %}
+{% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
 
 {% block title %}
   {{ parent() }} - {{ 'add_category' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
+{{ parent() }}
 
 <section>
   <p>{{ 'tutorial.add_category.three_concepts' | trans({}, 'tutorial') }}</p>

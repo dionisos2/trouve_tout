@@ -1,10 +1,11 @@
-{% extends "TrouveToutBundle::layout.html.twig" %}
+{% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
 
 {% block title %}
-  {{ parent() }} - {{ 'introduction' | trans }}
+  {{ parent() }} - {{ 'Introduction' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
+{{ parent() }}
 
 <p><strong>{{ 'tutorial.introduction.welcome' | trans({}, 'tutorial') }}</strong></p>
 <p>{{ 'tutorial.introduction.approach' | trans({}, 'tutorial') }}</p>
@@ -16,4 +17,13 @@
   {{ 'next' | trans }}
 </a>
 
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}
+  
+  
+{% block stylesheets %}
+{{ parent() }}
 {% endblock %}
