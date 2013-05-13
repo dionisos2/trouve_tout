@@ -176,15 +176,33 @@ class Concept
         return $valid;
     }
 
+    public function getMoreGeneralConcept($name)
+    {
+        $concepts = array_filter($this->getMoreGeneralConcepts()->toArray(),
+                                function (Concept $concept) use ($name)
+                                {return $concept->getName() == $name;});
+
+        if (count($concepts) > 1) {
+            throw new \RuntimeException("The concept have two concept of name $name, that can’t be possible…");
+        } elseif (count($concepts) === 1) {
+            return current($concepts);
+        } else {
+            return null;
+        }
+    }
+
     public function equals(Concept $concept)
     {
         
         $valid = ($this->getType() === $concept->getType());
         $valid = $valid && ($this->getName() == $concept->getName());
         
-        /* foreach ($this->getMoreGeneralConcepts() as $category) { */ // TODO
-        /*     $valid = $valid && $concept->hasCategory(); */
-        /* } */
+        
+        $valid = $valid && (count($this->getMoreGeneralConcepts()) == count($concept->getMoreGeneralConcepts()));
+
+        foreach ($this->getMoreGeneralConcepts() as $category) { 
+            $valid = $valid && ($concept->getMoreGeneralConcept($category->getName()) !== null);
+        }
 
         $valid = $valid && (count($this->getCaracts()) == count($concept->getCaracts()));
 
