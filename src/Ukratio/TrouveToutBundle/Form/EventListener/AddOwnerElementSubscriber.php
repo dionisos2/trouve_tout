@@ -14,12 +14,10 @@ use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransforme
 class AddOwnerElementSubscriber implements EventSubscriberInterface
 {
     private $factory;
-    private $em;
     
-    public function __construct(FormFactoryInterface $factory, EntityManager $em)
+    public function __construct(FormFactoryInterface $factory)
     {
         $this->factory = $factory;
-        $this->em = $em;
     }
 
     public static function getSubscribedEvents()

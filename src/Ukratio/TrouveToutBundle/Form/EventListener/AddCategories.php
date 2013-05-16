@@ -8,17 +8,22 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
 use Doctrine\ORM\EntityManager;
 
+
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
+use Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType;
 
 class AddCategories implements EventSubscriberInterface
 {
     private $factory;
+    private $conceptRepo;
 
-    public function __construct(FormFactoryInterface $factory)
+    public function __construct(FormFactoryInterface $factory,ConceptRepository $conceptRepo)
     {
         $this->factory = $factory;
+        $this->conceptRepo = $conceptRepo;
     }
 
     public static function getSubscribedEvents()
@@ -35,7 +40,7 @@ class AddCategories implements EventSubscriberInterface
                          'childConcept' => $data
         );
 
-        $named = $this->factory->createNamed('moreGeneralConceptConcepts', 'collection', null, array('type' => 'TrouveTout_ConceptConcept', 
+        $named = $this->factory->createNamed('moreGeneralConceptConcepts', 'collection', null, array('type' => new ConceptConceptType($this->conceptRepo), 
                                                                                                      'label' => ' ',
                                                                                                      'allow_add' => true,
                                                                                                      'allow_delete' => true,

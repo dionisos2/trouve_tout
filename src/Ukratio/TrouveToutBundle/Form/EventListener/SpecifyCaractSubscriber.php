@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 
 use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\Type;
 
 use Ukratio\ToolBundle\Debug\Message;
@@ -17,14 +18,12 @@ use Ukratio\ToolBundle\Debug\Message;
 class SpecifyCaractSubscriber implements EventSubscriberInterface
 {
     private $factory;
-    private $em;
     private $elementRepo;
     
-    public function __construct(FormFactoryInterface $factory, EntityManager $em)
+    public function __construct(FormFactoryInterface $factory, ElementRepository $elementRepo)
     {
         $this->factory = $factory;
-        $this->em = $em;
-        $this->elementRepo = $this->em->getRepository('TrouveToutBundle:Element');
+        $this->elementRepo = $elementRepo;
     }
 
     public static function getSubscribedEvents()

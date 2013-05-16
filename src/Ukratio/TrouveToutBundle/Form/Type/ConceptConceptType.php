@@ -5,19 +5,24 @@ namespace Ukratio\TrouveToutBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityManager;
-use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+
+use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
+use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
+
+
 class ConceptConceptType extends AbstractType
 {
-    private $em;
         
-    public function __construct(EntityManager $em)
+    protected $conceptRepo;
+
+    public function __construct(ConceptRepository $conceptRepo)
     {
-        $this->em = $em;
+        $this->conceptRepo = $conceptRepo;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -27,7 +32,7 @@ class ConceptConceptType extends AbstractType
         $options = array('label' => ' ',
                          'childConcept' => $childConcept);
 
-        $builder->add('moreGeneral', 'TrouveTout_SortedConcepts', $options);
+        $builder->add('moreGeneral', new SortedConceptType($this->conceptRepo), $options);
 
     }
 
@@ -37,6 +42,7 @@ class ConceptConceptType extends AbstractType
             'data_class' => 'Ukratio\TrouveToutBundle\Entity\ConceptConcept',
             'childConcept' => null
         ));
+
     }
 
     public function getName()

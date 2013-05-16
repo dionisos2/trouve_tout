@@ -34,3 +34,6 @@ tutorial:
   add_category2:
     modify_category: 'La categorie "objet" a maintenant été enregistrée en base de donnée, et vous avez été redirigé vers une page où vous pouvez la modifier.'
     new_category: 'L’on va maintenant ajouter une nouvelle categorie "vaisselle", cliquez sur "Ajouter une categorie"'
+
+  create_category_dishes:
+    add_category_object: 'Une "vaisselle" est un "objet", l’on va donc lui ajouter la categorie "objet" pour commencer: cliquez sur "Ajouter une categorie", choisissez "objet" dans la liste déroulante puis cliquez sur envoyer pour continuer.'

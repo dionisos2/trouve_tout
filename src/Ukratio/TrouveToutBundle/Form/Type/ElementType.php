@@ -14,22 +14,24 @@ use Ukratio\TrouveToutBundle\Form\EventListener\AddElementSubscriber;
 
 use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
+use Ukratio\TrouveToutBundle\Entity\CaractRepository;
 use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
 
 use Doctrine\ORM\EntityManager;
 
 class ElementType extends AbstractType
 {
-    private $em;
-    private $conceptRepo;
-    private $caractTypeManager;
+    protected $conceptRepo;
+    protected $elementRepo;
+    protected $caractTypeManager;
 
-    public function __construct(EntityManager $em, ConceptRepository $conceptRepo, CaractTypeManager $caractTypeManager)
+    public function __construct(ConceptRepository $conceptRepo, ElementRepository $elementRepo, CaractTypeManager $caractTypeManager)
     {
-        $this->em = $em;
         $this->conceptRepo = $conceptRepo;
+        $this->elementRepo = $elementRepo;
         $this->caractTypeManager = $caractTypeManager;
     }
 
@@ -38,11 +40,11 @@ class ElementType extends AbstractType
 
         $type = Type::getEnumerator($options['typeOfValue']);
 
-        $builder->addEventSubscriber(new AddElementSubscriber($builder->getFormFactory(), $this->em, $this->conceptRepo, $type, $this->caractTypeManager));
+        $builder->addEventSubscriber(new AddElementSubscriber($builder->getFormFactory(), $this->conceptRepo, $this->elementRepo, $type, $this->caractTypeManager));
 
-        $builder->addEventSubscriber(new AddChildElementSubscriber($builder->getFormFactory(), $this->em, $type, $this->caractTypeManager));
+        $builder->addEventSubscriber(new AddChildElementSubscriber($builder->getFormFactory(), $type, $this->caractTypeManager));
 
-        $builder->addEventSubscriber(new AddOwnerElementSubscriber($builder->getFormFactory(), $this->em));
+        $builder->addEventSubscriber(new AddOwnerElementSubscriber($builder->getFormFactory()));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

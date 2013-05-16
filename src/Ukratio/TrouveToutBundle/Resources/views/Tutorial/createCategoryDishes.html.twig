@@ -1,21 +1,20 @@
 {% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
 
 {% block title %}
-  {{ parent() }} - {{ 'add_category' | trans }}
+  {{ parent() }} - {{ 'create_category_dishes' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
 {{ parent() }}
 
 <section>
-  <p>{{ 'tutorial.add_category2.modify_category' | trans({}, 'tutorial') }}</p>
-  <p>{{ 'tutorial.add_category2.new_category' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.create_category_dishes.add_category_object' | trans({}, 'tutorial') }}</p>
 </section>
 
 <section>
-  {% set link = {'button': 'add_category', 'target': path('tutorial_create_category_dishes') } %}
+  {% set link = {'button': '', 'target': '' } %}
   {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
-  <h2>{{ 'Modify a category' | trans }}</h2>
+  <h2>{{ 'Add a category' | trans }}</h2>
   {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
 </section>
 
@@ -24,7 +23,9 @@
 {% block javascripts %}
   {{ parent() }}
   {% include "TrouveToutBundle:TrouveTout:ConceptFormJavascript.html.twig" %}
+  {% if error is defined %}
   <script type="text/javascript">
-  $().ready(function () {});
+  $().ready(function () { alert("{{ error | trans({}, 'tutorial' )}}");});
   </script>
+  {% endif %}
 {% endblock %}

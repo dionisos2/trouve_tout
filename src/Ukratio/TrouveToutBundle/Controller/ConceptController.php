@@ -25,7 +25,6 @@ use Ukratio\TrouveToutBundle\Entity\Discriminator;
 class ConceptController extends ControllerWithTools
 {    
 
-
     /**
      * @Route("/create_category", name="create_category")
      * @Method({"GET"})

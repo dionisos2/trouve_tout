@@ -335,7 +335,7 @@ class Concept
         }
     }
 
-    public function __construct()
+    public function __construct($name = null)
     {
         $this->initialize();
 
@@ -344,7 +344,7 @@ class Concept
 		$this->moreSpecificConceptConcepts = new ArrayCollection();
         $this->type = Discriminator::$Set->getName();
         $this->number = 1;
-        $this->name = null;
+        $this->name = $name;
         $this->linkable = false;
     }
 

@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 
 use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Type;
@@ -24,10 +25,10 @@ class AddElementSubscriber implements EventSubscriberInterface
     private $conceptRepo;
     private $caractTypeManager;
     
-    public function __construct(FormFactoryInterface $factory, EntityManager $em, ConceptRepository $conceptRepo, Type $type, CaractTypeManager $caractTypeManager)
+    public function __construct(FormFactoryInterface $factory, ConceptRepository $conceptRepo, ElementRepository $elementRepo , Type $type, CaractTypeManager $caractTypeManager)
     {
         $this->factory = $factory;
-        $this->elementRepo = $em->getRepository('TrouveToutBundle:Element');
+        $this->elementRepo = $elementRepo;
         $this->conceptRepo = $conceptRepo;
         $this->type = $type;
         $this->caractTypeManager = $caractTypeManager;

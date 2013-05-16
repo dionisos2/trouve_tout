@@ -49,10 +49,28 @@ class TutorialController extends ControllerWithTools
      */
 	public function addCategory2Action()
 	{
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
         $concept = $this->getObjectCategory();
-        $form = $cfc->createForm($concept);
-        return $cfc->arrayForTemplate($concept, $form);
+        $form = $conceptFormManager->createForm($concept);
+        return $conceptFormManager->arrayForTemplate($concept, $form);
+	}
+
+    /**
+     * @Route("/tutorial/create_category_dishes", name="tutorial_create_category_dishes")
+     * @Method({"GET"})
+     * @Template()
+     */
+	public function createCategoryDishesAction()
+	{
+        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+
+        $concept = new Concept();
+        $concept->setType(Discriminator::$Category->getName());
+        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+        
+        $form = $this->createForm($tutorialCategoryType, $concept);
+
+        return $conceptFormManager->arrayForTemplate($concept, $form);
 	}
 
     /**
@@ -62,8 +80,8 @@ class TutorialController extends ControllerWithTools
      */
 	public function createCategoryObjectAction()
 	{
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
-        return $cfc->createConcept(Discriminator::$Category);
+        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+        return $conceptFormManager->createConcept(Discriminator::$Category);
 	}
 
     /**
@@ -83,12 +101,12 @@ class TutorialController extends ControllerWithTools
      */
 	public function verifyCategoryObjectAction(Request $request)
 	{
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
         $translator = $this->get('translator');
         $concept = new Concept();
 
         $concept->setType(Discriminator::$Category->getName());
-        $form = $cfc->createForm($concept);
+        $form = $conceptFormManager->createForm($concept);
 
         $form->bind($request);
 
@@ -99,10 +117,10 @@ class TutorialController extends ControllerWithTools
             if ($valid) {
                 return $this->redirect($this->generateUrl('tutorial_congratulation', array('route' => 'tutorial_add_category2')));
             } else {
-                return $cfc->arrayForTemplate($concept, $form) + array('error' => 'tutorial.miss');
+                return $conceptFormManager->arrayForTemplate($concept, $form) + array('error' => 'tutorial.miss');
             }
         } else {
-            return $cfc->arrayForTemplate($concept, $form);
+            return $conceptFormManager->arrayForTemplate($concept, $form);
         }
 	}
 

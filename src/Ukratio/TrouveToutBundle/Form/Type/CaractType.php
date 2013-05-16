@@ -12,26 +12,34 @@ use Doctrine\ORM\EntityManager;
 
 use Ukratio\ToolBundle\Service\Enum;
 use Ukratio\ToolBundle\Service\DataChecking;
+use Ukratio\ToolBundle\Form\Type\EnumType;
+
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
-use Ukratio\ToolBundle\Form\Type\EnumType;
+use Ukratio\TrouveToutBundle\Entity\CaractRepository;
+use Ukratio\TrouveToutBundle\Entity\ElementRepository;
+use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddValueSubscriber;
 use Ukratio\TrouveToutBundle\Form\EventListener\SpecifyCaractSubscriber;
+
 
 
 class CaractType extends AbstractType
 {
 
-    private $conceptRepo;
-    private $caractRepo;
-    private $dc;
+    protected $conceptRepo;
+    protected $caractRepo;
+    protected $elementRepo;
+    protected $dataChecking;
+    protected $caractTypeManager;
 
-    public function __construct(EntityManager $em, ConceptRepository $conceptRepo, DataChecking $dataChecking)
+    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, CaractTypeManager $caractTypeManager, DataChecking $dataChecking)
     {
-        $this->em = $em;
-        $this->dc = $dataChecking;
+        $this->dataChecking = $dataChecking;
         $this->conceptRepo = $conceptRepo;
-        $this->caractRepo = $em->getRepository('TrouveToutBundle:Caract');
+        $this->caractRepo = $caractRepo;
+        $this->elementRepo = $elementRepo;
+        $this->caractTypeManager = $caractTypeManager;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
@@ -48,7 +56,7 @@ class CaractType extends AbstractType
 
                 $view->vars['objects'] = array();
                 foreach ($objectNames as $objectName) {
-                    if ($this->dc->isNumbers($objectName)) {
+                    if ($this->dataChecking->isNumbers($objectName)) {
                         $object = $this->conceptRepo->findOneById($objectName);
                     } else {
                         $object = $this->conceptRepo->findOneByName($objectName);
@@ -97,8 +105,8 @@ class CaractType extends AbstractType
             $builder->add('type', new EnumType('Ukratio\TrouveToutBundle\Entity\Type'));
         }
 
-        $builder->addEventSubscriber(new AddValueSubscriber($builder->getFormFactory()));
-        $builder->addEventSubscriber(new SpecifyCaractSubscriber($builder->getFormFactory(), $this->em));
+        $builder->addEventSubscriber(new AddValueSubscriber($this->conceptRepo, $this->elementRepo, $this->caractTypeManager, $builder->getFormFactory()));
+        $builder->addEventSubscriber(new SpecifyCaractSubscriber($builder->getFormFactory(), $this->elementRepo));
 
     }
 

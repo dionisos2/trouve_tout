@@ -7,23 +7,37 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
-use Ukratio\TrouveToutBundle\Entity\Caract;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\MinLengthValidator;
-use Doctrine\ORM\EntityManager;
+
 use Ukratio\ToolBundle\Service\Enum;
 use Ukratio\ToolBundle\Form\Type\EnumType;
+
+use Ukratio\TrouveToutBundle\Entity\Caract;
+use Ukratio\TrouveToutBundle\Entity\CaractRepository;
+use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
+use Ukratio\TrouveToutBundle\Entity\ElementRepository;
+use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
+use Ukratio\TrouveToutBundle\Form\Type\ElementType;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Entity\Prefix;
 
+use Doctrine\ORM\EntityManager;
+
 class AddValueSubscriber implements EventSubscriberInterface
 {
-    private $factory;
-    private $validatorFactory;
+    protected $factory;
+    protected $validatorFactory;
+    protected $conceptRepo;
+    protected $elementRepo;
+    protected $caractTypeManager;
 
-    public function __construct(FormFactoryInterface $factory)
+    public function __construct(ConceptRepository $conceptRepo, ElementRepository $elementRepo, CaractTypeManager $caractTypeManager, FormFactoryInterface $factory)
     {
+        $this->conceptRepo = $conceptRepo;
+        $this->elementRepo = $elementRepo;
+        $this->caractTypeManager = $caractTypeManager;
         $this->factory = $factory;
         $this->validatorFactory = new ConstraintValidatorFactory();
     }
@@ -40,7 +54,7 @@ class AddValueSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
         
         if (isset($data['type'] )) {
-            $form->add($this->factory->createNamed('value', 'TrouveTout_Element', null, array('typeOfValue' => $data['type'])));
+            $form->add($this->factory->createNamed('value', new ElementType($this->conceptRepo, $this->elementRepo, $this->caractTypeManager), null, array('typeOfValue' => $data['type'])));
         }
     }
 
@@ -64,7 +78,7 @@ class AddValueSubscriber implements EventSubscriberInterface
         /*     $data->getValue()->setRatio($ratio); */
         /* } */
 
-        $form->add($this->factory->createNamed('value', 'TrouveTout_Element', null, array('typeOfValue' => $valueType)));
+        $form->add($this->factory->createNamed('value', new ElementType($this->conceptRepo, $this->elementRepo, $this->caractTypeManager), null, array('typeOfValue' => $valueType)));
 
         if (Type::getEnumerator($valueType) === Type::$number) {
             $form->add($this->factory->createNamed('prefix', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix')));

@@ -22,6 +22,7 @@ class SortedConceptType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $conceptWithSpecificities = $this->getSortedConceptsWithSpecificities($options['childConcept']);
         $categories = $conceptWithSpecificities['categories'];
         $specificities = $conceptWithSpecificities['specificities'];
@@ -38,14 +39,16 @@ class SortedConceptType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('options' => array(),
-                                     'data_class' => 'Ukratio\TrouveToutBundle\Entity\Concept',
+        $resolver->setDefaults(array(
+            'options' => array(),
+            'data_class' => 'Ukratio\TrouveToutBundle\Entity\Concept',
         ));
 
         $resolver->setRequired(array('childConcept'));
 
-        $resolver->setAllowedTypes(array('childConcept' => array('Ukratio\TrouveToutBundle\Entity\Concept', 'null'),
-                                         'options' => 'array'));
+        $resolver->setAllowedTypes(array(
+            'childConcept' => array('Ukratio\TrouveToutBundle\Entity\Concept', 'null'),
+            'options' => 'array',));
     }
 
     public function getName()

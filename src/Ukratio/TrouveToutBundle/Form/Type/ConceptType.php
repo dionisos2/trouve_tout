@@ -7,37 +7,55 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 
 use Doctrine\ORM\EntityManager;
-use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Doctrine\ORM\EntityRepository;
+
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
+use Ukratio\TrouveToutBundle\Entity\Discriminator;
+use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
+use Ukratio\TrouveToutBundle\Entity\ElementRepository;
+use Ukratio\TrouveToutBundle\Entity\CaractRepository;
+use Ukratio\TrouveToutBundle\Service\ElementManager;
+use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
+
+use Ukratio\ToolBundle\Service\DataChecking;
 
 abstract class ConceptType extends AbstractType
 {
 
-    protected $em;
+
     protected $discriminator;
+    protected $conceptRepo;
+    protected $elementRepo;
+    protected $caractRepo;
+    protected $elementManager;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->addCaracts($builder);
         $this->addPrototypes($builder);
-
-        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory()));
+            
+        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory(), $this->conceptRepo));
     }
 
-    public function __construct(EntityManager $em, Discriminator $discriminator = null)
+    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, Discriminator $discriminator = null, ElementManager $elementManager, FormFactoryInterface $formFactory)
     {
-        $this->em = $em;
+        $this->conceptRepo = $conceptRepo;
+        $this->elementRepo = $elementRepo;
+        $this->caractRepo = $caractRepo;
         $this->discriminator = $discriminator;
+        $this->elementManager = $elementManager;
+        $this->dataChecking = new DataChecking;
+        $this->caractTypeManager = new CaractTypeManager($formFactory, $this->conceptRepo, $this->elementRepo, $this->elementManager);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ukratio\TrouveToutBundle\Entity\Concept'
+            'data_class' => 'Ukratio\TrouveToutBundle\Entity\Concept',
         ));
     }
 
@@ -63,7 +81,7 @@ abstract class ConceptType extends AbstractType
     public function addCaracts(FormBuilderInterface $builder)
     {
 
-        $builder->add('caracts', 'collection', array('type' => 'TrouveTout_Caract',
+        $builder->add('caracts', 'collection', array('type' => new CaractType($this->conceptRepo, $this->caractRepo, $this->elementRepo, $this->caractTypeManager, $this->dataChecking),
                                                      'label' => ' ',
                                                      'allow_add' => true,
                                                      'allow_delete' => true,
