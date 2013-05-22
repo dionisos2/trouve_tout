@@ -35,17 +35,64 @@ class ConceptSeekerController extends ControllerWithTools
 
 
     /**
-     * @Route("/run_research/{id}", name="run_research", requirements={"id" = "\d+"})
+     * @Route("/run_with_id_research/{id}", name="run_with_id_research", requirements={"id" = "\d+"})
      * @Method({"GET"})
      * @Template("TrouveToutBundle:TrouveTout:runResearch.html.twig")
      */
-    public function runResearchAction(Request $request, Concept $research)
+    public function runAndSaveResearchAction(Request $request, Concept $research)
     {
         $cfc = $this->get('TrouveTout.ConceptFormManager');
         $researchResults = $cfc->runResearch($research);
         return array('researchResults' => $researchResults,
                      'research' => $research,
         );
+    }
+
+    /**
+     * @Route("/run_research/", name="run_research")
+     * @Method({"POST"})
+     * @Template("TrouveToutBundle:TrouveTout:runResearch.html.twig")
+     */
+    public function runResearchAction(Concept $research)
+    {
+        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $researchResults = $cfc->runResearch($research);
+        return array('researchResults' => $researchResults,
+                     'research' => $research,
+        );
+    }
+
+    /**
+     * @Route("/create_research", name="save_or_run_research")
+     * @Method({"POST"})
+     * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
+     */
+    public function saveOrRunResearch(Request $request)
+    {
+        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $concept = new Concept();
+
+        $type = Discriminator::$Research;
+
+        $concept->setType($type->getName());
+
+        $form = $cfc->createForm($concept);
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+
+            if (($request->request->get('save') != null)and($this->get('security.context')->isGranted('ROLE_USER'))) {
+                $cfc->saveConcept($concept);
+                return $this->redirect($this->generateUrl('run_with_id_research', array('id' => $concept->getId())));
+            } else {
+                return $this->forward('TrouveToutBundle:ConceptSeeker:runResearch', array('research'  => $concept));
+            }
+        } else {
+
+            return $cfc->arrayForTemplate($concept, $form);
+        }
+
     }
 
 }

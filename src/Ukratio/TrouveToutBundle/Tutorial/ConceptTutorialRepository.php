@@ -29,4 +29,24 @@ class ConceptTutorialRepository extends ConceptRepository
         $category->setType(Discriminator::$Category->getName());
         return array($category);
     }
+
+    public function findNamedSet()
+    {
+        return array();
+    }
+
+    public function findLinkableSet()
+    {
+        return array();
+    }
+
+    public function findOneByName()
+    {
+        return null;
+    }
+
+    public function findOneById()
+    {
+        return null;
+    }
 }

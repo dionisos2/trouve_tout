@@ -1,6 +1,7 @@
 tutorial:
   miss: 'Désolé vous avez fait une ou plusieurs erreurs, réessayez'
   congratulation: 'Félicitation vous avez correctement accomplie l’exercice, cliquez sur "suivant" pour continuer'
+  end: 'Vous avez entièrement terminé le Tutorial(non fini) !!, n’hésitez pas à y revenir en cas d’oublie.'
   introduction:
     welcome: 'Bonjour et bienvenue dans le tutoriel de présentation de TrouveTout!'
     approach: 'Dans la suite nous allons vous présentez les différentes fonctionnalités du logiciel, à chaque étape vous serez amené à effectuer la tache qui vous est demandée.'
@@ -33,7 +34,10 @@ tutorial:
 
   add_category2:
     modify_category: 'La categorie "objet" a maintenant été enregistrée en base de donnée, et vous avez été redirigé vers une page où vous pouvez la modifier.'
-    new_category: 'L’on va maintenant ajouter une nouvelle categorie "vaisselle", cliquez sur "Ajouter une categorie"'
+    new_category: 'On va maintenant ajouter une nouvelle categorie "vaisselle", cliquez sur "Ajouter une categorie"'
 
   create_category_dishes:
-    add_category_object: 'Une "vaisselle" est un "objet", l’on va donc lui ajouter la categorie "objet" pour commencer: cliquez sur "Ajouter une categorie", choisissez "objet" dans la liste déroulante puis cliquez sur envoyer pour continuer.'
+    add_category_object: 'Nommer la nouvelle catégorie vaisselle, une "vaisselle" étant un "objet", ajoutez lui la categorie "objet": cliquez sur "Ajouter une categorie", choisissez "objet" dans la liste déroulante puis cliquez sur envoyer pour continuer.'
+
+  modify_category_dishes:
+    added_caracts: 'On peut observer que les caractéristiques propres à la catégorie "objet" ont été ajouté à la catégorie "vaisselle", cela va nous permettre de préciser la valeur de ces caractéristiques.'

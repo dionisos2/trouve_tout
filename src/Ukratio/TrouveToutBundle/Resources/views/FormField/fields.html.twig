@@ -95,7 +95,8 @@
 
 {{ form_row(form.moreGeneral) }}
 
-{% if categoryName is defined %}
+{# TOSEE #}
+{% if ((categoryId is defined) and (categoryId > 0)) %}
 <div>
 <a href="{{ path('edit_concept', {id: categoryId}) }}">{{categoryName}}</a>
 </div>
@@ -123,6 +124,7 @@ data-prototype of value text="{{ form_row(context.prototypeOfValueText) | tra
 data-prototype of owner element="{{ form_row(context.prototypeOfOwnerElement) | trans({}, context.translation_domain)}}"
 
 {% endmacro %}
+
 
 {% block TrouveTout_Set_enctype %}
 {% import _self as __self %}

@@ -1,7 +1,9 @@
 {% extends "TrouveToutBundle:TrouveTout:ConceptForm.html.twig" %}
 
 {% block specific %}
-    {{ form_row(form.name) }}
-    {{ form_row(form.number) }}
-    {{ form_row(form.linkable) }}
+{{ form_row(form.name) }}
+{{ form_row(form.number) }}
+<div class="enligne">
+  {{ form_row(form.linkable) }}
+</div>
 {% endblock %}

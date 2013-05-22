@@ -39,7 +39,7 @@ class CategoriesGetter implements EventSubscriberInterface
         $trueCategories = array_filter($this->categories, function (Concept $category) use ($name) {return $category->getName() == $name;});
 
         if (count($trueCategories) !== 1) {
-            throw new \Exception('More or less than one concept with the same name:' . count($concepts));
+            throw new \Exception('More or less than one categorie with the same name:' . count($trueCategories));
         }
 
         $trueCategory = current($trueCategories);

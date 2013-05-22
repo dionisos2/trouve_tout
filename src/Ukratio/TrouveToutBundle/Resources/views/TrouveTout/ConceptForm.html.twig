@@ -1,11 +1,23 @@
 <div class="well">
   <form method="post" {{ form_enctype(form) }}>
     {% block specific %}{% endblock %}
-    <input type="submit" class="fix btn btn-primary" value="{{ 'Send' | trans }}" />
+    
+    
+    {% if ((concept.type == 'Research') and (concept.id == 0)) %}
+    <input type="submit" name="run" class="fix2 btn btn-primary" value="{{ 'research.run' | trans }}" />
+    {% endif %}
+
+    {% if app.user %}
+      {% if concept.type == 'Research' %}
+      <input type="submit" name="save" class="fix btn btn-primary" value="{{ 'research.save_and_run' | trans }}" />
+      {% else %}
+      <input type="submit" name="save" class="fix btn btn-primary" value="{{ 'Send' | trans }}" />
+      {% endif %}
+    {% endif %}
     
     {% if concept.id != 0 %}
     <a href="{{ path('delete_concept', {id: concept.id})}}" class="fix3 btn btn-primary" value="delete">
-  {{ 'Delete' | trans }}
+      {{ 'Delete' | trans }}
     </a>
     {% endif %}
 

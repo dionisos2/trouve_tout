@@ -2,4 +2,10 @@
 
 ajaxUrl = '{{ url('ajax_modify_caract') }}';
 
+{% if app.user %}
+loggedUser = true;
+{% else %}
+loggedUser = false;
+{% endif %}
+
 </script>

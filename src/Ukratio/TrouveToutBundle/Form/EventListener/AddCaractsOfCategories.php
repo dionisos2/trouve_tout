@@ -14,11 +14,8 @@ use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransforme
 
 class AddCaractsOfCategories implements EventSubscriberInterface
 {
-    private $factory;
-    
-    public function __construct(FormFactoryInterface $factory)
+    public function __construct()
     {
-        $this->factory = $factory;
     }
 
     public static function getSubscribedEvents()
@@ -39,14 +36,13 @@ class AddCaractsOfCategories implements EventSubscriberInterface
             return;
         }
 
-        $this->addCaractsForAllCategories($data, $data);
+        $this->addCaractsForAllCategories($data);
     }
 
-    private function addCaractsForAllCategories(Concept $set, Concept $category)
+    public function addCaractsForAllCategories(Concept $concept)
     {
-        foreach($category->getMoreGeneralConcepts() as $generalCategory) {
-            $this->addCaractsOfCategory($set, $generalCategory);
-            /* $this->addCaractsForAllCategories($set, $generalCategory); */
+        foreach($concept->getMoreGeneralConcepts() as $generalCategory) {
+            $this->addCaractsOfCategory($concept, $generalCategory);
         }
     }
 

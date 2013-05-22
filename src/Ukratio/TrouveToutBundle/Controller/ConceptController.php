@@ -48,7 +48,7 @@ class ConceptController extends ControllerWithTools
     }
 
     /**
-     * @Route("/create_{type}", requirements={"type" = "set|category|research"}, name="save_concept")
+     * @Route("/create_{type}", requirements={"type" = "set|category"}, name="save_concept")
      * @Method({"POST"})
      * @Secure(roles="ROLE_USER")
      * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
@@ -76,11 +76,7 @@ class ConceptController extends ControllerWithTools
         if ($form->isValid()) {
             $cfc->saveConcept($concept);
             
-            if ($type == Discriminator::$Research) {
-                return $this->redirect($this->generateUrl('run_research', array('id' => $concept->getId())));
-            } else {
-                return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
-            }
+            return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
         } else {
 
             return $cfc->arrayForTemplate($concept, $form);
@@ -121,7 +117,7 @@ class ConceptController extends ControllerWithTools
             $cfc->saveConcept($concept);
 
             if ($type == Discriminator::$Research) {
-                return $this->redirect($this->generateUrl('run_research', array('id' => $concept->getId())));
+                return $this->redirect($this->generateUrl('run_with_id_research', array('id' => $concept->getId())));
             } else {
                 return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
             }

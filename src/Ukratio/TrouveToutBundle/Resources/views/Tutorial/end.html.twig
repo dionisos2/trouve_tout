@@ -1,0 +1,15 @@
+{% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'end' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+{{ parent() }}
+
+<section>
+  <p>{{ 'tutorial.end' | trans({}, 'tutorial') }}</p>
+</section>
+
+{% endblock %}
+

@@ -44,7 +44,8 @@ tools.compute.specificities: 'Spécifier les caractéristiques'
 'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.': 'Trouve tout est un logiciel libre, dont la fonction est de créer méthodologiquement un inventaire d’objets de tout type, pour pouvoir les retrouver facilement'
 'Create a concept': 'créer un concept'
 research.do: 'Faire/Créer une recherche'
-'run research': 'Lancer la recherche'
+research.save_and_run: 'Sauvegarder et lancer la recherche'
+research.run: 'Lancer la recherche'
 send: envoyer
 fix: fixer
 Research: Recherche
@@ -52,7 +53,7 @@ Category: Catégorie
 Set: Objet
 all: tout
 linkable: liable
-Linkable: Liable
+Linkable: 'Liable: '
 unlinkable: 'non liable'
 'This site was created by a ucratique community': 'Ce site a été créé par une communauté ucratique'
 Type: 'Type: '
@@ -78,3 +79,4 @@ introduction: introduction
 tutorial: tutoriel
 next: Suivant
 localization: localisation
+dishes: vaisselle

@@ -1,10 +1,14 @@
 $(document).ready(function() {
 	var caractsManager;
 	var categoriesManager;
+	var isResearch = $('#TrouveTout_Research_name').length > 0;
 
-	caractsManager = new CaractsManager();
-	caractsManager.addButtonsForDynamicForms();
 
-	categoriesManager = new CategoriesManager();
-	categoriesManager.addButtonsForDynamicForms();
+	if (loggedUser || isResearch) {
+		caractsManager = new CaractsManager();
+		caractsManager.addButtonsForDynamicForms();
+
+		categoriesManager = new CategoriesManager();
+		categoriesManager.addButtonsForDynamicForms();
+	}
 });
