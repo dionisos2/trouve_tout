@@ -33,13 +33,10 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
 	this._super('addButtonsForDynamicForms');
 
 	this.dynamicForms.find('li.' + this.liName).each(function(index) {
-        self.addOnChangeEvent($(this), index + 1);
+        self.addOnChangeEvent($(this), index);
     });
 }
 
-CaractsManager.prototype.addOwnerElementOnChangeEvent = function (caractForm, index) {
-	
-}
 
 CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 	var self = this;
@@ -116,6 +113,8 @@ CaractsManager.prototype.addDynamicForm = function () {
 	result = this._super('addDynamicForm');
 	this.addOnChangeEvent(result.dynamicFormLi, result.index);
 	this.updateValueForm(result.dynamicFormLi, result.index, false);
+
+	return result;
 }
 
 CaractsManager.prototype.changeValueType = function (caractForm, index) {

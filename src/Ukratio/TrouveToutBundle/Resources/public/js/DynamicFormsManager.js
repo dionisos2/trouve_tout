@@ -35,7 +35,8 @@ DynamicFormsManager.prototype.addDynamicForm = function () {
 	var dynamicFormLi;
 
 	this.numberOfForm++;
-	dynamicForm = this.symfonyPrototype.replace(/__name__/g, this.numberOfForm);
+
+	dynamicForm = this.symfonyPrototype.replace(/__name__/g, this.numberOfForm - 1);
 
     dynamicFormLi = $('<li class="' + this.liName + '"></li>').append(dynamicForm);
     dynamicFormLi.find('[id*=selected]').attr('checked', 'checked');
@@ -45,7 +46,7 @@ DynamicFormsManager.prototype.addDynamicForm = function () {
 
     dynamicFormLi.insertBefore(this.addDynamicFormLinkLi);
 
-	return {'dynamicFormLi':dynamicFormLi, 'index':this.numberOfForm};
+	return {'dynamicFormLi':dynamicFormLi, 'index':this.numberOfForm - 1};
 }
 
 

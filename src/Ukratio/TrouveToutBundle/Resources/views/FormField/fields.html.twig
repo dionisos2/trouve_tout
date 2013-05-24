@@ -35,11 +35,11 @@
 {% if form.selected is defined %}
 {{ form_row(form.selected) }}
 {% endif %}
-|
+
 {% if form.byDefault is defined %}
-{{ form_row(form.byDefault) }}
+| {{ form_row(form.byDefault) }} |
 {% endif %}
-|
+
 {% if form.specificity is defined %}
 {{ form_row(form.specificity) }}
 {% endif %}
