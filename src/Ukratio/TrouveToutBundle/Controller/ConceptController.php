@@ -108,9 +108,11 @@ class ConceptController extends ControllerWithTools
     public function updateAction(Request $request, Concept $concept)
     {
         $cfc = $this->get('TrouveTout.ConceptFormManager');
+
         $form = $cfc->createForm($concept);
 
         $form->bind($request);
+
         $type = Discriminator::getEnumerator($concept->getType());
 
         if ($form->isValid()) {

@@ -39,6 +39,7 @@ class AddOwnerElementSubscriber implements EventSubscriberInterface
             $index++;
         }
 
+        krsort($ownerElements);
 
         foreach ($ownerElements as $key => $ownerElement) {
             $form->add($this->factory->createNamed($key, 'text', $ownerElement, array('mapped' => false,
@@ -57,22 +58,19 @@ class AddOwnerElementSubscriber implements EventSubscriberInterface
         }
 
 
-        $choices = array(0);
-
         $ownerElements = array_slice($data->getPath(), 1);
 
-        $index = count($ownerElements) - 1;
-        foreach ($ownerElements as $pathElement) {
+        $ownerElements = array_reverse($ownerElements);
+        krsort($ownerElements);
+
+        foreach ($ownerElements as $key => $pathElement) {
             $optionsElement = array('label' => ' ',
                              'read_only' => true,
                              'mapped' => false,
             );
 
-            
-            $builder = $this->factory->createNamedBuilder("element_$index", 'text', $pathElement, $optionsElement);
+            $builder = $this->factory->createNamedBuilder("element_$key", 'text', $pathElement, $optionsElement);
             $form->add($builder->getForm());
-            $index -= 1;
-            $choices[] = $index;
         }
 
     }
