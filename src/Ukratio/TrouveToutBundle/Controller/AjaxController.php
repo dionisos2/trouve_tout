@@ -47,7 +47,12 @@ class AjaxController extends ControllerWithTools
             $choices = array('other' => 'other') + $choices;
         }
 
-        return new Response(json_encode($choices));
+        $ordered_choices = array();
+        foreach($choices as $key => $value) {
+            $ordered_choices[] = array($key, $value);
+        }
+
+        return new Response(json_encode($ordered_choices));
     }
 
 }

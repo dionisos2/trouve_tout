@@ -58,7 +58,7 @@ class CaractTypeManager
         }
 
 
-        $choices = array_map(function(Element $element) { return $element->getValue();}, $elementChoices);
+        $choices = array_map(function(Element $element) { return (string) $element->getValue();}, $elementChoices);
 
         $choices = array_combine($choices, $choices);
 

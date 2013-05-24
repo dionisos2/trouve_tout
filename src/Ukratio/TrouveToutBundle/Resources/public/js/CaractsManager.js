@@ -34,6 +34,9 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
 
 	this.dynamicForms.find('li.' + this.liName).each(function(index) {
         self.addOnChangeEvent($(this), index);
+		if (self.getValue($(this), false) !== null) {
+			self.updateValueForm($(this), index, true);
+		}
     });
 }
 
@@ -327,21 +330,16 @@ CaractsManager.prototype.getFirstOrBuildValueForm = function (caractForm, index,
 
 CaractsManager.prototype.updateValueFormCallBack = function (caractForm, elementsList, index, isChildElement) {
 	var formSelect;
-	
+	var tmpElementList
+
 	formSelect = this.getFirstOrBuildValueForm(caractForm, index, isChildElement);
 
 	$('option', formSelect).remove();
-
-	if ('choices1' in elementsList) { //TOSEE ! we have to look if choices1 is a object
-		$.each(elementsList['choices1'], function(value, text) {
-			formSelect.append(new Option(text, value));
+	
+	if (formSelect.is('select')) {
+		$.each(elementsList, function(key, value) {
+			formSelect.append(new Option(value[0], value[1]));
 		});
-	} else {
-		if (formSelect.is('select')) {
-			$.each(elementsList, function(value, text) {
-				formSelect.append(new Option(text, value));
-			});
-		}
 	}
 	
 }
