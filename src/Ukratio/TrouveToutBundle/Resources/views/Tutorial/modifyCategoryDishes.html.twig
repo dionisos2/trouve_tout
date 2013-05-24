@@ -1,7 +1,7 @@
 {% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
 
 {% block title %}
-  {{ parent() }} - {{ 'create_category_dishes' | trans }}
+  {{ parent() }} - {{ 'tutorial.create_category_dishes.title' | trans({}, 'tutorial') }}
 {% endblock %}
 
 {% block TrouveTout %}
@@ -9,6 +9,50 @@
 
 <section>
   <p>{{ 'tutorial.modify_category_dishes.added_caracts' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.modify_category_dishes.caract_properties' | trans({}, 'tutorial') }}</p>
+  
+  <ol>
+    <li>
+      <strong>{{ 'tutorial.modify_category_dishes.caract.name.term' | trans({}, 'tutorial') }}</strong>
+      {{ 'tutorial.modify_category_dishes.caract.name.definition' | trans({}, 'tutorial') }}
+    </li>
+    <li>
+      <strong>{{ 'tutorial.modify_category_dishes.caract.type.term' | trans({}, 'tutorial') }}</strong>
+      {{ 'tutorial.modify_category_dishes.caract.type.definition' | trans({}, 'tutorial') }}
+    </li>
+    <li>
+      <strong>{{ 'tutorial.modify_category_dishes.caract.value.term' | trans({}, 'tutorial') }}</strong>
+      {{ 'tutorial.modify_category_dishes.caract.value.definition' | trans({}, 'tutorial') }}
+    </li>
+  </ol>
+  
+  <p>{{ 'tutorial.modify_category_dishes.five_caracts' | trans({}, 'tutorial') }}</p>
+  <dl>
+    <dt>{{ 'tutorial.modify_category_dishes.caract_type.name.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_dishes.caract_type.name.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.modify_category_dishes.caract_type.number.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_dishes.caract_type.number.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.modify_category_dishes.caract_type.picture.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_dishes.caract_type.picture.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.modify_category_dishes.caract_type.object.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_dishes.caract_type.object.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.modify_category_dishes.caract_type.text.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_dishes.caract_type.text.definition' | trans({}, 'tutorial') }}</dd>
+  </dl>
+
+  <p>{{ 'tutorial.modify_category_dishes.value_heritage' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.modify_category_dishes.value_heritage_avantages' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.modify_category_dishes.goal' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.modify_category_dishes.enter_inherited_value' | trans({}, 'tutorial') }}</p>
+
+  <ol>
+    <li>{{ 'tutorial.modify_category_dishes.enter.matter' | trans({}, 'tutorial') }}</li>
+    <li>{{ 'tutorial.modify_category_dishes.enter.metal' | trans({}, 'tutorial') }}</li>
+    <li>{{ 'tutorial.modify_category_dishes.enter.stainless' | trans({}, 'tutorial') }}</li>
+  </ol>
+
+  <p>{{ 'tutorial.modify_category_dishes.generalize' | trans({}, 'tutorial') }}</p>
+
 </section>
 
 <section>
@@ -18,14 +62,4 @@
   {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
 </section>
 
-{% endblock %}
-
-{% block javascripts %}
-  {{ parent() }}
-  {% include "TrouveToutBundle:TrouveTout:ConceptFormJavascript.html.twig" %}
-  {% if error is defined %}
-  <script type="text/javascript">
-  $().ready(function () { alert("{{ error | trans({}, 'tutorial' )}}");});
-  </script>
-  {% endif %}
 {% endblock %}

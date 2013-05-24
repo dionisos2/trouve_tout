@@ -140,7 +140,7 @@ class Concept
     private $caracts;
 
 
-    public function hasCaract($caractName, Type $type = null, $value = null, $selected = null, $byDefault = null)
+    public function hasCaract($caractName, Type $type = null, Element $goodValue = null, $selected = null, $byDefault = null)
     {
         $caract = $this->getCaract($caractName);
 
@@ -155,14 +155,12 @@ class Concept
             $valid = $valid && $caract->getType() == $type->getName();
         }
 
-        if ($value !== null) {
-            if ($caract->getValue() !== null) {
-                $goodValue = $caract->getValue()->getValue();
-            } else {
-                $goodValue = null;
-            }
+        $value = $caract->getValue();
 
-            $valid = $valid && ($goodValue == $value); //TODO, also verify parent value, then pass a array for $value
+        if ($value !== null) {
+            $valid = $valid && $value->equals($goodValue);
+        } else {
+            $valid = $valid && ($goodValue === null);
         }
 
         if ($selected !== null) {
@@ -208,11 +206,7 @@ class Concept
 
 
         foreach ($this->getCaracts() as $caract) {
-            if ($caract->getValue() !== null) {
-                $value = $caract->getValue()->getValue();
-            } else {
-                $value = null;
-            }
+            $value = $caract->getValue();
 
             $valid = $valid && $concept->hasCaract($caract->getName(), Type::getEnumerator($caract->getType()), $value, $caract->getSelected(), $caract->getByDefault());
         }

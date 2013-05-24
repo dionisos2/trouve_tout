@@ -63,6 +63,7 @@ class Caract
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\Type(type="string")
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -130,7 +131,7 @@ class Caract
         
     }
 
-    public function __construct()
+    public function __construct($name = null)
     {
         $this->initialize();
         $this->value = null;
@@ -141,7 +142,11 @@ class Caract
         $this->byDefault = true;
         $this->specificity = 0;
         $this->type = Type::$name->getName();
-        $this->name = Constant::UNDEFINED;
+        if ($name !== null) {
+            $this->name = $name;
+        } else {
+            $this->name = Constant::UNDEFINED;
+        }
     }
 
     /**

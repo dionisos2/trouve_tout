@@ -55,7 +55,7 @@ class TutorialController extends ControllerWithTools
         $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
         $concept = $this->getObjectCategory();
         $form = $conceptFormManager->createForm($concept);
-        return $conceptFormManager->arrayForTemplate($concept, $form);
+        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
 	}
 
     /**
@@ -73,7 +73,7 @@ class TutorialController extends ControllerWithTools
         $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');        
         $form = $this->createForm($tutorialCategoryType, $concept);
 
-        return $conceptFormManager->arrayForTemplate($concept, $form);
+        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
 	}
 
     /**
@@ -105,7 +105,17 @@ class TutorialController extends ControllerWithTools
         $form = $this->createForm($tutorialCategoryType, $concept);
 
 
-        return $conceptFormManager->arrayForTemplate($concept, $form);;
+        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+	}
+
+    /**
+     * @Route("/tutorial/modify_category_dishes", name="tutorial_verify_modified_category_dishes")
+     * @Method({"POST"})
+     * @Template("TrouveToutBundle:Tutorial:modifyCategoryDishes.html.twig")
+     */
+	public function verifyModifiedCategoryDishesAction(Request $request)
+	{
+        return $this->verify($request, Discriminator::$Category, $this->getDishesCategoryModified(), 'tutorial_end', true);
 	}
 
     /**
@@ -116,7 +126,16 @@ class TutorialController extends ControllerWithTools
 	public function createCategoryObjectAction()
 	{
         $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
-        return $conceptFormManager->createConcept(Discriminator::$Category);
+
+        $concept = new Concept();
+        $concept->setType(Discriminator::$Category->getName());
+
+        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+
+        $form = $this->createForm($tutorialCategoryType, $concept);
+
+
+        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
 	}
 
     /**
@@ -171,6 +190,30 @@ class TutorialController extends ControllerWithTools
         return $concept;
     }
 
+    private function getDishesCategoryModified()
+    {
+        $translator = $this->get('translator');
+
+        $concept = $this->getDishesCategoryBegin();
+        $subscriber = new AddCaractsOfCategories;
+        $subscriber->addCaractsForAllCategories($concept);
+        
+        $matter = new Element($translator->trans('matter'));
+        $metal = new Element($translator->trans('metal'));
+        $stainless = new Element($translator->trans('stainless'));
+
+        $metal->setMoreGeneral($matter);
+        $stainless->setMoreGeneral($metal);
+
+        $composition = new Caract($translator->trans('composition'));
+        $composition->setType(Type::$name->getName());
+        $composition->setValue($stainless);
+
+        $concept->addCaract($composition);
+
+        return $concept;
+    }
+
     private function getDishesCategoryBegin()
     {
         $translator = $this->get('translator');
@@ -201,7 +244,6 @@ class TutorialController extends ControllerWithTools
 
         $form->bind($request);
 
-        
         if ($form->isValid()) {
             $valid = $concept->equals($goodConcept);
 
@@ -209,13 +251,13 @@ class TutorialController extends ControllerWithTools
                 if ($withCongratulation) {
                     return $this->redirect($this->generateUrl('tutorial_congratulation', array('route' => $route)));
                 } else {
-                    return "TODO";
+                    return $this->redirect($this->generateUrl($route));
                 }
             } else {
-                return $conceptFormManager->arrayForTemplate($concept, $form) + array('error' => 'tutorial.miss');
+                return $conceptFormManager->arrayForTemplate($concept, $form) + array('error' => 'tutorial.miss') + array('tutorial' => true);
             }
         } else {
-            return $conceptFormManager->arrayForTemplate($concept, $form);
+            return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
         }
     }
 }

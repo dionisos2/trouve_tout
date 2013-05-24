@@ -25,14 +25,25 @@
 {% spaceless %}
 {{ parent() }}
 
-
 <div class="enligne">
 {% endspaceless %}
 {{ form_row(form.name) }} {{ form_row(form.type) }}
 {% spaceless %}
 </div>
 
-
+<div class="enligne">
+{% if form.selected is defined %}
+{{ form_row(form.selected) }}
+{% endif %}
+|
+{% if form.byDefault is defined %}
+{{ form_row(form.byDefault) }}
+{% endif %}
+|
+{% if form.specificity is defined %}
+{{ form_row(form.specificity) }}
+{% endif %}
+</div>
 
 {% if form.value is defined %}
 {{ form_row(form.value) }}
@@ -67,23 +78,6 @@
 {% endif %}
 </div>
 
-{% if form.selected is defined %}
-<div class="enligne">
-{{ form_row(form.selected) }}
-</div>
-{% endif %}
-
-{% if form.byDefault is defined %}
-<div class="enligne">
-{{ form_row(form.byDefault) }}
-</div>
-{% endif %}
-
-{% if form.specificity is defined %}
-<div class="enligne">
-{{ form_row(form.specificity) }}
-</div>
-{% endif %}
 
 {{ form_rest(form) }}
 {% endspaceless %}

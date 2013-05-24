@@ -19,13 +19,3 @@
 </section>
 
 {% endblock %}
-
-{% block javascripts %}
-  {{ parent() }}
-  {% include "TrouveToutBundle:TrouveTout:ConceptFormJavascript.html.twig" %}
-  {% if error is defined %}
-  <script type="text/javascript">
-  $().ready(function () { alert("{{ error | trans({}, 'tutorial' )}}");});
-  </script>
-  {% endif %}
-{% endblock %}

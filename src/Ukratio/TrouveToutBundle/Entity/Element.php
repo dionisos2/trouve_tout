@@ -76,6 +76,11 @@ class Element
      */
     private $ownerCaracts;
 
+    public function equals(Element $element)
+    {
+        return $element->getPath() === $this->getPath();
+    }
+
     public function setRatio($ratio)
     {
         $this->ratio = $ratio;

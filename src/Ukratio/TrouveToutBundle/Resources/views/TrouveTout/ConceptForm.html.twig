@@ -4,21 +4,21 @@
     
     
     {% if ((concept.type == 'Research') and (concept.id == 0)) %}
-    <input type="submit" name="run" class="fix2 btn btn-primary" value="{{ 'research.run' | trans }}" />
+    <input type="button" name="run" class="fix2 btn btn-primary" value="{{ 'research.run' | trans }}" onclick="submitIfValid('run')"/>
     {% endif %}
 
-    {% if app.user %}
+    {% if ((app.user) or (tutorial is defined)) %}
       {% if concept.type == 'Research' %}
-      <input type="submit" name="save" class="fix btn btn-primary" value="{{ 'research.save_and_run' | trans }}" />
+      <input type="button" name="save" class="fix btn btn-primary" value="{{ 'research.save_and_run' | trans }}" onclick="submitIfValid('save')" />
       {% else %}
-      <input type="submit" name="save" class="fix btn btn-primary" value="{{ 'Send' | trans }}" />
+      <input type="button" class="fix btn btn-primary" onclick="submitIfValid('save')" value="{{ 'Send' | trans }}" />
       {% endif %}
-    {% endif %}
     
-    {% if concept.id != 0 %}
-    <a href="{{ path('delete_concept', {id: concept.id})}}" class="fix3 btn btn-primary" value="delete">
-      {{ 'Delete' | trans }}
-    </a>
+      {% if concept.id != 0 %}
+      <a href="{{ path('delete_concept', {id: concept.id})}}" class="fix3 btn btn-primary" value="delete">
+        {{ 'Delete' | trans }}
+      </a>
+      {% endif %}
     {% endif %}
 
     <h3>{{ 'Categories' | trans }}</h3>

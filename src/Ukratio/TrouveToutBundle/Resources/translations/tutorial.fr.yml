@@ -1,4 +1,5 @@
 tutorial:
+  wrong_button: 'Vous avez cliqué sur le mauvais bouton, réessayez'
   miss: 'Désolé vous avez fait une ou plusieurs erreurs, réessayez'
   congratulation: 'Félicitation vous avez correctement accomplie l’exercice, cliquez sur "suivant" pour continuer'
   end: 'Vous avez entièrement terminé le Tutorial(non fini) !!, n’hésitez pas à y revenir en cas d’oublie.'
@@ -41,3 +42,48 @@ tutorial:
 
   modify_category_dishes:
     added_caracts: 'On peut observer que les caractéristiques propres à la catégorie "objet" ont été ajouté à la catégorie "vaisselle", cela va nous permettre de préciser la valeur de ces caractéristiques.'
+    caract_properties: 'Je vous dois quelques explication sur le fonctionnement des caractéristiques, premièrement la définition d’une caractéristique passe par plusieurs étapes, il va falloir lui donner:'
+    caract:
+      name:
+        term: 'Un nom,'
+        definition: 'comme par exemple: localisation, image, taille, composition, etc.'
+      type: 
+        term: 'Un type,'
+        definition: 'qui va définir la manière dont se comporteront les formulaires pour ajouter/modifier la "valeur" de la caractéristique, et comment cette "valeur" s’affichera à l’écran'
+      value: 
+        term: 'Potentiellement une valeur,'
+        definition: 'à ne pas confondre avec le nom de la caractéristique, par exemple les valeurs des caractéristiques "localisation", "image", "taille", et "composition" seront respectivement "France", "meuble.jpg", "10 mêtres", "inox"…. Par la suite l’on nomera la valeur d’une caractéristique, un "élément"'
+
+
+    five_caracts: 'Voici à quoi correspondent les cinq différents types de caractéristiques:'
+    caract_type:
+      name: 
+        term: 'Caractéristique de type "name"'
+        definition: 'Ce type de caractéristique est le plus basique, il s’agit d’une caractéristique dont la valeur est définit par quelques simples mots. (ex: "inox", "grand", "rouge", "très petit", etc…)'
+      number:
+        term: 'Caractéristique de type "nombre"'
+        definition: 'Une caractéristique dont la valeur est un nombre ou une grandeur physique. (ex: "3", "10kg", "5mA", etc…)'
+      picture:
+        term: 'Caractéristique de type "image"'
+        definition: 'Une caractéristique dont la valeur est un lien vers une image. (ex: "meuble.jpg", "ballon_rouge.bmp", "maison.gif", etc…)'
+      object:
+        term: 'Caractéristique de type "objet"'
+        definition: 'Plus complexe, cette caractéristique permet de créer un lien vers un concept de type "objet", nous verrons cela plus en détail dans la suite du tutoriel.'
+      text:
+        term: 'Caractéristique de type "texte"'
+        definition: 'Une caractéristique dont la valeur est un texte, pour y rentrer un commentaire ou autre. (ex: "semelles abimées", "boutons sur la droite de l’écran", etc…)'
+
+    value_heritage: 'De plus, un élément peut avoir un "élément parent", cela est un point essentiel du logiciel. Par exemple l’élément parent de "inox" et de "bronze" pourrait être "métal", et l’élément parent de "métal" et de "plastique" pourrait être "matière".'
+
+    value_heritage_avantages: 'Cela permet d’organiser correctement les différents élément entre eux, pour d’une part retrouver ces éléments plus facilement grace aux listes déroulantes, et d’autre part faciliter les recherches (par exemple on pourra rechercher les objets en métal, et retrouver ainsi les objets en bronze ou en inox).'
+
+    goal: 'Nous allons tester cette fonctionnalité tout de suite, en ajoutant une caractéristique "composition" à notre catégorie "vaisselles", qui aura comme type "nom" et comme valeur "matière/métal/inox" (C’est à dire un élément inox, ayant comme parent un élément "métal", ayant lui même comme comme parent un élément "matière")'
+    
+    enter_inherited_value: 'Pour rentrer la valeur de la caractéristique, suivez ces étapes:'
+    enter:
+      matter: 'Commencez par rentrer "matière" dans le formulaire "modifier" de la caractéristique, puis validez (en cliquant n’importe où, ou en appuyant sur la touche entrer ou tabulation), un nouveau formulaire "spécifier" doit apparaitre (si cela n’est pas déjà fait)'
+      metal: 'Rentrez "métal" dans le formulaire "spécifier", puis validez. "matière" doit descendre sous le formulaire "modifier", et apparaitre en gris, "métal" remplace "matière" dans le formulaire "modifier", et le formulaire "spécifier" est maintenant vide'
+      stainless: 'Rentrez "inox" dans le formulaire "spécifier", valider, et cliquez sur "envoyer" pour passer à la suite du tutorial.'
+
+    generalize: 'Si jamais vous avez fait une erreur, vous pouvez revenir en arrière dans la hiérarchie des éléments en effectuant un double clique sur l’élément grisé que vous voulez modifier.'
+    
