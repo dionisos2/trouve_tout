@@ -9,33 +9,33 @@
   <h1> trouve tout ! </h1>
   	<menu>
 		<a href="{{ path('home') }}" class="btn">
-            {{ 'home' | trans }}
+            {{ 'menu.home' | trans }}
 		</a>
 		<a href="{{ path('create_set') }}" class="btn">
-            {{ 'Add a object' | trans }}
+            {{ 'menu.add_object' | trans }}
 		</a>
 		<a href="{{ path('create_category') }}" class="btn">
-            {{ 'Add a category' | trans }}
+            {{ 'menu.add_category' | trans }}
 		</a>
 		<a href="{{ path('upload') }}" class="btn">
-            {{ 'Upload a image' | trans }}
+            {{ 'menu.upload_picture' | trans }}
         </a>
 		<a href="{{ path('create_research') }}" class="btn">
-            {{ 'Do a research' | trans }}
+            {{ 'menu.do_research' | trans }}
         </a>
 		<a href="{{ path('tools') }}" class="btn">
-            {{ 'tools' | trans }}
+            {{ 'menu.tools' | trans }}
         </a>
         <a href="{{ path('tutorial_introduction') }}" class="btn">
-            {{ 'tutorial' | trans }}
+            {{ 'menu.tutorial' | trans }}
         </a>
         {% if app.user %}
 		<a href="{{ path('logout') }}" class="btn">
-            {{ 'logout' | trans }}
+            {{ 'menu.logout' | trans }}
         </a>
         {% else %}
 		<a href="{{ path('login') }}" class="btn">
-            {{ 'connection' | trans }}
+            {{ 'menu.connection' | trans }}
         </a>        
         {% endif %}
 	</menu>

@@ -1,64 +1,64 @@
 <h1> trouve tout ! </h1>
 <menu>
   <a href="" class="btn" onclick="alert('{{'tutorial.wrong_button' | trans({}, 'tutorial')}}')">
-    {{ 'home' | trans }}
+    {{ 'menu.home' | trans }}
   </a>
 
   {% if link.button == "add_object" %}
   <a href="{{ link.target }}" class="btn">
-    <strong>{{ 'Add a object' | trans }}</strong>
+    <strong>{{ 'menu.add_object' | trans }}</strong>
   </a>
   {% else %}
   <a href="" class="btn" onclick="alert('{{'tutorial.wrong_button' | trans({}, 'tutorial')}}')">
-    {{ 'Add a object' | trans }}
+    {{ 'menu.add_object' | trans }}
   </a>
   {% endif %}
 
   {% if link.button == "add_category" %}
   <a href="{{ link.target }}" class="btn">
-    <strong>{{ 'Add a category' | trans }}</strong>
+    <strong>{{ 'menu.add_category' | trans }}</strong>
   </a>
   {% else %}
   <a href="" class="btn" onclick="alert('{{'tutorial.wrong_button' | trans({}, 'tutorial')}}')">
-    {{ 'Add a category' | trans }}
+    {{ 'menu.add_category' | trans }}
   </a>  
   {% endif %}
 
-  {% if link.button == "upload_image" %}
+  {% if link.button == "upload_picture" %}
   <a href="{{ link.target }}" class="btn">
-    <strong>{{ 'Upload a image' | trans }}</strong>
+    <strong>{{ 'menu.upload_picture' | trans }}</strong>
   </a>
   {% else %}
   <a href="" class="btn" onclick="alert('{{'tutorial.wrong_button' | trans({}, 'tutorial')}}')">
-    {{ 'Upload a image' | trans }}
+    {{ 'menu.upload_picture' | trans }}
   </a>
   {% endif %}
 
   {% if link.button == "do_research" %}
   <a href="{{ link.target }}" class="btn">
-    <strong>{{ 'Do a research' | trans }}</strong>
+    <strong>{{ 'menu.do_research' | trans }}</strong>
   </a>
   {% else %}
   <a href="" class="btn" onclick="alert('{{'tutorial.wrong_button' | trans({}, 'tutorial')}}')">
-    {{ 'Do a research' | trans }}
+    {{ 'menu.do_research' | trans }}
   </a>
   {% endif %}
 
 
   {% if link.button == "tools" %}
   <a href="{{ link.target }}" class="btn">
-    <strong>{{ 'tools' | trans }}</strong>
+    <strong>{{ 'menu.tools' | trans }}</strong>
   </a>
   {% else %}
   <a href="" class="btn" onclick="alert('{{'tutorial.wrong_button' | trans({}, 'tutorial')}}')">
-    {{ 'tools' | trans }}
+    {{ 'menu.tools' | trans }}
   </a>
   {% endif %}
 
   <a href="" class="btn" onclick="alert('{{'tutorial.wrong_button' | trans({}, 'tutorial')}}')">
-    {{ 'tutorial' | trans }}
+    {{ 'menu.tutorial' | trans }}
   </a>
   <a href="" class="btn" onclick="alert('{{'tutorial.wrong_button' | trans({}, 'tutorial')}}')">
-    {{ 'logout' | trans }}
+    {{ 'menu.logout' | trans }}
   </a>
 </menu>

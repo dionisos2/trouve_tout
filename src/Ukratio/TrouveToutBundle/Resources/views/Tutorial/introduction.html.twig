@@ -1,7 +1,7 @@
 {% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
 
 {% block title %}
-  {{ parent() }} - {{ 'Introduction' | trans }}
+  {{ parent() }} - {{ 'title.introduction' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
@@ -14,7 +14,7 @@
 <p>{{ 'tutorial.introduction.next' | trans({}, 'tutorial') }}</p>
 
 <a href="{{ path('tutorial_add_category') }}" class="btn">
-  {{ 'next' | trans }}
+  {{ 'tutorial.next' | trans }}
 </a>
 
 {% endblock %}

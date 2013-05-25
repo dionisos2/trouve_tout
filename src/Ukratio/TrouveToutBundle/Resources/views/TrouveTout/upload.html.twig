@@ -1,7 +1,7 @@
 {% extends "TrouveToutBundle::layout.html.twig" %}
 
 {% block title %}
-  {{ parent() }} - {{ 'Upload' | trans }}
+  {{ parent() }} - {{ 'title.upload_picture' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
@@ -11,15 +11,15 @@
 </form>
 
 {% if imageName is defined %}
-<p> {{ 'Upload successful!' | trans }} </p>
+<p> {{ 'upload_picture.success' | trans }} </p>
 <a href="{{ asset('img/')}}{{imagePath}}{{imageName}}">
 <img src="{{ asset('img/')}}{{imagePath}}{{imageName}}" alt="uploaded image" height="42" width="42"> 
 </a> 
 {% endif %}
 
 {% if invalideType is defined %}
-<p> {{ 'Upload has fail!' | trans }}<br>
-  {{ 'Wrong type of file:' | trans }} {{invalideType}}
+<p> {{ 'upload_picture.fail' | trans }}<br>
+  {{ 'upload_picture.wrong_type' | trans }} {{invalideType}}
 </p>
 {% endif %}
 

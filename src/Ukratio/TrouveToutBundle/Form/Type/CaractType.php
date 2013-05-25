@@ -74,7 +74,7 @@ class CaractType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('name', 'text');
+        $builder->add('name', 'text', array('label' => 'caract.name'));
 
         $attr = array();
 
@@ -97,12 +97,12 @@ class CaractType extends AbstractType
         }
 
         if ($options['display_type'] == 'show') {
-            $builder->add('type', 'text', array('disabled' => true));
+            $builder->add('type', 'text', array('disabled' => true, 'label' => 'caract.type'));
         }
 
         
         if ($options['display_type'] == 'edit') {
-            $builder->add('type', new EnumType('Ukratio\TrouveToutBundle\Entity\Type'));
+            $builder->add('type', new EnumType('Ukratio\TrouveToutBundle\Entity\Type'), array('label' => 'caract.type'));
         }
 
         $builder->addEventSubscriber(new AddValueSubscriber($this->conceptRepo, $this->elementRepo, $this->caractTypeManager, $builder->getFormFactory()));

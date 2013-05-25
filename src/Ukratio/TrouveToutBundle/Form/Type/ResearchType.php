@@ -35,12 +35,12 @@ class ResearchType extends ConceptType
         $linkableChoices = array('all', 'linkable', 'unlinkable');
         $linkableChoices = array_combine($linkableChoices, $linkableChoices);
         
-        $builder->add('name', 'text', array('required' => false))
-                ->add('number', 'integer', array('read_only' => true))
-                ->add('researchedLinkable', 'choice', array('choices' => $linkableChoices))
-                ->add('researchedType', new EnumType('Ukratio\TrouveToutBundle\Entity\Discriminator'))
-                ->add('researchedNumber', 'text', array('required' => false))
-                ->add('researchedName', 'text', array('required' => false));
+        $builder->add('name', 'text', array('required' => false, 'label' => 'concept.name'))
+                ->add('number', 'integer', array('read_only' => true, 'label' => 'concept.number'))
+                ->add('researchedLinkable', 'choice', array('choices' => $linkableChoices, 'label' => 'research.linkable'))
+                ->add('researchedType', new EnumType('Ukratio\TrouveToutBundle\Entity\Discriminator', array('label' => 'research.type')))
+                ->add('researchedNumber', 'text', array('required' => false, 'label' => 'research.number'))
+                ->add('researchedName', 'text', array('required' => false, 'label' => 'research.name'));
 
     }
 

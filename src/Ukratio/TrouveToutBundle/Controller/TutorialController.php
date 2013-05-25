@@ -115,8 +115,26 @@ class TutorialController extends ControllerWithTools
      */
 	public function verifyModifiedCategoryDishesAction(Request $request)
 	{
-        return $this->verify($request, Discriminator::$Category, $this->getDishesCategoryModified(), 'tutorial_end', true);
+        return $this->verify($request, Discriminator::$Category, $this->getDishesCategoryModified(), 'tutorial_upload_picture', true);
 	}
+
+    /**
+     * @Route("/tutorial/upload_picture", name="tutorial_upload_picture")
+     * @Method({"GET"})
+     * @Template()
+     */
+    public function uploadPictureAction()
+    {
+        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+
+        $concept = $this->getDishesCategoryModified();
+        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+
+        $form = $this->createForm($tutorialCategoryType, $concept);
+
+
+        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+    }
 
     /**
      * @Route("/tutorial/create_category_object", name="tutorial_create_category_object")
@@ -168,20 +186,24 @@ class TutorialController extends ControllerWithTools
         return $this->verify($request, Discriminator::$Category, $this->getObjectCategory(), 'tutorial_add_category2', true);
 	}
 
-    private function getObjectCategory()
+    private function trans($sentence)
     {
         $translator = $this->get('translator');
+        return $translator->trans($sentence, array(), 'tutorial');
+    }
 
+    private function getObjectCategory()
+    {
         $concept = new Concept();
         $concept->setType(Discriminator::$Category->getName());
 
-        $concept->setName($translator->trans('object'));
+        $concept->setName($this->trans('tutorial.input.object'));
         $caractPicture = new Caract();
-        $caractPicture->setName($translator->trans('picture'));
+        $caractPicture->setName($this->trans('tutorial.input.picture'));
         $caractPicture->setType(Type::$picture->getName());
         $caractPicture->setValue(new Element('picture'));
         $caractObject = new Caract();
-        $caractObject->setName($translator->trans('localization'));
+        $caractObject->setName($this->trans('tutorial.input.localization'));
         $caractObject->setType(Type::$object->getName());
 
         $concept->addCaract($caractPicture);
@@ -192,20 +214,18 @@ class TutorialController extends ControllerWithTools
 
     private function getDishesCategoryModified()
     {
-        $translator = $this->get('translator');
-
         $concept = $this->getDishesCategoryBegin();
         $subscriber = new AddCaractsOfCategories;
         $subscriber->addCaractsForAllCategories($concept);
         
-        $matter = new Element($translator->trans('matter'));
-        $metal = new Element($translator->trans('metal'));
-        $stainless = new Element($translator->trans('stainless'));
+        $matter = new Element($this->trans('tutorial.input.matter'));
+        $metal = new Element($this->trans('tutorial.input.metal'));
+        $stainless = new Element($this->trans('tutorial.input.stainless'));
 
         $metal->setMoreGeneral($matter);
         $stainless->setMoreGeneral($metal);
 
-        $composition = new Caract($translator->trans('composition'));
+        $composition = new Caract($this->trans('tutorial.input.composition'));
         $composition->setType(Type::$name->getName());
         $composition->setValue($stainless);
 
@@ -216,12 +236,10 @@ class TutorialController extends ControllerWithTools
 
     private function getDishesCategoryBegin()
     {
-        $translator = $this->get('translator');
-
         $concept = new Concept();
         $concept->setType(Discriminator::$Category->getName());
 
-        $concept->setName($translator->trans('dishes'));
+        $concept->setName($this->trans('tutorial.input.dishes'));
         $objectCategory = $this->getObjectCategory();
         $concept->addMoreGeneralConcept($objectCategory);
 
@@ -231,7 +249,6 @@ class TutorialController extends ControllerWithTools
     private function verify(Request $request, Discriminator $discriminator, Concept $goodConcept, $route, $withCongratulation)
     {
         $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
-        $translator = $this->get('translator');
         $concept = new Concept();
 
         $concept->setType($discriminator->getName());
@@ -241,6 +258,7 @@ class TutorialController extends ControllerWithTools
         }
 
         $form = $this->createForm($conceptType, $concept);
+
 
         $form->bind($request);
 

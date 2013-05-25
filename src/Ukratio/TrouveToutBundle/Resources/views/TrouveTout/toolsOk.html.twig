@@ -1,12 +1,12 @@
 {% extends "TrouveToutBundle::layout.html.twig" %}
 
 {% block title %}
-  {{ parent() }} - {{ 'tools_ok' | trans }}
+  {{ parent() }} - {{ 'title.tools_ok' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
 
-<h2>{{ 'action.success' | trans }}</h2>
+<h2>{{ 'tools.success' | trans }}</h2>
 
 {% if type == 'researches' %}
 {{ number }} {{ 'tools.deleted.researches' | trans }}

@@ -30,9 +30,9 @@ class SetType extends ConceptType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('name', 'text', array('required' => false))
-                ->add('linkable', 'checkbox', array('required' => false,))
-                ->add('number', 'integer', array('invalid_message' => 'concept.integer.invalid'));
+        $builder->add('name', 'text', array('required' => false, 'label' => 'concept.name'))
+                ->add('linkable', 'checkbox', array('required' => false, 'label' => 'concept.linkable'))
+                ->add('number', 'integer', array('invalid_message' => 'concept.integer.invalid', 'label' => 'concept.number'));
 
 
         $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));

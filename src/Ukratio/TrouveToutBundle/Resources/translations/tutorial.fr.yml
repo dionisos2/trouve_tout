@@ -3,6 +3,16 @@ tutorial:
   miss: 'Désolé vous avez fait une ou plusieurs erreurs, réessayez'
   congratulation: 'Félicitation vous avez correctement accomplie l’exercice, cliquez sur "suivant" pour continuer'
   end: 'Vous avez entièrement terminé le Tutorial(non fini) !!, n’hésitez pas à y revenir en cas d’oublie.'
+  input:
+    object: 'objet'
+    picture: 'image'
+    localization: 'localisation'
+    dishes: 'vaisselle'
+    composition: 'composition'
+    matter: 'matière'
+    metal: 'métal'
+    stainless: 'inox'
+
   introduction:
     welcome: 'Bonjour et bienvenue dans le tutoriel de présentation de TrouveTout!'
     approach: 'Dans la suite nous allons vous présentez les différentes fonctionnalités du logiciel, à chaque étape vous serez amené à effectuer la tache qui vous est demandée.'

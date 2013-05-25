@@ -1,85 +1,100 @@
-Value: Valeur
-home: accueil
-'Add a object': 'Ajouter un objet'
-'Add a category': 'Ajouter une categorie'
-'Upload a image': 'Téléverser une image'
-'Do a research': 'Faire une recherche'
-tools: outils
-logout: Déconnexion
-tools_ok: 'action réussie'
-action.success: 'L’action s’est effectuée avec succès !'
-tools.deleted.researches: 'recherches sans nom ont été supprimées'
-tools.deleted.elements: 'éléments orphelins ont été supprimés'
-tools.computed.specificities: 'caractéristiques de catégories ont été spécifiées'
-login: Login
-password: Mot de passe
-Send: Envoyer
-Delete: Supprimer
-Categories: Catégories
-Caracts: Caractéristiques
-'research table': 'tableau de recherche des %researchedType%s'
-ID: ID
-'Run research again': 'Relancer la recherche'
-'Modify research': 'Modifier la recherche'
-Hello: Bonjour
-Upload: Téléverser
-'Upload successful!': 'Téléchargement réussi !'
-'Upload has fail!': 'Téléchargement raté !'
-'Wrong type of file:': 'Mauvais type de fichier:'
-tools.delete.researches: 'Supprimer les recherches sans nom'
-tools.delete.elements: 'Supprimer les éléments orphelins'
-tools.compute.specificities: 'Spécifier les caractéristiques'
-'modify a concept': 'modifier un concept'
-'modify a object': 'modifier un objet'
-'modify a category': 'modifier une catégorie'
-'modify a research': 'modifier une recherche'
-'General informations': 'Informations générales'
-'License :': 'Licence :'
-'Authors :': 'Auteurs :'
-'the ucratique community': 'la communautée ucratique'
-'Source code :': 'Code source :'
-'gitorious page': 'page gitorious'
-'Creation date: soon': 'Date de création: bientôt'
-'Trouve tout, find your objects in a few seconds!': 'Trouve tout, trouver vos objets en quelques secondes !'
-'Trouve tout is a free software, dont whose function is to methodically create an inventory of  objects of all kinds, to then be able to find them easily.': 'Trouve tout est un logiciel libre, dont la fonction est de créer méthodologiquement un inventaire d’objets de tout type, pour pouvoir les retrouver facilement'
-'Create a concept': 'créer un concept'
-research.do: 'Faire/Créer une recherche'
-research.save_and_run: 'Sauvegarder et lancer la recherche'
-research.run: 'Lancer la recherche'
-send: envoyer
-fix: fixer
-Research: Recherche
-Category: Catégorie
-Set: Objet
-all: tout
-linkable: liable
-Linkable: 'Liable: '
-unlinkable: 'non liable'
-'This site was created by a ucratique community': 'Ce site a été créé par une communauté ucratique'
-Type: 'Type: '
-Name: 'Nom: '
-name: nom
-picture: image
-object: objet
-text: texte
-caract.selected: 'Sélectionné: '
-caract.byDefault: 'Par défaut: '
-caract.specificity: 'Spécificité: '
-Number: Nombre
-number: nombre
-Researchedlinkable: Connectabilité
-Researchedtype: 'Type de concepts recherchés'
-Researchedname: 'Nom des concepts recherchés'
-Researchednumber: 'Cardinalité des concepts recherchés'
-element.modify: 'modifier:'
-element.specify: 'specifier:'
-element.generalize: 'generaliser:'
-connection: Connexion
-introduction: introduction
-tutorial: tutoriel
-next: Suivant
-localization: localisation
-dishes: vaisselle
-matter: 'matière'
-metal: 'métal'
-stainless: 'inox'
+tutorial:
+  next: suivant
+
+title:
+  introduction: Introduction
+  create_category_object: Créer une categorie
+  add_category: Ajouter une categorie
+  modify_category: Modifier une categorie
+  end: FIN
+  create_category_dishes: Créer la categorie vaisselle
+  tutorial: Tutoriel
+  congratulation: 'Félicitation !'
+  tools_ok: 'Action réussie'
+  research: Recherche
+  upload_picture: 'Téléverser une image'
+  tools: Outil
+  home: Accueil
+  modify_concept: 'Modifier un concept'
+  modify_object: 'Modifier un objet'
+  modify_research: 'Modifier une recherche'
+  create_concept: 'Créer un concept'
+  add_object: 'Ajouter un objet'
+  do_research: 'Faire une recherche'
+
+menu:
+  home: Accueil
+  add_object: 'Ajouter un objet'
+  add_category: 'Ajouter une categorie'
+  upload_picture: 'Téléverser une image'
+  do_research: 'Faire une recherche'
+  tools: 'Outils'
+  tutorial: 'Tutoriel'
+  logout: 'Déconnexion'
+  connection: 'Connexion'
+
+element:
+  specify: 'Specifier:'
+  modify: 'Modifier:'
+
+caract:
+  value: 'Valeur'
+  name: 'Nom'
+  selected: 'Séléctionné:'
+  byDefault: 'Par défaut:'
+  type: 'Type:'
+
+tools:
+  success: 'L’action s’est effectuée avec succès !'
+  deleted.researches: 'recherches sans nom ont été supprimées'
+  deleted.elements: 'éléments orphelins ont été supprimés'
+  computed.specificities: 'caractéristiques de catégories ont été spécifiées'
+  delete.researches: 'Supprimer les recherches sans nom'
+  delete.elements: 'Supprimer les éléments orphelins'
+  compute.specificities: 'Spécifier les caractéristiques'
+
+login:
+  login: 'Login'
+  password: 'Mot de passe'
+
+research:
+  run: 'Faire/Créer une recherche'
+  save_and_run: 'Sauvegarder et lancer la recherche'
+  table.name: 'tableau de recherche des %researchedType%s'
+  table.ID: ID
+  run_again: 'Relancer la recherche'
+  modify_research: 'Modifier la recherche'
+  linkable: 'Connectabilité'
+  type: 'Type de concepts recherchés'
+  number: 'Cardinalité des concepts recherchés'
+  name: 'Nom des concepts recherchés'
+
+concept:
+  save: 'Sauvegarder'
+  delete: 'Supprimer'
+  categories: 'Categories'
+  caracts: 'Caractéristiques'
+  name: 'Nom'
+  linkable: 'Liable:'
+  number: 'Nombre'
+
+test.hello: 'Hello !!'
+
+upload_picture:
+  success: 'Téléchargement réussi !'
+  fail: 'Téléchargement raté !'
+  wrong_type: 'Mauvais type de fichier:'
+
+home:
+  general_informations: 'Informations générales'
+  creation_date: 'Date de création: bientôt'
+  title: 'Trouve tout, trouver vos objets en quelques secondes !'
+  introduction: 'Trouve tout est un logiciel libre, dont la fonction est de créer méthodologiquement un inventaire d’objets de tout type, pour pouvoir les retrouver facilement'
+  license: 'Licence :'
+  authors: 'Auteurs :'
+  source_code: 'Code source :'
+  ucratique_community: 'la communautée ucratique'
+  gitorious: 'Page gitorious'
+
+picture: 'image'
+object: 'objet'

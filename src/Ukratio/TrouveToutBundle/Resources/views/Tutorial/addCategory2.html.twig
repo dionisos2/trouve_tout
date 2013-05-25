@@ -1,7 +1,7 @@
 {% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
 
 {% block title %}
-  {{ parent() }} - {{ 'add_category' | trans }}
+  {{ parent() }} - {{ 'title.add_category' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
@@ -15,7 +15,7 @@
 <section>
   {% set link = {'button': 'add_category', 'target': path('tutorial_create_category_dishes') } %}
   {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
-  <h2>{{ 'Modify a category' | trans }}</h2>
+  <h2>{{ 'title.modify_category' | trans }}</h2>
   {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
 </section>
 

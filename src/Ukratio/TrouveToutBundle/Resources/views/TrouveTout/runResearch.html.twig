@@ -1,13 +1,13 @@
 {% extends "TrouveToutBundle::layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Recherche
+    {{ parent() }} - {{ 'title.research' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
 
 <table class="table-bordered">
-  <caption> {{ 'research table' | trans({'%researchedType%': research.researchedType | trans | lower}) }}</caption>
+  <caption> {{ 'research.table.name' | trans({'%researchedType%': research.researchedType | trans | lower}) }}</caption>
 
   <colgroup>
     <col span="{{ researchResults.columnGroups[0] + 1 }}" style="background-color:yellow">
@@ -16,11 +16,11 @@
   </colgroup>
 
   <th>
-    {{ 'ID' | trans }}
+    {{ 'research.table.ID' | trans }}
   </th>
   {% for header in researchResults.headers %}
   <th>
-    {{ header | trans}}
+    {{ research.table.header | trans}}
   </th>
   {% endfor %}
 
@@ -43,10 +43,10 @@
 
 {% if research.id != 0 %}
 <a href="{{ path('run_with_id_research', {id: research.id})}}" class="fix2 btn btn-primary" value="run">
-  {{ 'Run research again' | trans }}
+  {{ 'research.run_again' | trans }}
 </a>
 <a href="{{ path('edit_concept', {id: research.id})}}" class="fix btn btn-primary" value="run">
-  {{ 'Modify research' | trans }}
+  {{ 'research.modify_research' | trans }}
 </a>
 {% endif %}
 

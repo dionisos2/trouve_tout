@@ -1,24 +1,24 @@
 {% extends "TrouveToutBundle::layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - {{ 'Create a concept' | trans }}
+    {{ parent() }} - {{ 'title.create_concept' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
 {{ parent() }}
 
     {% if conceptType == "Set" %}
-        <h2>{{ 'Add a object' | trans }}</h2>
+        <h2>{{ 'title.add_object' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:SetForm.html.twig" %}
     {% endif %}
 
     {% if conceptType == "Category" %}
-        <h2>{{ 'Add a category' | trans }}</h2>
+        <h2>{{ 'title.add_category' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
     {% endif %}
 
     {% if conceptType == "Research" %}
-        <h2>{{ 'research.do' | trans }}</h2>
+        <h2>{{ 'title.do_research' | trans }}</h2>
         {% include "TrouveToutBundle:TrouveTout:ResearchForm.html.twig" %}
     {% endif %}
 
