@@ -1,0 +1,29 @@
+{% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'title.add_category' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+{{ parent() }}
+
+<section>
+  <p>{{ 'tutorial.upload_picture' | trans({}, 'tutorial') }}</p>
+</section>
+
+<section>
+  {% set link = {'button': 'upload_picture', 'target': path('tutorial_end') } %}
+  {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
+  <h2>{{ 'title.modify_category' | trans }}</h2>
+  {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
+</section>
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {% include "TrouveToutBundle:TrouveTout:ConceptFormJavascript.html.twig" %}
+  <script type="text/javascript">
+  $().ready(function () {});
+  </script>
+{% endblock %}
