@@ -47,6 +47,37 @@ class TutorialController extends ControllerWithTools
 	}
 
     /**
+     * @Route("/tutorial/create_category_object", name="tutorial_create_category_object")
+     * @Method({"GET"})
+     * @Template()
+     */
+	public function createCategoryObjectAction()
+	{
+        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+
+        $concept = new Concept();
+        $concept->setType(Discriminator::$Category->getName());
+
+        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+
+        $form = $this->createForm($tutorialCategoryType, $concept);
+
+
+        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+	}
+
+
+    /**
+     * @Route("/tutorial/create_category_object", name="tutorial_verify_category_object")
+     * @Method({"POST"})
+     * @Template("TrouveToutBundle:Tutorial:createCategoryObject.html.twig")
+     */
+	public function verifyCategoryObjectAction(Request $request)
+	{
+        return $this->verify($request, Discriminator::$Category, $this->getObjectCategory(), 'tutorial_add_category2', true);
+	}
+
+    /**
      * @Route("/tutorial/add_category2", name="tutorial_add_category2")
      * @Template()
      */
@@ -69,8 +100,10 @@ class TutorialController extends ControllerWithTools
 
         $concept = new Concept();
         $concept->setType(Discriminator::$Category->getName());
+        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
+            array(array('name' => $this->trans('tutorial.input.object'), 'discriminator' => Discriminator::$Category)));
 
-        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');        
+        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
         $form = $this->createForm($tutorialCategoryType, $concept);
 
         return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
@@ -83,7 +116,7 @@ class TutorialController extends ControllerWithTools
      */
 	public function verifyCategoryDishesAction(Request $request)
 	{
-        return $this->verify($request, Discriminator::$Category, $this->getDishesCategoryBegin(), 'tutorial_modify_category_dishes', true);
+        return $this->verify($request, Discriminator::$Category, $this->getDishesCategoryBegin(), 'tutorial_modify_category_dishes', false);
 	}
 
     /**
@@ -100,6 +133,8 @@ class TutorialController extends ControllerWithTools
         $subscriber = new AddCaractsOfCategories;
         $subscriber->addCaractsForAllCategories($concept);
 
+        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
+            array(array('name' => $this->trans('tutorial.input.object'), 'discriminator' => Discriminator::$Category)));
         $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
 
         $form = $this->createForm($tutorialCategoryType, $concept);
@@ -128,6 +163,9 @@ class TutorialController extends ControllerWithTools
         $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
 
         $concept = $this->getDishesCategoryModified();
+        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
+            array(array('name' => $this->trans('tutorial.input.object'), 'discriminator' => Discriminator::$Category)));
+
         $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
 
         $form = $this->createForm($tutorialCategoryType, $concept);
@@ -136,18 +174,106 @@ class TutorialController extends ControllerWithTools
         return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
     }
 
+    
     /**
-     * @Route("/tutorial/create_category_object", name="tutorial_create_category_object")
+     * @Route("/tutorial/upload_dishes_picture", name="tutorial_upload_dishes_picture")
      * @Method({"GET"})
      * @Template()
      */
-	public function createCategoryObjectAction()
+    public function uploadDishesPictureAction()
+    {
+        $tutorialConceptConceptType = $this->get('TrouveTout.tutorial.form.concept_concept');
+
+        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
+            array(array('name' => $this->trans('tutorial.input.object'), 'discriminator' => Discriminator::$Category),
+                  array('name' => $this->trans('tutorial.input.dishes'), 'discriminator' => Discriminator::$Category)));
+
+        $form = $this->createFormBuilder()
+                     ->add('image', 'file', array('label' => 'upload_picture.picture'))
+                     ->add('category', $tutorialConceptConceptType, array('label' => 'upload_picture.category'))
+                     ->getForm();
+
+        return array('form' => $form->createView(), 'tutorial' => true);
+    }    
+
+    /**
+     * @Route("/tutorial/upload_dishes_picture", name="tutorial_verify_dishes_picture")
+     * @Method({"POST"})
+     * @Template("TrouveToutBundle:Tutorial:uploadDishesPicture.html.twig")
+     */
+    public function verifyDishesPictureAction(Request $request)
+    {
+        $this->addAllCategoriesToRepo();
+
+        $tutorialConceptConceptType = $this->get('TrouveTout.tutorial.form.concept_concept');
+
+        $form = $this->createFormBuilder()
+                     ->add('image', 'file', array('label' => 'upload_picture.picture'))
+                     ->add('category', $tutorialConceptConceptType, array('label' => 'upload_picture.category'))
+                     ->getForm();
+
+        $form->bind($request);
+        $category = $form->getData()['category']->getMoreGeneral();
+
+        if ($category->getName() == $this->trans('tutorial.input.dishes')) {
+            return $this->redirect($this->generateUrl('tutorial_run_research'));
+        } else {
+            return array('form' => $form->createView(), 'tutorial' => true, 'error' => 'tutorial.miss');
+        }
+    }
+
+    /**
+     * @Route("/tutorial/run_research", name="tutorial_run_research")
+     * @Method({"GET"})
+     * @Template()
+     */
+    public function runResearchAction()
+    {
+        $tutorialConceptConceptType = $this->get('TrouveTout.tutorial.form.concept_concept');
+
+        $form = $this->createFormBuilder()
+                     ->add('image', 'file', array('label' => 'upload_picture.picture'))
+                     ->add('category', $tutorialConceptConceptType, array('label' => 'upload_picture.category'))
+                     ->getForm();
+
+        return array('form' => $form->createView(), 'tutorial' => true);
+    }
+    
+    /**
+     * @Route("/tutorial/create_research", name="tutorial_create_research")
+     * @Method({"GET"})
+     * @Template()
+     */
+	public function createResearchAction()
 	{
         $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
 
         $concept = new Concept();
-        $concept->setType(Discriminator::$Category->getName());
+        $concept->setType(Discriminator::$Research->getName());
+        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(array(
+            array('name' => $this->trans('tutorial.input.object'), 'discriminator' => Discriminator::$Category),
+            array('name' => $this->trans('tutorial.input.dishes'), 'discriminator' => Discriminator::$Category)));
 
+        $form = $this->createForm('TrouveTout_Research', $concept);
+
+        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+	}
+
+    /**
+     * @Route("/tutorial/modify_category_object", name="tutorial_modify_category_object")
+     * @Method({"GET"})
+     * @Template()
+     */
+	public function modifyCategoryObjectAction()
+	{
+        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+        $conceptRepo = $this->get('TrouveTout.tutorial.repository.concept');
+
+        $conceptRepo->setConceptsByProperties(array(
+            array('name' => $this->trans('tutorial.input.object'), 'discriminator' => Discriminator::$Category),
+            array('name' => $this->trans('tutorial.input.dishes'), 'discriminator' => Discriminator::$Category)));
+
+        $concept = $this->getObjectCategory();
         $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
 
         $form = $this->createForm($tutorialCategoryType, $concept);
@@ -174,16 +300,6 @@ class TutorialController extends ControllerWithTools
 	public function endAction()
 	{
         return array();
-	}
-
-    /**
-     * @Route("/tutorial/create_category_object", name="tutorial_verify_category_object")
-     * @Method({"POST"})
-     * @Template("TrouveToutBundle:Tutorial:createCategoryObject.html.twig")
-     */
-	public function verifyCategoryObjectAction(Request $request)
-	{
-        return $this->verify($request, Discriminator::$Category, $this->getObjectCategory(), 'tutorial_add_category2', true);
 	}
 
     private function trans($sentence)
@@ -248,6 +364,8 @@ class TutorialController extends ControllerWithTools
 
     private function verify(Request $request, Discriminator $discriminator, Concept $goodConcept, $route, $withCongratulation)
     {
+        $this->addAllCategoriesToRepo();
+
         $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
         $concept = new Concept();
 
@@ -261,6 +379,7 @@ class TutorialController extends ControllerWithTools
 
 
         $form->bind($request);
+        $form->all()['name']->removeErrors();
 
         if ($form->isValid()) {
             $valid = $concept->equals($goodConcept);
@@ -277,5 +396,12 @@ class TutorialController extends ControllerWithTools
         } else {
             return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
         }
+    }
+
+    private function addAllCategoriesToRepo()
+    {
+        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
+            array(array('name' => $this->trans('tutorial.input.object'), 'discriminator' => Discriminator::$Category),
+                  array('name' => $this->trans('tutorial.input.dishes'), 'discriminator' => Discriminator::$Category)));
     }
 }

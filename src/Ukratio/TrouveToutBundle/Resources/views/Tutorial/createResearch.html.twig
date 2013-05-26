@@ -1,0 +1,22 @@
+{% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'title.create_research' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+{{ parent() }}
+
+<section>
+  <p>{{ 'tutorial.create_research.' | trans({}, 'tutorial') }}</p>
+</section>
+
+<section>
+  {% set link = {'button': '', 'target': '' } %}
+  {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
+  <h2>{{ 'title.do_research' | trans }}</h2>
+  {% include "TrouveToutBundle:TrouveTout:ResearchForm.html.twig" %}
+</section>
+
+{% endblock %}
+

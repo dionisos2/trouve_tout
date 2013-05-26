@@ -3,7 +3,6 @@ parameters:
 
 services:
 
-
   TrouveTout.ElementManager:
     class: Ukratio\TrouveToutBundle\Service\ElementManager
     arguments: [%kernel.root_dir%]
@@ -50,27 +49,12 @@ services:
     tags: 
       - {name: form.type, alias: TrouveTout_Research}
 
-  TrouveTout.tutorial.form.category:
-    class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
-    arguments: [@TrouveTout.tutorial.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory]
-
-  # TrouveTout.form.category_choice:
-  #   class: Ukratio\TrouveToutBundle\Form\Type\CategoryChoiceType
-  #   arguments: [@doctrine.orm.entity_manager]
-  #   tags: 
-  #     - {name: form.type, alias: TrouveTout_CategoryChoice}
-
   TrouveTout.form.concept_concept:
     class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
     arguments: [@TrouveTout.repository.concept]
     tags: 
       - {name: form.type, alias: TrouveTout_ConceptConcept}
 
-  # TrouveTout.form.sorted_concept:
-  #   class: Ukratio\TrouveToutBundle\Form\Type\SortedConceptType
-  #   arguments: [@TrouveTout.repository.concept]
-  #   tags: 
-  #     - {name: form.type, alias: TrouveTout_SortedConcepts}
 
   TrouveTout.repository.concept:
     class: Ukratio\TrouveToutBundle\Entity\ConceptRepository
@@ -80,9 +64,6 @@ services:
     calls: 
       - [setArrayHandling, [@tool.array_handling]]
 
-  TrouveTout.tutorial.repository.concept:
-    class: Ukratio\TrouveToutBundle\Tutorial\ConceptTutorialRepository
-    arguments: [@translator]
 
   TrouveTout.repository.caract:
     class: Ukratio\TrouveToutBundle\Entity\CaractRepository
@@ -95,3 +76,18 @@ services:
     factory_service: doctrine.orm.default_entity_manager
     factory_method: getRepository
     arguments: ['TrouveToutBundle:Element']
+
+
+# TUTORIAL SERVICE
+
+  TrouveTout.tutorial.form.category:
+    class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
+    arguments: [@TrouveTout.tutorial.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory]
+
+  TrouveTout.tutorial.form.concept_concept:
+    class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
+    arguments: [@TrouveTout.tutorial.repository.concept]
+
+  TrouveTout.tutorial.repository.concept:
+    class: Ukratio\TrouveToutBundle\Tutorial\ConceptTutorialRepository
+    arguments: [@translator]

@@ -67,8 +67,8 @@ class TrouveToutController extends ControllerWithTools
 	public function uploadAction(Request $request)
 	{
         $form = $this->createFormBuilder()
-                     ->add('image', 'file')
-                     ->add('category', 'TrouveTout_ConceptConcept')
+                     ->add('image', 'file', array('label' => 'upload_picture.picture'))
+                     ->add('category', 'TrouveTout_ConceptConcept', array('label' => 'upload_picture.category'))
                      ->getForm();
 
         if ($request->getMethod() == 'POST') {

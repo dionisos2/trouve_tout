@@ -17,17 +17,46 @@ use Ukratio\ToolBundle\Service\ArrayHandling;
 class ConceptTutorialRepository extends ConceptRepository
 {
     protected $translator;
+    protected $concepts;
 
     public function __construct(Translator $translator)
     {
         $this->translator = $translator;
+        $this->concepts = array();
+    }
+
+    public function setConcepts($concepts)
+    {
+        $this->concepts = $concepts;
+    }
+    
+    public function getConcepts()
+    {
+        return $this->concepts;
+    }
+
+    public function setConceptsByProperties($conceptsProperties)
+    {
+
+        $this->concepts = array();
+        foreach($conceptsProperties as $properties) {
+            $concept = new Concept();
+            if (isset($properties['name'])) {
+                $concept->setName($properties['name']);
+            }
+
+            if (isset($properties['discriminator'])) {
+                $concept->setType($properties['discriminator']->getName());
+            }
+            $this->concepts[] = $concept;
+        }
+        
+        return $this;
     }
 
     public function findAllCategories()
     {
-        $category = new Concept($this->translator->trans('object'));
-        $category->setType(Discriminator::$Category->getName());
-        return array($category);
+        return $this->concepts;
     }
 
     public function findNamedSet()

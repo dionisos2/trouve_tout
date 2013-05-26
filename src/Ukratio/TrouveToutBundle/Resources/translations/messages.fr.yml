@@ -58,7 +58,7 @@ login:
   password: 'Mot de passe'
 
 research:
-  run: 'Faire/Créer une recherche'
+  run: 'Lancer la recherche'
   save_and_run: 'Sauvegarder et lancer la recherche'
   table.name: 'tableau de recherche des %researchedType%s'
   table.ID: ID
@@ -84,6 +84,8 @@ upload_picture:
   success: 'Téléchargement réussi !'
   fail: 'Téléchargement raté !'
   wrong_type: 'Mauvais type de fichier:'
+  picture: 'Image'
+  category: 'Categorie'
 
 home:
   general_informations: 'Informations générales'

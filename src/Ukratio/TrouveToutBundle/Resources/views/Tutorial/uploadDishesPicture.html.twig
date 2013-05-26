@@ -1,0 +1,29 @@
+{% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'title.upload_dishes_picture' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+{{ parent() }}
+
+<section>
+  <p>{{ 'tutorial.upload_dishes_picture.steps' | trans({}, 'tutorial') }}</p>
+
+  <p>{{ 'tutorial.upload_dishes_picture.category' | trans({}, 'tutorial') }}</p>
+
+  <p>{{ 'tutorial.upload_dishes_picture.goal' | trans({}, 'tutorial') }}</p>
+</section>
+
+<section>
+  {% set link = {'button': '', 'target': '' } %}
+  {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
+
+  <form method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }} 
+    <input type="submit" class="btn btn-primary" value="envoyer" />
+  </form>
+</section>
+
+{% endblock %}
+

@@ -98,3 +98,13 @@ tutorial:
     generalize: 'Si jamais vous avez fait une erreur, vous pouvez revenir en arrière dans la hiérarchie des éléments en effectuant un double clique sur l’élément grisé que vous voulez modifier.'
     
   upload_picture: 'Nous allons maintenant téléverser quelques images. (C’est à dire les télécharger vers le serveur de TrouveTout). Cliquez sur "Téléverser une image".'
+
+  upload_dishes_picture:
+    steps: 'Lors du téléversage d’une image, vous devez d’une part choisir l’image que vous allez téléverser à partir de votre pc, en cliquant sur parcourir, et d’autre part choisir une catégorie dans la liste déroulante.'
+    category: 'Le choix d’une catégorie permet de ranger l’image dans un dossier approprié sur le serveur, pour pouvoir la retrouver plus rapidement'
+
+    goal: 'Choisissez n’importe quelle image de votre pc et la catégorie "vaisselle", puis cliquez sur "envoyer" pour démarrer le téléversage. Cela nous permettra par la suite de donner une image par défaut à la vaisselle'
+
+  run_research:
+    upload_ok: 'Le fichier aurait été correctement téléversé si vous aviez effectuez cette manipulation dans un context réel.'
+    research_object: 'On va maintenant modifier notre categorie "objet", mais avant il va falloir la retrouver, cliquez sur "Faire une recherche".'

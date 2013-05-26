@@ -12,7 +12,7 @@
 </section>
 
 <section>
-  {% set link = {'button': 'upload_picture', 'target': path('tutorial_end') } %}
+  {% set link = {'button': 'upload_picture', 'target': path('tutorial_upload_dishes_picture') } %}
   {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
   <h2>{{ 'title.modify_category' | trans }}</h2>
   {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}

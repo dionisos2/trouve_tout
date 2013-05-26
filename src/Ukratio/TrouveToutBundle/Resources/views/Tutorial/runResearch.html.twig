@@ -1,0 +1,26 @@
+{% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'title.run_research' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+{{ parent() }}
+
+<section>
+  <p>{{ 'tutorial.run_research.upload_ok' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.run_research.research_object' | trans({}, 'tutorial') }}</p>
+</section>
+
+<section>
+  {% set link = {'button': 'do_research', 'target': path('tutorial_create_research') } %}
+  {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
+
+  <form method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }} 
+    <input type="submit" class="btn btn-primary" value="envoyer" />
+  </form>
+</section>
+
+{% endblock %}
+
