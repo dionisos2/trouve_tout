@@ -48,8 +48,11 @@ class AjaxController extends ControllerWithTools
         }
 
         $ordered_choices = array();
-        foreach($choices as $key => $value) {
-            $ordered_choices[] = array($key, $value);
+
+        if ($choices != null) {
+            foreach($choices as $key => $value) {
+                $ordered_choices[] = array($key, $value);
+            }
         }
 
         return new Response(json_encode($ordered_choices));

@@ -8,6 +8,7 @@ use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Symfony\Component\Form\FormFactoryInterface;
+use Ukratio\TrouveToutBundle\Constant;
 
 class CaractTypeManager
 {
@@ -37,12 +38,14 @@ class CaractTypeManager
                 return 'Tool_ChoiceOrText';
             case Type::$text:
                 return 'textarea';
+            case Type::$date:
+                return 'datetime';
             default:
                 throw new \Exception('impossible case with type = ' . $this->getType());
         }
     }
 
-    public function getChoicesFor($type, $path, $isChildElement)
+    public function getChoicesFor(Type $type, $path, $isChildElement)
     {
 
         if ($path == null) { //TODO should be in the repo
@@ -64,8 +67,14 @@ class CaractTypeManager
 
         switch ($type) {
             case Type::$name:
+                if ($isChildElement) {
+                    $choices = array('other' => 'other') + $choices;
+                }
                 return $choices;
             case Type::$number:
+                if ($isChildElement) {
+                    $choices = array('other' => 'other') + $choices;
+                }
                 return $choices;
             case Type::$picture:
                 $choices = array_map(function (Element $element) {return $element->getValue();}, $this->elementManager->filesIn($path));
@@ -84,15 +93,21 @@ class CaractTypeManager
                 $choices2 = array_combine($choices2, $choices2);
                 $choices = $choices1 + $choices2;
 
+                if ($isChildElement) {
+                    $choices = array('other' => 'other') + $choices;
+                }
+
                 return $choices;
             case Type::$text:
+                return null;
+            case Type::$date:
                 return null;
             default:
                 throw new \Exception('impossible case with type = ' . $this->getType());
         }
     }
 
-    public function createElementForm($name, $type, $path, $label = 'element.modify', $mapped = true)
+    public function createElementForm($name, Type $type, $path, $label = 'element.modify', $mapped = true)
     {
         $options = array('label' => $label, 'mapped' => $mapped, 'required' => $mapped);
 
@@ -103,7 +118,7 @@ class CaractTypeManager
                 $choices = $this->getChoicesFor($type, $path, true);
             }
         } else {
-            $choices = array($path => $path);
+            $choices = null;
         }
 
 
@@ -114,6 +129,14 @@ class CaractTypeManager
                                             'options' => array('choices' => $choices['choices2']));
             } else {
                 $options = $options + array('choices' => $choices);
+            }
+        }
+        
+        if ($type === Type::$date) {
+            if ($label == 'element.modify') {
+                $options = $options + array('input' => 'timestamp', 'widget' => 'single_text', 'required' => false, 'format' => Constant::DATEFORMAT);
+            } else {
+                $options = $options + array('input' => 'timestamp', 'widget' => 'single_text', 'format' => Constant::DATEFORMAT);
             }
         }
 

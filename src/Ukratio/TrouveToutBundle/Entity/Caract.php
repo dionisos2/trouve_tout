@@ -362,6 +362,8 @@ class Caract
                 return null;
             case Type::$text:
                 return null;
+            case Type::$date:
+                return null;
             default:
                 throw new \Exception('impossible case with type = ' . $this->getType());
         }

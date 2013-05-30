@@ -108,3 +108,42 @@ tutorial:
   run_research:
     upload_ok: 'Le fichier aurait été correctement téléversé si vous aviez effectuez cette manipulation dans un context réel.'
     research_object: 'On va maintenant modifier notre categorie "objet", mais avant il va falloir la retrouver, cliquez sur "Faire une recherche".'
+
+  create_research:
+    fill_form: 'Pour effectuer une recherche vous allez dans un premier temps remplir quelques champs de saisie (les zones ou écrire du texte), en fonction de ce que vous voulez trouver.'
+    regexp: 'Afin de remplir correctement ces champs, et profiter pleinnement des fonctionnalitées de recherche, il est préférable de connaître ce qu’est une expréssion régulière:'
+    
+    regexp_link: 'Expressions régulières avec mysql (ce qui sera utilisé ici).'
+
+    unnecessary: 'Cependant pas d’inquiétude, les expréssions régulières que vous serez(peut être), amené à utiliser dans vos recherches resterons très simple.'
+
+    form_explained: 'Voici une une liste d’explication sur le fonctionnement des différents champs, seul les concepts (objets, catégories ou recherches), respectant tout les champs de recherche à la fois seront trouvé:'
+    
+    form:
+      name:
+        term: 'Nom'
+        definition: 'Permet de donner un nom à la recherche, pour par exemple la retrouver facilement plus tard.'
+      researched_type:
+        term: 'Type de concepts recherchés'
+        definition: 'Indiquez ici, le type de concept que vous voulez trouver'
+      researched_name:
+        term: 'Nom des concepts recherchés'
+        definition: 'Indiquez, par une expréssion régulière, les noms des concepts recherché, (par exemple "vais.*", pourra retrouver la categorie "vaisselles")'
+
+      researched_linkable:
+        term: 'Connectabilité'
+        definition: 'Indiquez si les concepts recherchés son liable(linkable) non liable (unlinkable), ou potentiellement les deux (all). (nous en dirons plus sur ceci par la suite)'
+
+      researched_number:
+        term: 'Cardinalité des concepts recherchés'
+        definition: 'Quand plusieurs objets identiques sont au même endroit, on peut indiquer leur nombre, ce champ permet de ne trouver que les ensembles d’objets contenant un nombre spécifique d’objets.'
+
+      categories:
+        term: 'Categories'
+        definition: 'En cliquant sur "Ajouter une categorie", vous pouvez choisir dans la liste une catégorie qui filtrera la recherche par appartenance à cette catégorie. (Par exemple en choisissant "objet", vous retrouverez la catégorie "vaisselle", car celle-ci appartient à la catégorie "objet"). Plus utile, en choisissant la catégorie "vaisselle", vous pourrez retrouver tout les objets appartenant à cette catégorie si vous choisissez de rechercher ce type de concept.'
+
+      caracts:
+        term: 'Caractéristiques'
+        definition: 'En cliquant sur "Ajouter une caractéristique", vous pouvez filtrer la recherche par caractéristiques, en donnant une expréssion régulière comme nom à cette caractéristique (par exemple, "localisation" filtrera les concepts recherchés pour ne retrouver que ceux ayant une caractéristique "localisation"). Une fois cela fait, vous pouvez filtrer encore d’avantage la recherche en donnant une valeur à cette caractéristique, les concepts ayants comme valeur celle donner, mais également les concepts ayant une valeur plus spécifique que celle-ci seront retrouvé. (par exemple "matière/métal", retrouvera les objets en "matière/métal", mais également en "matière/métal/inox", en "matière/métal/bronze", etc…)'
+
+    research_object: 'Choisissez "Category" comme "Type de concept recherchés" et "objet", comme "Nom des concepts recherchés", comme cette recherche est très simple, on ne va pas l’enregistrer, cliquez donc sur "Lancer la recherche" pour passer à la suite.'

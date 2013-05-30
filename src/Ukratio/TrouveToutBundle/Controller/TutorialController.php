@@ -379,7 +379,7 @@ class TutorialController extends ControllerWithTools
 
 
         $form->bind($request);
-        $form->all()['name']->removeErrors();
+        $form->all()['name']->removeErrors(); //TODO, find a solution that don’t need to modify symfony2
 
         if ($form->isValid()) {
             $valid = $concept->equals($goodConcept);

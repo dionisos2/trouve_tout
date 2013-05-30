@@ -53,6 +53,15 @@ class AddElementSubscriber implements EventSubscriberInterface
             }
         } else {
             $possibleValues = $data['value'];
+            if ( $this->type == Type::$date) {
+                if (preg_match( '#^\d\d/\d\d/\d\d\d\d$#' , $possibleValues) == 1) {
+                    $possibleValues .= ' 12:00';
+                    $data['value'] = $possibleValues;
+                    $event->setData($data);
+                }
+                
+            }
+
         }
 
         $form->add($this->caractTypeManager->createElementForm('value', $this->type, $possibleValues));

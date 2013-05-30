@@ -8,7 +8,34 @@
 {{ parent() }}
 
 <section>
-  <p>{{ 'tutorial.create_research.' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.create_research.fill_form' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.create_research.regexp' | trans({}, 'tutorial') }}
+    <a href="http://dev.mysql.com/doc/refman/5.0/fr/regexp.html?iframe=true&width=100%&height=100%"> {{ 'tutorial.create_research.regexp_link' | trans({}, 'tutorial') }}</a>
+  </p>
+
+
+  <p>{{ 'tutorial.create_research.unnecessary' | trans({}, 'tutorial') }}</p>
+
+  <p>{{ 'tutorial.create_research.form_explained' | trans({}, 'tutorial') }}</p>
+  <dl>
+    <dt>{{ 'tutorial.create_research.form.name.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.create_research.form.name.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.create_research.form.researched_type.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.create_research.form.researched_type.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.create_research.form.researched_name.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.create_research.form.researched_name.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.create_research.form.researched_linkable.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.create_research.form.researched_linkable.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.create_research.form.researched_number.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.create_research.form.researched_number.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.create_research.form.categories.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.create_research.form.categories.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.create_research.form.caracts.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.create_research.form.caracts.definition' | trans({}, 'tutorial') }}</dd>
+  </dl>
+
+  <p>{{ 'tutorial.create_research.research_object' | trans({}, 'tutorial') }}</p>
+
 </section>
 
 <section>

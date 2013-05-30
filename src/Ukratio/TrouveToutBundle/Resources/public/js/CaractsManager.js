@@ -9,12 +9,14 @@ function CaractsManager() {
 	this.prototypeOf['childValue']['picture'] = $('form').data('prototype of child value picture');
 	this.prototypeOf['childValue']['object'] = $('form').data('prototype of child value object');
 	this.prototypeOf['childValue']['text'] = $('form').data('prototype of child value text');
+	this.prototypeOf['childValue']['date'] = $('form').data('prototype of child value date');
 
 	this.prototypeOf['value']['name'] = $('form').data('prototype of value name');
 	this.prototypeOf['value']['number'] = $('form').data('prototype of value number');
 	this.prototypeOf['value']['picture'] = $('form').data('prototype of value picture');
 	this.prototypeOf['value']['object'] = $('form').data('prototype of value object');
 	this.prototypeOf['value']['text'] = $('form').data('prototype of value text');
+	this.prototypeOf['value']['date'] = $('form').data('prototype of value date');
 
 	this.prototypeOf['ownerElement'] = $('form').data('prototype of owner element');
 }
@@ -236,7 +238,7 @@ CaractsManager.prototype.updateValueForm = function (caractForm, index, isChildE
 	completeElement = this.getParentElements(caractForm);
 
 	if (isChildElement) {
-		if (this.getValue(caractForm, false)) {
+		if (this.getValue(caractForm, false) !== null) {
 			completeElement.unshift(this.getValue(caractForm, false));
 		} else {
 			self.updateValueFormCallBack(caractForm, {'other':'other'}, index, isChildElement);
