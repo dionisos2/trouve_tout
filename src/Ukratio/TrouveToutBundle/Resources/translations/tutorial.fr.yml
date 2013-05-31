@@ -65,7 +65,7 @@ tutorial:
         definition: 'à ne pas confondre avec le nom de la caractéristique, par exemple les valeurs des caractéristiques "localisation", "image", "taille", et "composition" seront respectivement "France", "meuble.jpg", "10 mêtres", "inox"…. Par la suite l’on nomera la valeur d’une caractéristique, un "élément"'
 
 
-    five_caracts: 'Voici à quoi correspondent les cinq différents types de caractéristiques:'
+    caracts_forms: 'Voici à quoi correspondent les cinq différents types de caractéristiques:'
     caract_type:
       name: 
         term: 'Caractéristique de type "name"'
@@ -82,6 +82,9 @@ tutorial:
       text:
         term: 'Caractéristique de type "texte"'
         definition: 'Une caractéristique dont la valeur est un texte, pour y rentrer un commentaire ou autre. (ex: "semelles abimées", "boutons sur la droite de l’écran", etc…)'
+      date:
+        term: 'Caractéristique de type "date"'
+        definition: 'Un caractéristique dont la valeur est une date, le format pour rentrer une date est soit: "jour/mois/année" soit: "jour/mois/année heure:minute". (ex: "20:11:2013 12:00", "21:04:2014", etc ).'
 
     value_heritage: 'De plus, un élément peut avoir un "élément parent", cela est un point essentiel du logiciel. Par exemple l’élément parent de "inox" et de "bronze" pourrait être "métal", et l’élément parent de "métal" et de "plastique" pourrait être "matière".'
 

@@ -107,18 +107,25 @@ class CaractTypeManager
         }
     }
 
+
     public function createElementForm($name, Type $type, $path, $label = 'element.modify', $mapped = true)
     {
         $options = array('label' => $label, 'mapped' => $mapped, 'required' => $mapped);
 
-        if (is_array($path)) {
+        //TODO separate function for getting options
+
+        if (is_array($path)) { 
             if ($label == 'element.modify') {
                 $choices = $this->getChoicesFor($type, $path, false);
             } else {
                 $choices = $this->getChoicesFor($type, $path, true);
             }
         } else {
-            $choices = null;
+            if (in_array($type, array(Type::$text, Type::$date))) {
+                $choices = null;
+            } else {
+                $choices = array($path => $path);
+            }
         }
 
 

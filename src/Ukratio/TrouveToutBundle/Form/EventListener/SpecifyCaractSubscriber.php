@@ -71,6 +71,10 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
         if ($trueElement !== null) {
             $caract->setValue($trueElement);
         } else {//creation
+            if ($caract->getType() == Type::$date->getName()) {
+                $pathElement = array($pathElement[0], 'date');
+            }
+
             $trueElement = $this->createElementByPath($pathElement);
             $caract->setValue($trueElement);
         }
