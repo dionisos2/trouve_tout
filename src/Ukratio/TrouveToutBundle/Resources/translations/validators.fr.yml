@@ -1,3 +1,4 @@
 concept.integer.invalid: 'Ce champ doit être un nombre entier'
 element.number.invalid: 'Ce champ doit être un nombre'
 concept.name.not.number: 'Le nom ne doit pas être un nombre'
+message.number.should_be_number: 'Ce champ doit être un nombre'

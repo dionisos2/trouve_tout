@@ -82,11 +82,11 @@ class Concept
      */
     private $researchedType;
 
+    // @Assert\Type(message="message.number.should_be_number", type="integer") big problème with this constrait, TOSEE !
     /**
      * @var string $number
      *
      * @ORM\Column(name="number", type="string", length=16, nullable=true)
-     * @Assert\Type(message="auieeua", type="integer")
      */
     private $number;
 
@@ -392,7 +392,7 @@ class Concept
      */
     public function setNumber($number)
     {
-        $this->number = $number;
+        $this->number = (int)$number;
         return $this;
     }
 
@@ -403,7 +403,7 @@ class Concept
      */
     public function getNumber()
     {
-        return $this->number;
+        return (int)$this->number;
     }
 
     /**
