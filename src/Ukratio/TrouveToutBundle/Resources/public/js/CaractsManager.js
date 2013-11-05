@@ -67,6 +67,10 @@ CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 		self.generalize(caractForm, index, this);
 	});
 
+	caractForm.find('[id*=_value_element_]').on('keypress', function (event) {
+		self.generalize(caractForm, index, this);
+	});
+
 }
 
 CaractsManager.prototype.generalize = function (caractForm, index, ownerElementForm) {

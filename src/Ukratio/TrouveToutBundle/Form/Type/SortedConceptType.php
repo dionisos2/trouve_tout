@@ -93,12 +93,8 @@ class SortedConceptType extends AbstractType
 
 
         $categories = $this->conceptRepo->findAllCategories();
-        echo 'AAA';
-        var_dump(array_map(function(Concept $concept){return $concept->getName();}, $categories));
 
         usort($categories, $cmpSpecificity);
-        echo 'BBB';
-        var_dump(array_map(function(Concept $concept){return $concept->getName();}, $categories));
         
         return array('categories' => $categories, 
                      'specificities' => array_map($findConnection, $categories));
