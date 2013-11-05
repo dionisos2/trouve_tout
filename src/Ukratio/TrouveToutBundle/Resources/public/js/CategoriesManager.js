@@ -3,4 +3,3 @@ function CategoriesManager() {
 }
 
 $.extend(CategoriesManager.prototype, DynamicFormsManager.prototype);
-

@@ -20,7 +20,6 @@ function DynamicFormsManager(ulName, liName, buttonAddFormValue, buttonDeleteFor
 }
 
 
-
 DynamicFormsManager.prototype.addButtonsForDynamicForms = function () {
 	var self = this;
     this.dynamicForms.append(this.addDynamicFormLinkLi);

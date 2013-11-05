@@ -9,9 +9,9 @@
 
     {% if ((app.user) or (tutorial is defined)) %}
       {% if concept.type == 'Research' %}
-      <input type="button" name="save" class="fix btn btn-primary" value="{{ 'research.save_and_run' | trans }}" onclick="submitIfValid('save')" />
+      <input type="button" disabled="true" id="save" name="save" class="fix btn btn-primary" value="{{ 'research.save_and_run' | trans }}" onclick="submitIfValid('save')" />
       {% else %}
-      <input type="button" class="fix btn btn-primary" onclick="submitIfValid('save')" value="{{ 'concept.save' | trans }}" />
+      <input type="button" disabled="true" id="save" class="fix btn btn-primary" onclick="submitIfValid('save')" value="{{ 'concept.save' | trans }}" />
       {% endif %}
     
       {% if concept.id != 0 %}
