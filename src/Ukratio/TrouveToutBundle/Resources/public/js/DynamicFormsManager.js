@@ -22,6 +22,7 @@ function DynamicFormsManager(ulName, liName, buttonAddFormValue, buttonDeleteFor
 
 DynamicFormsManager.prototype.addButtonsForDynamicForms = function () {
 	var self = this;
+
     this.dynamicForms.append(this.addDynamicFormLinkLi);
     this.dynamicForms.find('li.' + this.liName).each(function() {
         self.addDeleteDynamicFormLink($(this));
@@ -34,12 +35,17 @@ DynamicFormsManager.prototype.addDynamicForm = function () {
 	var dynamicFormLi;
 
 	this.numberOfForm++;
+	enableSave();
 
 	dynamicForm = this.symfonyPrototype.replace(/__name__/g, this.numberOfForm - 1);
 
     dynamicFormLi = $('<li class="' + this.liName + '"></li>').append(dynamicForm);
     dynamicFormLi.find('[id*=selected]').attr('checked', 'checked');
     dynamicFormLi.find('[id*=byDefault]').attr('checked', 'checked');
+
+	dynamicFormLi.find(':input').on('change', function (event) {
+		enableSave();
+	});
 
     this.addDeleteDynamicFormLink(dynamicFormLi);
 
@@ -55,6 +61,7 @@ DynamicFormsManager.prototype.addDeleteDynamicFormLink = function (dynamicFormLi
 
     deleteDynamicFormLink.on('click', function(event) {
         event.preventDefault();
+		enableSave();
         dynamicFormLi.remove();
     });
 

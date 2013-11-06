@@ -42,10 +42,10 @@
 </table>
 
 {% if research.id != 0 %}
-<a href="{{ path('run_with_id_research', {id: research.id})}}" class="fix2 btn btn-primary" value="run">
+<a href="{{ path('run_with_id_research', {id: research.id})}}" class="fix-on-middle btn btn-primary" value="run">
   {{ 'research.run_again' | trans }}
 </a>
-<a href="{{ path('edit_concept', {id: research.id})}}" class="fix btn btn-primary" value="run">
+<a href="{{ path('edit_concept', {id: research.id})}}" class="fix-on-left btn btn-primary" value="run">
   {{ 'research.modify_research' | trans }}
 </a>
 {% endif %}

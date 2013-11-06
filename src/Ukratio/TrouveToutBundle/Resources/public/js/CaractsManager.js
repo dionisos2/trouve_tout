@@ -6,6 +6,7 @@ function CaractsManager() {
 	this.prototypeOf['childValue'] = [];
 	this.prototypeOf['value'] = [];
 
+	//TODO with foreach
 	this.prototypeOf['childValue']['name'] = $('form').data('prototype of child value name');
 	this.prototypeOf['childValue']['number'] = $('form').data('prototype of child value number');
 	this.prototypeOf['childValue']['picture'] = $('form').data('prototype of child value picture');
@@ -48,10 +49,7 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
 CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 	var self = this;
 
-	caractForm.find('[id$=_type]').off();
-	caractForm.find('[id$=value_value]').off();
-	caractForm.find('[id$=value_childValue]').off();
-	caractForm.find('[id*=_value_element_]').off();
+	caractForm.find(':input').off();
 
 	caractForm.find('[id$=_type]').on('change', function (event) {
 		self.changeValueType(caractForm, index);
@@ -73,7 +71,11 @@ CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 		self.generalize(caractForm, index, this);
 	});
 
+	caractForm.find(':input').on('change', function (event) {
+		enableSave();
+	});
 }
+
 
 CaractsManager.prototype.generalize = function (caractForm, index, ownerElementForm) {
 	var value;

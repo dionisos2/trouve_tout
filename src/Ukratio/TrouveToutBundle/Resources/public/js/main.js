@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var caractsManager;
 	var categoriesManager;
-	var isResearch = $('#TrouveTout_Research_name').length > 0;
+	var isResearch = $('#TrouveTout_Research_name').length > 0; //TOSEE
 
 
 	if (loggedUser || isResearch || isTutorial) {
@@ -11,4 +11,6 @@ $(document).ready(function() {
 		categoriesManager = new CategoriesManager();
 		categoriesManager.addButtonsForDynamicForms();
 	}
+
+	disableSave();
 });

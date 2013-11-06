@@ -9,20 +9,20 @@
 	height:5px;
 }
 
-.fix {
+.fix-on-right {
 	position        : fixed;
     bottom          : 10%;
 	right           : 0;
 }
 
-.fix2 {
-	position        : fixed;
-    bottom          : 15%;
-	right           : 0;
-}
-
-.fix3 {
+.fix-on-middle {
 	position        : fixed;
     bottom          : 10%;
-	right           : 10;
+	right           : 50%;
+}
+
+.fix-on-left {
+	position        : fixed;
+    bottom          : 10%;
+	left           : 0;
 }

@@ -1,49 +1,50 @@
 <div class="well">
   <form method="post" {{ form_enctype(form) }}>
-    {% block specific %}{% endblock %}
-    
-    
+    <div class="well">
+      {% block specific %}{% endblock %}
+      
+      <h3>{{ 'concept.categories' | trans }}</h3>
+      <ul class="categories" data-prototype="{{ form_widget(form.moreGeneralConceptConcepts.vars.prototype)|e }}">
+        <a id="concept_all"></a>
+        {% for category in form.moreGeneralConceptConcepts %}
+        <li class="category">
+          {{ form_errors(category) }}
+          {{ form_widget(category) }}
+        </li>
+        <hr class="separation">
+        {% endfor %}
+      </ul>
+
+      <h3>{{ 'concept.caracts' | trans }}</h3>
+      <ul class="caracts" data-prototype="{{ form_widget(form.caracts.vars.prototype)|e }}">
+        {% for caract in form.caracts %}
+        <li class="caract">
+          <a id="caract_{{caract.vars.value.id}}"></a>
+          {{ form_errors(caract) }}
+          {{ form_widget(caract) }}
+        </li>
+        <hr class="separation">
+        {% endfor %}
+      </ul>
+    </div>
+
     {% if ((concept.type == 'Research') and (concept.id == 0)) %}
-    <input type="button" name="run" class="fix2 btn btn-primary" value="{{ 'research.run' | trans }}" onclick="submitIfValid('run')"/>
+    <input type="button" name="run" class="fix-on-middle btn btn-primary" value="{{ 'research.run' | trans }}" onclick="submitIfValid('run')"/>
     {% endif %}
 
     {% if ((app.user) or (tutorial is defined)) %}
       {% if concept.type == 'Research' %}
-      <input type="button" id="save" name="save" class="fix btn btn-primary" value="{{ 'research.save_and_run' | trans }}" onclick="submitIfValid('save')" />
+      <input type="button" disabled id="save" name="save" class="fix-on-right btn btn-primary" value="{{ 'research.save_and_run' | trans }}" onclick="submitIfValid('save')" />
       {% else %}
-      <input type="button" id="save" class="fix btn btn-primary" onclick="submitIfValid('save')" value="{{ 'concept.save' | trans }}" />
+      <input type="button" disabled id="save" class="fix-on-right btn btn-primary" value="{{ 'concept.save' | trans }}" onclick="submitIfValid('save')"/>
       {% endif %}
     
       {% if concept.id != 0 %}
-      <a href="{{ path('delete_concept', {id: concept.id})}}" class="fix3 btn btn-primary" value="delete">
+      <a href="{{ path('delete_concept', {id: concept.id})}}" class="fix-on-left btn btn-primary" value="delete">
         {{ 'concept.delete' | trans }}
       </a>
       {% endif %}
     {% endif %}
-
-    <h3>{{ 'concept.categories' | trans }}</h3>
-    <ul class="categories" data-prototype="{{ form_widget(form.moreGeneralConceptConcepts.vars.prototype)|e }}">
-      <a id="concept_all"></a>
-      {% for category in form.moreGeneralConceptConcepts %}
-      <li class="category">
-        {{ form_errors(category) }}
-        {{ form_widget(category) }}
-      </li>
-      <hr class="separation">
-      {% endfor %}
-    </ul>
-
-    <h3>{{ 'concept.caracts' | trans }}</h3>
-    <ul class="caracts" data-prototype="{{ form_widget(form.caracts.vars.prototype)|e }}">
-      {% for caract in form.caracts %}
-      <li class="caract">
-        <a id="caract_{{caract.vars.value.id}}"></a>
-        {{ form_errors(caract) }}
-        {{ form_widget(caract) }}
-      </li>
-      <hr class="separation">
-      {% endfor %}
-    </ul>
 
     {{ form_rest(form) }}
     {{ form_errors(form) }}

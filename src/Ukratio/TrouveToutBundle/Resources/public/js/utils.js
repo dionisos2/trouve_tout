@@ -3,3 +3,12 @@ function submitIfValid(name) {
 	$('#submit_button').click();
 	$('#submit_button').remove();
 }
+
+function enableSave() {
+	$('[id=save]').removeAttr('disabled');
+}
+
+function disableSave() {
+	$('[id=save]').attr('disabled', 'true');
+}
+
