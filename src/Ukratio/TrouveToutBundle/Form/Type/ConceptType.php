@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityRepository;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
+use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\CaractRepository;
@@ -62,20 +63,13 @@ abstract class ConceptType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        //TODO do that with a loop
-        $view->vars['prototypeOfChildValueName'] = $form->getConfig()->getAttribute('prototypeOfChildValueName')->createView($view);
-        $view->vars['prototypeOfChildValueNumber'] = $form->getConfig()->getAttribute('prototypeOfChildValueNumber')->createView($view);
-        $view->vars['prototypeOfChildValuePicture'] = $form->getConfig()->getAttribute('prototypeOfChildValuePicture')->createView($view);
-        $view->vars['prototypeOfChildValueObject'] = $form->getConfig()->getAttribute('prototypeOfChildValueObject')->createView($view);
-        $view->vars['prototypeOfChildValueText'] = $form->getConfig()->getAttribute('prototypeOfChildValueText')->createView($view);
-        $view->vars['prototypeOfChildValueDate'] = $form->getConfig()->getAttribute('prototypeOfChildValueDate')->createView($view);
-
-        $view->vars['prototypeOfValueName'] = $form->getConfig()->getAttribute('prototypeOfValueName')->createView($view);
-        $view->vars['prototypeOfValueNumber'] = $form->getConfig()->getAttribute('prototypeOfValueNumber')->createView($view);
-        $view->vars['prototypeOfValuePicture'] = $form->getConfig()->getAttribute('prototypeOfValuePicture')->createView($view);
-        $view->vars['prototypeOfValueObject'] = $form->getConfig()->getAttribute('prototypeOfValueObject')->createView($view);
-        $view->vars['prototypeOfValueText'] = $form->getConfig()->getAttribute('prototypeOfValueText')->createView($view);
-        $view->vars['prototypeOfValueDate'] = $form->getConfig()->getAttribute('prototypeOfValueDate')->createView($view);
+        
+        foreach(Type::getListOfElement() as $element) 
+        {
+            $element[0] = strtoupper($element[0]);
+            $view->vars["prototypeOfChildValue$element"] = $form->getConfig()->getAttribute("prototypeOfChildValue$element")->createView($view);
+            $view->vars["prototypeOfValue$element"] = $form->getConfig()->getAttribute("prototypeOfValue$element")->createView($view);
+        }
 
         $view->vars['prototypeOfOwnerElement'] = $form->getConfig()->getAttribute('prototypeOfOwnerElement')->createView($view);
 
@@ -108,35 +102,30 @@ abstract class ConceptType extends AbstractType
                                 'mapped' => false,
         );
 
-        $prototypeOfChildValueName = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
-        $prototypeOfChildValueNumber = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
-        $prototypeOfChildValuePicture = $builder->create('__name__', 'choice', $optionsTextChildValue);
-        $prototypeOfChildValueObject = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
-        $prototypeOfChildValueText = $builder->create('__name__', 'textarea', array('label' => 'element.specify'));
-        $prototypeOfChildValueDate = $builder->create('__name__', 'datetime', array('label' => 'element.specify', 'input' => 'timestamp', 'widget' => 'single_text', 'required' => false, 'format' => Constant::DATEFORMAT));
+        $prototypeOfChildValue = array();
+        $prototypeOfChildValue["Name"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
+        $prototypeOfChildValue["Number"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
+        $prototypeOfChildValue["Picture"] = $builder->create('__name__', 'choice', $optionsTextChildValue);
+        $prototypeOfChildValue["Object"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
+        $prototypeOfChildValue["Text"] = $builder->create('__name__', 'textarea', array('label' => 'element.specify'));
+        $prototypeOfChildValue["Date"] = $builder->create('__name__', 'datetime', array('label' => 'element.specify', 'input' => 'timestamp', 'widget' => 'single_text', 'required' => false, 'format' => Constant::DATEFORMAT));
 
-        $prototypeOfValueName = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
-        $prototypeOfValueNumber = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
-        $prototypeOfValuePicture = $builder->create('__name__', 'choice', $optionsTextValue);
-        $prototypeOfValueObject = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
-        $prototypeOfValueText = $builder->create('__name__', 'textarea', array('label' => 'element.modify'));
-        $prototypeOfValueDate = $builder->create('__name__', 'datetime', array('label' => 'element.modify', 'input' => 'timestamp', 'widget' => 'single_text', 'required' => true, 'format' => Constant::DATEFORMAT));
+        $prototypeOfValue = array();
+        $prototypeOfValue["Name"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
+        $prototypeOfValue["Number"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
+        $prototypeOfValue["Picture"] = $builder->create('__name__', 'choice', $optionsTextValue);
+        $prototypeOfValue["Object"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
+        $prototypeOfValue["Text"] = $builder->create('__name__', 'textarea', array('label' => 'element.modify'));
+        $prototypeOfValue["Date"] = $builder->create('__name__', 'datetime', array('label' => 'element.modify', 'input' => 'timestamp', 'widget' => 'single_text', 'required' => true, 'format' => Constant::DATEFORMAT));
 
         $prototypeOfOwnerElement = $builder->create('__name__', 'text',  $optionsElement);
 
-        $builder->setAttribute('prototypeOfChildValueName', $prototypeOfChildValueName->getForm());
-        $builder->setAttribute('prototypeOfChildValueNumber', $prototypeOfChildValueNumber->getForm());
-        $builder->setAttribute('prototypeOfChildValuePicture', $prototypeOfChildValuePicture->getForm());
-        $builder->setAttribute('prototypeOfChildValueObject', $prototypeOfChildValueObject->getForm());
-        $builder->setAttribute('prototypeOfChildValueText', $prototypeOfChildValueText->getForm());
-        $builder->setAttribute('prototypeOfChildValueDate', $prototypeOfChildValueDate->getForm());
-
-        $builder->setAttribute('prototypeOfValueName', $prototypeOfValueName->getForm());
-        $builder->setAttribute('prototypeOfValueNumber', $prototypeOfValueNumber->getForm());
-        $builder->setAttribute('prototypeOfValuePicture', $prototypeOfValuePicture->getForm());
-        $builder->setAttribute('prototypeOfValueObject', $prototypeOfValueObject->getForm());
-        $builder->setAttribute('prototypeOfValueText', $prototypeOfValueText->getForm());
-        $builder->setAttribute('prototypeOfValueDate', $prototypeOfValueDate->getForm());
+        foreach(Type::getListOfElement() as $element) 
+        {
+            $element[0] = strtoupper($element[0]);
+            $builder->setAttribute("prototypeOfChildValue$element", $prototypeOfChildValue["$element"]->getForm());
+            $builder->setAttribute("prototypeOfValue$element", $prototypeOfValue["$element"]->getForm());
+        }
 
         $builder->setAttribute('prototypeOfOwnerElement', $prototypeOfOwnerElement->getForm());
     }

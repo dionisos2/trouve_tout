@@ -1,5 +1,7 @@
 function CaractsManager() {
 	DynamicFormsManager.call(this, 'caracts', 'caract', 'Ajouter une caractéristique', 'Supprimer la caractéristique');
+
+	// childValue is for the specification form, and value is for create the form to change and show the current value
 	this.prototypeOf = [];
 	this.prototypeOf['childValue'] = [];
 	this.prototypeOf['value'] = [];
