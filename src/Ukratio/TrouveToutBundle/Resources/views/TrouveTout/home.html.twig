@@ -4,18 +4,22 @@
   {{ parent() }} - {{ 'title.home' | trans }}
 {% endblock %}
 
+{% block class_home %}
+class="active"
+{% endblock %}
+
 {% block TrouveTout %}
 
 <section>
   <aside>
-	<h1>{{ 'home.general_informations' | trans }}</h1>
+	<h2>{{ 'home.general_informations' | trans }}</h2>
 	<p>{{ 'home.license' | trans }} <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a></p>
 	<p>{{ 'home.authors' | trans }} <a href="http://ukratio.org">{{ 'home.ucratique_community' | trans }}, bergerève</a></p>
 	<p>{{ 'home.source_code' | trans }} <a href="https://gitorious.org/ukratiotrouvetoutbundle">{{ 'home.gitorious' | trans }}</a></p>
 	<p>{{ 'home.creation_date' | trans }}</p>
   </aside>
   <article>                
-	<h1>{{ 'home.title' | trans}}</h1>
+	<h2>{{ 'home.title' | trans}}</h2>
 	<p>{{ 'home.introduction' | trans }}</p>
   </article>
 </section>

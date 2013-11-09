@@ -11,6 +11,10 @@ $(document).ready(function() {
 		categoriesManager = new CategoriesManager();
 		categoriesManager.addButtonsForDynamicForms();
 	}
-
-	disableSave();
+	
+	if (!isTutorial) {
+		disableSave();
+	} else {
+		enableSave();
+	}
 });

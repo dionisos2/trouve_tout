@@ -4,6 +4,10 @@
   {{ parent() }} - {{ 'title.tools' | trans }}
 {% endblock %}
 
+{% block class_tools %}
+class="active"
+{% endblock %}
+
 {% block TrouveTout %}
 <a href="{{ path('delete_unamed_researches') }}" class="btn">
   {{'tools.delete.researches' | trans}}

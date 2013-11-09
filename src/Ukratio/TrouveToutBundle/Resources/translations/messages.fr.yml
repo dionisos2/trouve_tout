@@ -7,7 +7,7 @@ title:
   add_category: Ajouter une categorie
   modify_category: Modifier une categorie
   end: FIN
-  create_category_dishes: Créer la categorie vaisselle
+  create_category_wardrobe: Créer la categorie armoire
   tutorial: Tutoriel
   congratulation: 'Félicitation !'
   tools_ok: 'Action réussie'
@@ -72,7 +72,7 @@ research:
 concept:
   save: 'Sauvegarder'
   delete: 'Supprimer'
-  categories: 'Categories'
+  categories: 'Categories parentes'
   caracts: 'Caractéristiques'
   name: 'Nom'
   linkable: 'Liable:'
@@ -101,3 +101,5 @@ home:
 picture: 'image'
 object: 'objet'
 category: 'categorie'
+number: 'nombre'
+name: 'nom'

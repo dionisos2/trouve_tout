@@ -1,7 +1,16 @@
-{% extends "::layout.html.twig" %}
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - {{ 'title.create_concept' | trans }}
+{% endblock %}
+
+{% block class_login %}
+class="active"
+{% endblock %}
  
-{% block body %}
- 
+{% block TrouveTout %}
+{{ parent() }}
+
   {% if error %}
     <div class="alert alert-error">{{ error.message | trans}}</div>
   {% endif %}

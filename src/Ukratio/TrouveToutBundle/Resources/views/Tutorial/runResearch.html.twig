@@ -12,7 +12,7 @@
   <p>{{ 'tutorial.run_research.research_object' | trans({}, 'tutorial') }}</p>
 </section>
 
-<section>
+<section class="tuto-simulation">
   {% set link = {'button': 'do_research', 'target': path('tutorial_create_research') } %}
   {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
 

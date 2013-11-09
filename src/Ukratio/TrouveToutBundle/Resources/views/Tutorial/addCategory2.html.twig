@@ -12,8 +12,8 @@
   <p>{{ 'tutorial.add_category2.new_category' | trans({}, 'tutorial') }}</p>
 </section>
 
-<section>
-  {% set link = {'button': 'add_category', 'target': path('tutorial_create_category_dishes') } %}
+<section class="tuto-simulation">
+  {% set link = {'button': 'add_category', 'target': path('tutorial_create_category_wardrobe') } %}
   {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
   <h2>{{ 'title.modify_category' | trans }}</h2>
   {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}

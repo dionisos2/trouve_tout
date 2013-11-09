@@ -7,37 +7,80 @@
 {% block body %}
 
   <h1> trouve tout ! </h1>
-  	<menu>
+  	<menu class="nav nav-tabs">
+      <li {% block class_home %} {% endblock %}>
 		<a href="{{ path('home') }}" class="btn">
             {{ 'menu.home' | trans }}
 		</a>
+      </li>
+
+      {% if (app.user) %}
+      {% if ((concept is defined) and (concept.type == "Set")) %}
+      <li class="active">
+      {% else %}
+      <li>
+      {% endif %}
 		<a href="{{ path('create_set') }}" class="btn">
             {{ 'menu.add_object' | trans }}
 		</a>
+      </li>
+
+      {% if ((concept is defined) and (concept.type == "Category")) %}
+      <li class="active">
+      {% else %}
+      <li>
+      {% endif %}
 		<a href="{{ path('create_category') }}" class="btn">
             {{ 'menu.add_category' | trans }}
 		</a>
+      </li>
+
+      <li {% block class_upload %} {% endblock %}>
 		<a href="{{ path('upload') }}" class="btn">
             {{ 'menu.upload_picture' | trans }}
         </a>
+      </li>
+      {% endif %}  
+
+      {% if ((concept is defined) and (concept.type == "Research")) %}
+      <li class="active">
+      {% else %}
+      <li>
+      {% endif %}
 		<a href="{{ path('create_research') }}" class="btn">
             {{ 'menu.do_research' | trans }}
         </a>
+      </li>
+
+      {% if (app.user) %}
+      <li {% block class_tools %} {% endblock %}>
 		<a href="{{ path('tools') }}" class="btn">
             {{ 'menu.tools' | trans }}
         </a>
+      </li>
+      {% endif %}
+
+      <li {% block class_tutorial %} {% endblock %}>
         <a href="{{ path('tutorial_introduction') }}" class="btn">
             {{ 'menu.tutorial' | trans }}
         </a>
-        {% if app.user %}
+      </li>
+
+      {% if app.user %}
+      <li {% block class_logout %} {% endblock %}>
 		<a href="{{ path('logout') }}" class="btn">
             {{ 'menu.logout' | trans }}
         </a>
-        {% else %}
+      </li>
+
+      {% else %}
+      <li {% block class_login %} {% endblock %}>
 		<a href="{{ path('login') }}" class="btn">
             {{ 'menu.connection' | trans }}
-        </a>        
-        {% endif %}
+        </a>  
+      </li>
+      {% endif %}
+      
 	</menu>
   {% block TrouveTout %}{% endblock %}
 

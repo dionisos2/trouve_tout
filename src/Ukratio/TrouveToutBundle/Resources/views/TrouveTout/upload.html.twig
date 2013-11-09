@@ -4,6 +4,10 @@
   {{ parent() }} - {{ 'title.upload_picture' | trans }}
 {% endblock %}
 
+{% block class_upload %}
+class="active"
+{% endblock %}
+
 {% block TrouveTout %}
 <form method="post" {{ form_enctype(form) }}>
   {{ form_widget(form) }} 

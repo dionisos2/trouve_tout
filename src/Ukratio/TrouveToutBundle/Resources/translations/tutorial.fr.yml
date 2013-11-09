@@ -7,11 +7,12 @@ tutorial:
     object: 'objet'
     picture: 'image'
     localization: 'localisation'
-    dishes: 'vaisselle'
+    wardrobe: 'armoire'
     composition: 'composition'
     matter: 'matière'
     metal: 'métal'
     stainless: 'inox'
+    furniture: 'mobilier'
 
   introduction:
     welcome: 'Bonjour et bienvenue dans le tutoriel de présentation de TrouveTout!'
@@ -25,33 +26,33 @@ tutorial:
     objects_concept_term: 'Le concept d’objet'
     objects_concept_definition: 'Un objet fait référence à n’importe quel objet existant. (par exemple l’ordinateur de Denis, la maison de Manon, une des casseroles de la cuisine, etc…)'
     categories_concept_term: 'Le concept de categorie'
-    categories_concept_definition: 'Une categorie est un type d’objet correspondant à un nom commun (ordinateur, maison, casserole, etc…), une categorie peut en inclure d’autres, par exemple la categorie "vaisselle" peut inclure la catorie "fourchette" et la categorie "cuillère".'
+    categories_concept_definition: 'Une categorie est un type d’objet correspondant à un nom commun (ordinateur, maison, casserole, etc…), une categorie peut en inclure d’autres, par exemple la categorie "armoire" peut inclure la catorie "fourchette" et la categorie "cuillère".'
     researches_concept_term: 'Le concept de recherche'
     researches_concept_definition: 'Une recherche permet de retrouver des objets (la principale fonctionnalité du logiciel), des catégories, ou même d’autres recherches précédemment effectuées.'
 
     first_step: 'La première étape lors de l’utilisation du logiciel va être de créer les categories dont on va se servir par la suite, un faux menu, "simulant" le menu du logiciel, est apparu en dessous, cliquez sur le boutton apparaissant en gras: "Ajouter une categorie".'
 
-  create_category_object:
-    goal: 'L’objectif de cet exercice sera de créer une categorie "objet" qui servira de categorie très générale représentant un objet quelconque, dans la quelle les autres categories seront inclues. (une autre manière de le dire est que la catégorie "objet" sera parente des autres catégories)'
+  create_category_furniture:
+    goal: 'L’objectif de cet exercice sera de créer une categorie "mobilier" qui servira de categorie très générale représentant du mobilier quelconque, la catégorie "mobilier" sera parente des autres catégories'
     characteristic: 'Une catégorie est définit par un nom, un nombre quelconque de catégories parentes, et un nombre quelconque de caractéristiques. '
-    composition: 'La catégorie "objet" étant très générale, elle n’aura aucune catégorie parente, elle aura par contre deux caractéristiques:'
+    composition: 'La catégorie "mobilier" étant très générale, elle n’aura aucune catégorie parente, elle aura par contre deux caractéristiques:'
     composition_picture: 'La caractéristique image, servant à indiquer que les objets de cette categorie auront une image pour les réprésenter'
-    composition_localization: 'Une caractéristique localisation, servant à indiquer que les objets de cette categorie auront une caractéristique localisation, pour pouvoir y indiquer le lieu où se trouve l’objet'
+    composition_localization: 'Une caractéristique localisation, servant à indiquer que les objets de cette categorie auront une caractéristique localisation, pour pouvoir les retrouver'
     four_step: 'Vous allez donc procéder en quatre étapes très simples:'
-    step_name: 'Cliquez dans la zone de texte pour y écrire le nom de la catégorie: "objet"'
+    step_name: 'Cliquez dans la zone de texte pour y écrire le nom de la catégorie: "mobilier"'
     step_image: 'Cliquez sur "Ajouter une caractéristique", puis donnez lui comme nom: "image", et comme type: "image"'
     step_localization: 'Ajouter une autre caractéristique, donnez lui comme nom: "localisation", et comme type: "objet" (nous verrons par la suite à quoi cela correspond)'
-    step_send: 'Cliquez sur le boutton "envoyer", si vous n’avez pas fait d’erreur vous passerez à la suite du tutoriel.'
+    step_send: 'Cliquez sur le boutton "Sauvegarder", si vous n’avez pas fait d’erreur vous passerez à la suite du tutoriel.'
 
   add_category2:
-    modify_category: 'La categorie "objet" a maintenant été enregistrée en base de donnée, et vous avez été redirigé vers une page où vous pouvez la modifier.'
-    new_category: 'On va maintenant ajouter une nouvelle categorie "vaisselle", cliquez sur "Ajouter une categorie"'
+    modify_category: 'La categorie "mobilier" a maintenant été enregistrée en base de donnée, et vous avez été redirigé vers une page où vous pouvez la modifier.'
+    new_category: 'On va maintenant ajouter une nouvelle categorie "armoire", cliquez sur "Ajouter une categorie"'
 
-  create_category_dishes:
-    add_category_object: 'Nommer la nouvelle catégorie vaisselle, une "vaisselle" étant un "objet", ajoutez lui la categorie "objet": cliquez sur "Ajouter une categorie", choisissez "objet" dans la liste déroulante puis cliquez sur envoyer pour continuer.'
+  create_category_wardrobe:
+    add_category_furniture: 'Nommer la nouvelle catégorie armoire, une "armoire" étant un "mobilier", ajoutez lui la categorie "mobilier": cliquez sur "Ajouter une categorie", choisissez "mobilier" dans la liste déroulante puis cliquez sur envoyer pour continuer.'
 
-  modify_category_dishes:
-    added_caracts: 'On peut observer que les caractéristiques propres à la catégorie "objet" ont été ajouté à la catégorie "vaisselle", cela va nous permettre de préciser la valeur de ces caractéristiques.'
+  modify_category_wardrobe:
+    added_caracts: 'On peut observer que les caractéristiques propres à la catégorie "mobilier" ont été ajouté à la catégorie "armoire", cela va nous permettre de préciser la valeur de ces caractéristiques.'
     caract_properties: 'Je vous dois quelques explication sur le fonctionnement des caractéristiques, premièrement la définition d’une caractéristique passe par plusieurs étapes, il va falloir lui donner:'
     caract:
       name:
@@ -78,7 +79,7 @@ tutorial:
         definition: 'Une caractéristique dont la valeur est un lien vers une image. (ex: "meuble.jpg", "ballon_rouge.bmp", "maison.gif", etc…)'
       object:
         term: 'Caractéristique de type "objet"'
-        definition: 'Plus complexe, cette caractéristique permet de créer un lien vers un concept de type "objet", nous verrons cela plus en détail dans la suite du tutoriel.'
+        definition: 'Plus complexe, cette caractéristique permet de créer un lien vers un concept de type "mobilier", nous verrons cela plus en détail dans la suite du tutoriel.'
       text:
         term: 'Caractéristique de type "texte"'
         definition: 'Une caractéristique dont la valeur est un texte, pour y rentrer un commentaire ou autre. (ex: "semelles abimées", "boutons sur la droite de l’écran", etc…)'
@@ -88,9 +89,9 @@ tutorial:
 
     value_heritage: 'De plus, un élément peut avoir un "élément parent", cela est un point essentiel du logiciel. Par exemple l’élément parent de "inox" et de "bronze" pourrait être "métal", et l’élément parent de "métal" et de "plastique" pourrait être "matière".'
 
-    value_heritage_avantages: 'Cela permet d’organiser correctement les différents élément entre eux, pour d’une part retrouver ces éléments plus facilement grace aux listes déroulantes, et d’autre part faciliter les recherches (par exemple on pourra rechercher les objets en métal, et retrouver ainsi les objets en bronze ou en inox).'
+    value_heritage_avantages: 'Cela permet d’organiser correctement les différents élément entre eux, pour d’une part retrouver ces éléments plus facilement grace aux listes déroulantes, et d’autre part faciliter les recherches (par exemple on pourra rechercher les mobiliers en métal, et retrouver ainsi les mobiliers en bronze ou en inox).'
 
-    goal: 'Nous allons tester cette fonctionnalité tout de suite, en ajoutant une caractéristique "composition" à notre catégorie "vaisselles", qui aura comme type "nom" et comme valeur "matière/métal/inox" (C’est à dire un élément inox, ayant comme parent un élément "métal", ayant lui même comme comme parent un élément "matière")'
+    goal: 'Nous allons tester cette fonctionnalité tout de suite, en ajoutant une caractéristique "composition" à notre catégorie "armoires", qui aura comme type "nom" et comme valeur "matière/métal/inox" (C’est à dire un élément inox, ayant comme parent un élément "métal", ayant lui même comme comme parent un élément "matière")'
     
     enter_inherited_value: 'Pour rentrer la valeur de la caractéristique, suivez ces étapes:'
     enter:
@@ -102,15 +103,15 @@ tutorial:
     
   upload_picture: 'Nous allons maintenant téléverser quelques images. (C’est à dire les télécharger vers le serveur de TrouveTout). Cliquez sur "Téléverser une image".'
 
-  upload_dishes_picture:
+  upload_wardrobe_picture:
     steps: 'Lors du téléversage d’une image, vous devez d’une part choisir l’image que vous allez téléverser à partir de votre pc, en cliquant sur parcourir, et d’autre part choisir une catégorie dans la liste déroulante.'
     category: 'Le choix d’une catégorie permet de ranger l’image dans un dossier approprié sur le serveur, pour pouvoir la retrouver plus rapidement'
 
-    goal: 'Choisissez n’importe quelle image de votre pc et la catégorie "vaisselle", puis cliquez sur "envoyer" pour démarrer le téléversage. Cela nous permettra par la suite de donner une image par défaut à la vaisselle'
+    goal: 'Choisissez n’importe quelle image de votre pc et la catégorie "armoire", puis cliquez sur "envoyer" pour démarrer le téléversage. Cela nous permettra par la suite de donner une image par défaut à la armoire'
 
   run_research:
     upload_ok: 'Le fichier aurait été correctement téléversé si vous aviez effectuez cette manipulation dans un context réel.'
-    research_object: 'On va maintenant modifier notre categorie "objet", mais avant il va falloir la retrouver, cliquez sur "Faire une recherche".'
+    research_furniture: 'On va maintenant modifier notre categorie "mobilier", mais avant il va falloir la retrouver, cliquez sur "Faire une recherche".'
 
   create_research:
     fill_form: 'Pour effectuer une recherche vous allez dans un premier temps remplir quelques champs de saisie (les zones ou écrire du texte), en fonction de ce que vous voulez trouver.'
@@ -131,7 +132,7 @@ tutorial:
         definition: 'Indiquez ici, le type de concept que vous voulez trouver'
       researched_name:
         term: 'Nom des concepts recherchés'
-        definition: 'Indiquez, par une expréssion régulière, les noms des concepts recherché, (par exemple "vais.*", pourra retrouver la categorie "vaisselles")'
+        definition: 'Indiquez, par une expréssion régulière, les noms des concepts recherché, (par exemple "vais.*", pourra retrouver la categorie "armoires")'
 
       researched_linkable:
         term: 'Connectabilité'
@@ -143,10 +144,10 @@ tutorial:
 
       categories:
         term: 'Categories'
-        definition: 'En cliquant sur "Ajouter une categorie", vous pouvez choisir dans la liste une catégorie qui filtrera la recherche par appartenance à cette catégorie. (Par exemple en choisissant "objet", vous retrouverez la catégorie "vaisselle", car celle-ci appartient à la catégorie "objet"). Plus utile, en choisissant la catégorie "vaisselle", vous pourrez retrouver tout les objets appartenant à cette catégorie si vous choisissez de rechercher ce type de concept.'
+        definition: 'En cliquant sur "Ajouter une categorie", vous pouvez choisir dans la liste une catégorie qui filtrera la recherche par appartenance à cette catégorie. (Par exemple en choisissant "mobilier", vous retrouverez la catégorie "armoire", car celle-ci appartient à la catégorie "mobilier"). Plus utile, en choisissant la catégorie "armoire", vous pourrez retrouver tout les objets appartenant à cette catégorie si vous choisissez de rechercher ce type de concept.'
 
       caracts:
         term: 'Caractéristiques'
         definition: 'En cliquant sur "Ajouter une caractéristique", vous pouvez filtrer la recherche par caractéristiques, en donnant une expréssion régulière comme nom à cette caractéristique (par exemple, "localisation" filtrera les concepts recherchés pour ne retrouver que ceux ayant une caractéristique "localisation"). Une fois cela fait, vous pouvez filtrer encore d’avantage la recherche en donnant une valeur à cette caractéristique, les concepts ayants comme valeur celle donner, mais également les concepts ayant une valeur plus spécifique que celle-ci seront retrouvé. (par exemple "matière/métal", retrouvera les objets en "matière/métal", mais également en "matière/métal/inox", en "matière/métal/bronze", etc…)'
 
-    research_object: 'Choisissez "Category" comme "Type de concept recherchés" et "objet", comme "Nom des concepts recherchés", comme cette recherche est très simple, on ne va pas l’enregistrer, cliquez donc sur "Lancer la recherche" pour passer à la suite.'
+    research_furniture: 'Choisissez "Category" comme "Type de concept recherchés" et "objet", comme "Nom des concepts recherchés", comme cette recherche est très simple, on ne va pas l’enregistrer, cliquez donc sur "Lancer la recherche" pour passer à la suite.'

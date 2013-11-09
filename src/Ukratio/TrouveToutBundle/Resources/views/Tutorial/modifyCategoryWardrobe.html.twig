@@ -1,0 +1,67 @@
+{% extends "TrouveToutBundle:Tutorial:layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'tutorial.create_category_wardrobe.title' | trans({}, 'tutorial') }}
+{% endblock %}
+
+{% block TrouveTout %}
+{{ parent() }}
+
+<section>
+  <p>{{ 'tutorial.modify_category_wardrobe.added_caracts' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.modify_category_wardrobe.caract_properties' | trans({}, 'tutorial') }}</p>
+  
+  <ol>
+    <li>
+      <strong>{{ 'tutorial.modify_category_wardrobe.caract.name.term' | trans({}, 'tutorial') }}</strong>
+      {{ 'tutorial.modify_category_wardrobe.caract.name.definition' | trans({}, 'tutorial') }}
+    </li>
+    <li>
+      <strong>{{ 'tutorial.modify_category_wardrobe.caract.type.term' | trans({}, 'tutorial') }}</strong>
+      {{ 'tutorial.modify_category_wardrobe.caract.type.definition' | trans({}, 'tutorial') }}
+    </li>
+    <li>
+      <strong>{{ 'tutorial.modify_category_wardrobe.caract.value.term' | trans({}, 'tutorial') }}</strong>
+      {{ 'tutorial.modify_category_wardrobe.caract.value.definition' | trans({}, 'tutorial') }}
+    </li>
+  </ol>
+  
+  <p>{{ 'tutorial.modify_category_wardrobe.caracts_forms' | trans({}, 'tutorial') }}</p>
+  <dl>
+    <dt>{{ 'tutorial.modify_category_wardrobe.caract_type.name.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_wardrobe.caract_type.name.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.modify_category_wardrobe.caract_type.number.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_wardrobe.caract_type.number.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.modify_category_wardrobe.caract_type.picture.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_wardrobe.caract_type.picture.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.modify_category_wardrobe.caract_type.object.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_wardrobe.caract_type.object.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.modify_category_wardrobe.caract_type.text.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_wardrobe.caract_type.text.definition' | trans({}, 'tutorial') }}</dd>
+    <dt>{{ 'tutorial.modify_category_wardrobe.caract_type.date.term' | trans({}, 'tutorial') }}</dt>
+    <dd>{{ 'tutorial.modify_category_wardrobe.caract_type.date.definition' | trans({}, 'tutorial') }}</dd>
+  </dl>
+
+  <p>{{ 'tutorial.modify_category_wardrobe.value_heritage' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.modify_category_wardrobe.value_heritage_avantages' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.modify_category_wardrobe.goal' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.modify_category_wardrobe.enter_inherited_value' | trans({}, 'tutorial') }}</p>
+
+  <ol>
+    <li>{{ 'tutorial.modify_category_wardrobe.enter.matter' | trans({}, 'tutorial') }}</li>
+    <li>{{ 'tutorial.modify_category_wardrobe.enter.metal' | trans({}, 'tutorial') }}</li>
+    <li>{{ 'tutorial.modify_category_wardrobe.enter.stainless' | trans({}, 'tutorial') }}</li>
+  </ol>
+
+  <p>{{ 'tutorial.modify_category_wardrobe.generalize' | trans({}, 'tutorial') }}</p>
+
+</section>
+
+<section class="tuto-simulation">
+  {% set link = {'button': '', 'target': '' } %}
+  {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
+  <h2>{{ 'title.modify_category' | trans }}</h2>
+  {% include "TrouveToutBundle:TrouveTout:CategoryForm.html.twig" %}
+</section>
+
+{% endblock %}
