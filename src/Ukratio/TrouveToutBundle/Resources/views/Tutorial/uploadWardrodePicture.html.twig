@@ -4,6 +4,10 @@
   {{ parent() }} - {{ 'title.upload_wardrobe_picture' | trans }}
 {% endblock %}
 
+{% block title_header %}
+  {{ parent() }} - {{ 'tutorial.summary.upload_picture' | trans({}, 'tutorial') }}
+{% endblock %}
+
 {% block TrouveTout %}
 {{ parent() }}
 
@@ -20,7 +24,7 @@
   {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
 
   <form method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }} 
+    {{ form_widget(form) }}
     <input type="submit" class="btn btn-primary" value="envoyer" />
   </form>
 </section>

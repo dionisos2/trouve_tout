@@ -25,9 +25,9 @@ use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 
 class TutorialController extends ControllerWithTools
-{    
+{
 
-    
+
     /**
      * @Route("/tutorial/{introduction}", requirements={"introduction" = "(introduction||)"}, defaults={"introduction" = "introduction"}, name="tutorial_introduction")
      * @Template()
@@ -155,7 +155,6 @@ class TutorialController extends ControllerWithTools
 
     /**
      * @Route("/tutorial/upload_picture", name="tutorial_upload_picture")
-     * @Method({"GET"})
      * @Template()
      */
     public function uploadPictureAction()
@@ -174,13 +173,13 @@ class TutorialController extends ControllerWithTools
         return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
     }
 
-    
+
     /**
      * @Route("/tutorial/upload_wardrobe_picture", name="tutorial_upload_wardrobe_picture")
      * @Method({"GET"})
      * @Template()
      */
-    public function uploadWardrobePictureAction()
+    public function uploadWardrodePictureAction()
     {
         $tutorialConceptConceptType = $this->get('TrouveTout.tutorial.form.concept_concept');
 
@@ -194,12 +193,12 @@ class TutorialController extends ControllerWithTools
                      ->getForm();
 
         return array('form' => $form->createView(), 'tutorial' => true);
-    }    
+    }
 
     /**
      * @Route("/tutorial/upload_wardrobe_picture", name="tutorial_verify_wardrobe_picture")
      * @Method({"POST"})
-     * @Template("TrouveToutBundle:Tutorial:uploadWardrobePicture.html.twig")
+     * @Template("TrouveToutBundle:Tutorial:uploadWardrodePicture.html.twig")
      */
     public function verifyWardrobePictureAction(Request $request)
     {
@@ -238,7 +237,7 @@ class TutorialController extends ControllerWithTools
 
         return array('form' => $form->createView(), 'tutorial' => true);
     }
-    
+
     /**
      * @Route("/tutorial/create_research", name="tutorial_create_research")
      * @Method({"GET"})
@@ -257,6 +256,7 @@ class TutorialController extends ControllerWithTools
         $form = $this->createForm('TrouveTout_Research', $concept);
 
         return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+        //TODO do the post function
 	}
 
     /**
@@ -324,7 +324,7 @@ class TutorialController extends ControllerWithTools
 
         $concept->addCaract($caractPicture);
         $concept->addCaract($caractObject);
-        
+
         return $concept;
     }
 
@@ -333,7 +333,7 @@ class TutorialController extends ControllerWithTools
         $concept = $this->getWardrobeCategoryBegin();
         $subscriber = new AddCaractsOfCategories;
         $subscriber->addCaractsForAllCategories($concept);
-        
+
         $matter = new Element($this->trans('tutorial.input.matter'));
         $metal = new Element($this->trans('tutorial.input.metal'));
         $stainless = new Element($this->trans('tutorial.input.stainless'));
@@ -370,7 +370,7 @@ class TutorialController extends ControllerWithTools
         $concept = new Concept();
 
         $concept->setType($discriminator->getName());
-        
+
         if ($discriminator === Discriminator::$Category) {
             $conceptType = $this->get('TrouveTout.tutorial.form.category');
         }

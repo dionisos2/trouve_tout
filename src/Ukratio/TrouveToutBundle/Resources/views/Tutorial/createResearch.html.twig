@@ -4,6 +4,10 @@
   {{ parent() }} - {{ 'title.create_research' | trans }}
 {% endblock %}
 
+{% block title_header %}
+  {{ parent() }} - {{ 'tutorial.summary.create_research' | trans({}, 'tutorial') }}
+{% endblock %}
+
 {% block TrouveTout %}
 {{ parent() }}
 
@@ -34,7 +38,7 @@
     <dd>{{ 'tutorial.create_research.form.caracts.definition' | trans({}, 'tutorial') }}</dd>
   </dl>
 
-  <p>{{ 'tutorial.create_research.research_object' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.create_research.research_furniture' | trans({}, 'tutorial') }}</p>
 
 </section>
 

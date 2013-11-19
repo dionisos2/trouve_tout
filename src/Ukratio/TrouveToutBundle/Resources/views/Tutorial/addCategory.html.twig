@@ -4,6 +4,9 @@
   {{ parent() }} - {{ 'title.add_category' | trans }}
 {% endblock %}
 
+{% block title_header %}
+  {{ parent() }} - {{ 'tutorial.summary.type_of_concepts' | trans({}, 'tutorial') }}
+{% endblock %}
 
 {% block TrouveTout %}
 {{ parent() }}

@@ -4,6 +4,10 @@
   {{ parent() }} - {{ 'title.create_category_wardrobe' | trans }}
 {% endblock %}
 
+{% block title_header %}
+  {{ parent() }} - {{ 'tutorial.summary.category_inheritance' | trans({}, 'tutorial') }}
+{% endblock %}
+
 {% block TrouveTout %}
 {{ parent() }}
 

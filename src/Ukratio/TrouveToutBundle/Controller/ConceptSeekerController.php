@@ -18,8 +18,8 @@ use Ukratio\TrouveToutBundle\Entity\Discriminator;
 
 
 class ConceptSeekerController extends ControllerWithTools
-{    
-    
+{
+
     /**
      * POST action on ConceptController
      *

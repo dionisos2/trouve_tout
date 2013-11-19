@@ -17,13 +17,25 @@
   {{ 'tutorial.next' | trans }}
 </a>
 
+<div>
+<h3>{{ 'tutorial.summary.title' | trans({}, 'tutorial')}}</h3>
+<ol>
+<li><a href="{{ path('tutorial_add_category') }}">{{ 'tutorial.summary.type_of_concepts' | trans({}, 'tutorial') }}</a></li>
+<li><a href="{{ path('tutorial_create_category_furniture') }}">{{ 'tutorial.summary.create_category_1' | trans({}, 'tutorial') }}</a></li>
+<li><a href="{{ path('tutorial_create_category_wardrobe') }}">{{ 'tutorial.summary.category_inheritance' | trans({}, 'tutorial') }}</a></li>
+<li><a href="{{ path('tutorial_modify_category_wardrobe') }}">{{ 'tutorial.summary.type_of_caracts' | trans({}, 'tutorial') }}</a></li>
+<li><a href="{{ path('tutorial_upload_picture') }}">{{ 'tutorial.summary.upload_picture' | trans({}, 'tutorial') }}</a></li>
+<li><a href="{{ path('tutorial_run_research') }}">{{ 'tutorial.summary.create_research' | trans({}, 'tutorial') }}</a></li>
+</ol>
+</div>
+
 {% endblock %}
 
 {% block javascripts %}
 {{ parent() }}
 {% endblock %}
-  
-  
+
+
 {% block stylesheets %}
 {{ parent() }}
 {% endblock %}

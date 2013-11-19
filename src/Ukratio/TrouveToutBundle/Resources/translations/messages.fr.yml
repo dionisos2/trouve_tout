@@ -43,6 +43,7 @@ caract:
   selected: 'Séléctionné:'
   byDefault: 'Par défaut:'
   type: 'Type:'
+  specificity: 'spécificité'
 
 tools:
   success: 'L’action s’est effectuée avec succès !'
@@ -61,7 +62,7 @@ research:
   run: 'Lancer la recherche'
   save_and_run: 'Sauvegarder et lancer la recherche'
   table.name: 'tableau de recherche des %researchedType%s'
-  table.ID: ID
+  table.ID: 'ID'
   run_again: 'Relancer la recherche'
   modify_research: 'Modifier la recherche'
   linkable: 'Connectabilité'
@@ -100,6 +101,14 @@ home:
 
 picture: 'image'
 object: 'objet'
-category: 'categorie'
+Object: 'Objet'
+category: 'catégorie'
+Category: 'Catégorie'
+Research: 'Recherche'
 number: 'nombre'
-name: 'nom'
+name: 'simple'
+other: 'autre'
+or: 'ou'
+linkable: 'liable'
+unlinkable: 'non liable'
+all: 'tout'

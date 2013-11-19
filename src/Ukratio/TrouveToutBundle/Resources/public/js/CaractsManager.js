@@ -54,7 +54,7 @@ CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 	caractForm.find('[id$=_type]').on('change', function (event) {
 		self.changeValueType(caractForm, index);
 	});
-		
+
 	caractForm.find('[id$=value_value]').on('change', function (event) {
 		self.modifyValue(caractForm, index);
 	});
@@ -63,11 +63,7 @@ CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 		self.specifyValue(caractForm, index);
 	});
 
-	caractForm.find('[id*=_value_element_]').on('dblclick', function (event) {
-		self.generalize(caractForm, index, this);
-	});
-
-	caractForm.find('[id*=_value_element_]').on('keypress', function (event) {
+	caractForm.find('[id*=_value_element_]').on('dblclick keypress', function (event) {
 		self.generalize(caractForm, index, this);
 	});
 
@@ -115,7 +111,7 @@ CaractsManager.prototype.addOwnerElement = function (caractForm, index, value) {
 	ownerElementForm = ownerElementForm.replace(/(name=.*?)\[.*?\]/g, '$1[caracts][' + (index).toString() + '][value][element_' + ownerIndex + ']');
 	ownerElementForm = $(ownerElementForm); // /!\ warning here
 	ownerElementForm.find('input').val(value);
-	ownerElementForm.find('input').on('dblclick', function (event) {
+	ownerElementForm.find('input').on('dblclick keypress', function (event) {
 		self.generalize(caractForm, index, this);
 	});
 	caractForm.find('#restDiv').prepend(ownerElementForm);
@@ -151,12 +147,12 @@ CaractsManager.prototype.getParentElements = function (caractForm) {
 	var parentElements = [];
 	var parentBalises = caractForm.find('input[id*=value_element]');
 
-	$.each(parentBalises, 
+	$.each(parentBalises,
 		   function (index, value) {
 			   parentElements[index] = value.value;
 		   }
 		  );
-	
+
 	return parentElements;
 }
 CaractsManager.prototype.setValue = function(caractForm, value, isChildElement) {
@@ -178,16 +174,16 @@ CaractsManager.prototype.setValue = function(caractForm, value, isChildElement) 
 	if (valueForm.get(0).tagName == 'DIV') { //compound element
 		selectForm = valueForm.find('[id$=_choice]');
 		if (selectForm.find('option[value="' + value + '"]').length > 0) {
-			selectForm.val(value);
+			selectForm.val(translate(value, language));
 			valueForm.find('[id$=_text]').val('');
 		} else {
-			selectForm.val('other');
-			valueForm.find('[id$=_text]').val(value);
+			selectForm.val(translate('other', language));
+			valueForm.find('[id$=_text]').val(translate(value, language));
 		}
 	} else {
 		valueForm.val(value);
 	}
-	
+
 }
 
 CaractsManager.prototype.getValue = function(caractForm, isChildElement) {
@@ -215,11 +211,11 @@ CaractsManager.prototype.getValue = function(caractForm, isChildElement) {
 		value = valueForm.val();
 	}
 
-	return value;
+	return translate(value, language);
 }
 
 CaractsManager.prototype.getValueFirstForm = function (caractForm, isChildElement) {
-	
+
 	if (isChildElement) {
 		if (caractForm.find('[id$=value_childValue_choice]').length > 0) {
 			return caractForm.find('[id$=value_childValue_choice]');
@@ -242,21 +238,21 @@ CaractsManager.prototype.modifyValue = function (caractForm, index) {
 CaractsManager.prototype.updateValueForm = function (caractForm, index, isChildElement) {
 	var completeElement;
 	var self = this;
-	
+
 	completeElement = this.getParentElements(caractForm);
 
 	if (isChildElement) {
 		if (this.getValue(caractForm, false) !== null) {
 			completeElement.unshift(this.getValue(caractForm, false));
 		} else {
-			self.updateValueFormCallBack(caractForm, {'other':'other'}, index, isChildElement);
+			self.updateValueFormCallBack(caractForm, {'other':translate('other', language)}, index, isChildElement);
 			return 0;
 		}
 	}
 
 	if (completeElement.length == 0) {
 		if (isChildElement) {
-			self.updateValueFormCallBack(caractForm, {'other':'other'}, index, isChildElement);
+			self.updateValueFormCallBack(caractForm, {'other':translate('other', language)}, index, isChildElement);
 			return 0;
 		} else {
 			completeElement = 'empty'; //strange problem with .ajax
@@ -345,12 +341,12 @@ CaractsManager.prototype.updateValueFormCallBack = function (caractForm, element
 	formSelect = this.getFirstOrBuildValueForm(caractForm, index, isChildElement);
 
 	$('option', formSelect).remove();
-	
+
 	if (formSelect.is('select')) {
 		$.each(elementsList, function(key, value) {
-			formSelect.append(new Option(value[0], value[1]));
+			formSelect.append(new Option(translate(value[0], language), value[1]));
 		});
 	}
-	
+
 }
 

@@ -4,13 +4,17 @@
   {{ parent() }} - {{ 'tutorial.create_category_wardrobe.title' | trans({}, 'tutorial') }}
 {% endblock %}
 
+{% block title_header %}
+  {{ parent() }} - {{ 'tutorial.summary.type_of_caracts' | trans({}, 'tutorial') }}
+{% endblock %}
+
 {% block TrouveTout %}
 {{ parent() }}
 
 <section>
   <p>{{ 'tutorial.modify_category_wardrobe.added_caracts' | trans({}, 'tutorial') }}</p>
   <p>{{ 'tutorial.modify_category_wardrobe.caract_properties' | trans({}, 'tutorial') }}</p>
-  
+
   <ol>
     <li>
       <strong>{{ 'tutorial.modify_category_wardrobe.caract.name.term' | trans({}, 'tutorial') }}</strong>
@@ -25,7 +29,7 @@
       {{ 'tutorial.modify_category_wardrobe.caract.value.definition' | trans({}, 'tutorial') }}
     </li>
   </ol>
-  
+
   <p>{{ 'tutorial.modify_category_wardrobe.caracts_forms' | trans({}, 'tutorial') }}</p>
   <dl>
     <dt>{{ 'tutorial.modify_category_wardrobe.caract_type.name.term' | trans({}, 'tutorial') }}</dt>
@@ -48,7 +52,14 @@
   <p>{{ 'tutorial.modify_category_wardrobe.enter_inherited_value' | trans({}, 'tutorial') }}</p>
 
   <ol>
-    <li>{{ 'tutorial.modify_category_wardrobe.enter.matter' | trans({}, 'tutorial') }}</li>
+    <li>
+      {{ 'tutorial.modify_category_wardrobe.enter.matter.goal' | trans({}, 'tutorial') }}
+      <ul>
+        <li> {{ 'tutorial.modify_category_wardrobe.enter.matter.step_1' | trans({}, 'tutorial') }} </li>
+        <li> {{ 'tutorial.modify_category_wardrobe.enter.matter.step_2' | trans({}, 'tutorial') }} </li>
+      </ul>
+      {{ 'tutorial.modify_category_wardrobe.enter.matter.result' | trans({}, 'tutorial') }}
+    </li>
     <li>{{ 'tutorial.modify_category_wardrobe.enter.metal' | trans({}, 'tutorial') }}</li>
     <li>{{ 'tutorial.modify_category_wardrobe.enter.stainless' | trans({}, 'tutorial') }}</li>
   </ol>

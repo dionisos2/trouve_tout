@@ -15,7 +15,7 @@
       </li>
 
       {% if (app.user) %}
-      {% if ((concept is defined) and (concept.type == "Set")) %}
+      {% if ((concept is defined) and (concept.type == "Set") and not(tutorial is defined)) %}
       <li class="active">
       {% else %}
       <li>
@@ -25,7 +25,7 @@
 		</a>
       </li>
 
-      {% if ((concept is defined) and (concept.type == "Category")) %}
+      {% if ((concept is defined) and (concept.type == "Category") and not(tutorial is defined)) %}
       <li class="active">
       {% else %}
       <li>
@@ -40,9 +40,9 @@
             {{ 'menu.upload_picture' | trans }}
         </a>
       </li>
-      {% endif %}  
+      {% endif %}
 
-      {% if ((concept is defined) and (concept.type == "Research")) %}
+      {% if ((concept is defined) and (concept.type == "Research") and not(tutorial is defined)) %}
       <li class="active">
       {% else %}
       <li>
@@ -77,15 +77,15 @@
       <li {% block class_login %} {% endblock %}>
 		<a href="{{ path('login') }}" class="btn">
             {{ 'menu.connection' | trans }}
-        </a>  
+        </a>
       </li>
       {% endif %}
-      
+
 	</menu>
   {% block TrouveTout %}{% endblock %}
 
 {% endblock %}
-  
+
 {% block javascripts %}
 {{ parent() }}
 
@@ -93,8 +93,8 @@
     {% include 'TrouveToutBundle:TrouveTout:phpTojs.js.twig' %}
 
 {% endblock %}
-  
-  
+
+
 {% block stylesheets %}
 {{ parent() }}
 <link rel="stylesheet" href="{{ asset('bundles/trouvetout/css/styles.css') }}" type="text/css" />

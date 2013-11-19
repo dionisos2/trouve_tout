@@ -29,7 +29,7 @@ class ConceptTutorialRepository extends ConceptRepository
     {
         $this->concepts = $concepts;
     }
-    
+
     public function getConcepts()
     {
         return $this->concepts;
@@ -50,7 +50,7 @@ class ConceptTutorialRepository extends ConceptRepository
             }
             $this->concepts[] = $concept;
         }
-        
+
         return $this;
     }
 

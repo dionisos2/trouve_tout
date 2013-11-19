@@ -4,12 +4,16 @@
   {{ parent() }} - {{ 'title.run_research' | trans }}
 {% endblock %}
 
+{% block title_header %}
+  {{ parent() }} - {{ 'tutorial.summary.create_research' | trans({}, 'tutorial') }}
+{% endblock %}
+
 {% block TrouveTout %}
 {{ parent() }}
 
 <section>
   <p>{{ 'tutorial.run_research.upload_ok' | trans({}, 'tutorial') }}</p>
-  <p>{{ 'tutorial.run_research.research_object' | trans({}, 'tutorial') }}</p>
+  <p>{{ 'tutorial.run_research.research_furniture' | trans({}, 'tutorial') }}</p>
 </section>
 
 <section class="tuto-simulation">
@@ -17,7 +21,7 @@
   {% include 'TrouveToutBundle:Tutorial:menu.html.twig' with {'link': link} %}
 
   <form method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }} 
+    {{ form_widget(form) }}
     <input type="submit" class="btn btn-primary" value="envoyer" />
   </form>
 </section>

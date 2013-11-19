@@ -11,9 +11,9 @@ class="active"
 {% block TrouveTout %}
 {{ parent() }}
 
-<h2>{{ 'title.tutorial' | trans }}</h2>
+<h2>{{ 'title.tutorial' | trans }}{% block title_header %}{% endblock %}</h2>
 {% endblock %}
-  
+
 {% block javascripts %}
   {{ parent() }}
   {% include "TrouveToutBundle:TrouveTout:ConceptFormJavascript.html.twig" %}
@@ -23,8 +23,8 @@ class="active"
   </script>
   {% endif %}
 {% endblock %}
-  
-  
+
+
 {% block stylesheets %}
 {{ parent() }}
 {% endblock %}

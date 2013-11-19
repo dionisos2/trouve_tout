@@ -14,12 +14,21 @@ tutorial:
     stainless: 'inox'
     furniture: 'mobilier'
 
+  summary:
+    title: 'Sommaire'
+    type_of_concepts: 'Les type de concepts'
+    create_category_1: 'Créer une catégorie'
+    category_inheritance: 'L’héritage'
+    type_of_caracts: 'Les type de caractéristiques'
+    upload_picture: 'Téléverser une image'
+    create_research: 'Faire une recherche'
+
   introduction:
     welcome: 'Bonjour et bienvenue dans le tutoriel de présentation de TrouveTout!'
     approach: 'Dans la suite nous allons vous présentez les différentes fonctionnalités du logiciel, à chaque étape vous serez amené à effectuer la tache qui vous est demandée.'
     logged: 'Vous serez considérer comme un utilisateur enregistré dans la suite du tutoriel, mais pour pouvoir utiliser toute les fonctionnalités du logiciel dans un context réel il vous faudra préalablement vous enregistré'
     no_save: 'Rien de ce que vous sauvegarderez dans ce tutoriel ne sera réellement enregistré.'
-    next: 'Cliquez sur "suivant" pour continuer.'
+    next: 'Cliquez sur "suivant" pour continuer, ou sur un chapitre du sommaire pour vous y rendre directement.'
 
   add_category:
     three_concepts: 'Vous serez amené à manipuler trois "concepts" différents (bien que proches), lors de l’utilisation du logiciel:'
@@ -49,7 +58,7 @@ tutorial:
     new_category: 'On va maintenant ajouter une nouvelle categorie "armoire", cliquez sur "Ajouter une categorie"'
 
   create_category_wardrobe:
-    add_category_furniture: 'Nommer la nouvelle catégorie armoire, une "armoire" étant un "mobilier", ajoutez lui la categorie "mobilier": cliquez sur "Ajouter une categorie", choisissez "mobilier" dans la liste déroulante puis cliquez sur envoyer pour continuer.'
+    add_category_furniture: 'Nommer la nouvelle catégorie armoire, une "armoire" étant un "mobilier", ajoutez lui la categorie "mobilier": cliquez sur "Ajouter une categorie", choisissez "mobilier" dans la liste déroulante puis cliquez sur "sauvegarder" pour continuer.'
 
   modify_category_wardrobe:
     added_caracts: 'On peut observer que les caractéristiques propres à la catégorie "mobilier" ont été ajouté à la catégorie "armoire", cela va nous permettre de préciser la valeur de ces caractéristiques.'
@@ -58,19 +67,18 @@ tutorial:
       name:
         term: 'Un nom,'
         definition: 'comme par exemple: localisation, image, taille, composition, etc.'
-      type: 
+      type:
         term: 'Un type,'
-        definition: 'qui va définir la manière dont se comporteront les formulaires pour ajouter/modifier la "valeur" de la caractéristique, et comment cette "valeur" s’affichera à l’écran'
-      value: 
+        definition: 'qui va définir la manière dont se comporteront les champs de saisis pour ajouter/modifier la valeur de la caractéristique, et comment elle s’affichera à l’écran'
+      value:
         term: 'Potentiellement une valeur,'
-        definition: 'à ne pas confondre avec le nom de la caractéristique, par exemple les valeurs des caractéristiques "localisation", "image", "taille", et "composition" seront respectivement "France", "meuble.jpg", "10 mêtres", "inox"…. Par la suite l’on nomera la valeur d’une caractéristique, un "élément"'
-
+        definition: 'à ne pas confondre avec le nom de la caractéristique, par exemple les valeurs des caractéristiques "localisation", "image", "taille", et "composition" seront respectivement "France", "meuble.jpg", "10 mêtres", "inox"…'
 
     caracts_forms: 'Voici à quoi correspondent les cinq différents types de caractéristiques:'
     caract_type:
-      name: 
-        term: 'Caractéristique de type "name"'
-        definition: 'Ce type de caractéristique est le plus basique, il s’agit d’une caractéristique dont la valeur est définit par quelques simples mots. (ex: "inox", "grand", "rouge", "très petit", etc…)'
+      name:
+        term: 'Caractéristique de type "simple"'
+        definition: 'Ce type de caractéristique est le plus basique, il s’agit d’une caractéristique dont la valeur est définit par quelques mots simples. (ex: "inox", "grand", "rouge", "très petit", etc…)'
       number:
         term: 'Caractéristique de type "nombre"'
         definition: 'Une caractéristique dont la valeur est un nombre ou une grandeur physique. (ex: "3", "10kg", "5mA", etc…)'
@@ -79,7 +87,7 @@ tutorial:
         definition: 'Une caractéristique dont la valeur est un lien vers une image. (ex: "meuble.jpg", "ballon_rouge.bmp", "maison.gif", etc…)'
       object:
         term: 'Caractéristique de type "objet"'
-        definition: 'Plus complexe, cette caractéristique permet de créer un lien vers un concept de type "mobilier", nous verrons cela plus en détail dans la suite du tutoriel.'
+        definition: 'Plus complexe, cette caractéristique permet de créer un lien vers un concept de type "objet", nous verrons cela plus en détail dans la suite du tutoriel.'
       text:
         term: 'Caractéristique de type "texte"'
         definition: 'Une caractéristique dont la valeur est un texte, pour y rentrer un commentaire ou autre. (ex: "semelles abimées", "boutons sur la droite de l’écran", etc…)'
@@ -87,42 +95,46 @@ tutorial:
         term: 'Caractéristique de type "date"'
         definition: 'Un caractéristique dont la valeur est une date, le format pour rentrer une date est soit: "jour/mois/année" soit: "jour/mois/année heure:minute". (ex: "20:11:2013 12:00", "21:04:2014", etc ).'
 
-    value_heritage: 'De plus, un élément peut avoir un "élément parent", cela est un point essentiel du logiciel. Par exemple l’élément parent de "inox" et de "bronze" pourrait être "métal", et l’élément parent de "métal" et de "plastique" pourrait être "matière".'
+    value_heritage: 'De plus, la valeur d’une caractéristique peut avoir une "valeur parente", cela est un point essentiel du logiciel. Par exemple la valeur parente de "inox" et de "bronze" serait "métal", et la valeur parente de "métal" et de "plastique" serait "matière".'
 
-    value_heritage_avantages: 'Cela permet d’organiser correctement les différents élément entre eux, pour d’une part retrouver ces éléments plus facilement grace aux listes déroulantes, et d’autre part faciliter les recherches (par exemple on pourra rechercher les mobiliers en métal, et retrouver ainsi les mobiliers en bronze ou en inox).'
+    value_heritage_avantages: 'Cela permet d’organiser correctement les différentes valeurs possibles entre elles, pour d’une part retrouver ces valeur plus facilement grace aux listes déroulantes, et d’autre part faciliter les recherches (par exemple on pourra rechercher les mobiliers en métal, et ainsi retrouver les mobiliers en bronze ou en inox).'
 
-    goal: 'Nous allons tester cette fonctionnalité tout de suite, en ajoutant une caractéristique "composition" à notre catégorie "armoires", qui aura comme type "nom" et comme valeur "matière/métal/inox" (C’est à dire un élément inox, ayant comme parent un élément "métal", ayant lui même comme comme parent un élément "matière")'
-    
+    goal: 'Nous allons tester cette fonctionnalité tout de suite, en ajoutant une caractéristique "composition" à notre catégorie "armoires", qui aura comme type "simple" et comme valeur "matière/métal/inox" (C’est à dire que la valeur parente de "inox" est "métal", et que celle de "métal" est "matière", ce qui signifie que l’inox est du métal, et que le métal est une matière)'
+
     enter_inherited_value: 'Pour rentrer la valeur de la caractéristique, suivez ces étapes:'
     enter:
-      matter: 'Commencez par rentrer "matière" dans le formulaire "modifier" de la caractéristique, puis validez (en cliquant n’importe où, ou en appuyant sur la touche entrer ou tabulation), un nouveau formulaire "spécifier" doit apparaitre (si cela n’est pas déjà fait)'
-      metal: 'Rentrez "métal" dans le formulaire "spécifier", puis validez. "matière" doit descendre sous le formulaire "modifier", et apparaitre en gris, "métal" remplace "matière" dans le formulaire "modifier", et le formulaire "spécifier" est maintenant vide'
-      stainless: 'Rentrez "inox" dans le formulaire "spécifier", valider, et cliquez sur "envoyer" pour passer à la suite du tutorial.'
+      matter:
+        goal: 'Commencez par rentrer "matière" dans le champ de saisi "modifier" de la caractéristique, il y a deux manières de faire celà:'
+        step_1: 'soit cette valeur existe déjà dans la liste déroulante, et il suffit de la selectionner, puis de valider (en cliquant n’importe où, ou en appuyant sur la touche entrée)'
+        step_2: 'soit ça n’est pas le cas, et il faut choisir "autre" dans la liste déroulante, puis écrire "matière" dans la zone de texte à la droite de la liste déroulante, et enfin valider'
+        result: 'un nouveau champ de saisi "spécifier" doit apparaitre (si cela n’est pas déjà fait)'
+      metal: 'Rentrez "métal" dans le champ de saisi "spécifier", puis validez. "matière" doit descendre sous le champ de saisi "modifier", et apparaitre en gris, "métal" remplace "matière" dans le champ de saisi "modifier", et le champ de saisi "spécifier" est maintenant vide'
+      stainless: 'Rentrez "inox" dans le champ de saisi "spécifier", valider, et cliquez sur "sauvegarder" pour passer à la suite du tutorial.'
 
     generalize: 'Si jamais vous avez fait une erreur, vous pouvez revenir en arrière dans la hiérarchie des éléments en effectuant un double clique sur l’élément grisé que vous voulez modifier.'
-    
+
   upload_picture: 'Nous allons maintenant téléverser quelques images. (C’est à dire les télécharger vers le serveur de TrouveTout). Cliquez sur "Téléverser une image".'
 
   upload_wardrobe_picture:
-    steps: 'Lors du téléversage d’une image, vous devez d’une part choisir l’image que vous allez téléverser à partir de votre pc, en cliquant sur parcourir, et d’autre part choisir une catégorie dans la liste déroulante.'
+    steps: 'Lors du téléversage d’une image, vous devez d’une part choisir l’image que vous allez téléverser à partir de votre pc (en cliquant sur parcourir), et d’autre part choisir une catégorie dans la liste déroulante.'
     category: 'Le choix d’une catégorie permet de ranger l’image dans un dossier approprié sur le serveur, pour pouvoir la retrouver plus rapidement'
 
-    goal: 'Choisissez n’importe quelle image de votre pc et la catégorie "armoire", puis cliquez sur "envoyer" pour démarrer le téléversage. Cela nous permettra par la suite de donner une image par défaut à la armoire'
+    goal: 'Choisissez n’importe quelle image de votre pc, et la catégorie "armoire", puis cliquez sur "envoyer" pour démarrer le téléversage. Cela nous permettra par la suite de donner une image par défaut à nos armoires'
 
   run_research:
     upload_ok: 'Le fichier aurait été correctement téléversé si vous aviez effectuez cette manipulation dans un context réel.'
     research_furniture: 'On va maintenant modifier notre categorie "mobilier", mais avant il va falloir la retrouver, cliquez sur "Faire une recherche".'
 
   create_research:
-    fill_form: 'Pour effectuer une recherche vous allez dans un premier temps remplir quelques champs de saisie (les zones ou écrire du texte), en fonction de ce que vous voulez trouver.'
+    fill_form: 'Pour effectuer une recherche vous allez dans un premier temps remplir quelques champs de saisie en fonction de ce que vous voulez trouver.'
     regexp: 'Afin de remplir correctement ces champs, et profiter pleinnement des fonctionnalitées de recherche, il est préférable de connaître ce qu’est une expréssion régulière:'
-    
+
     regexp_link: 'Expressions régulières avec mysql (ce qui sera utilisé ici).'
 
-    unnecessary: 'Cependant pas d’inquiétude, les expréssions régulières que vous serez(peut être), amené à utiliser dans vos recherches resterons très simple.'
+    unnecessary: 'Cependant pas d’inquiétude, les expréssions régulières que vous serez amené à utiliser dans vos recherches, resterons très simple.'
 
-    form_explained: 'Voici une une liste d’explication sur le fonctionnement des différents champs, seul les concepts (objets, catégories ou recherches), respectant tout les champs de recherche à la fois seront trouvé:'
-    
+    form_explained: 'Voici une une liste d’explication sur le fonctionnement des différents champs, seul les concepts (objets, catégories ou recherches), respectant tout les champs de recherche à la fois seront retrouvé:'
+
     form:
       name:
         term: 'Nom'
@@ -132,11 +144,11 @@ tutorial:
         definition: 'Indiquez ici, le type de concept que vous voulez trouver'
       researched_name:
         term: 'Nom des concepts recherchés'
-        definition: 'Indiquez, par une expréssion régulière, les noms des concepts recherché, (par exemple "vais.*", pourra retrouver la categorie "armoires")'
+        definition: 'Indiquez, par une expréssion régulière, les noms des concepts recherché, (par exemple "arm.*", pourra retrouver la categorie "armoire" et la categorie "armature")'
 
       researched_linkable:
         term: 'Connectabilité'
-        definition: 'Indiquez si les concepts recherchés son liable(linkable) non liable (unlinkable), ou potentiellement les deux (all). (nous en dirons plus sur ceci par la suite)'
+        definition: 'Indiquez si les concepts recherchés sons liables, non liables, ou peu importe (tout). (nous en dirons plus sur ceci par la suite)'
 
       researched_number:
         term: 'Cardinalité des concepts recherchés'
@@ -144,10 +156,10 @@ tutorial:
 
       categories:
         term: 'Categories'
-        definition: 'En cliquant sur "Ajouter une categorie", vous pouvez choisir dans la liste une catégorie qui filtrera la recherche par appartenance à cette catégorie. (Par exemple en choisissant "mobilier", vous retrouverez la catégorie "armoire", car celle-ci appartient à la catégorie "mobilier"). Plus utile, en choisissant la catégorie "armoire", vous pourrez retrouver tout les objets appartenant à cette catégorie si vous choisissez de rechercher ce type de concept.'
+        definition: 'En cliquant sur "Ajouter une categorie", vous pouvez choisir dans la liste une catégorie qui filtrera la recherche par appartenance à cette catégorie. Par exemple en choisissant "mobilier", si le type de concepts recherchés est "catégorie", vous retrouverez la catégorie "armoire" (car celle-ci appartient à la catégorie "mobilier"). Plus utile, en choisissant la catégorie "armoire", si le type de concepts recherchés est "objet", vous pourrez retrouver tout les objets appartenant à cette catégorie.'
 
       caracts:
         term: 'Caractéristiques'
-        definition: 'En cliquant sur "Ajouter une caractéristique", vous pouvez filtrer la recherche par caractéristiques, en donnant une expréssion régulière comme nom à cette caractéristique (par exemple, "localisation" filtrera les concepts recherchés pour ne retrouver que ceux ayant une caractéristique "localisation"). Une fois cela fait, vous pouvez filtrer encore d’avantage la recherche en donnant une valeur à cette caractéristique, les concepts ayants comme valeur celle donner, mais également les concepts ayant une valeur plus spécifique que celle-ci seront retrouvé. (par exemple "matière/métal", retrouvera les objets en "matière/métal", mais également en "matière/métal/inox", en "matière/métal/bronze", etc…)'
+        definition: 'En cliquant sur "Ajouter une caractéristique", vous pouvez filtrer la recherche par caractéristiques, en donnant une expréssion régulière comme nom à cette caractéristique (par exemple, "localisation" filtrera les concepts recherchés pour ne retrouver que ceux ayant une caractéristique "localisation"). Une fois cela fait, vous pouvez filtrer encore d’avantage la recherche en donnant une valeur à cette caractéristique, les concepts ayants comme valeur celle donné, mais également les concepts ayant une valeur plus spécifique que celle-ci seront retrouvé. (par exemple "matière/métal", retrouvera les objets en "matière/métal", mais également en "matière/métal/inox", en "matière/métal/bronze", etc…)'
 
-    research_furniture: 'Choisissez "Category" comme "Type de concept recherchés" et "objet", comme "Nom des concepts recherchés", comme cette recherche est très simple, on ne va pas l’enregistrer, cliquez donc sur "Lancer la recherche" pour passer à la suite.'
+    research_furniture: 'Choisissez "Catégorie" comme, "Type de concept recherchés", et "immobilier" comme, "Nom des concepts recherchés", comme cette recherche est très simple on ne va pas l’enregistrer, cliquez donc sur "Lancer la recherche" pour passer à la suite.'
