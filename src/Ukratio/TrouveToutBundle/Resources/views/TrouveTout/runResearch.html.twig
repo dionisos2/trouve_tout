@@ -7,7 +7,7 @@
 {% block TrouveTout %}
 
 <table class="table-bordered">
-  <caption> {{ 'research.table.name' | trans({'%researchedType%': research.researchedType | lower | trans}) }}</caption>
+  <caption> {{ 'research.table.name' | trans({'%researchedType%': ("research.table." ~ research.researchedType) | lower | trans}) }}</caption>
 
   <colgroup>
     <col span="{{ researchResults.columnGroups[0] + 1 }}" style="background-color:yellow">

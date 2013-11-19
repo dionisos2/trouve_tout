@@ -170,7 +170,7 @@ class Concept
         if ($byDefault !== null) {
             $valid = $valid && $caract->getByDefault() == $byDefault;
         }
-        
+
         return $valid;
     }
 
@@ -191,14 +191,14 @@ class Concept
 
     public function equals(Concept $concept)
     {
-        
+
         $valid = ($this->getType() === $concept->getType());
         $valid = $valid && ($this->getName() == $concept->getName());
-        
-        
+
+
         $valid = $valid && (count($this->getMoreGeneralConcepts()) == count($concept->getMoreGeneralConcepts()));
 
-        foreach ($this->getMoreGeneralConcepts() as $category) { 
+        foreach ($this->getMoreGeneralConcepts() as $category) {
             $valid = $valid && ($concept->getMoreGeneralConcept($category->getName()) !== null);
         }
 
@@ -273,7 +273,7 @@ class Concept
         {
             return $concept->getMoreGeneralConcepts()->toArray();
         };
-        
+
         return Static::$arrayHandling->getValuesRecursively(array($this), $getChilds, $deph);
     }
 
@@ -284,7 +284,7 @@ class Concept
         {
             return $concept->getMoreSpecificConcepts()->toArray();
         };
-        
+
         return Static::$arrayHandling->getValuesRecursively(array($this), $getChilds, $deph);
     }
 
@@ -346,7 +346,7 @@ class Concept
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -377,7 +377,7 @@ class Concept
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -399,7 +399,7 @@ class Concept
     /**
      * Get number
      *
-     * @return string 
+     * @return string
      */
     public function getNumber()
     {
@@ -415,14 +415,14 @@ class Concept
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -474,7 +474,7 @@ class Concept
             return ($conceptConcept->getMoreSpecific()->getId() == $self->getId()) and ($conceptConcept->getMoreGeneral()->getId() == $moreGeneralConcept->getId());
         })->first();
 
-        
+
         $conceptConcept->getMoreGeneral()->removeMoreGeneralConceptConcept($conceptConcept);
         $this->moreGeneralConceptConcepts->removeElement($conceptConcept);
     }
@@ -518,7 +518,7 @@ class Concept
         } else {
             return null;
         }
-        
+
     }
 
     /**
@@ -647,14 +647,14 @@ class Concept
     public function setLinkable($linkable)
     {
         $this->linkable = $linkable;
-    
+
         return $this;
     }
 
     /**
      * Get linkable
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getLinkable()
     {
@@ -670,14 +670,14 @@ class Concept
     public function addMoreSpecificConceptConcept(\Ukratio\TrouveToutBundle\Entity\ConceptConcept $moreSpecificConceptConcepts)
     {
         $this->moreSpecificConceptConcepts[] = $moreSpecificConceptConcepts;
-    
+
         return $this;
     }
 
     /**
      * Get moreSpecificConceptConcepts
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMoreSpecificConceptConcepts()
     {
@@ -693,14 +693,14 @@ class Concept
     public function setResearchedType($researchedType)
     {
         $this->researchedType = $researchedType;
-    
+
         return $this;
     }
 
     /**
      * Get researchedType
      *
-     * @return string 
+     * @return string
      */
     public function getResearchedType()
     {
@@ -716,14 +716,14 @@ class Concept
     public function setResearchedNumber($researchedNumber)
     {
         $this->researchedNumber = $researchedNumber;
-    
+
         return $this;
     }
 
     /**
      * Get researchedNumber
      *
-     * @return string 
+     * @return string
      */
     public function getResearchedNumber()
     {
@@ -739,14 +739,14 @@ class Concept
     public function setResearchedName($researchedName)
     {
         $this->researchedName = $researchedName;
-    
+
         return $this;
     }
 
     /**
      * Get researchedName
      *
-     * @return string 
+     * @return string
      */
     public function getResearchedName()
     {
@@ -762,14 +762,14 @@ class Concept
     public function setResearchedLinkable($researchedLinkable)
     {
         $this->researchedLinkable = $researchedLinkable;
-    
+
         return $this;
     }
 
     /**
      * Get researchedLinkable
      *
-     * @return string 
+     * @return string
      */
     public function getResearchedLinkable()
     {

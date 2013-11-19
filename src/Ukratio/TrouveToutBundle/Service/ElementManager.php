@@ -43,7 +43,7 @@ class ElementManager
             $choices = array();
         }
 
-        
+
         return $choices;
     }
 }

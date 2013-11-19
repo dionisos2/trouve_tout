@@ -54,7 +54,7 @@ class AddChildElementSubscriber implements EventSubscriberInterface
         if (! $data instanceof Element) {
             return;
         }
-        
+
         $form->add($this->caractTypeManager->createElementForm('childValue', $this->type, $data->getPath(), 'element.specify', false));
     }
 }

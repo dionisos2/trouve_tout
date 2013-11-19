@@ -3,6 +3,7 @@
 namespace Ukratio\TrouveToutBundle\Service;
 
 use Ukratio\TrouveToutBundle\Entity\Concept;
+use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -37,21 +38,19 @@ class ConceptFormManager
 
     public function saveConcept(Concept $concept)
     {
-
         $this->em->persist($concept);
         $this->em->flush($concept);
-     
+
         foreach ($concept->getMoreGeneralConceptConcepts() as $conceptConcept) {
             $this->em->persist($conceptConcept);
             $this->em->flush($conceptConcept);
         }
-   
+
         // /!\ caract are not flush because it is the owner of the relation
         foreach ($concept->getCaracts() as $caract) {
             $this->em->persist($caract);
             $this->em->flush($caract);
         }
-        
     }
 
     public function deleteConcept(Concept $concept)
@@ -79,7 +78,7 @@ class ConceptFormManager
             default:
                 throw new \Exception('impossible case with discriminator = ' . $concept->getType());
         }
-        
+
         return $form;
     }
 

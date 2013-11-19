@@ -14,7 +14,7 @@ use Ukratio\TrouveToutBundle\Research\ResearchResults;
 
 class Tools
 {
-    
+
     protected $em;
     protected $conceptRepo;
     protected $elementRepo;
@@ -30,7 +30,7 @@ class Tools
     {
         $unamedResearches = $this->conceptRepo->findUnamedResearches();
         $number = count($unamedResearches);
-        
+
         foreach ($unamedResearches as $research) {
             $this->em->remove($research);
         }
@@ -41,6 +41,8 @@ class Tools
 
     public function deleteOrphanElements()
     {
+        //TODO delete "recursively" the orphan elements (because elements become orphan when their parent are deleted)
+
         $orphanElements = $this->elementRepo->findOrphanElements();
         $number = count($orphanElements);
 
@@ -65,7 +67,7 @@ class Tools
                 $caractsNumber[$caract->getName()]++;
             }
         }
-        
+
         $number = 0;
         $numberOfCategories = count($categories);
 

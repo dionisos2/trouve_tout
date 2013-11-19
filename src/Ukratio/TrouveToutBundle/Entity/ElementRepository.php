@@ -28,7 +28,7 @@ class ElementRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('head')
                              ->where('head.moreGeneral is NULL');
-        
+
         return $queryBuilder->getQuery()->getResult();
     }
 
@@ -38,7 +38,7 @@ class ElementRepository extends EntityRepository
                              ->leftJoin('child.moreGeneral', 'element')
                              ->where('element.id = :id')
                              ->setParameter('id', $element->getId());
-        
+
         return $queryBuilder->getQuery()->getResult();
     }
 
@@ -74,7 +74,7 @@ class ElementRepository extends EntityRepository
         } else {
             $result = $queryBuilder->getQuery()->getResult();
         }
-        
+
         return $result;
     }
 }

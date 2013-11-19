@@ -155,6 +155,7 @@ CaractsManager.prototype.getParentElements = function (caractForm) {
 
 	return parentElements;
 }
+
 CaractsManager.prototype.setValue = function(caractForm, value, isChildElement) {
 	var valueForm;
 	var options;
@@ -183,7 +184,6 @@ CaractsManager.prototype.setValue = function(caractForm, value, isChildElement) 
 	} else {
 		valueForm.val(value);
 	}
-
 }
 
 CaractsManager.prototype.getValue = function(caractForm, isChildElement) {
@@ -211,7 +211,7 @@ CaractsManager.prototype.getValue = function(caractForm, isChildElement) {
 		value = valueForm.val();
 	}
 
-	return translate(value, language);
+	return value;
 }
 
 CaractsManager.prototype.getValueFirstForm = function (caractForm, isChildElement) {

@@ -11,7 +11,7 @@ class ConceptRepositoryTest extends WebTestCase
     /**
      * @var \Doctrine\ORM\EntityManager
      */
-    private $em;    
+    private $em;
     private $repo;
 
     /**
@@ -63,7 +63,7 @@ class ConceptRepositoryTest extends WebTestCase
         $this->AssertEquals('set2', $namedSet[1]->getName());
     }
 
-    
+
     public function testFindByResearch()
     {
         $research = new Concept();

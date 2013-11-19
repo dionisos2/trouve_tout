@@ -61,14 +61,18 @@ login:
 research:
   run: 'Lancer la recherche'
   save_and_run: 'Sauvegarder et lancer la recherche'
-  table.name: 'tableau de recherche des %researchedType%s'
-  table.ID: 'ID'
   run_again: 'Relancer la recherche'
   modify_research: 'Modifier la recherche'
   linkable: 'Connectabilité'
   type: 'Type de concepts recherchés'
   number: 'Cardinalité des concepts recherchés'
   name: 'Nom des concepts recherchés'
+  table:
+    name: 'tableau de recherche des %researchedType%s'
+    ID: 'ID'
+    category: 'catégorie'
+    set: 'objet'
+    research: 'recherche'
 
 concept:
   save: 'Sauvegarder'
@@ -105,6 +109,7 @@ Object: 'Objet'
 category: 'catégorie'
 Category: 'Catégorie'
 Research: 'Recherche'
+set: 'objet'
 number: 'nombre'
 name: 'simple'
 other: 'autre'

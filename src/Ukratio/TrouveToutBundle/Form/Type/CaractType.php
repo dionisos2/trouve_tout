@@ -83,7 +83,7 @@ class CaractType extends AbstractType
                                                         'attr' => $attr,
                                                         'label' => 'caract.selected'));
         }
-        
+
         if ($options['parentType'] === Discriminator::$Category) {
             $builder->add('selected', 'checkbox', array('required' => false,
                                                         'attr' => $attr,
@@ -100,7 +100,7 @@ class CaractType extends AbstractType
             $builder->add('type', 'text', array('disabled' => true, 'label' => 'caract.type'));
         }
 
-        
+
         if ($options['display_type'] == 'edit') {
             $builder->add('type', new EnumType('Ukratio\TrouveToutBundle\Entity\Type'), array('label' => 'caract.type'));
         }

@@ -108,7 +108,7 @@ class Element
         if ($this->getMoreGeneral() !== null) {
             $path = array_merge($path, $this->moreGeneral->getPath());
         }
-        
+
         return $path;
     }
 
@@ -122,7 +122,7 @@ class Element
         if (static::$dataChecking === null) {
             static::$dataChecking = new DataChecking();
         }
-        
+
         if (static::$assertData === null) {
             static::$assertData = new AssertData();
         }
@@ -135,7 +135,7 @@ class Element
     public function __construct($value = '')
     {
         $this->initialize();
-        
+
         $this->moreGeneral = null;
         $this->moreSpecifics = new ArrayCollection();
         $this->value = $value;
@@ -156,7 +156,7 @@ class Element
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -179,7 +179,7 @@ class Element
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {
@@ -207,7 +207,7 @@ class Element
     /**
      * Get standardValue
      *
-     * @return string 
+     * @return string
      */
     /* public function getStandardValue() */
     /* { */
@@ -229,14 +229,14 @@ class Element
     public function setMoreGeneral(\Ukratio\TrouveToutBundle\Entity\Element $moreGeneral = null)
     {
         $this->moreGeneral = $moreGeneral;
-    
+
         return $this;
     }
 
     /**
      * Get moreGeneral
      *
-     * @return \Ukratio\TrouveToutBundle\Entity\Element 
+     * @return \Ukratio\TrouveToutBundle\Entity\Element
      *
      * @codeCoverageIgnore
      */
@@ -256,7 +256,7 @@ class Element
     public function addMoreSpecific(\Ukratio\TrouveToutBundle\Entity\Element $moreSpecific)
     {
         $this->moreSpecifics[] = $moreSpecifics;
-    
+
         return $this;
     }
 
@@ -275,7 +275,7 @@ class Element
     /**
      * Get moreSpecifics
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      *
      * @codeCoverageIgnore
      */
@@ -305,7 +305,7 @@ class Element
     public function addOwnerCaract(\Ukratio\TrouveToutBundle\Entity\Caract $ownerCaracts)
     {
         $this->ownerCaracts[] = $ownerCaracts;
-    
+
         return $this;
     }
 
@@ -322,7 +322,7 @@ class Element
     /**
      * Get ownerCaracts
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getOwnerCaracts()
     {

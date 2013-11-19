@@ -19,7 +19,7 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
 {
     private $factory;
     private $elementRepo;
-    
+
     public function __construct(FormFactoryInterface $factory, ElementRepository $elementRepo)
     {
         $this->factory = $factory;
@@ -43,7 +43,7 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
         if ((!$form->has('value')) || ($form->get('value') === null)) {
             return;
         }
-        
+
         $element = $form->get('value')->getData();
 
         $ownerElements = array();
@@ -65,7 +65,7 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
         }
 
         $pathElement = array_reverse($pathElement);
-        
+
         $trueElement = $this->elementRepo->findByPath($pathElement, true);
 
         if ($trueElement !== null) {

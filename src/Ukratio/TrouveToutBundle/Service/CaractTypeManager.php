@@ -25,7 +25,7 @@ class CaractTypeManager
         $this->elementRepo = $elementRepo;
     }
 
-    public function getFormTypeFor($type) 
+    public function getFormTypeFor($type)
     {
         switch ($type) {
             case Type::$name:
@@ -114,7 +114,7 @@ class CaractTypeManager
 
         //TODO separate function for getting options
 
-        if (is_array($path)) { 
+        if (is_array($path)) {
             if ($label == 'element.modify') {
                 $choices = $this->getChoicesFor($type, $path, false);
             } else {
@@ -138,7 +138,7 @@ class CaractTypeManager
                 $options = $options + array('choices' => $choices);
             }
         }
-        
+
         if ($type === Type::$date) {
             if ($label == 'element.modify') {
                 $options = $options + array('input' => 'timestamp', 'widget' => 'single_text', 'required' => false, 'format' => Constant::DATEFORMAT);

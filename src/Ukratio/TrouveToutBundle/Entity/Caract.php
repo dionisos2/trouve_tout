@@ -128,7 +128,7 @@ class Caract
      */
     public function initialize()
     {
-        
+
     }
 
     public function __construct($name = null)
@@ -152,7 +152,7 @@ class Caract
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -167,14 +167,14 @@ class Caract
      */
     public function setSelected($selected)
     {
-        $this->selected = $selected;    
+        $this->selected = $selected;
         return $this;
     }
 
     /**
      * Get selected
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getSelected()
     {
@@ -196,7 +196,7 @@ class Caract
     /**
      * Get unit
      *
-     * @return string 
+     * @return string
      */
     public function getUnit()
     {
@@ -218,7 +218,7 @@ class Caract
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -234,14 +234,14 @@ class Caract
     public function setByDefault($byDefault)
     {
         $this->byDefault = $byDefault;
-    
+
         return $this;
     }
 
     /**
      * Get byDefault
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getByDefault()
     {
@@ -267,7 +267,7 @@ class Caract
     /**
      * Get specificity
      *
-     * @return float 
+     * @return float
      */
     public function getSpecificity()
     {
@@ -289,7 +289,7 @@ class Caract
     /**
      * Get ownerConcept
      *
-     * @return \Ukratio\TrouveToutBundle\Entity\Concept 
+     * @return \Ukratio\TrouveToutBundle\Entity\Concept
      */
     public function getOwnerConcept()
     {
@@ -311,7 +311,7 @@ class Caract
     /**
      * Get value
      *
-     * @return \Ukratio\TrouveToutBundle\Entity\Element 
+     * @return \Ukratio\TrouveToutBundle\Entity\Element
      */
     public function getValue()
     {
@@ -342,7 +342,7 @@ class Caract
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -378,14 +378,14 @@ class Caract
     public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
-    
+
         return $this;
     }
 
     /**
      * Get prefix
      *
-     * @return string 
+     * @return string
      */
     public function getPrefix()
     {

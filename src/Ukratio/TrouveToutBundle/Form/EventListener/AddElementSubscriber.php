@@ -24,7 +24,7 @@ class AddElementSubscriber implements EventSubscriberInterface
     private $type;
     private $conceptRepo;
     private $caractTypeManager;
-    
+
     public function __construct(FormFactoryInterface $factory, ConceptRepository $conceptRepo, ElementRepository $elementRepo , Type $type, CaractTypeManager $caractTypeManager)
     {
         $this->factory = $factory;
@@ -59,7 +59,7 @@ class AddElementSubscriber implements EventSubscriberInterface
                     $data['value'] = $possibleValues;
                     $event->setData($data);
                 }
-                
+
             }
 
         }

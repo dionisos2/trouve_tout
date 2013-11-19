@@ -16,6 +16,7 @@ tutorial:
 
   summary:
     title: 'Sommaire'
+    introduction: 'Introduction'
     type_of_concepts: 'Les type de concepts'
     create_category_1: 'Créer une catégorie'
     category_inheritance: 'L’héritage'

@@ -30,17 +30,17 @@ class CategoriesGetter implements EventSubscriberInterface
     {
         $category = $event->getData();
         $form = $event->getForm();
-        
+
         if (! $category instanceof Concept) {
             return;
         }
         $name = $category->getName();
         echo "categoriesgetter";
-        var_dump(array_map(function(Concept $concept){return $concept->getName();}, $this->categories));
+        /* var_dump(array_map(function(Concept $concept){return $concept->getName();}, $this->categories)); */
 
         $trueCategories = array_filter($this->categories, function (Concept $category) use ($name) {return $category->getName() == $name;});
 
-        var_dump(array_map(function(Concept $concept){return $concept->getName();}, $trueCategories));
+        /* var_dump(array_map(function(Concept $concept){return $concept->getName();}, $trueCategories)); */
 
         if (count($trueCategories) !== 1) {
             throw new \Exception('More or less than one categorie with the same name:' . count($trueCategories));

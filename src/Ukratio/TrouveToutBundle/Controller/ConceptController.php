@@ -23,7 +23,7 @@ use Ukratio\TrouveToutBundle\Entity\Discriminator;
 
 
 class ConceptController extends ControllerWithTools
-{    
+{
 
     /**
      * @Route("/create_category", name="create_category")
@@ -75,7 +75,7 @@ class ConceptController extends ControllerWithTools
 
         if ($form->isValid()) {
             $cfc->saveConcept($concept);
-            
+
             return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
         } else {
 
@@ -83,7 +83,7 @@ class ConceptController extends ControllerWithTools
         }
 
     }
-    
+
     /**
      * @Route("/modify/{id}", name="edit_concept", requirements={"id" = "\d+"})
      * @Method({"GET"})
@@ -126,7 +126,7 @@ class ConceptController extends ControllerWithTools
         } else {
             return $cfc->arrayForTemplate($concept, $form);
         }
-            
+
     }
 
     /**
