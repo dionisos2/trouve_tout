@@ -41,17 +41,20 @@ class Tools
 
     public function deleteOrphanElements()
     {
-        //TODO delete "recursively" the orphan elements (because elements become orphan when their parent are deleted)
-
-        $orphanElements = $this->elementRepo->findOrphanElements();
-        $number = count($orphanElements);
-
-        foreach ($orphanElements as $research) {
-            $this->em->remove($research);
+        $sum = 0;
+        do {
+            $orphanElements = $this->elementRepo->findOrphanElements();
+            $number = count($orphanElements);
+            $sum += $number;
+            var_dump($number);
+            foreach ($orphanElements as $orphan) {
+                $this->em->remove($orphan);
+                $this->em->flush();
+            }
         }
+        while($number > 0);
 
-        $this->em->flush();
-        return $number;
+        return $sum;
     }
 
     public function computeSpecificities()
