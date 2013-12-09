@@ -1,14 +1,14 @@
 <?php
- 
+
 namespace Ukratio\TrouveToutBundle\DataFixtures\ORM;
- 
+
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
- 
+
 class TestDataBase implements FixtureInterface
 {
     private $concepts;
@@ -34,7 +34,7 @@ class TestDataBase implements FixtureInterface
             $this->concepts[$name] = new Concept();
             $this->concepts[$name]->setName($name);
             $this->concepts[$name]->setType($type);
-            
+
             $manager->persist($this->concepts[$name]);
         }
 
@@ -63,7 +63,7 @@ class TestDataBase implements FixtureInterface
         {
             $this->elements[$value . $index] = new Element();
             $this->elements[$value . $index]->setValue($value);
- 
+
             $manager->persist($this->elements[$value . $index]);
         }
 
@@ -86,14 +86,14 @@ class TestDataBase implements FixtureInterface
             $this->caracts[$name]->setSelected(true);
             $this->caracts[$name]->setByDefault(true);
             $this->caracts[$name]->setSpecificity(0);
- 
+
             $manager->persist($this->caracts[$name]);
-        }        
-        
+        }
+
         $this->caracts['caract4']->setSelected(false);
         $this->caracts['caract5']->setSelected(false);
         $this->caracts['caract4']->setByDefault(false);
         $this->caracts['caract5']->setByDefault(false);
     }
-    
+
 }

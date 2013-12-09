@@ -16,9 +16,9 @@ use Ukratio\ToolBundle\Service\ArrayHandling;
  */
 class ConceptRepository extends EntityRepository
 {
-    
+
     private $arrayHandling;
-        
+
     public function setArrayHandling(ArrayHandling $arrayHandling)
     {
         $this->arrayHandling = $arrayHandling;
@@ -39,12 +39,12 @@ class ConceptRepository extends EntityRepository
             $queryBuilder->andWhere('concept.linkable = :linkable')
                          ->setParameter('linkable', false);
         }
-        
+
         if($research->getResearchedName() != null) {
             $eqModule = $queryBuilder->expr()->eq('REGEXP(concept.name, :name)', '1');
 
             $matchEmpty = preg_match('#' . $research->getResearchedName() . '#', '') == 1;
-        
+
             if($matchEmpty) {
                 $orModule = $queryBuilder->expr()->orx();
                 $orModule->add($queryBuilder->expr()->isNull("concept.name"));
@@ -70,13 +70,13 @@ class ConceptRepository extends EntityRepository
         foreach($research->getCaracts() as $caract) {
             $queryBuilder = $this->whereHaveCaract($queryBuilder, $caract);
         }
-        
+
         return $queryBuilder->getQuery()->getResult();
     }
 
     public function findByIdWithCaract($id)
     {
-        
+
         $queryBuilder = $this->createQueryBuilder('concept')
                              ->where('concept.id = :id')
                              ->setParameter('id', $id)
@@ -120,7 +120,7 @@ class ConceptRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('concept');
         $queryBuilder = $this->whereIsCategory($queryBuilder);
-        
+
         return $queryBuilder;
     }
 
@@ -136,7 +136,7 @@ class ConceptRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('concept');
         $queryBuilder = $this->whereIsNamedSet($queryBuilder);
-        
+
         return $queryBuilder->getQuery()->getResult();
     }
 
@@ -144,7 +144,7 @@ class ConceptRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('concept');
         $queryBuilder = $this->whereIsLinkableSet($queryBuilder);
-        
+
         return $queryBuilder->getQuery()->getResult();
     }
 
@@ -152,7 +152,7 @@ class ConceptRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('concept');
         $queryBuilder = $this->whereIsNamedSet($queryBuilder);
-        
+
         return $queryBuilder;
     }
 
@@ -244,7 +244,7 @@ class ConceptRepository extends EntityRepository
             return Discriminator::getEnumerator($concept->getType()) === Discriminator::$Category;
         };
 
-        $categories = $category->getAllMoreSpecificConcepts(-1);        
+        $categories = $category->getAllMoreSpecificConcepts(-1);
         $categories = array_filter($categories, $isCategory);
         $categories = array_map($getName, $categories);
 

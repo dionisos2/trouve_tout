@@ -22,37 +22,37 @@ services:
   # TrouveTout.form.caract:
   #   class: Ukratio\TrouveToutBundle\Form\Type\CaractType
   #   arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept, @tool.data_checking]
-  #   tags: 
+  #   tags:
   #     - {name: form.type, alias: TrouveTout_Caract}
 
   # TrouveTout.form.element:
   #   class: Ukratio\TrouveToutBundle\Form\Type\ElementType
   #   arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept, @TrouveTout.CaractTypeManager]
-  #   tags: 
+  #   tags:
   #     - {name: form.type, alias: TrouveTout_Element}
 
   TrouveTout.form.set:
     class: Ukratio\TrouveToutBundle\Form\Type\SetType
     arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory]
-    tags: 
+    tags:
       - {name: form.type, alias: TrouveTout_Set}
 
   TrouveTout.form.category:
     class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
     arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory]
-    tags: 
+    tags:
       - {name: form.type, alias: TrouveTout_Category}
 
   TrouveTout.form.research:
     class: Ukratio\TrouveToutBundle\Form\Type\ResearchType
     arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory]
-    tags: 
+    tags:
       - {name: form.type, alias: TrouveTout_Research}
 
   TrouveTout.form.concept_concept:
     class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
     arguments: [@TrouveTout.repository.concept]
-    tags: 
+    tags:
       - {name: form.type, alias: TrouveTout_ConceptConcept}
 
 
@@ -61,7 +61,7 @@ services:
     factory_service: doctrine.orm.default_entity_manager
     factory_method: getRepository
     arguments: ['TrouveToutBundle:Concept']
-    calls: 
+    calls:
       - [setArrayHandling, [@tool.array_handling]]
 
 
