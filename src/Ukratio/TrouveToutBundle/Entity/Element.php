@@ -54,6 +54,14 @@ class Element
      */
     private $value;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="precision", type="float", length=255)
+     * @Assert\Type(type="float")
+     */
+    private $precision;
+
 
     /**
      * @var Ukratio\TrouveToutBundle\Entity\Element
@@ -327,5 +335,28 @@ class Element
     public function getOwnerCaracts()
     {
         return $this->ownerCaracts;
+    }
+
+    /**
+     * Set precision
+     *
+     * @param float $precision
+     * @return Element
+     */
+    public function setPrecision($precision)
+    {
+        $this->precision = $precision;
+
+        return $this;
+    }
+
+    /**
+     * Get precision
+     *
+     * @return float
+     */
+    public function getPrecision()
+    {
+        return $this->precision;
     }
 }

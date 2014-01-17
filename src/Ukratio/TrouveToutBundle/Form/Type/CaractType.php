@@ -44,70 +44,12 @@ class CaractType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $caract = $form->getData();
-        if (($caract !== null) and ($caract->getValue() !== null)) {
-            if ($caract->getType() == 'picture') {
-                $image = implode('/', array_reverse($caract->getValue()->getPath()));
-                $view->vars['image'] = $image;
-            }
-
-            if ($caract->getType() == 'object') {
-                $objectNames = $caract->getValue()->getPath();
-
-                $view->vars['objects'] = array();
-                foreach ($objectNames as $objectName) {
-                    if ($this->dataChecking->isNumbers($objectName)) {
-                        $object = $this->conceptRepo->findOneById($objectName);
-                    } else {
-                        $object = $this->conceptRepo->findOneByName($objectName);
-                    }
-                    if ($object != null) {
-                        $objectId = $object->getId();
-                        $view->vars['objects'][] = array('name' => $objectName,
-                                                         'id' => $objectId);
-                    }
-                }
-            }
-        }
+        $this->caractTypeManager->buildView($view, $form, $options);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        $builder->add('name', 'text', array('label' => 'caract.name'));
-
-        $attr = array();
-
-        if ($options['parentType'] === Discriminator::$Set) {
-            $builder->add('selected', 'checkbox', array('required' => false,
-                                                        'attr' => $attr,
-                                                        'label' => 'caract.selected'));
-        }
-
-        if ($options['parentType'] === Discriminator::$Category) {
-            $builder->add('selected', 'checkbox', array('required' => false,
-                                                        'attr' => $attr,
-                                                        'label' => 'caract.selected'));
-            $builder->add('byDefault', 'checkbox', array('required' => false,
-                                                         'attr' => $attr,
-                                                         'label' => 'caract.byDefault'));
-            $builder->add('specificity', null, array('required' => false,
-                                                     'read_only' => true,
-                                                     'label' => 'caract.specificity'));
-        }
-
-        if ($options['display_type'] == 'show') {
-            $builder->add('type', 'text', array('disabled' => true, 'label' => 'caract.type'));
-        }
-
-
-        if ($options['display_type'] == 'edit') {
-            $builder->add('type', new EnumType('Ukratio\TrouveToutBundle\Entity\Type'), array('label' => 'caract.type'));
-        }
-
-        $builder->addEventSubscriber(new AddValueSubscriber($this->conceptRepo, $this->elementRepo, $this->caractTypeManager, $builder->getFormFactory()));
-        $builder->addEventSubscriber(new SpecifyCaractSubscriber($builder->getFormFactory(), $this->elementRepo));
-
+        $this->caractTypeManager->buildForm($builder, $options);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

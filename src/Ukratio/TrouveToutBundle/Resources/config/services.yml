@@ -9,7 +9,7 @@ services:
 
   TrouveTout.CaractTypeManager:
     class: Ukratio\TrouveToutBundle\Service\CaractTypeManager
-    arguments: [@form.factory, @TrouveTout.repository.concept, @TrouveTout.repository.element, @TrouveTout.ElementManager]
+    arguments: [@form.factory, @TrouveTout.repository.concept, @TrouveTout.repository.element, @TrouveTout.ElementManager, @tool.data_checking]
 
   TrouveTout.ConceptFormManager:
     class: Ukratio\TrouveToutBundle\Service\ConceptFormManager

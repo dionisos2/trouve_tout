@@ -39,7 +39,7 @@ abstract class ConceptType extends AbstractType
     {
         $this->addCaracts($builder);
         $this->addPrototypes($builder);
-            
+
         $builder->addEventSubscriber(new AddCategories($builder->getFormFactory(), $this->conceptRepo));
     }
 
@@ -51,7 +51,7 @@ abstract class ConceptType extends AbstractType
         $this->discriminator = $discriminator;
         $this->elementManager = $elementManager;
         $this->dataChecking = new DataChecking;
-        $this->caractTypeManager = new CaractTypeManager($formFactory, $this->conceptRepo, $this->elementRepo, $this->elementManager);
+        $this->caractTypeManager = new CaractTypeManager($formFactory, $this->conceptRepo, $this->elementRepo, $this->elementManager, $this->dataChecking);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -63,8 +63,8 @@ abstract class ConceptType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        
-        foreach(Type::getListOfElement() as $element) 
+
+        foreach(Type::getListOfElement() as $element)
         {
             $element[0] = strtoupper($element[0]);
             $view->vars["prototypeOfChildValue$element"] = $form->getConfig()->getAttribute("prototypeOfChildValue$element")->createView($view);
@@ -87,7 +87,7 @@ abstract class ConceptType extends AbstractType
                                                                         'parentType' => $this->getDiscriminator())));
     }
 
-    public function addPrototypes(FormBuilderInterface $builder) 
+    public function addPrototypes(FormBuilderInterface $builder)
     {
         $optionsTextChildValue = array('choices' => array(),
                                        'label' => 'element.specify',
@@ -120,7 +120,7 @@ abstract class ConceptType extends AbstractType
 
         $prototypeOfOwnerElement = $builder->create('__name__', 'text',  $optionsElement);
 
-        foreach(Type::getListOfElement() as $element) 
+        foreach(Type::getListOfElement() as $element)
         {
             $element[0] = strtoupper($element[0]);
             $builder->setAttribute("prototypeOfChildValue$element", $prototypeOfChildValue["$element"]->getForm());

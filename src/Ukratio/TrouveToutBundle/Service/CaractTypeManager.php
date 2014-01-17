@@ -2,13 +2,25 @@
 
 namespace Ukratio\TrouveToutBundle\Service;
 
+use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
-use Symfony\Component\Form\FormFactoryInterface;
+
 use Ukratio\TrouveToutBundle\Constant;
+
+use Ukratio\TrouveToutBundle\Form\EventListener\AddValueSubscriber;
+use Ukratio\TrouveToutBundle\Form\EventListener\SpecifyCaractSubscriber;
+
+use Ukratio\ToolBundle\Service\DataChecking;
+use Ukratio\ToolBundle\Form\Type\EnumType;
+
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class CaractTypeManager
 {
@@ -17,12 +29,79 @@ class CaractTypeManager
     private $factory;
     private $elementManager;
 
-    public function __construct(FormFactoryInterface $factory, ConceptRepository $conceptRepo, ElementRepository $elementRepo, ElementManager $elementManager)
+    public function __construct(FormFactoryInterface $factory, ConceptRepository $conceptRepo, ElementRepository $elementRepo, ElementManager $elementManager, DataChecking $dataChecking)
     {
         $this->conceptRepo = $conceptRepo;
         $this->factory = $factory;
         $this->elementManager = $elementManager;
         $this->elementRepo = $elementRepo;
+        $this->dataChecking = $dataChecking;
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $caract = $form->getData();
+        if (($caract !== null) and ($caract->getValue() !== null)) {
+            if ($caract->getType() == 'picture') {
+                $image = implode('/', array_reverse($caract->getValue()->getPath()));
+                $view->vars['image'] = $image;
+            }
+
+            if ($caract->getType() == 'object') {
+                $objectNames = $caract->getValue()->getPath();
+
+                $view->vars['objects'] = array();
+                foreach ($objectNames as $objectName) {
+                    if ($this->dataChecking->isNumbers($objectName)) {
+                        $object = $this->conceptRepo->findOneById($objectName);
+                    } else {
+                        $object = $this->conceptRepo->findOneByName($objectName);
+                    }
+                    if ($object != null) {
+                        $objectId = $object->getId();
+                        $view->vars['objects'][] = array('name' => $objectName,
+                                                         'id' => $objectId);
+                    }
+                }
+            }
+        }
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('name', 'text', array('label' => 'caract.name'));
+
+        $attr = array();
+
+        if ($options['parentType'] === Discriminator::$Set) {
+            $builder->add('selected', 'checkbox', array('required' => false,
+                                                        'attr' => $attr,
+                                                        'label' => 'caract.selected'));
+        }
+
+        if ($options['parentType'] === Discriminator::$Category) {
+            $builder->add('selected', 'checkbox', array('required' => false,
+                                                        'attr' => $attr,
+                                                        'label' => 'caract.selected'));
+            $builder->add('byDefault', 'checkbox', array('required' => false,
+                                                         'attr' => $attr,
+                                                         'label' => 'caract.byDefault'));
+            $builder->add('specificity', null, array('required' => false,
+                                                     'read_only' => true,
+                                                     'label' => 'caract.specificity'));
+        }
+
+        if ($options['display_type'] == 'show') {
+            $builder->add('type', 'text', array('disabled' => true, 'label' => 'caract.type'));
+        }
+
+
+        if ($options['display_type'] == 'edit') {
+            $builder->add('type', new EnumType('Ukratio\TrouveToutBundle\Entity\Type'), array('label' => 'caract.type'));
+        }
+
+        $builder->addEventSubscriber(new AddValueSubscriber($this->conceptRepo, $this->elementRepo, $this, $builder->getFormFactory()));
+        $builder->addEventSubscriber(new SpecifyCaractSubscriber($builder->getFormFactory(), $this->elementRepo));
     }
 
     public function getFormTypeFor($type)
