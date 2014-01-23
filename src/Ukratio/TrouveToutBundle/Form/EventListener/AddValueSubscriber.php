@@ -52,7 +52,7 @@ class AddValueSubscriber implements EventSubscriberInterface
     {
         $data = $event->getData();
         $form = $event->getForm();
-        
+
         if (isset($data['type'] )) {
             $form->add($this->factory->createNamed('value', new ElementType($this->conceptRepo, $this->elementRepo, $this->caractTypeManager), null, array('typeOfValue' => $data['type'])));
         }
@@ -66,24 +66,21 @@ class AddValueSubscriber implements EventSubscriberInterface
         if( $data == null) {
             return;
         }
-        
+
         if (! $data instanceof Caract) {
             throw new UnexpectedTypeException($data, 'Caract');
         }
 
         $valueType = $data->getType();
 
-        /* if (($data->getValue() !== null) and ($data->getPrefix() != null)) { */
-        /*     $ratio = Prefix::getEnumerator($data->getPrefix())->getValue(); */
-        /*     $data->getValue()->setRatio($ratio); */
-        /* } */
-
         $form->add($this->factory->createNamed('value', new ElementType($this->conceptRepo, $this->elementRepo, $this->caractTypeManager), null, array('typeOfValue' => $valueType)));
 
         if (Type::getEnumerator($valueType) === Type::$number) {
-            $form->add($this->factory->createNamed('prefix', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix')));
+            $form->add($this->factory->createNamed('imprecision', 'number', null, array('label' => 'caract.imprecision')));
 
-            $form->add($this->factory->createNamed('unit', new EnumType('Ukratio\TrouveToutBundle\Entity\Unit')));
+            $form->add($this->factory->createNamed('prefix', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix'), null, array('label' => 'caract.prefix')));
+
+            $form->add($this->factory->createNamed('unit', new EnumType('Ukratio\TrouveToutBundle\Entity\Unit'), null, array('label' => 'caract.unit')));
         }
     }
 }

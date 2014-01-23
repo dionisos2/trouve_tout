@@ -39,11 +39,14 @@ element:
 
 caract:
   value: 'Valeur'
-  name: 'Nom'
+  name: 'Nom:'
   selected: 'Séléctionné:'
   byDefault: 'Par défaut:'
   type: 'Type:'
-  specificity: 'spécificité'
+  specificity: 'Spécificité:'
+  imprecision: '± '
+  prefix: 'Préfixe:'
+  unit: 'Unité:'
 
 tools:
   success: 'L’action s’est effectuée avec succès !'
@@ -110,6 +113,8 @@ category: 'catégorie'
 Category: 'Catégorie'
 Research: 'Recherche'
 set: 'objet'
+number: 'nombre'
+text: 'texte'
 number: 'nombre'
 name: 'simple'
 other: 'autre'

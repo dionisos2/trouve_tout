@@ -47,6 +47,11 @@
 
 {% if form.value is defined %}
 {{ form_row(form.value) }}
+{% if form.imprecision is defined %}
+<div class="enligne">
+{{ form_row(form.imprecision) }}
+</div>
+{% endif %}
 {% else %}
 <div>
   <label class="required">{{'caract.value' | trans}}</label>
@@ -72,10 +77,11 @@
 {% endif %}
 
 <div class="enligne">
+{% endspaceless %}
 {% if form.prefix is defined %}
-  {{ form_row(form.prefix) }}
-  {{ form_row(form.unit) }}
+  {{ form_row(form.prefix) }} {{ form_row(form.unit) }}
 {% endif %}
+{% spaceless %}
 </div>
 
 
@@ -118,6 +124,9 @@ data-prototype of value text="{{ form_row(context.prototypeOfValueText) | tra
 data-prototype of value date="{{ form_row(context.prototypeOfValueDate) | trans({}, context.translation_domain)}}"
 
 data-prototype of owner element="{{ form_row(context.prototypeOfOwnerElement) | trans({}, context.translation_domain)}}"
+data-prototype of imprecision="{{ form_row(context.prototypeOfImprecision) | trans({}, context.translation_domain)}}"
+data-prototype of prefix="{{ form_row(context.prototypeOfPrefix) | trans({}, context.translation_domain)}}"
+data-prototype of unit="{{ form_row(context.prototypeOfUnit) | trans({}, context.translation_domain)}}"
 
 {% endmacro %}
 

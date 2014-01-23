@@ -26,7 +26,7 @@ DynamicFormsManager.prototype.addButtonsForDynamicForms = function () {
     this.dynamicForms.append(this.addDynamicFormLinkLi);
     this.dynamicForms.find('li.' + this.liName).each(function() {
         self.addDeleteDynamicFormLink($(this));
-    });		
+    });
 }
 
 

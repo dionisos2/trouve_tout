@@ -8,6 +8,7 @@ $(document).ready(function() {
 	if (loggedUser || isResearch || isTutorial) {
 		caractsManager = new CaractsManager();
 		caractsManager.addButtonsForDynamicForms();
+		caractsManager.replaceAllNumberForms();
 
 		categoriesManager = new CategoriesManager();
 		categoriesManager.addButtonsForDynamicForms();

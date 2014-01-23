@@ -100,6 +100,14 @@ class Caract
     private $ownerConcept;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="imprecision", type="float")
+     * @Assert\Type(type="numeric")
+     */
+    private $imprecision;
+
+    /**
      * @var Ukratio\TrouveToutBundle\Entity\Element
      *
      * @ORM\ManyToOne(targetEntity="Ukratio\TrouveToutBundle\Entity\Element", cascade={"persist", "detach", "merge"}, inversedBy="ownerCaracts")
@@ -141,6 +149,7 @@ class Caract
         $this->selected = true;
         $this->byDefault = true;
         $this->specificity = 0;
+        $this->imprecision = 0;
         $this->type = Type::$name->getName();
         if ($name !== null) {
             $this->name = $name;
@@ -272,6 +281,32 @@ class Caract
     public function getSpecificity()
     {
         return $this->specificity;
+    }
+
+    /**
+     * Set imprecision
+     *
+     * @param float $imprecision
+     * @return Caract
+     */
+    public function setImprecision($imprecision)
+    {
+        if ($imprecision == null) {
+            $this->imprecision = 0;
+        } else {
+            $this->imprecision = $imprecision;
+        }
+        return $this;
+    }
+
+    /**
+     * Get imprecision
+     *
+     * @return float
+     */
+    public function getImprecision()
+    {
+        return $this->imprecision;
     }
 
     /**

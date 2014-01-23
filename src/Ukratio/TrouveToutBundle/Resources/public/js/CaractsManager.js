@@ -6,13 +6,21 @@ function CaractsManager() {
 	this.prototypeOf['childValue'] = [];
 	this.prototypeOf['value'] = [];
 
+	this.haveChildValue = []
+	this.haveChildValue['name'] = true;
+	this.haveChildValue['number'] = false;
+	this.haveChildValue['picture'] = true;
+	this.haveChildValue['object'] = true;
+	this.haveChildValue['text'] = false;
+	this.haveChildValue['date'] = false;
+
 	//TODO with foreach
 	this.prototypeOf['childValue']['name'] = $('form').data('prototype of child value name');
-	this.prototypeOf['childValue']['number'] = $('form').data('prototype of child value number');
+	this.prototypeOf['childValue']['number'] = null;
 	this.prototypeOf['childValue']['picture'] = $('form').data('prototype of child value picture');
 	this.prototypeOf['childValue']['object'] = $('form').data('prototype of child value object');
-	this.prototypeOf['childValue']['text'] = $('form').data('prototype of child value text');
-	this.prototypeOf['childValue']['date'] = $('form').data('prototype of child value date');
+	this.prototypeOf['childValue']['text'] = null;
+	this.prototypeOf['childValue']['date'] = null;
 
 	this.prototypeOf['value']['name'] = $('form').data('prototype of value name');
 	this.prototypeOf['value']['number'] = $('form').data('prototype of value number');
@@ -22,6 +30,9 @@ function CaractsManager() {
 	this.prototypeOf['value']['date'] = $('form').data('prototype of value date');
 
 	this.prototypeOf['ownerElement'] = $('form').data('prototype of owner element');
+	this.prototypeOf['imprecision'] = $('form').data('prototype of imprecision');
+	this.prototypeOf['prefix'] = $('form').data('prototype of prefix');
+	this.prototypeOf['unit'] = $('form').data('prototype of unit');
 }
 
 CaractsManager.prototype._parentMethods = DynamicFormsManager.prototype;
@@ -74,14 +85,17 @@ CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 
 
 CaractsManager.prototype.generalize = function (caractForm, index, ownerElementForm) {
-	var value;
+	var value, type;
+	type = this.getType(caractForm);
 
-	value = ownerElementForm.value;
-	$(ownerElementForm).parent().prevAll().remove();
-	$(ownerElementForm).parent().remove();
-	this.updateValueForm(caractForm, index, false);
-	this.setValue(caractForm, value, false);
-	this.updateValueForm(caractForm, index, true);
+	if ((type != 'number') && (type != 'text') && (type != 'date')) {
+		value = ownerElementForm.value;
+		$(ownerElementForm).parent().prevAll().remove();
+		$(ownerElementForm).parent().remove();
+		this.updateValueForm(caractForm, index, false);
+		this.setValue(caractForm, value, false);
+		this.updateValueForm(caractForm, index, true);
+	}
 }
 
 CaractsManager.prototype.specifyValue = function (caractForm, index) {
@@ -107,6 +121,7 @@ CaractsManager.prototype.addOwnerElement = function (caractForm, index, value) {
 
 	ownerIndex = this.getParentElements(caractForm).length.toString();
 
+	//TODO use namePrototype
 	ownerElementForm = this.prototypeOf['ownerElement'].replace(/__name__/g, 'caracts_' + (index).toString() + '_value_element_' + ownerIndex);
 	ownerElementForm = ownerElementForm.replace(/(name=.*?)\[.*?\]/g, '$1[caracts][' + (index).toString() + '][value][element_' + ownerIndex + ']');
 	ownerElementForm = $(ownerElementForm); // /!\ warning here
@@ -126,21 +141,133 @@ CaractsManager.prototype.addDynamicForm = function () {
 	return result;
 }
 
+CaractsManager.prototype.removeOwnerElements = function (caractForm, index) {
+	caractForm.find('#restDiv').empty();
+}
+
+CaractsManager.prototype.changeOwnerElements = function (caractForm, index) {
+	var type;
+	type = this.getType(caractForm);
+
+	if (!this.haveChildValue[type]) {
+		this.removeOwnerElements(caractForm, index);
+		this.addOwnerElement(caractForm, index, type);
+	}
+}
+
+CaractsManager.prototype.namePrototype = function (caractForm, index, prototype_, names) {
+	var endOfName;
+	var i;
+
+	endOfName = '';
+	for (i in names) {
+		endOfName += '_' + names[i] ;
+	}
+	prototype_ = prototype_.replace(/__name__/g, 'caracts_' + (index).toString() + endOfName);
+
+	endOfName = '';
+	for (i in names) {
+		endOfName += '[' + names[i] + ']';
+	}
+
+	prototype_ = prototype_.replace(/(name=.*?)\[.*?\]/g, '$1[caracts][' + (index).toString() + ']' + endOfName);
+
+	return prototype_;
+}
+
+CaractsManager.prototype.buildNumberForms = function (caractForm, index) {
+	var imprecisionForm, prefixForm, unitForm, valueDiv;
+
+	imprecisionForm = caractForm.find('[id$=imprecision]');
+	if (imprecisionForm.length == 0) {
+		valueDiv = caractForm.find('#valueDiv');
+
+		imprecisionForm = this.namePrototype(caractForm, index, this.prototypeOf['imprecision'], ['imprecision']);
+		prefixForm = this.namePrototype(caractForm, index, this.prototypeOf['prefix'], ['prefix']);
+		unitForm = this.namePrototype(caractForm, index, this.prototypeOf['unit'], ['unit']);
+
+		valueDiv.append(imprecisionForm);
+		valueDiv.append(prefixForm);
+		valueDiv.append(unitForm);
+	}
+}
+
+CaractsManager.prototype.updateNumberForms = function (caractForm, index) {
+	caractForm.find('[id$=imprecision]').val(0);
+}
+
+CaractsManager.prototype.deleteNumberForms = function (caractForm, index) {
+	var imprecisionForm;
+	imprecisionForm = caractForm.find('[id$=imprecision]');
+
+	if (imprecisionForm.length == 1) {
+		imprecisionForm.parent().remove();
+		caractForm.find('[id$=prefix]').parent().remove();
+		caractForm.find('[id$=unit]').parent().remove();
+	}
+}
+
+CaractsManager.prototype.replaceAllNumberForms = function () {
+	var self = this;
+	this.dynamicForms.find('li.' + this.liName).each(function(index) {
+		if (self.getType($(this)) == 'number') {
+			self.replaceNumberForms($(this), index);
+		}
+    });
+}
+
+CaractsManager.prototype.replaceNumberForms = function (caractForm, index) {
+	var imprecisionValue, prefixValue, unitValue;
+	var imprecisionForm, prefixForm, unitForm;
+
+	imprecisionForm = caractForm.find('[id$=imprecision]');
+	prefixForm = caractForm.find('[id$=prefix]');
+	unitForm = caractForm.find('[id$=unit]');
+
+	imprecisionValue = imprecisionForm.val();
+	prefixValue = prefixForm.val();
+	unitValue = unitForm.val();
+
+	this.deleteNumberForms(caractForm, index);
+	this.buildNumberForms(caractForm, index);
+
+	imprecisionForm = caractForm.find('[id$=imprecision]');
+	prefixForm = caractForm.find('[id$=prefix]');
+	unitForm = caractForm.find('[id$=unit]');
+
+	imprecisionForm.val(imprecisionValue);
+	prefixForm.val(prefixValue);
+	unitForm.val(unitValue);
+}
+
 CaractsManager.prototype.changeValueType = function (caractForm, index) {
 	var value;
 	var childValue;
+	var type;
 
+	type = this.getType(caractForm);
 	value = this.getValue(caractForm, false);
 	childValue = this.getValue(caractForm, true);
+
+	if (this.getType(caractForm) == 'number') {
+		this.buildNumberForms(caractForm, index);
+		this.updateNumberForms(caractForm, index);
+	} else {
+		this.deleteNumberForms(caractForm, index);
+	}
+
+	this.changeOwnerElements(caractForm, index);
 
 	this.changeOrBuildValueForm(caractForm, index, false);
 	this.changeOrBuildValueForm(caractForm, index, true);
 
-	this.updateValueForm(caractForm, index, false);
-	this.setValue(caractForm, value, false);
+	if (type != 'date') {
+		this.updateValueForm(caractForm, index, false);
+		this.setValue(caractForm, value, false);
 
-	this.updateValueForm(caractForm, index, true);
-	this.setValue(caractForm, childValue, true);
+		this.updateValueForm(caractForm, index, true);
+		this.setValue(caractForm, childValue, true);
+	}
 }
 
 CaractsManager.prototype.getParentElements = function (caractForm) {
@@ -169,7 +296,11 @@ CaractsManager.prototype.setValue = function(caractForm, value, isChildElement) 
 
 
 	if(valueForm.length == 0) {
-		throw "caractForm don’t have value or childValue 'property'";
+		if(isChildElement) {
+			return null;
+		} else {
+			throw "caractForm don’t have value or childValue 'property'";
+		}
 	}
 
 	if (valueForm.get(0).tagName == 'DIV') { //compound element
@@ -245,14 +376,14 @@ CaractsManager.prototype.updateValueForm = function (caractForm, index, isChildE
 		if (this.getValue(caractForm, false) !== null) {
 			completeElement.unshift(this.getValue(caractForm, false));
 		} else {
-			self.updateValueFormCallBack(caractForm, {'other':translate('other', language)}, index, isChildElement);
+			self.updateValueFormCallBack(caractForm, [['other', translate('other', language)]], index, isChildElement);
 			return 0;
 		}
 	}
 
 	if (completeElement.length == 0) {
 		if (isChildElement) {
-			self.updateValueFormCallBack(caractForm, {'other':translate('other', language)}, index, isChildElement);
+			self.updateValueFormCallBack(caractForm, [['other', translate('other', language)]], index, isChildElement);
 			return 0;
 		} else {
 			completeElement = 'empty'; //strange problem with .ajax
@@ -293,10 +424,13 @@ CaractsManager.prototype.buildValueForm = function(caractForm, index, isChildEle
 
 	type = this.getType(caractForm);
 
+	//TODO use namePrototype
 	if (isChildElement) {
-		FormSelectDiv = this.prototypeOf['childValue'][type].replace(/__name__/g, 'caracts_' + (index).toString() + '_value_childValue');
-		FormSelectDiv = FormSelectDiv.replace(/(name=.*?)\[.*?\]/g, '$1[caracts][' + (index).toString() + '][value][childValue]');
-		caractForm.find('#childValueDiv').prepend(FormSelectDiv);
+		if (this.prototypeOf['childValue'][type] != null) {
+			FormSelectDiv = this.prototypeOf['childValue'][type].replace(/__name__/g, 'caracts_' + (index).toString() + '_value_childValue');
+			FormSelectDiv = FormSelectDiv.replace(/(name=.*?)\[.*?\]/g, '$1[caracts][' + (index).toString() + '][value][childValue]');
+			caractForm.find('#childValueDiv').prepend(FormSelectDiv);
+		}
 	} else {
 		FormSelectDiv = this.prototypeOf['value'][type].replace(/__name__/g, 'caracts_' + (index).toString() + '_value_value');
 		FormSelectDiv = FormSelectDiv.replace(/(name=.*?)\[.*?\]/g, '$1[caracts][' + (index).toString() + '][value][value]');
@@ -307,9 +441,13 @@ CaractsManager.prototype.buildValueForm = function(caractForm, index, isChildEle
 }
 
 CaractsManager.prototype.removeValueForm = function(caractForm, isChildElement) {
+	var childForm;
 
 	if (isChildElement) {
-		caractForm.find('[id$=value_childValue]').parent().remove();
+		childForm = caractForm.find('[id$=value_childValue]');
+		if(childForm.length == 1) {
+			childForm.parent().remove();
+		}
 	} else {
 		caractForm.find('[id$=value_value]').parent().remove();
 	}

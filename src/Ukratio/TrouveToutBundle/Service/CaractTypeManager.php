@@ -104,13 +104,73 @@ class CaractTypeManager
         $builder->addEventSubscriber(new SpecifyCaractSubscriber($builder->getFormFactory(), $this->elementRepo));
     }
 
+
+    public function addPrototypes(FormBuilderInterface $builder)
+    {
+        $optionsTextChildValue = array('choices' => array(),
+                                       'label' => 'element.specify',
+                                       'required' => false);
+
+        $optionsTextValue = array('choices' => array(),
+                                  'label' => 'element.modify');
+
+
+        $optionsElement = array('label' => ' ',
+                                'read_only' => true,
+                                'mapped' => false,
+        );
+
+        $optionsFor = array();
+
+        $optionsFor['value'] = array();
+        $optionsFor['value']['name'] = $optionsTextValue;
+        $optionsFor['value']['number'] = array('label' => 'element.modify');
+        $optionsFor['value']['picture'] = $optionsTextValue;
+        $optionsFor['value']['object'] = $optionsTextValue;
+        $optionsFor['value']['text'] = array('label' => 'element.modify');
+        $optionsFor['value']['date'] = array('label' => 'element.modify', 'input' => 'timestamp', 'widget' => 'single_text', 'required' => true, 'format' => Constant::DATEFORMAT);
+
+        $optionsFor['childValue'] = array();
+        $optionsFor['childValue']['name'] = $optionsTextChildValue;
+        $optionsFor['childValue']['number'] = array('label' => 'element.modify');
+        $optionsFor['childValue']['picture'] = $optionsTextChildValue;
+        $optionsFor['childValue']['object'] = $optionsTextChildValue;
+        $optionsFor['childValue']['text'] = array('label' => 'element.specify');
+        $optionsFor['childValue']['date'] = array('label' => 'element.specify', 'input' => 'timestamp', 'widget' => 'single_text', 'required' => true, 'format' => Constant::DATEFORMAT);
+
+        $prototypeOfChildValue = array();
+        $prototypeOfValue = array();
+
+        $prototypeOfOwnerElement = $builder->create('__name__', 'text',  $optionsElement);
+
+        $prototypeOfImprecision = $builder->create('__name__', 'number', array('label' => 'caract.imprecision'));
+        $prototypeOfPrefix = $builder->create('__name__', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix'), array('label' => 'caract.prefix'));
+        $prototypeOfUnit = $builder->create('__name__', new EnumType('Ukratio\TrouveToutBundle\Entity\Unit'), array('label' => 'caract.unit'));
+
+        foreach(Type::getListOfElement() as $element)
+        {
+            $prototypeOfValue[$element] = $builder->create('__name__', $this->getFormTypeFor(Type::getEnumerator($element)), $optionsFor['value'][$element]);
+            $prototypeOfChildValue[$element] = $builder->create('__name__', $this->getFormTypeFor(Type::getEnumerator($element)), $optionsFor['childValue'][$element]);
+            $elementUpper = $element;
+            $elementUpper[0] = strtoupper($elementUpper[0]);
+
+            $builder->setAttribute("prototypeOfChildValue$elementUpper", $prototypeOfChildValue["$element"]->getForm());
+            $builder->setAttribute("prototypeOfValue$elementUpper", $prototypeOfValue["$element"]->getForm());
+        }
+
+        $builder->setAttribute('prototypeOfOwnerElement', $prototypeOfOwnerElement->getForm());
+        $builder->setAttribute('prototypeOfImprecision', $prototypeOfImprecision->getForm());
+        $builder->setAttribute('prototypeOfPrefix', $prototypeOfPrefix->getForm());
+        $builder->setAttribute('prototypeOfUnit', $prototypeOfUnit->getForm());
+    }
+
     public function getFormTypeFor($type)
     {
         switch ($type) {
             case Type::$name:
                 return 'Tool_ChoiceOrText';
             case Type::$number:
-                return 'Tool_ChoiceOrText';
+                return 'number';
             case Type::$picture:
                 return 'choice';
             case Type::$object:
@@ -120,7 +180,7 @@ class CaractTypeManager
             case Type::$date:
                 return 'datetime';
             default:
-                throw new \Exception('impossible case with type = ' . $this->getType());
+                throw new \Exception('impossible case with type = ' . $type->getName());
         }
     }
 
@@ -151,10 +211,7 @@ class CaractTypeManager
                 }
                 return $choices;
             case Type::$number:
-                if ($isChildElement) {
-                    $choices = array('other' => 'other') + $choices;
-                }
-                return $choices;
+                return null;
             case Type::$picture:
                 $choices = array_map(function (Element $element) {return $element->getValue();}, $this->elementManager->filesIn($path));
 
@@ -193,6 +250,10 @@ class CaractTypeManager
 
         //TODO separate function for getting options
 
+        if (($label == 'element.specify') and (in_array($type, array(Type::$date, Type::$number, Type::$text)))) {
+            return null;
+        }
+
         if (is_array($path)) {
             if ($label == 'element.modify') {
                 $choices = $this->getChoicesFor($type, $path, false);
@@ -200,7 +261,7 @@ class CaractTypeManager
                 $choices = $this->getChoicesFor($type, $path, true);
             }
         } else {
-            if (in_array($type, array(Type::$text, Type::$date))) {
+            if (in_array($type, array(Type::$text,Type::$number, Type::$date))) {
                 $choices = null;
             } else {
                 $choices = array($path => $path);

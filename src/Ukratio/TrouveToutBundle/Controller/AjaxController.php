@@ -20,7 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class AjaxController extends ControllerWithTools
-{    
+{
 
 
     /**
@@ -43,7 +43,7 @@ class AjaxController extends ControllerWithTools
 
         $choices = $caractTypeManager->getChoicesFor($type, $pathElement, $isChildElement);
 
-        if (in_array($type, array(Type::$name, Type::$number, Type::$object))) {
+        if (in_array($type, array(Type::$name, Type::$object))) {
             $choices = array('other' => 'other') + $choices;
         }
 

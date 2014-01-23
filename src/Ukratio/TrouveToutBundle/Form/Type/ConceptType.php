@@ -38,7 +38,7 @@ abstract class ConceptType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->addCaracts($builder);
-        $this->addPrototypes($builder);
+        $this->caractTypeManager->addPrototypes($builder);
 
         $builder->addEventSubscriber(new AddCategories($builder->getFormFactory(), $this->conceptRepo));
     }
@@ -72,6 +72,9 @@ abstract class ConceptType extends AbstractType
         }
 
         $view->vars['prototypeOfOwnerElement'] = $form->getConfig()->getAttribute('prototypeOfOwnerElement')->createView($view);
+        $view->vars['prototypeOfImprecision'] = $form->getConfig()->getAttribute('prototypeOfImprecision')->createView($view);
+        $view->vars['prototypeOfPrefix'] = $form->getConfig()->getAttribute('prototypeOfPrefix')->createView($view);
+        $view->vars['prototypeOfUnit'] = $form->getConfig()->getAttribute('prototypeOfUnit')->createView($view);
 
     }
 
@@ -85,49 +88,6 @@ abstract class ConceptType extends AbstractType
                                                      'by_reference' => false,
                                                      'options' => array('display_type' => 'edit',
                                                                         'parentType' => $this->getDiscriminator())));
-    }
-
-    public function addPrototypes(FormBuilderInterface $builder)
-    {
-        $optionsTextChildValue = array('choices' => array(),
-                                       'label' => 'element.specify',
-                                       'required' => false);
-
-        $optionsTextValue = array('choices' => array(),
-                                  'label' => 'element.modify');
-
-
-        $optionsElement = array('label' => ' ',
-                                'read_only' => true,
-                                'mapped' => false,
-        );
-
-        $prototypeOfChildValue = array();
-        $prototypeOfChildValue["Name"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
-        $prototypeOfChildValue["Number"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
-        $prototypeOfChildValue["Picture"] = $builder->create('__name__', 'choice', $optionsTextChildValue);
-        $prototypeOfChildValue["Object"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextChildValue);
-        $prototypeOfChildValue["Text"] = $builder->create('__name__', 'textarea', array('label' => 'element.specify'));
-        $prototypeOfChildValue["Date"] = $builder->create('__name__', 'datetime', array('label' => 'element.specify', 'input' => 'timestamp', 'widget' => 'single_text', 'required' => false, 'format' => Constant::DATEFORMAT));
-
-        $prototypeOfValue = array();
-        $prototypeOfValue["Name"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
-        $prototypeOfValue["Number"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
-        $prototypeOfValue["Picture"] = $builder->create('__name__', 'choice', $optionsTextValue);
-        $prototypeOfValue["Object"] = $builder->create('__name__', 'Tool_ChoiceOrText', $optionsTextValue);
-        $prototypeOfValue["Text"] = $builder->create('__name__', 'textarea', array('label' => 'element.modify'));
-        $prototypeOfValue["Date"] = $builder->create('__name__', 'datetime', array('label' => 'element.modify', 'input' => 'timestamp', 'widget' => 'single_text', 'required' => true, 'format' => Constant::DATEFORMAT));
-
-        $prototypeOfOwnerElement = $builder->create('__name__', 'text',  $optionsElement);
-
-        foreach(Type::getListOfElement() as $element)
-        {
-            $element[0] = strtoupper($element[0]);
-            $builder->setAttribute("prototypeOfChildValue$element", $prototypeOfChildValue["$element"]->getForm());
-            $builder->setAttribute("prototypeOfValue$element", $prototypeOfValue["$element"]->getForm());
-        }
-
-        $builder->setAttribute('prototypeOfOwnerElement', $prototypeOfOwnerElement->getForm());
     }
 
     public function getDiscriminator()
