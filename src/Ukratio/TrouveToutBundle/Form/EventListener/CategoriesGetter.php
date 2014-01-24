@@ -35,7 +35,7 @@ class CategoriesGetter implements EventSubscriberInterface
             return;
         }
         $name = $category->getName();
-        echo "categoriesgetter";
+        /* echo "categoriesgetter"; */
         /* var_dump(array_map(function(Concept $concept){return $concept->getName();}, $this->categories)); */
 
         $trueCategories = array_filter($this->categories, function (Concept $category) use ($name) {return $category->getName() == $name;});

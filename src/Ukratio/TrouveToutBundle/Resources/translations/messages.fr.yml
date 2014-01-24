@@ -64,7 +64,7 @@ login:
 research:
   run: 'Lancer la recherche'
   save_and_run: 'Sauvegarder et lancer la recherche'
-  run_again: 'Relancer la recherche'
+  run_again: 'Relancer la recherche (annule les changements)'
   modify_research: 'Modifier la recherche'
   linkable: 'Connectabilité'
   type: 'Type de concepts recherchés'

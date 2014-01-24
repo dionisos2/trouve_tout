@@ -1,4 +1,4 @@
-{% extends "TrouveToutBundle::layout.html.twig" %}
+{% extends "TrouveToutBundle:TrouveTout:createConcept.html.twig" %}
 
 {% block title %}
     {{ parent() }} - {{ 'title.research' | trans }}
@@ -6,49 +6,57 @@
 
 {% block TrouveTout %}
 
-<table class="table-bordered">
-  <caption> {{ 'research.table.name' | trans({'%researchedType%': ("research.table." ~ research.researchedType) | lower | trans}) }}</caption>
-
-  <colgroup>
-    <col span="{{ researchResults.columnGroups[0] + 1 }}" style="background-color:yellow">
-    <col span="{{ researchResults.columnGroups[1] }}" style="background-color:Aqua">
-    <col span="{{ researchResults.columnGroups[2] }}" style="background-color:Orchid">
-  </colgroup>
+<table>
+  <th>
+    <div>
+      {{ parent() }}
+    </div>
+  </th>
 
   <th>
-    {{ 'research.table.ID' | trans }}
-  </th>
-  {% for header in researchResults.headers %}
-  <th>
-    {{ header | trans}}
-  </th>
-  {% endfor %}
+    {% if researchResults is defined %}
+    <table class="table-bordered">
+      <caption> {{ 'research.table.name' | trans({'%researchedType%': ("research.table." ~ research.researchedType) | lower | trans}) }}</caption>
 
-  {% for conceptLine in researchResults.conceptLines %}
-  <tr>
-    <td>
-      <a href="{{ path('edit_concept', {id: conceptLine.concept.id}) }}">
-        {{ conceptLine.concept.id }}
-      </a>
-    </td>
+      <colgroup>
+        <col span="{{ researchResults.columnGroups[0] + 1 }}" style="background-color:yellow">
+        <col span="{{ researchResults.columnGroups[1] }}" style="background-color:Aqua">
+        <col span="{{ researchResults.columnGroups[2] }}" style="background-color:Orchid">
+      </colgroup>
 
-    {% for value in conceptLine.line %}
-    <td>
-      {{ value }}
-    </td>
-    {% endfor %}
-  </tr>
-  {% endfor %}
+      <th>
+        {{ 'research.table.ID' | trans }}
+      </th>
+      {% for header in researchResults.headers %}
+      <th>
+        {{ header | trans}}
+      </th>
+      {% endfor %}
+
+      {% for conceptLine in researchResults.conceptLines %}
+      <tr>
+        <td>
+          <a href="{{ path('edit_concept', {id: conceptLine.concept.id}) }}">
+            {{ conceptLine.concept.id }}
+          </a>
+        </td>
+
+        {% for value in conceptLine.line %}
+        <td>
+          {{ value }}
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    {% if research.id != 0 %}
+    <a href="{{ path('run_with_id_research', {id: research.id})}}" class="fix-on-left btn btn-primary" value="run">
+      {{ 'research.run_again' | trans }}
+    </a>
+    {% endif %}
+  </th>
+    {% endif %}
 </table>
-
-{% if research.id != 0 %}
-<a href="{{ path('run_with_id_research', {id: research.id})}}" class="fix-on-middle btn btn-primary" value="run">
-  {{ 'research.run_again' | trans }}
-</a>
-<a href="{{ path('edit_concept', {id: research.id})}}" class="fix-on-left btn btn-primary" value="run">
-  {{ 'research.modify_research' | trans }}
-</a>
-{% endif %}
-
 {% endblock %}
 

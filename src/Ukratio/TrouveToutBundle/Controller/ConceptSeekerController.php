@@ -39,33 +39,44 @@ class ConceptSeekerController extends ControllerWithTools
      * @Method({"GET"})
      * @Template("TrouveToutBundle:TrouveTout:runResearch.html.twig")
      */
-    public function runAndSaveResearchAction(Request $request, Concept $research)
+    public function runResearchAction(Request $request, Concept $research)
     {
         $cfc = $this->get('TrouveTout.ConceptFormManager');
         $researchResults = $cfc->runResearch($research);
-        return array('researchResults' => $researchResults,
-                     'research' => $research,
-        );
+        $form = $cfc->createForm($research);
+
+        $returnArray = $cfc->arrayForTemplate($research, $form);
+        $returnArray += array('researchResults' => $researchResults, 'research' => $research);
+
+        return $returnArray;
     }
 
     /**
-     * @Route("/run_research/", name="run_research")
+     * @Route("/run_with_id_research/{id}", name="save_research", requirements={"id" = "\d+"})
      * @Method({"POST"})
      * @Template("TrouveToutBundle:TrouveTout:runResearch.html.twig")
      */
-    public function runResearchAction(Concept $research)
+    public function saveResearchAction(Request $request, Concept $research)
     {
         $cfc = $this->get('TrouveTout.ConceptFormManager');
-        $researchResults = $cfc->runResearch($research);
-        return array('researchResults' => $researchResults,
-                     'research' => $research,
-        );
+        $form = $cfc->createForm($research);
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $cfc->saveConcept($research);
+            return $this->redirect($this->generateUrl('run_with_id_research', array('id' => $research->getId())));
+        } else {
+            return $cfc->arrayForTemplate($research, $form);
+        }
+
+        return $returnArray;
     }
 
     /**
      * @Route("/create_research", name="save_or_run_research")
      * @Method({"POST"})
-     * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
+     * @Template("TrouveToutBundle:TrouveTout:runResearch.html.twig")
      */
     public function saveOrRunResearch(Request $request)
     {
@@ -86,10 +97,13 @@ class ConceptSeekerController extends ControllerWithTools
                 $cfc->saveConcept($concept);
                 return $this->redirect($this->generateUrl('run_with_id_research', array('id' => $concept->getId())));
             } else {
-                return $this->forward('TrouveToutBundle:ConceptSeeker:runResearch', array('research'  => $concept));
+                $returnArray = $cfc->arrayForTemplate($concept, $form);
+                $researchResults = $cfc->runResearch($concept);
+                $returnArray += array('researchResults' => $researchResults, 'research' => $concept);
+                return $returnArray;
+                /* return $this->forward('TrouveToutBundle:ConceptSeeker:runResearch', array('research'  => $concept)); */
             }
         } else {
-
             return $cfc->arrayForTemplate($concept, $form);
         }
 
