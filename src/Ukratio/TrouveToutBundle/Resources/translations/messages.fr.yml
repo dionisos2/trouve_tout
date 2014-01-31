@@ -62,6 +62,7 @@ login:
   password: 'Mot de passe'
 
 research:
+  header.name: 'nom'
   run: 'Lancer la recherche'
   save_and_run: 'Sauvegarder et lancer la recherche'
   run_again: 'Relancer la recherche (annule les changements)'

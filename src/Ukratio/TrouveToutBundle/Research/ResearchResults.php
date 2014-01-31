@@ -44,7 +44,7 @@ class ResearchResults
             $this->conceptLines[] = $this->getConceptLine($conceptResult);
         }
     }
-    
+
     public function getColumnGroups()
     {
         return $this->columnGroups;
@@ -62,7 +62,7 @@ class ResearchResults
 
     private function getTransformsLine()
     {
-        $transformsLine = array('name' => function (Concept $concept)
+        $transformsLine = array('research.header.name' => function (Concept $concept)
             {
                 return $concept->getName();
             });
@@ -86,7 +86,7 @@ class ResearchResults
                 return $concept->getNumber();
             };
         }
-        
+
         $this->columnGroups = array(count($transformsLine));
 
         foreach($this->arrayResults as $conceptResult) {
@@ -113,7 +113,7 @@ class ResearchResults
         foreach($this->arrayResults as $conceptResult) {
             foreach($conceptResult->getMoreGeneralConcepts() as $category) {
                 $name = $category->getName();
-                $transformsLine[$name] = function (Concept $concept) use ($name) 
+                $transformsLine[$name] = function (Concept $concept) use ($name)
                 {
                     $category = $concept->getMoreGeneralConceptByName($name);
                     if ($category != null) {
