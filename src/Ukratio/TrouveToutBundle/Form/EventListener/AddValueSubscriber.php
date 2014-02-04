@@ -55,6 +55,13 @@ class AddValueSubscriber implements EventSubscriberInterface
 
         if (isset($data['type'] )) {
             $form->add($this->factory->createNamed('value', new ElementType($this->conceptRepo, $this->elementRepo, $this->caractTypeManager), null, array('typeOfValue' => $data['type'])));
+            if (Type::getEnumerator($data['type']) === Type::$number) {
+                $form->add($this->factory->createNamed('imprecision', 'number', null, array('label' => 'caract.imprecision')));
+
+                $form->add($this->factory->createNamed('prefix', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix'), null, array('label' => 'caract.prefix')));
+
+                $form->add($this->factory->createNamed('unit', new EnumType('Ukratio\TrouveToutBundle\Entity\Unit'), null, array('label' => 'caract.unit')));
+            }
         }
     }
 

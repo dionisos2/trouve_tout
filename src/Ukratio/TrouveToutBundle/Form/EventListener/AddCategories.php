@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
-use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 use Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType;
 
 class AddCategories implements EventSubscriberInterface
@@ -20,34 +19,41 @@ class AddCategories implements EventSubscriberInterface
     private $factory;
     private $conceptRepo;
 
-    public function __construct(FormFactoryInterface $factory,ConceptRepository $conceptRepo)
+    public function __construct(FormFactoryInterface $factory,ConceptRepository $conceptRepo, EntityManager $entityManager)
     {
         $this->factory = $factory;
         $this->conceptRepo = $conceptRepo;
+        $this->entityManager = $entityManager;
     }
 
     public static function getSubscribedEvents()
     {
-        return array(FormEvents::PRE_SET_DATA => 'doAction');
+        return array(FormEvents::PRE_SET_DATA => 'doAction',
+                     FormEvents::POST_BIND => 'postBind');
+    }
+
+    public function postBind(DataEvent $event)
+    {
+
     }
 
     public function doAction(DataEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
-        
+
         $options = array('label' => ' ',
                          'childConcept' => $data
         );
 
-        $named = $this->factory->createNamed('moreGeneralConceptConcepts', 'collection', null, array('type' => new ConceptConceptType($this->conceptRepo), 
+        $named = $this->factory->createNamed('moreGeneralConceptConcepts', 'collection', null, array('type' => new ConceptConceptType($this->conceptRepo, $this->entityManager),
                                                                                                      'label' => ' ',
                                                                                                      'allow_add' => true,
                                                                                                      'allow_delete' => true,
                                                                                                      'by_reference' => false,
                                                                                                      'options' => $options));
         $form->add($named);
-        
+
     }
 
 }

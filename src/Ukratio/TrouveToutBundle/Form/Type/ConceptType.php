@@ -40,12 +40,13 @@ abstract class ConceptType extends AbstractType
         $this->addCaracts($builder);
         $this->caractTypeManager->addPrototypes($builder);
 
-        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory(), $this->conceptRepo));
+        $builder->addEventSubscriber(new AddCategories($builder->getFormFactory(), $this->conceptRepo, $this->entityManager));
     }
 
-    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, Discriminator $discriminator = null, ElementManager $elementManager, FormFactoryInterface $formFactory)
+    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, Discriminator $discriminator = null, ElementManager $elementManager, FormFactoryInterface $formFactory, EntityManager $entityManager)
     {
         $this->conceptRepo = $conceptRepo;
+        $this->entityManager = $entityManager;
         $this->elementRepo = $elementRepo;
         $this->caractRepo = $caractRepo;
         $this->discriminator = $discriminator;

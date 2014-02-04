@@ -13,7 +13,6 @@ use Doctrine\ORM\EntityRepository;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
 use Ukratio\ToolBundle\Form\Type\EnumType;
-use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\CaractRepository;
@@ -23,9 +22,9 @@ use Ukratio\TrouveToutBundle\Service\ElementManager;
 class ResearchType extends ConceptType
 {
 
-    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, ElementManager $elementManager, FormFactoryInterface $formFactory)
+    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, ElementManager $elementManager, FormFactoryInterface $formFactory, EntityManager $entityManager)
     {
-        parent::__construct($conceptRepo, $caractRepo, $elementRepo, Discriminator::$Research, $elementManager, $formFactory);
+        parent::__construct($conceptRepo, $caractRepo, $elementRepo, Discriminator::$Research, $elementManager, $formFactory, $entityManager);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -34,7 +33,7 @@ class ResearchType extends ConceptType
 
         $linkableChoices = array('all', 'linkable', 'unlinkable');
         $linkableChoices = array_combine($linkableChoices, $linkableChoices);
-        
+
         $builder
         ->add('researchedType', new EnumType('Ukratio\TrouveToutBundle\Entity\Discriminator'), array('label' => 'research.type'))
         ->add('name', 'text', array('required' => false, 'label' => 'concept.name'))

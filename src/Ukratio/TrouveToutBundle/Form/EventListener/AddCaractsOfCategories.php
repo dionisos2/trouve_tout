@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityManager;
 
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Concept;
-use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 
 class AddCaractsOfCategories implements EventSubscriberInterface
 {

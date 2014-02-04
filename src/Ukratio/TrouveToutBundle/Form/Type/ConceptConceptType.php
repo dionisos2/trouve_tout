@@ -17,12 +17,13 @@ use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 
 class ConceptConceptType extends AbstractType
 {
-        
+
     protected $conceptRepo;
 
-    public function __construct(ConceptRepository $conceptRepo)
+    public function __construct(ConceptRepository $conceptRepo, EntityManager $entityManager)
     {
         $this->conceptRepo = $conceptRepo;
+        $this->entityManager = $entityManager;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -32,7 +33,7 @@ class ConceptConceptType extends AbstractType
         $options = array('label' => ' ',
                          'childConcept' => $childConcept);
 
-        $builder->add('moreGeneral', new SortedConceptType($this->conceptRepo), $options);
+        $builder->add('moreGeneral', new SortedConceptType($this->conceptRepo, $this->entityManager), $options);
 
     }
 

@@ -14,7 +14,6 @@ use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Type;
-use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
 
 class AddElementSubscriber implements EventSubscriberInterface

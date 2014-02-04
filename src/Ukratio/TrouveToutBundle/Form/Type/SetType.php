@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
-use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
@@ -21,9 +20,9 @@ use Ukratio\TrouveToutBundle\Service\ElementManager;
 
 class SetType extends ConceptType
 {
-    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, ElementManager $elementManager, FormFactoryInterface $formFactory)
+    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, ElementManager $elementManager, FormFactoryInterface $formFactory, EntityManager $entityManager)
     {
-        parent::__construct($conceptRepo, $caractRepo, $elementRepo, Discriminator::$Set, $elementManager, $formFactory);
+        parent::__construct($conceptRepo, $caractRepo, $elementRepo, Discriminator::$Set, $elementManager, $formFactory, $entityManager);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

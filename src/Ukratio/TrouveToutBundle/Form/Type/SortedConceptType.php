@@ -5,6 +5,8 @@ namespace Ukratio\TrouveToutBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityManager;
+
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 
@@ -14,10 +16,11 @@ class SortedConceptType extends AbstractType
 {
 
     private $conceptRepo;
-        
-    public function __construct(ConceptRepository $conceptRepo)
+
+    public function __construct(ConceptRepository $conceptRepo, EntityManager $entityManager)
     {
         $this->conceptRepo = $conceptRepo;
+        $this->entityManager = $entityManager;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -32,9 +35,11 @@ class SortedConceptType extends AbstractType
         $choices = array_combine($choices, $choices_name);
 
         $builder->add('name', 'choice', array('choices' => $choices,
-                                              'label' => ' '));        
+                                              'label' => ' '));
 
-        $builder->addEventSubscriber(new CategoriesGetter($categories));
+        $categories_copy = $categories;
+        $builder->addEventSubscriber(new CategoriesGetter($categories_copy, $this->conceptRepo, $this->entityManager));
+
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -68,7 +73,7 @@ class SortedConceptType extends AbstractType
                         $connection = $connection + $categoryCaract->getSpecificity() * (1 - $connection);
                     }
                 }
-            
+
                 return $connection;
             };
 
@@ -95,8 +100,8 @@ class SortedConceptType extends AbstractType
         $categories = $this->conceptRepo->findAllCategories();
 
         usort($categories, $cmpSpecificity);
-        
-        return array('categories' => $categories, 
+
+        return array('categories' => $categories,
                      'specificities' => array_map($findConnection, $categories));
     }
 }

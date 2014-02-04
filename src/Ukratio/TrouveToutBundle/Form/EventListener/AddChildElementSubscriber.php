@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\Type;
-use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
 use Ukratio\ToolBundle\Form\DataTransformer\StringToChoiceOrTextTransformer;
 

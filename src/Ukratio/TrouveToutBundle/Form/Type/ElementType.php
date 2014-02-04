@@ -12,7 +12,6 @@ use Ukratio\TrouveToutBundle\Form\EventListener\AddOwnerElementSubscriber;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddChildElementSubscriber;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddElementSubscriber;
 
-use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\Type;

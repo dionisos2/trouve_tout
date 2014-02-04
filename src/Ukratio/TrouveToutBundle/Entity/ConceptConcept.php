@@ -54,7 +54,7 @@ class ConceptConcept
     public function setMoreGeneral(Concept $moreGeneral)
     {
         $this->moreGeneral = $moreGeneral;
-    
+
         return $this;
     }
 
@@ -81,7 +81,7 @@ class ConceptConcept
     public function setMoreSpecific(Concept $moreSpecific)
     {
         $this->moreSpecific = $moreSpecific;
-        
+
         return $this;
     }
 
@@ -101,7 +101,7 @@ class ConceptConcept
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {

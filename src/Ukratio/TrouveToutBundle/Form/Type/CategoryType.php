@@ -13,7 +13,6 @@ use Doctrine\ORM\EntityRepository;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
 use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
-use Ukratio\TrouveToutBundle\Form\EventListener\AddCategories;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\CaractRepository;
@@ -22,9 +21,9 @@ use Ukratio\TrouveToutBundle\Service\ElementManager;
 class CategoryType extends ConceptType
 {
 
-    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, ElementManager $elementManager, FormFactoryInterface $formFactory)
+    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, ElementManager $elementManager, FormFactoryInterface $formFactory, EntityManager $entityManager)
     {
-        parent::__construct($conceptRepo, $caractRepo, $elementRepo, Discriminator::$Category, $elementManager, $formFactory);
+        parent::__construct($conceptRepo, $caractRepo, $elementRepo, Discriminator::$Category, $elementManager, $formFactory, $entityManager);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

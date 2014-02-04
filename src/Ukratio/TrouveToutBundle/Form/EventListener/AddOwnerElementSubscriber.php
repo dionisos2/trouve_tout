@@ -9,7 +9,6 @@ use Symfony\Component\Form\FormEvents;
 use Doctrine\ORM\EntityManager;
 
 use Ukratio\TrouveToutBundle\Entity\Element;
-use Ukratio\TrouveToutBundle\Form\DataTransformer\TrueElementToElementTransformer;
 
 class AddOwnerElementSubscriber implements EventSubscriberInterface
 {
