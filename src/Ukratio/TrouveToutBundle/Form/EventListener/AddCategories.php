@@ -2,10 +2,10 @@
 
 namespace Ukratio\TrouveToutBundle\Form\EventListener;
 
-use Symfony\Component\Form\Event\DataEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 use Doctrine\ORM\EntityManager;
 
 
@@ -32,12 +32,12 @@ class AddCategories implements EventSubscriberInterface
                      FormEvents::POST_BIND => 'postBind');
     }
 
-    public function postBind(DataEvent $event)
+    public function postBind(FormEvent $event)
     {
 
     }
 
-    public function doAction(DataEvent $event)
+    public function doAction(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
@@ -51,7 +51,8 @@ class AddCategories implements EventSubscriberInterface
                                                                                                      'allow_add' => true,
                                                                                                      'allow_delete' => true,
                                                                                                      'by_reference' => false,
-                                                                                                     'options' => $options));
+                                                                                                     'options' => $options,
+                                                                                                     'auto_initialize' => false));
         $form->add($named);
 
     }

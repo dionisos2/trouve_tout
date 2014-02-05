@@ -37,7 +37,9 @@ class CategoriesGetter implements EventSubscriberInterface
         }
         $name = $category->getName();
         $oldCategory = $this->conceptRepo->findOneById($category->getId());
-        $this->entityManager->refresh($oldCategory);
+        if ($oldCategory != null) {// case of upload of picture
+            $this->entityManager->refresh($oldCategory);
+        }
 
         $trueCategories = array_filter($this->categories, function (Concept $category) use ($name) {return $category->getName() == $name;});
 

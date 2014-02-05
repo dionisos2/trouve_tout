@@ -246,7 +246,7 @@ class CaractTypeManager
 
     public function createElementForm($name, Type $type, $path, $label = 'element.modify', $mapped = true)
     {
-        $options = array('label' => $label, 'mapped' => $mapped, 'required' => $mapped);
+        $options = array('label' => $label, 'mapped' => $mapped, 'required' => $mapped, 'auto_initialize' => false);
 
         //TODO separate function for getting options
 

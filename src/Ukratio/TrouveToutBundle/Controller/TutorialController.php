@@ -380,6 +380,14 @@ class TutorialController extends ControllerWithTools
 
         $form->bind($request);
         $form->all()['name']->removeErrors(); //TODO, find a solution that don’t need to modify symfony2
+        /*
+          to add in /srv/http/public/TrouveTout/vendor/symfony/symfony/src/Symfony/Component/Form/Form.php
+
+          public function removeErrors()
+          {
+              $this->errors = array();
+          }
+         */
 
         if ($form->isValid()) {
             $valid = $concept->equals($goodConcept);

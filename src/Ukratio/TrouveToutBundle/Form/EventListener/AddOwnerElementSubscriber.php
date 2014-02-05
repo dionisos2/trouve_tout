@@ -43,7 +43,8 @@ class AddOwnerElementSubscriber implements EventSubscriberInterface
         foreach ($ownerElements as $key => $ownerElement) {
             $form->add($this->factory->createNamed($key, 'text', $ownerElement, array('mapped' => false,
                                                                                       'label' => ' ',
-                                                                                      'read_only' => true)));
+                                                                                      'read_only' => true,
+                                                                                      'auto_initialize' => false)));
         }
     }
 
@@ -64,8 +65,9 @@ class AddOwnerElementSubscriber implements EventSubscriberInterface
 
         foreach ($ownerElements as $key => $pathElement) {
             $optionsElement = array('label' => ' ',
-                             'read_only' => true,
-                             'mapped' => false,
+                                    'read_only' => true,
+                                    'mapped' => false,
+                                    'auto_initialize' => false,
             );
 
             $builder = $this->factory->createNamedBuilder("element_$key", 'text', $pathElement, $optionsElement);

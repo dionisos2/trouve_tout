@@ -6,6 +6,8 @@
 /build/
 /vendor/
 /bin/
+/sql/
+symfony_vendor
 /composer.phar
 *~
 composer.lock

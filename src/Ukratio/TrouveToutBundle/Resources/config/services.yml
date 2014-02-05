@@ -51,7 +51,7 @@ services:
 
   TrouveTout.form.concept_concept:
     class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
-    arguments: [@TrouveTout.repository.concept]
+    arguments: [@TrouveTout.repository.concept, @doctrine.orm.entity_manager]
     tags:
       - {name: form.type, alias: TrouveTout_ConceptConcept}
 

@@ -2,10 +2,10 @@
 
 namespace Ukratio\TrouveToutBundle\Form\EventListener;
 
-use Symfony\Component\Form\Event\DataEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 use Doctrine\ORM\EntityManager;
 
 use Ukratio\TrouveToutBundle\Entity\Caract;
@@ -31,7 +31,7 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
         return array(FormEvents::POST_BIND => 'postBind');
     }
 
-    public function postBind(DataEvent $event)
+    public function postBind(FormEvent $event)
     {
         $caract = $event->getData();
         $form = $event->getForm();
