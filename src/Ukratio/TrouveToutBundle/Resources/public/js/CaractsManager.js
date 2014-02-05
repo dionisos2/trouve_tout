@@ -60,7 +60,7 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
 CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 	var self = this;
 
-	caractForm.find(':input').off();
+	caractForm.find(':input').find('[name!=remove_caract]').off();
 
 	caractForm.find('[id$=_type]').on('change', function (event) {
 		self.changeValueType(caractForm, index);

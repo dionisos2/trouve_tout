@@ -13,7 +13,7 @@ function DynamicFormsManager(ulName, liName, buttonAddFormValue, buttonDeleteFor
     });
 	this.addDynamicFormLinkLi = $('<li></li>').append(this.addDynamicFormLink);
 
-    this.deleteDynamicFormLink = $('<input type="button" class="btn btn-primary" value="' + buttonDeleteFormValue + '">');
+    this.deleteDynamicFormLink = $('<input type="button" class="btn btn-primary" name="remove_caract" value="' + buttonDeleteFormValue + '">');
 
     this.symfonyPrototype = this.dynamicForms.data('prototype');
 	this.numberOfForm = this.dynamicForms.find('.' + liName).length;
@@ -57,6 +57,7 @@ DynamicFormsManager.prototype.addDynamicForm = function () {
 
 DynamicFormsManager.prototype.addDeleteDynamicFormLink = function (dynamicFormLi) {
 	var deleteDynamicFormLink;
+
 	deleteDynamicFormLink = this.deleteDynamicFormLink.clone();
 
     deleteDynamicFormLink.on('click', function(event) {
