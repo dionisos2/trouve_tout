@@ -1,10 +1,10 @@
 {% extends "TrouveToutBundle:TrouveTout:ConceptForm.html.twig" %}
 
 {% block specific %}
-    {{ form_row(form.name) }}
-    {{ form_row(form.researchedType) }}
     {{ form_row(form.researchedName) }}
+    {{ form_row(form.researchedType) }}
     {{ form_row(form.researchedLinkable) }}
     {{ form_row(form.researchedNumber) }}
+    {{ form_row(form.name) }}
 {% endblock %}
 
