@@ -260,6 +260,16 @@ class TutorialController extends ControllerWithTools
 	}
 
     /**
+     * @Route("/tutorial/create_research", name="tutorial_do_research")
+     * @Method({"POST"})
+     * @Template()
+     */
+	public function doResearchAction()
+    {
+        return $this->forward('TrouveToutBundle:Tutorial:end', array());
+    }
+
+    /**
      * @Route("/tutorial/modify_category_furniture", name="tutorial_modify_category_furniture")
      * @Method({"GET"})
      * @Template()

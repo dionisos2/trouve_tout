@@ -82,11 +82,11 @@ services:
 
   TrouveTout.tutorial.form.category:
     class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
-    arguments: [@TrouveTout.tutorial.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory]
+    arguments: [@TrouveTout.tutorial.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory, @doctrine.orm.entity_manager]
 
   TrouveTout.tutorial.form.concept_concept:
     class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
-    arguments: [@TrouveTout.tutorial.repository.concept]
+    arguments: [@TrouveTout.tutorial.repository.concept, @doctrine.orm.entity_manager]
 
   TrouveTout.tutorial.repository.concept:
     class: Ukratio\TrouveToutBundle\Tutorial\ConceptTutorialRepository

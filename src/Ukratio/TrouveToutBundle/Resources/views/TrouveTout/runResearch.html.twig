@@ -36,7 +36,7 @@
       {% for conceptLine in researchResults.conceptLines %}
       <tr>
         <td>
-          <a href="{{ path('edit_concept', {id: conceptLine.concept.id}) }}">
+          <a href="{{ path('edit_concept', {conceptId: conceptLine.concept.id}) }}">
             {{ conceptLine.concept.id }}
           </a>
         </td>

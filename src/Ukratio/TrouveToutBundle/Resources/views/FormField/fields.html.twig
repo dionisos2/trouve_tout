@@ -72,7 +72,7 @@
 
 {% if objects is defined %}
 {% for object in objects %}
-<a href="{{ path('edit_concept', {id: object.id}) }}">{{object.name}}</a>/
+<a href="{{ path('edit_concept', {conceptId: object.id}) }}">{{object.name}}</a>/
 {% endfor %}
 {% endif %}
 
@@ -98,7 +98,7 @@
 {# TOSEE #}
 {% if ((categoryId is defined) and (categoryId > 0)) %}
 <div>
-<a href="{{ path('edit_concept', {id: categoryId}) }}">{{categoryName}}</a>
+<a href="{{ path('edit_concept', {conceptId: categoryId}) }}">{{categoryName}}</a>
 </div>
 {% endif %}
 
