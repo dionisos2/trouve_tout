@@ -59,6 +59,13 @@ class Concept
     private $linkable;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="modifiedAt", type="datetime", nullable=true)
+     */
+    private $modifiedAt;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="researchedLinkable", type="string", length=255, nullable=true)
@@ -774,5 +781,28 @@ class Concept
     public function getResearchedLinkable()
     {
         return $this->researchedLinkable;
+    }
+
+    /**
+     * Set modifiedAt
+     *
+     * @param \DateTime $modifiedAt
+     * @return Concept
+     */
+    public function setModifiedAt($modifiedAt)
+    {
+        $this->modifiedAt = $modifiedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedAt
+     *
+     * @return \DateTime
+     */
+    public function getModifiedAt()
+    {
+        return $this->modifiedAt;
     }
 }

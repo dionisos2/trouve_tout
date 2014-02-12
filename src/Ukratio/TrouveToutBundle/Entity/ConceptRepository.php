@@ -74,6 +74,14 @@ class ConceptRepository extends EntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function getModifiedAt($id)
+    {
+        $queryBuilder = $this->createQueryBuilder('concept')
+                             ->where('concept.id = :id')
+                             ->setParameter('id', $id);
+        return $queryBuilder->getQuery()->getResult()[0]->getModifiedAt();
+    }
+
     public function findByIdWithCaract($id)
     {
 

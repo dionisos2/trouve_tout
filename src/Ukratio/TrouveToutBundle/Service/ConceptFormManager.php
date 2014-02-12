@@ -38,6 +38,10 @@ class ConceptFormManager
 
     public function saveConcept(Concept $concept)
     {
+        $date = new \DateTime();
+        $date->setTimezone(new \DateTimeZone('UTC'));
+
+        $concept->setModifiedAt($date);
         $this->em->persist($concept);
         $this->em->flush($concept);
 

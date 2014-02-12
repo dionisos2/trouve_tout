@@ -81,7 +81,7 @@ class ConceptController extends ControllerWithTools
         if ($form->isValid()) {
             $cfc->saveConcept($concept);
 
-            return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
+            return $this->redirect($this->generateUrl('edit_concept', array('ConceptId' => $concept->getId())));
         } else {
 
             return $cfc->arrayForTemplate($concept, $form);
@@ -90,16 +90,40 @@ class ConceptController extends ControllerWithTools
     }
 
     /**
-     * @Route("/modify/{id}", name="edit_concept", requirements={"id" = "\d+"})
+     * @Route("/modify/{conceptId}", name="edit_concept", requirements={"conceptId" = "\d+"})
      * @Method({"GET"})
-     * @ParamConverter("concept", options={"repository_method": "findByIdWithCaract"})
-     * @Template("TrouveToutBundle:TrouveTout:modifyConcept.html.twig")
      */
-    public function editConceptAction(Concept $concept)
+    public function editConceptAction($conceptId, Request $request)
     {
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
-        $form = $cfc->createForm($concept);
-        return $cfc->arrayForTemplate($concept, $form);
+        $response = new Response();
+
+        if ($this->get('security.context')->isGranted('ROLE_USER')) {
+            $response->setETag("connected");
+        } else {
+            $response->setETag("unconnected");
+        }
+
+        $conceptRepo = $this->getDoctrine()
+                            ->getRepository('TrouveToutBundle:Concept');
+        if (in_array($response->getEtag(), $request->getEtags())) {
+            $date = $conceptRepo->getModifiedAt($conceptId);
+            if($date == null) {
+                $date = new \DateTime();
+                $date->setTimezone(new \DateTimeZone('UTC'));
+            }
+            $response->setLastModified($date);
+        }
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        } else {
+            $concept = $conceptRepo->findByIdWithCaract($conceptId);
+            $cfc = $this->get('TrouveTout.ConceptFormManager');
+            $form = $cfc->createForm($concept);
+            $options = $cfc->arrayForTemplate($concept, $form);
+            return $this->render('TrouveToutBundle:TrouveTout:modifyConcept.html.twig', $options, $response);
+        }
+
     }
 
 
@@ -126,7 +150,7 @@ class ConceptController extends ControllerWithTools
             if ($type == Discriminator::$Research) {
                 return $this->redirect($this->generateUrl('run_with_id_research', array('id' => $concept->getId())));
             } else {
-                return $this->redirect($this->generateUrl('edit_concept', array('id' => $concept->getId())));
+                return $this->redirect($this->generateUrl('edit_concept', array('conceptId' => $concept->getId())));
             }
         } else {
             return $cfc->arrayForTemplate($concept, $form);
