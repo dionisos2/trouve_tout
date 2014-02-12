@@ -62,16 +62,16 @@ login:
   password: 'Mot de passe'
 
 research:
-  header.name: 'nom'
+  header.name: 'nom:'
   run: 'Lancer la recherche'
   save_and_run: 'Sauvegarder et lancer la recherche'
   run_again: 'Relancer la recherche (annule les changements)'
   modify_research: 'Modifier la recherche'
-  linkable: 'Connectabilité'
-  type: 'Type de concepts recherchés'
-  number: 'Cardinalité des concepts recherchés'
-  name: 'Nom de la recherche (en cas de sauvegarde)'
-  researched_name: 'Nom des concepts recherchés'
+  linkable: 'Connectabilité:'
+  type: 'Type de concepts recherchés:'
+  number: 'Nombre d’objets:'
+  name: 'Nom de la recherche (en cas de sauvegarde):'
+  researched_name: 'Nom des concepts recherchés:'
   table:
     name: 'tableau de recherche des %researchedType%s'
     ID: 'ID'
@@ -84,9 +84,9 @@ concept:
   delete: 'Supprimer'
   categories: 'Categories parentes'
   caracts: 'Caractéristiques'
-  name: 'Nom'
+  name: 'Nom:'
   linkable: 'Liable:'
-  number: 'Nombre'
+  number: 'Nombre:'
 
 test.hello: 'Hello !!'
 

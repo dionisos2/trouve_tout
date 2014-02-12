@@ -9,18 +9,17 @@ class="active"
 {% endblock %}
 
 {% block TrouveTout %}
-<a href="{{ path('delete_unamed_researches') }}" class="btn">
-  {{'tools.delete.researches' | trans}}
-</a>
-<br>
 
-<a href="{{ path('delete_orphan_elements') }}" class="btn">
-  {{'tools.delete.elements' | trans}}
-</a>
-<br>
+<form action="{{ path('delete_unamed_researches') }}" method="post">
+<input type="submit" class="btn" value="{{'tools.delete.researches' | trans}}">
+</form>
 
-<a href="{{ path('compute_specificities') }}" class="btn">
-  {{'tools.compute.specificities' | trans}}
-</a>
+<form action="{{ path('delete_orphan_elements') }}" method="post">
+<input type="submit" class="btn" value="{{'tools.delete.elements' | trans}}">
+</form>
+
+<form action="{{ path('compute_specificities') }}" method="post">
+<input type="submit" class="btn" value="{{'tools.compute.specificities' | trans}}">
+</form>
 
 {% endblock %}

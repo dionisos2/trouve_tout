@@ -7,13 +7,13 @@
 {% block TrouveTout %}
 
 <table>
-  <th>
+  <th valign="top">
     <div>
       {{ parent() }}
     </div>
   </th>
 
-  <th>
+  <th valign="top">
     {% if researchResults is defined %}
     <table class="table-bordered">
       <caption> {{ 'research.table.name' | trans({'%researchedType%': ("research.table." ~ research.researchedType) | lower | trans}) }}</caption>

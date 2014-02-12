@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
@@ -29,6 +30,8 @@ class ConceptController extends ControllerWithTools
      * @Route("/create_category", name="create_category")
      * @Method({"GET"})
      * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
+     * @Secure(roles="ROLE_USER")
+     * @Cache(smaxage=604800, maxage=3600, public=true)
      */
     public function createCategoryAction()
     {
@@ -40,6 +43,8 @@ class ConceptController extends ControllerWithTools
      * @Route("/create_set", name="create_set")
      * @Method({"GET"})
      * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
+     * @Secure(roles="ROLE_USER")
+     * @Cache(smaxage=604800, maxage=3600, public=true)
      */
     public function createSetAction()
     {
@@ -132,7 +137,7 @@ class ConceptController extends ControllerWithTools
     /**
      * @Route("/delete/{id}", name="delete_concept", requirements={"id" = "\d+"})
      * @Secure(roles="ROLE_USER")
-     * @Method({"GET"})
+     * @Method({"POST"})
      */
     public function deleteConcept(Request $request, Concept $concept)
     {

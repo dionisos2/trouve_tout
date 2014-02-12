@@ -87,15 +87,15 @@
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
-
-    <script src="{{ asset('bundles/trouvetout/js/jquery-1.9.1.js') }}"></script>
     {% include 'TrouveToutBundle:TrouveTout:phpTojs.js.twig' %}
-
 {% endblock %}
 
 
 {% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="{{ asset('bundles/trouvetout/css/styles.css') }}" type="text/css" />
+    {% stylesheets filter='cssrewrite, ?uglifycss'
+        'bundles/trouvetout/css/styles.css'
+        'css/bootstrap.min.css' %}
+
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
 {% endblock %}

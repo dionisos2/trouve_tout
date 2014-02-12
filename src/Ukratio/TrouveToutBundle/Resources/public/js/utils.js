@@ -32,3 +32,4 @@ function translate(sentence, lang) {
 		alert("language unknow")
 	}
 }
+

@@ -1,5 +1,10 @@
-<script src="{{ asset('bundles/trouvetout/js/utils.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/trouvetout/js/DynamicFormsManager.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/trouvetout/js/CaractsManager.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/trouvetout/js/CategoriesManager.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/trouvetout/js/main.js')}}" type="text/javascript"></script>
+{% javascripts filter='cssrewrite, ?uglifyjs2'
+  '@TrouveToutBundle/Resources/public/js/jquery-1.9.1.min.js'
+  '@TrouveToutBundle/Resources/public/js/utils.js'
+  '@TrouveToutBundle/Resources/public/js/DynamicFormsManager.js'
+  '@TrouveToutBundle/Resources/public/js/CaractsManager.js'
+  '@TrouveToutBundle/Resources/public/js/CategoriesManager.js'
+  '@TrouveToutBundle/Resources/public/js/main.js'
+%}
+  <script src="{{ asset_url}}" type="text/javascript"></script>
+{% endjavascripts %}

@@ -25,12 +25,24 @@ class ConceptSeekerController extends ControllerWithTools
      *
      * @Route("/create_research", name="create_research")
      * @Method({"GET"})
-     * @Template("TrouveToutBundle:TrouveTout:createConcept.html.twig")
      */
-    public function createResearchAction()
+    public function createResearchAction(Request $request)
     {
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
-        return $cfc->createConcept(Discriminator::$Research);
+        $response = new Response();
+
+        if ($this->get('security.context')->isGranted('ROLE_USER')) {
+            $response->setETag("connected");
+        } else {
+            $response->setETag("unconnected");
+        }
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        } else {
+            $cfc = $this->get('TrouveTout.ConceptFormManager');
+            $options = $cfc->createConcept(Discriminator::$Research);
+            return $this->render('TrouveToutBundle:TrouveTout:createConcept.html.twig', $options, $response);
+        }
     }
 
 
