@@ -50,9 +50,10 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
 
 	this.dynamicForms.find('li.' + this.liName).each(function(index) {
         self.addOnChangeEvent($(this), index);
-		if (self.getValue($(this), false) !== null) {
-			self.updateValueForm($(this), index, true);
-		}
+		//TOSEE
+		// if (self.getValue($(this), false) !== null) {
+		// 	self.updateValueForm($(this), index, true);
+		// }
     });
 }
 
