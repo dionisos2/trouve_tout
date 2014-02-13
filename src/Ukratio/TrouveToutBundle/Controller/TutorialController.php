@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
@@ -30,40 +31,45 @@ class TutorialController extends ControllerWithTools
 
     /**
      * @Route("/tutorial/{introduction}", requirements={"introduction" = "(introduction||)"}, defaults={"introduction" = "introduction"}, name="tutorial_introduction")
-     * @Template()
+     * @Method({"GET"})
      */
-	public function introductionAction()
+	public function introductionAction(Request $request)
 	{
-        return array();
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:introduction.html.twig');
 	}
 
     /**
      * @Route("/tutorial/add_category", name="tutorial_add_category")
-     * @Template()
+     * @Method({"GET"})
      */
-	public function addCategoryAction()
+	public function addCategoryAction(Request $request)
 	{
-        return array();
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:addCategory.html.twig');
 	}
 
     /**
      * @Route("/tutorial/create_category_furniture", name="tutorial_create_category_furniture")
      * @Method({"GET"})
-     * @Template()
      */
-	public function createCategoryFurnitureAction()
+	public function createCategoryFurnitureAction(Request $request)
 	{
-        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+        $self = $this;
+        $getOptions = function() use ($self)
+        {
+            $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
 
-        $concept = new Concept();
-        $concept->setType(Discriminator::$Category->getName());
+            $concept = new Concept();
+            $concept->setType(Discriminator::$Category->getName());
 
-        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+            $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
 
-        $form = $this->createForm($tutorialCategoryType, $concept);
+            $form = $this->createForm($tutorialCategoryType, $concept);
 
 
-        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+            return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:createCategoryFurniture.html.twig', $getOptions);
 	}
 
 
@@ -79,34 +85,45 @@ class TutorialController extends ControllerWithTools
 
     /**
      * @Route("/tutorial/add_category2", name="tutorial_add_category2")
-     * @Template()
+     * @Method({"GET"})
      */
-	public function addCategory2Action()
+	public function addCategory2Action(Request $request)
 	{
-        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
-        $concept = $this->getFurnitureCategory();
-        $form = $conceptFormManager->createForm($concept);
-        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+        $self = $this;
+        $getOptions = function() use ($self)
+        {
+            $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+            $concept = $this->getFurnitureCategory();
+            $form = $conceptFormManager->createForm($concept);
+            return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:addCategory2.html.twig', $getOptions);
 	}
 
     /**
      * @Route("/tutorial/create_category_wardrobe", name="tutorial_create_category_wardrobe")
      * @Method({"GET"})
-     * @Template()
      */
-	public function createCategoryWardrobeAction()
+	public function createCategoryWardrobeAction(Request $request)
 	{
-        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+        $self = $this;
+        $getOptions = function() use ($self)
+        {
+            $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
 
-        $concept = new Concept();
-        $concept->setType(Discriminator::$Category->getName());
-        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
-            array(array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category)));
+            $concept = new Concept();
+            $concept->setType(Discriminator::$Category->getName());
+            $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
+                array(array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category)));
 
-        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
-        $form = $this->createForm($tutorialCategoryType, $concept);
+            $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+            $form = $this->createForm($tutorialCategoryType, $concept);
 
-        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+            return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:createCategoryWardrobe.html.twig', $getOptions);
 	}
 
     /**
@@ -122,26 +139,31 @@ class TutorialController extends ControllerWithTools
     /**
      * @Route("/tutorial/modify_category_wardrobe", name="tutorial_modify_category_wardrobe")
      * @Method({"GET"})
-     * @Template()
      */
-	public function modifyCategoryWardrobeAction()
+	public function modifyCategoryWardrobeAction(Request $request)
 	{
-        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+        $self = $this;
+        $getOptions = function() use ($self)
+        {
+            $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
 
-        $concept = $this->getWardrobeCategoryBegin();
+            $concept = $this->getWardrobeCategoryBegin();
 
-        $subscriber = new AddCaractsOfCategories;
-        $subscriber->addCaractsForAllCategories($concept);
+            $subscriber = new AddCaractsOfCategories;
+            $subscriber->addCaractsForAllCategories($concept);
 
-        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
-            array(array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category)));
-        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+            $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
+                array(array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category)));
+            $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
 
-        $form = $this->createForm($tutorialCategoryType, $concept);
+            $form = $this->createForm($tutorialCategoryType, $concept);
 
 
-        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
-	}
+            return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:modifyCategoryWardrobe.html.twig', $getOptions);
+    }
 
     /**
      * @Route("/tutorial/modify_category_wardrobe", name="tutorial_verify_modified_category_wardrobe")
@@ -155,44 +177,55 @@ class TutorialController extends ControllerWithTools
 
     /**
      * @Route("/tutorial/upload_picture", name="tutorial_upload_picture")
-     * @Template()
+     * @Method({"GET"})
      */
-    public function uploadPictureAction()
+    public function uploadPictureAction(Request $request)
     {
-        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+        $self = $this;
+        $getOptions = function() use ($self)
+        {
+            $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
 
-        $concept = $this->getWardrobeCategoryModified();
-        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
-            array(array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category)));
+            $concept = $this->getWardrobeCategoryModified();
+            $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
+                array(array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category)));
 
-        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+            $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
 
-        $form = $this->createForm($tutorialCategoryType, $concept);
+            $form = $this->createForm($tutorialCategoryType, $concept);
 
 
-        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+            return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:uploadPicture.html.twig', $getOptions);
     }
 
 
     /**
      * @Route("/tutorial/upload_wardrobe_picture", name="tutorial_upload_wardrobe_picture")
      * @Method({"GET"})
-     * @Template()
      */
-    public function uploadWardrodePictureAction()
+    public function uploadWardrodePictureAction(Request $request)
     {
-        $tutorialConceptConceptType = $this->get('TrouveTout.tutorial.form.concept_concept');
+        $self = $this;
+        $getOptions = function() use ($self)
+        {
+            $tutorialConceptConceptType = $this->get('TrouveTout.tutorial.form.concept_concept');
 
-        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
-            array(array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category),
-                  array('name' => $this->trans('tutorial.input.wardrobe'), 'discriminator' => Discriminator::$Category)));
+            $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
+                array(array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category),
+                      array('name' => $this->trans('tutorial.input.wardrobe'), 'discriminator' => Discriminator::$Category)));
 
-        $form = $this->createFormBuilder()
-                     ->add('image', 'file', array('label' => 'upload_picture.picture'))
-                     ->add('category', $tutorialConceptConceptType, array('label' => 'upload_picture.category'))
-                     ->getForm();
+            $form = $this->createFormBuilder()
+                         ->add('image', 'file', array('label' => 'upload_picture.picture'))
+                         ->add('category', $tutorialConceptConceptType, array('label' => 'upload_picture.category'))
+                         ->getForm();
 
-        return array('form' => $form->createView(), 'tutorial' => true);
+            return array('form' => $form->createView(), 'tutorial' => true);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:uploadWardrodePicture.html.twig', $getOptions);
     }
 
     /**
@@ -224,38 +257,48 @@ class TutorialController extends ControllerWithTools
     /**
      * @Route("/tutorial/run_research", name="tutorial_run_research")
      * @Method({"GET"})
-     * @Template()
      */
-    public function runResearchAction()
+    public function runResearchAction(Request $request)
     {
-        $tutorialConceptConceptType = $this->get('TrouveTout.tutorial.form.concept_concept');
+        $self = $this;
+        $getOptions = function() use ($self)
+        {
+            $tutorialConceptConceptType = $this->get('TrouveTout.tutorial.form.concept_concept');
 
-        $form = $this->createFormBuilder()
-                     ->add('image', 'file', array('label' => 'upload_picture.picture'))
-                     ->add('category', $tutorialConceptConceptType, array('label' => 'upload_picture.category'))
-                     ->getForm();
+            $form = $this->createFormBuilder()
+                         ->add('image', 'file', array('label' => 'upload_picture.picture'))
+                         ->add('category', $tutorialConceptConceptType, array('label' => 'upload_picture.category'))
+                         ->getForm();
 
-        return array('form' => $form->createView(), 'tutorial' => true);
+            return array('form' => $form->createView(), 'tutorial' => true);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:runResearch.html.twig', $getOptions);
     }
 
     /**
      * @Route("/tutorial/create_research", name="tutorial_create_research")
      * @Method({"GET"})
-     * @Template()
      */
-	public function createResearchAction()
+	public function createResearchAction(Request $request)
 	{
-        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+        $self = $this;
+        $getOptions = function() use ($self)
+        {
+            $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
 
-        $concept = new Concept();
-        $concept->setType(Discriminator::$Research->getName());
-        $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(array(
-            array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category),
-            array('name' => $this->trans('tutorial.input.wardrobe'), 'discriminator' => Discriminator::$Category)));
+            $concept = new Concept();
+            $concept->setType(Discriminator::$Research->getName());
+            $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(array(
+                array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category),
+                array('name' => $this->trans('tutorial.input.wardrobe'), 'discriminator' => Discriminator::$Category)));
 
-        $form = $this->createForm('TrouveTout_Research', $concept);
+            $form = $this->createForm('TrouveTout_Research', $concept);
 
-        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+            return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:createResearch.html.twig', $getOptions);
         //TODO do the post function
 	}
 
@@ -272,44 +315,53 @@ class TutorialController extends ControllerWithTools
     /**
      * @Route("/tutorial/modify_category_furniture", name="tutorial_modify_category_furniture")
      * @Method({"GET"})
-     * @Template()
      */
-	public function modifyCategoryFurnitureAction()
+	public function modifyCategoryFurnitureAction(Request $request)
 	{
-        $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
-        $conceptRepo = $this->get('TrouveTout.tutorial.repository.concept');
+        $self = $this;
+        $getOptions = function() use ($self)
+        {
 
-        $conceptRepo->setConceptsByProperties(array(
-            array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category),
-            array('name' => $this->trans('tutorial.input.wardrobe'), 'discriminator' => Discriminator::$Category)));
+            $conceptFormManager = $this->get('TrouveTout.ConceptFormManager');
+            $conceptRepo = $this->get('TrouveTout.tutorial.repository.concept');
 
-        $concept = $this->getFurnitureCategory();
-        $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+            $conceptRepo->setConceptsByProperties(array(
+                array('name' => $this->trans('tutorial.input.furniture'), 'discriminator' => Discriminator::$Category),
+                array('name' => $this->trans('tutorial.input.wardrobe'), 'discriminator' => Discriminator::$Category)));
 
-        $form = $this->createForm($tutorialCategoryType, $concept);
+            $concept = $this->getFurnitureCategory();
+            $tutorialCategoryType = $this->get('TrouveTout.tutorial.form.category');
+
+            $form = $this->createForm($tutorialCategoryType, $concept);
 
 
-        return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+            return $conceptFormManager->arrayForTemplate($concept, $form) + array('tutorial' => true);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:modifyCategoryFurniture.html.twig', $getOptions);
 	}
 
     /**
      * @Route("/tutorial/congratulation/{route}", name="tutorial_congratulation")
      * @Method({"GET"})
-     * @Template()
      */
-	public function congratulationAction($route)
+	public function congratulationAction(Request $request, $route)
 	{
-        return array('route' => $route);
+        $getOptions = function() use ($route)
+        {
+            return array('route' => $route);
+        };
+
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:congratulation.html.twig', $getOptions);
 	}
 
     /**
      * @Route("/tutorial/end", name="tutorial_end")
      * @Method({"GET"})
-     * @Template()
      */
-	public function endAction()
+	public function endAction(Request $request)
 	{
-        return array();
+        return $this->cachedResponse($request, 'TrouveToutBundle:Tutorial:end.html.twig');
 	}
 
     private function trans($sentence)

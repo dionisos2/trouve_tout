@@ -57,19 +57,7 @@ class TrouveToutController extends ControllerWithTools
      */
 	public function homeAction(Request $request)
 	{
-        $response = new Response();
-
-        if ($this->get('security.context')->isGranted('ROLE_USER')) {
-            $response->setETag("connected");
-        } else {
-            $response->setETag("unconnected");
-        }
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        } else {
-            return $this->render('TrouveToutBundle:TrouveTout:home.html.twig', array(), $response);
-        }
+        return $this->cachedResponse($request, 'TrouveToutBundle:TrouveTout:home.html.twig');
     }
 
     /**
