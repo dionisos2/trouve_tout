@@ -96,6 +96,7 @@ CaractsManager.prototype.generalize = function (caractForm, index, ownerElementF
 		this.updateValueForm(caractForm, index, false);
 		this.setValue(caractForm, value, false);
 		this.updateValueForm(caractForm, index, true);
+		enableSave();
 	}
 }
 
