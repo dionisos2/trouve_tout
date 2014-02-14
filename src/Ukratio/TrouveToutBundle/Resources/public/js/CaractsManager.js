@@ -392,6 +392,8 @@ CaractsManager.prototype.updateValueForm = function (caractForm, index, isChildE
 	}
 
 	if (typeof(completeElement) !== 'undefined') {
+		$('#ajax-loading').show();
+		$('#ajax-loading').prependTo(caractForm);
 		$.ajax({
 			async: false,
 			type: 'POST',
@@ -404,10 +406,14 @@ CaractsManager.prototype.updateValueForm = function (caractForm, index, isChildE
 
 			success: function(elementsList, textStatus, jqXHR) {
 				self.updateValueFormCallBack(caractForm, elementsList, index, isChildElement);
+				$('#ajax-loading').hide();
+				$('#ajax-loading').prependTo($('body'));
 			},
 
 			error: function(jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
+				$('#ajax-loading').hide();
+				$('#ajax-loading').prependTo($('body'));
 			}
 		})
 	}

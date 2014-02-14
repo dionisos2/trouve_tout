@@ -81,7 +81,7 @@ class ConceptController extends ControllerWithTools
         if ($form->isValid()) {
             $cfc->saveConcept($concept);
 
-            return $this->redirect($this->generateUrl('edit_concept', array('ConceptId' => $concept->getId())));
+            return $this->redirect($this->generateUrl('edit_concept', array('conceptId' => $concept->getId())));
         } else {
 
             return $cfc->arrayForTemplate($concept, $form);
