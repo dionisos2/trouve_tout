@@ -55,6 +55,11 @@ services:
     tags:
       - {name: form.type, alias: TrouveTout_ConceptConcept}
 
+  TrouveTout.form.sorted_concept:
+    class: Ukratio\TrouveToutBundle\Form\Type\SortedConceptType
+    arguments: [@TrouveTout.repository.concept, @doctrine.orm.entity_manager]
+    tags:
+      - {name: form.type, alias: TrouveTout_SortedConcept}
 
   TrouveTout.repository.concept:
     class: Ukratio\TrouveToutBundle\Entity\ConceptRepository

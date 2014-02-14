@@ -16,12 +16,34 @@ use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Ukratio\TrouveToutBundle\Entity\Type;
+
+use Ukratio\TrouveToutBundle\Form\Type\SortedConceptType;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class AjaxController extends ControllerWithTools
 {
 
+    /**
+     * @Route("/ajax_get_owner_category", name="ajax_get_owner_category")
+     * @Method({"POST"})
+     */
+    public function ajaxGetOwnerCategoryUrl()
+    {
+        $conceptRepo = $this->getDoctrine()->getRepository('TrouveToutBundle:Concept');
+
+        $conceptId = $_POST['conceptId'];
+        if ($conceptId == 'empty') {
+            $conceptId = null;
+        }
+        $concept = $conceptRepo->findOneById($conceptId);
+
+        $sortedConceptType = $this->get('TrouveTout.form.sorted_concept');
+        $choices = $sortedConceptType->getChoicesAndCategories($concept)['choices'];
+
+        return new Response(json_encode($choices));
+    }
 
     /**
      * @Route("/ajax_modify_caract", name="ajax_modify_caract")

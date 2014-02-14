@@ -1,6 +1,13 @@
 <script type="text/javascript">
 
-ajaxUrl = '{{ url('ajax_modify_caract') }}';
+ajaxModifyCaractUrl = '{{ url('ajax_modify_caract') }}';
+ajaxGetOwnerCategoryUrl = '{{ url('ajax_get_owner_category') }}';
+
+{% if (concept is defined) and (concept.id != 0) %}
+conceptId = {{ concept.id }};
+{% else %}
+conceptId = null;
+{% endif %}
 
 {% if app.user %}
 loggedUser = true;

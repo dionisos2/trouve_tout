@@ -397,7 +397,7 @@ CaractsManager.prototype.updateValueForm = function (caractForm, index, isChildE
 		$.ajax({
 			async: false,
 			type: 'POST',
-			url: ajaxUrl,
+			url: ajaxModifyCaractUrl,
 			dataType: 'json',
 			data: {'completeElement': completeElement,
 				   'type': this.getType(caractForm),

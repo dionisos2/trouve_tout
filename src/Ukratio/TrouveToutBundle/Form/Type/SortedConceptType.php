@@ -16,6 +16,7 @@ class SortedConceptType extends AbstractType
 {
 
     private $conceptRepo;
+    private $entityManager;
 
     public function __construct(ConceptRepository $conceptRepo, EntityManager $entityManager)
     {
@@ -23,10 +24,9 @@ class SortedConceptType extends AbstractType
         $this->entityManager = $entityManager;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function getChoicesAndCategories(Concept $childConcept = null)
     {
-
-        $conceptWithSpecificities = $this->getSortedConceptsWithSpecificities($options['childConcept']);
+        $conceptWithSpecificities = $this->getSortedConceptsWithSpecificities($childConcept);
         $categories = $conceptWithSpecificities['categories'];
         $specificities = $conceptWithSpecificities['specificities'];
 
@@ -34,10 +34,17 @@ class SortedConceptType extends AbstractType
         $choices_name = array_map(function($choice, $specificity){return $choice . '->' . round($specificity, 3);}, $choices, $specificities);
         $choices = array_combine($choices, $choices_name);
 
-        $builder->add('name', 'choice', array('choices' => $choices,
+        return array('choices' => $choices, 'categories' => $categories);
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $choicesAndCategories = $this->getChoicesAndCategories($options['childConcept']);
+
+        $builder->add('name', 'choice', array('choices' => $choicesAndCategories['choices'],
                                               'label' => ' '));
 
-        $categories_copy = $categories;
+        $categories_copy = $choicesAndCategories['categories'];
         $builder->addEventSubscriber(new CategoriesGetter($categories_copy, $this->conceptRepo, $this->entityManager));
 
     }
