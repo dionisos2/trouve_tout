@@ -65,7 +65,6 @@ class TrouveToutController extends ControllerWithTools
      * @Template()
      * @Secure(roles="ROLE_USER")
      * @Method({"GET"})
-     * @Cache(smaxage=604800)
      */
 	public function uploadAction(Request $request)
 	{
@@ -79,7 +78,7 @@ class TrouveToutController extends ControllerWithTools
 
     /**
      * @Route("/upload", name="do_upload")
-     * @Template()
+     * @Template("TrouveToutBundle:TrouveTout:upload.html.twig")
      * @Secure(roles="ROLE_USER")
      * @Method({"POST"})
      */

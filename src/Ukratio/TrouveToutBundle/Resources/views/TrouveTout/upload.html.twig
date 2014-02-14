@@ -10,15 +10,15 @@ class="active"
 
 {% block TrouveTout %}
 <form method="post" {{ form_enctype(form) }}>
-  {{ form_widget(form) }} 
+  {{ form_widget(form) }}
   <input type="submit" class="btn btn-primary" value="envoyer" />
 </form>
 
 {% if imageName is defined %}
 <p> {{ 'upload_picture.success' | trans }} </p>
 <a href="{{ asset('img/')}}{{imagePath}}{{imageName}}">
-<img src="{{ asset('img/')}}{{imagePath}}{{imageName}}" alt="uploaded picture" height="42" width="42"> 
-</a> 
+<img src="{{ asset('img/')}}{{imagePath}}{{imageName}}" alt="uploaded picture" height="42" width="42">
+</a>
 {% endif %}
 
 {% if invalideType is defined %}
@@ -28,3 +28,4 @@ class="active"
 {% endif %}
 
 {% endblock %}
+
