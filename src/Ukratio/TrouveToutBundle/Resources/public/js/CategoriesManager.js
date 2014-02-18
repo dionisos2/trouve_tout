@@ -1,29 +1,53 @@
 function CategoriesManager() {
 	DynamicFormsManager.call(this, 'categories', 'category', 'Ajouter une catégorie parente', 'Supprimer la catégorie'); //TODO traduction
-	this.addOwnerCategoriesEvent();
 }
+
+CategoriesManager.prototype._parentMethods = DynamicFormsManager.prototype;
 
 $.extend(CategoriesManager.prototype, DynamicFormsManager.prototype);
 
-CategoriesManager.prototype.addOwnerCategoriesEvent = function() {
-	var self = this;
+CategoriesManager.prototype._super = function() {
+	var methodName = arguments[0];
+	var parameters = arguments[1];
+	return this._parentMethods[methodName].apply(this, parameters);
+}
 
-	this.dynamicForms.find('li.' + this.liName).each(function(index) {
-        self.addEvents($(this), index);
-	});
+CategoriesManager.prototype.addButtonsForDynamicForms = function () {
+	var self = this;
+	this._super('addButtonsForDynamicForms');
+
+	this.dynamicForms.find('li.category').each(function(index) {
+        self.addOnChangeEvent($(this), index);
+    });
 
 	this.addDynamicFormLink.on('click', function(event) {
         self.updateTemplateAndOwnerCategories(null);
     });
 }
 
-CategoriesManager.prototype.addEvents = function (categoryForm, index) {
+CategoriesManager.prototype.addOnChangeEvent = function (categoryForm, index) {
 	var self = this;
 
-	categoryForm.find('select').on('click', function (event) {
+	categoryForm.find('select').off('change').on('change', function (event) {
+		enableSave();
+	});
+
+	categoryForm.find('select').off('click').on('click', function (event) {
 		self.updateTemplateAndOwnerCategories(categoryForm);
 	});
 }
+
+CategoriesManager.prototype.addDynamicForm = function () {
+
+	result = this._super('addDynamicForm');
+	this.addOnChangeEvent(result.dynamicFormLi, result.index);
+
+	return result;
+}
+
+CategoriesManager.prototype.reloadForm = function (categoryForm, index) {
+}
+
 
 CategoriesManager.prototype.updateTemplateAndOwnerCategories = function (categoryForm) {
 	var self = this;
@@ -60,11 +84,12 @@ CategoriesManager.prototype.updateTemplateAndOwnerCategoriesCallBack = function 
 	var self = this;
 
 	// delete events
-	this.dynamicForms.find('li.' + this.liName).find('select').off();
+	this.dynamicForms.find('li.' + this.liName).find('select').off('click');
 
 	this.addDynamicFormLink.off()
 	this.addDynamicFormLink.on('click', function(event) {
 		self.addDynamicForm();
+		enableSave();
     });
 
 	this.changeOwnerCategoryForms(categoriesList);
