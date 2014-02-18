@@ -48,6 +48,7 @@ caract:
   prefix: 'Préfixe:'
   unit: 'Unité:'
   reload: 'Recharger les listes déroulantes'
+  id: 'Identifiant'
 
 tools:
   success: 'L’action s’est effectuée avec succès !'

@@ -1,6 +1,9 @@
 <div class="well">
   <form method="post" {{ form_enctype(form) }}>
     <div class="well">
+      {% if concept.id != 0 %}
+      <h3><center>{{"caract.id" | trans }} : {{ concept.id }}</center></h3>
+      {% endif %}
       {% block specific %}{% endblock %}
 
       <h3>{{ 'concept.categories' | trans }}</h3>

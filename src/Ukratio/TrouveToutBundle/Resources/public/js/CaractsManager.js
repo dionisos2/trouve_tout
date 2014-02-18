@@ -54,6 +54,20 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
     });
 }
 
+
+CaractsManager.prototype.reloadPicture = function (caractForm) {
+	var pictureForm, pictureSrc;
+
+	pictureForm = caractForm.find('[name=caract_picture]');
+
+	pictureSrc = this.getParentElements(caractForm);
+	pictureSrc.unshift(this.getValue(caractForm, false));
+	pictureSrc.reverse();
+	pictureSrc = pictureSrc.join("/");
+	pictureForm.attr("src", pictureUrl + pictureSrc);
+	pictureForm.attr("alt", pictureSrc);
+}
+
 CaractsManager.prototype.reloadForm = function (caractForm, index) {
 	var value, childValue;
 
@@ -115,6 +129,10 @@ CaractsManager.prototype.generalize = function (caractForm, index, ownerElementF
 		this.setValue(caractForm, value, false);
 		this.updateValueForm(caractForm, index, true);
 		enableSave();
+
+		if (this.getType(caractForm) == "picture") {
+			this.reloadPicture(caractForm);
+		}
 	}
 }
 
@@ -131,6 +149,10 @@ CaractsManager.prototype.specifyValue = function (caractForm, index) {
 		this.setValue(caractForm, childValue, false);
 		this.updateValueForm(caractForm, index, true);
 		this.setValue(caractForm, "", true);
+	}
+
+	if (this.getType(caractForm) == "picture") {
+		this.reloadPicture(caractForm);
 	}
 }
 
@@ -407,7 +429,12 @@ CaractsManager.prototype.getSecondValueForm = function (caractForm, isChildEleme
 }
 
 CaractsManager.prototype.modifyValue = function (caractForm, index) {
+	var type = this.getType(caractForm);
 	this.updateValueForm(caractForm, index, true);
+
+	if (type == 'picture') {
+		this.reloadPicture(caractForm);
+	}
 }
 
 CaractsManager.prototype.updateValueForm = function (caractForm, index, isChildElement) {
