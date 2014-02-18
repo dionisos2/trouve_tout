@@ -15,7 +15,7 @@
 
   <th valign="top">
     {% if researchResults is defined %}
-    <table class="table-bordered">
+    <table class="table table-bordered">
       <caption> {{ 'research.table.name' | trans({'%researchedType%': ("research.table." ~ research.researchedType) | lower | trans}) }}</caption>
 
       <colgroup>
@@ -50,13 +50,15 @@
         {% for value in conceptLine.line %}
         <td>
           {% if value is iterable %}
-          {% if value[1] == 'date' %}
-          {{ value[0] | date('d/m/Y H:i') }}
-          {% else %}
-          {{ value[0] }}
-          {% endif %}
-          {% else %}
-          {{ value }}
+            {% if value[1] == 'date' %}
+            {{ value[0] | date('d/m/Y H:i') }}
+            {% elseif value[1] == 'object' %}
+            {{ value[0] }}
+            {% else %}
+            {{ value[0] }}
+            {% endif %}
+            {% else %}
+            {{ value }}
           {% endif %}
         </td>
         {% endfor %}

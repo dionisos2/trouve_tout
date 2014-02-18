@@ -99,7 +99,7 @@ class ResearchResults
                         $type = $caract->getType();
                         $element = $caract->getValue();
                         if ($element != null) {
-                            if (in_array($type, array('simple','picture','object'))) {
+                            if (in_array($type, array('name','picture','object'))) {
                                 $path = $element->getPath();
                                 $path = array_reverse($path);
                                 $path = implode('/', $path);
