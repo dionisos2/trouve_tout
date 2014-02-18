@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 use Ukratio\ToolBundle\Validator as MyAssert;
 use Ukratio\TrouveToutBundle\Entity\Prefix;
-use Ukratio\TrouveToutBundle\Entity\Unit;
 use Ukratio\TrouveToutBundle\Entity\Type;
 
 
@@ -46,7 +45,6 @@ class Caract
      * @var string
      *
      * @ORM\Column(name="unit", type="string", length=255, nullable=true)
-     * @MyAssert\TypeEnum(enumName="Ukratio\TrouveToutBundle\Entity\Unit")
      */
     private $unit;
 

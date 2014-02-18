@@ -66,6 +66,7 @@ CaractsManager.prototype.reloadPicture = function (caractForm) {
 	pictureSrc = pictureSrc.join("/");
 	pictureForm.attr("src", pictureUrl + pictureSrc);
 	pictureForm.attr("alt", pictureSrc);
+	pictureForm.parent().attr("href", pictureUrl + pictureSrc);
 }
 
 CaractsManager.prototype.reloadForm = function (caractForm, index) {

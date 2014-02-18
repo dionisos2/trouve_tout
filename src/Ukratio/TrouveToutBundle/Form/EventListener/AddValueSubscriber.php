@@ -60,7 +60,7 @@ class AddValueSubscriber implements EventSubscriberInterface
 
                 $form->add($this->factory->createNamed('prefix', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix'), null, array('label' => 'caract.prefix', 'auto_initialize' => false)));
 
-                $form->add($this->factory->createNamed('unit', new EnumType('Ukratio\TrouveToutBundle\Entity\Unit'), null, array('label' => 'caract.unit', 'auto_initialize' => false)));
+                $form->add($this->factory->createNamed('unit', 'text', null, array('label' => 'caract.unit', 'auto_initialize' => false, 'required' => false)));
             }
         }
     }
@@ -87,7 +87,7 @@ class AddValueSubscriber implements EventSubscriberInterface
 
             $form->add($this->factory->createNamed('prefix', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix'), null, array('label' => 'caract.prefix', 'auto_initialize' => false)));
 
-            $form->add($this->factory->createNamed('unit', new EnumType('Ukratio\TrouveToutBundle\Entity\Unit'), null, array('label' => 'caract.unit', 'auto_initialize' => false)));
+            $form->add($this->factory->createNamed('unit', 'text', null, array('label' => 'caract.unit', 'auto_initialize' => false, 'required' => false)));
         }
     }
 }

@@ -3,7 +3,6 @@ namespace Ukratio\TrouveToutBundle\Tests\Entity;
 
 use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\Type;
-use Ukratio\TrouveToutBundle\Entity\Unit;
 use Ukratio\TrouveToutBundle\Constant;
 use Ukratio\ToolBundle\Tests\ValidatorAwareTestCase;
 
@@ -104,9 +103,9 @@ class CaractTest extends ValidatorAwareTestCase
      */
     public function testGetAndSetUnit()
     {
-        $this->caract0->setUnit(Unit::$mètre->getName());
+        $this->caract0->setUnit("plop");
         $this->assertEquals('mètre', $this->caract0->getUnit());
-        $this->caract0->setUnit(Unit::$∅->getName());
+        $this->caract0->setUnit("plop");
         $this->assertEquals('∅', $this->caract0->getUnit());
         $this->valide($this->caract0);
     }

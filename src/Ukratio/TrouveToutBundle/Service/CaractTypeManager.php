@@ -145,7 +145,7 @@ class CaractTypeManager
 
         $prototypeOfImprecision = $builder->create('__name__', 'number', array('label' => 'caract.imprecision'));
         $prototypeOfPrefix = $builder->create('__name__', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix'), array('label' => 'caract.prefix'));
-        $prototypeOfUnit = $builder->create('__name__', new EnumType('Ukratio\TrouveToutBundle\Entity\Unit'), array('label' => 'caract.unit'));
+        $prototypeOfUnit = $builder->create('__name__', 'text', array('label' => 'caract.unit', 'required' => false));
 
         foreach(Type::getListOfElement() as $element)
         {

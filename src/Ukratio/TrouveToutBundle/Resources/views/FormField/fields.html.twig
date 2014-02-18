@@ -83,13 +83,20 @@
 <a href="{{ asset('img/')}}{{image}}">
   <img src="{{ asset('img/')}}{{image}}" name="caract_picture" alt="{{image}}" height="100" width="100">
 </a>
+<br>
+{% else %}
+<a href="{{ asset('img/')}}">
+  <img src="{{ asset('img/')}}" name="caract_picture" alt="" height="100" width="100">
+</a>
 {% endif %}
 
 {% if objects is defined %}
 {% for object in objects %}
 <a href="{{ path('edit_concept', {conceptId: object.id}) }}">{{object.name}}</a>/
 {% endfor %}
+<br>
 {% endif %}
+
 
 {{ form_rest(form) }}
 {% endspaceless %}
