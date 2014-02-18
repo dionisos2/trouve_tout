@@ -96,14 +96,22 @@ class ResearchResults
                 {
                     $caract = $concept->getCaract($name);
                     if ($caract != null) {
+                        $type = $caract->getType();
                         $element = $caract->getValue();
                         if ($element != null) {
-                            return implode('/', $element->getPath());
+                            if (in_array($type, array('simple','picture','object'))) {
+                                $path = $element->getPath();
+                                $path = array_reverse($path);
+                                $path = implode('/', $path);
+                                return array($path, $type);
+                            } else {
+                                return array($element->getValue(), $type);
+                            }
                         } else {
-                            return 'o';
+                            return array('o', $type);
                         }
                     } else {
-                        return 'X';
+                        return array('X', 'no type');
                     }
                 };
             }

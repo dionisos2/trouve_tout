@@ -7,7 +7,7 @@
 {% block TrouveTout %}
 
 <table>
-  <th valign="top">
+  <th valign="top" align="left">
     <div>
       {{ parent() }}
     </div>
@@ -36,14 +36,28 @@
       {% for conceptLine in researchResults.conceptLines %}
       <tr>
         <td>
+          {% if conceptLine.concept.type == 'Research' %}
+          <a href="{{ path('run_with_id_research', {id: conceptLine.concept.id}) }}">
+            {{ conceptLine.concept.id }}
+          </a>
+          {% else %}
           <a href="{{ path('edit_concept', {conceptId: conceptLine.concept.id}) }}">
             {{ conceptLine.concept.id }}
           </a>
+          {% endif %}
         </td>
 
         {% for value in conceptLine.line %}
         <td>
+          {% if value is iterable %}
+          {% if value[1] == 'date' %}
+          {{ value[0] | date('d/m/Y H:i') }}
+          {% else %}
+          {{ value[0] }}
+          {% endif %}
+          {% else %}
           {{ value }}
+          {% endif %}
         </td>
         {% endfor %}
       </tr>

@@ -16,6 +16,9 @@ h1 {
 	display: inline-table;
 }
 
+.concept {
+	min-width:600px;
+}
 .separation {
 	width:100%;
 	color:black;
