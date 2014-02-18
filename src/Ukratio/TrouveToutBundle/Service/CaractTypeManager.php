@@ -186,23 +186,24 @@ class CaractTypeManager
 
     public function getChoicesFor(Type $type, $path, $isChildElement)
     {
-
-        if ($path == null) { //TODO should be in the repo
-            $elementChoices = $this->elementRepo->findHeads();
-        } else {
-            $element = $this->elementRepo->findByPath($path, true);
-
-            if($element !== null) {
-                $elementChoices = $this->elementRepo->findMoreSpecifics($element);
+        if (in_array($type, array(Type::$name))) {
+            if ($path == null) { //TODO should be in the repo
+                $elementChoices = $this->elementRepo->findHeads();
             } else {
-                $elementChoices = array();
+                $element = $this->elementRepo->findByPath($path, true);
+
+                if($element !== null) {
+                    $elementChoices = $this->elementRepo->findMoreSpecifics($element);
+                } else {
+                    $elementChoices = array();
+                }
             }
+
+
+            $choices = array_map(function(Element $element) { return (string) $element->getValue();}, $elementChoices);
+
+            $choices = array_combine($choices, $choices);
         }
-
-
-        $choices = array_map(function(Element $element) { return (string) $element->getValue();}, $elementChoices);
-
-        $choices = array_combine($choices, $choices);
 
         switch ($type) {
             case Type::$name:
@@ -216,6 +217,7 @@ class CaractTypeManager
                 $choices = array_map(function (Element $element) {return $element->getValue();}, $this->elementManager->filesIn($path));
 
                 $choices = array_combine($choices, $choices);
+
                 if ($isChildElement) {
                     $choices = array('' => '') + $choices;
                 }

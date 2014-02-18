@@ -12,8 +12,8 @@ h1 {
 
 }
 
-.enligne *{
-	display: inline;
+.enligne > * {
+	display: inline-table;
 }
 
 .separation {

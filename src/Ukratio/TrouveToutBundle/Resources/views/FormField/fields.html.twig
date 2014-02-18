@@ -1,5 +1,16 @@
 {% extends 'form_div_layout.html.twig' %}
 
+{% block Tool_ChoiceOrText_widget %}
+<div class="enligne" name="choice_or_text">
+{{ form_label(form.choice) }}
+{{ form_widget(form.choice) }}
+{{ form_errors(form.choice) }}
+{{ form_label(form.text) }}
+{{ form_widget(form.text) }}
+{{ form_errors(form.text) }}
+</div>
+{% endblock %}
+
 {% block TrouveTout_Element_widget %}
 {% spaceless %}
 {{ parent() }}
@@ -33,25 +44,26 @@
 
 <div class="enligne">
 {% if form.selected is defined %}
-{{ form_row(form.selected) }}
+{{ form_label(form.selected) }}
+{{ form_widget(form.selected) }}
+{{ form_errors(form.selected) }}
 {% endif %}
 
 {% if form.byDefault is defined %}
-| {{ form_row(form.byDefault) }} |
+{{ form_label(form.byDefault) }}
+{{ form_widget(form.byDefault) }}
+{{ form_errors(form.byDefault) }}
 {% endif %}
 
 {% if form.specificity is defined %}
-{{ form_row(form.specificity) }}
+{{ form_label(form.specificity) }}
+{{ form_widget(form.specificity) }}
+{{ form_errors(form.specificity) }}
 {% endif %}
 </div>
 
 {% if form.value is defined %}
 {{ form_row(form.value) }}
-{% if form.imprecision is defined %}
-<div class="enligne">
-{{ form_row(form.imprecision) }}
-</div>
-{% endif %}
 {% else %}
 <div>
   <label class="required">{{'caract.value' | trans}}</label>
@@ -66,8 +78,11 @@
 {{ form_errors(form) }}
 
 
+
 {% if image is defined %}
-<img src="{{ asset('img/')}}{{image}}" alt="caract image: {{image}}" height="100" width="100">
+<a href="{{ asset('img/')}}{{image}}">
+  <img src="{{ asset('img/')}}{{image}}" alt="caract image: {{image}}" height="100" width="100">
+</a>
 {% endif %}
 
 {% if objects is defined %}
@@ -75,15 +90,6 @@
 <a href="{{ path('edit_concept', {conceptId: object.id}) }}">{{object.name}}</a>/
 {% endfor %}
 {% endif %}
-
-<div class="enligne">
-{% endspaceless %}
-{% if form.prefix is defined %}
-  {{ form_row(form.prefix) }} {{ form_row(form.unit) }}
-{% endif %}
-{% spaceless %}
-</div>
-
 
 {{ form_rest(form) }}
 {% endspaceless %}

@@ -17,6 +17,8 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
 use Ukratio\TrouveToutBundle\Entity\Element;
+use Ukratio\TrouveToutBundle\Service\Tools;
+
 use Ukratio\ToolBundle\Form\Type\ChoiceOrTextType;
 
 class TrouveToutController extends ControllerWithTools
@@ -94,13 +96,14 @@ class TrouveToutController extends ControllerWithTools
         $category = $form->getData()['category']->getMoreGeneral();
 
         if (substr($image->getMimeType(), 0, 5) == 'image') {
-            $subDir = array_map(function($x){return $x->getName();},  $category->getAllMoreGeneralConcepts(-1));
-            $subDir = array_reverse($subDir);
+            $subDir = $category->getName();
 
             $webPath = $this->get('kernel')->getRootDir() . '/../web/img/';
 
-            $imagePath = 'picture/' . implode('/', $subDir) . '/';
-            $imageName = $image->getClientOriginalName();
+            $imagePath = Tools::stripAccents('picture/' . $subDir . '/');
+            $imageName = Tools::stripAccents($image->getClientOriginalName());
+
+            //TOSEE php problem with accent in start of string
             $image->move($webPath . $imagePath, $imageName);
             return array('form' => $form->createView(),
                          'imageName' => "$imageName",
@@ -185,3 +188,4 @@ class TrouveToutController extends ControllerWithTools
 	}
 
 }
+

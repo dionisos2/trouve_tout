@@ -44,9 +44,10 @@ caract:
   byDefault: 'Par défaut:'
   type: 'Type:'
   specificity: 'Spécificité:'
-  imprecision: '± '
+  imprecision: 'imprécision'
   prefix: 'Préfixe:'
   unit: 'Unité:'
+  reload: 'Recharger les listes déroulantes'
 
 tools:
   success: 'L’action s’est effectuée avec succès !'

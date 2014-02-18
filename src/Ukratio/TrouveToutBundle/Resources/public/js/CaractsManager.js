@@ -35,6 +35,7 @@ function CaractsManager() {
 	this.prototypeOf['unit'] = $('form').data('prototype of unit');
 }
 
+
 CaractsManager.prototype._parentMethods = DynamicFormsManager.prototype;
 $.extend(CaractsManager.prototype, DynamicFormsManager.prototype);
 
@@ -48,30 +49,47 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
 	var self = this;
 	this._super('addButtonsForDynamicForms');
 
-	this.dynamicForms.find('li.' + this.liName).each(function(index) {
+	this.dynamicForms.find('li.caract').each(function(index) {
         self.addOnChangeEvent($(this), index);
-		//TOSEE
-		// if (self.getValue($(this), false) !== null) {
-		// 	self.updateValueForm($(this), index, true);
-		// }
     });
+}
+
+CaractsManager.prototype.reloadForm = function (caractForm, index) {
+	var value, childValue;
+
+	type = this.getType(caractForm);
+	value = this.getValue(caractForm, false);
+	childValue = this.getValue(caractForm, true);
+
+	if (this.needUpdate(type)) {
+		this.updateValueForm(caractForm, index, false);
+		this.setValue(caractForm, value, false);
+
+		this.updateValueForm(caractForm, index, true);
+		this.setValue(caractForm, childValue, true);
+	}
 }
 
 
 CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 	var self = this;
+	var valueForm, childValueForm;
 
-	caractForm.find(':input').find('[name!=remove_caract]').off();
+	caractForm.find(':input:not(:button)').off().on('change', function (event) {
+		enableSave();
+	});
 
 	caractForm.find('[id$=_type]').on('change', function (event) {
 		self.changeValueType(caractForm, index);
 	});
 
-	caractForm.find('[id$=value_value]').on('change', function (event) {
+	valueForm = this.getValueForm(caractForm, false);
+	valueForm.on('change', function (event) {
 		self.modifyValue(caractForm, index);
 	});
 
-	caractForm.find('[id$=value_childValue]').on('change', function (event) {
+	childValueForm = this.getValueForm(caractForm, true);
+	childValueForm.on('change', function (event) {
 		self.specifyValue(caractForm, index);
 	});
 
@@ -79,17 +97,17 @@ CaractsManager.prototype.addOnChangeEvent = function (caractForm, index) {
 		self.generalize(caractForm, index, this);
 	});
 
-	caractForm.find(':input').on('change', function (event) {
-		enableSave();
-	});
 }
 
+CaractsManager.prototype.needUpdate = function (type) {
+	return ((type == 'name') || (type == 'object') || (type == 'picture'));
+}
 
 CaractsManager.prototype.generalize = function (caractForm, index, ownerElementForm) {
 	var value, type;
 	type = this.getType(caractForm);
 
-	if ((type != 'number') && (type != 'text') && (type != 'date')) {
+	if (this.needUpdate(type)) {
 		value = ownerElementForm.value;
 		$(ownerElementForm).parent().prevAll().remove();
 		$(ownerElementForm).parent().remove();
@@ -251,6 +269,11 @@ CaractsManager.prototype.changeValueType = function (caractForm, index) {
 	value = this.getValue(caractForm, false);
 	childValue = this.getValue(caractForm, true);
 
+	this.changeOwnerElements(caractForm, index);
+
+	this.changeOrBuildValueForm(caractForm, index, false);
+	this.changeOrBuildValueForm(caractForm, index, true);
+
 	if (this.getType(caractForm) == 'number') {
 		this.buildNumberForms(caractForm, index);
 		this.updateNumberForms(caractForm, index);
@@ -258,18 +281,15 @@ CaractsManager.prototype.changeValueType = function (caractForm, index) {
 		this.deleteNumberForms(caractForm, index);
 	}
 
-	this.changeOwnerElements(caractForm, index);
-
-	this.changeOrBuildValueForm(caractForm, index, false);
-	this.changeOrBuildValueForm(caractForm, index, true);
-
-	if (type != 'date') {
+	if (this.needUpdate(type)) {
 		this.updateValueForm(caractForm, index, false);
+	}
 		this.setValue(caractForm, value, false);
 
+	if (this.needUpdate(type)) {
 		this.updateValueForm(caractForm, index, true);
-		this.setValue(caractForm, childValue, true);
 	}
+		this.setValue(caractForm, childValue, true);
 }
 
 CaractsManager.prototype.getParentElements = function (caractForm) {
@@ -290,11 +310,7 @@ CaractsManager.prototype.setValue = function(caractForm, value, isChildElement) 
 	var options;
 	var selectForm;
 
-	if(isChildElement) {
-		valueForm = caractForm.find('[id$=value_childValue]');
-	} else {
-		valueForm = caractForm.find('[id$=value_value]');
-	}
+	valueForm = this.getValueForm(caractForm, isChildElement);
 
 
 	if(valueForm.length == 0) {
@@ -323,12 +339,7 @@ CaractsManager.prototype.getValue = function(caractForm, isChildElement) {
 	var element;
 	var valueForm;
 
-	if(isChildElement) {
-		valueForm = caractForm.find('[id$=value_childValue]');
-	} else {
-		valueForm = caractForm.find('[id$=value_value]');
-	}
-
+	valueForm = this.getValueForm(caractForm, isChildElement);
 
 	if(valueForm.length == 0) {
 		return null;
@@ -347,20 +358,51 @@ CaractsManager.prototype.getValue = function(caractForm, isChildElement) {
 	return value;
 }
 
-CaractsManager.prototype.getValueFirstForm = function (caractForm, isChildElement) {
-
+CaractsManager.prototype.getValueForm = function (caractForm, isChildElement) {
 	if (isChildElement) {
 		if (caractForm.find('[id$=value_childValue_choice]').length > 0) {
-			return caractForm.find('[id$=value_childValue_choice]');
+			return caractForm.find('[id$=value_childValue_choice]').parent();
 		} else {
 			return caractForm.find('[id$=value_childValue]');
 		}
 	} else {
 		if (caractForm.find('[id$=value_value_choice]').length > 0) {
-			return caractForm.find('[id$=value_value_choice]');
+			return caractForm.find('[id$=value_value_choice]').parent();
 		} else {
 			return caractForm.find('[id$=value_value]');
 		}
+	}
+}
+
+CaractsManager.prototype.getFirstValueForm = function (caractForm, isChildElement) {
+	var valueForm;
+
+	valueForm = this.getValueForm(caractForm, isChildElement);
+
+	if (valueForm.length == 0) {
+		return valueForm;
+	}
+
+	if (valueForm.get(0).tagName == 'DIV') {
+		return valueForm.find('[id$=choice]');
+	} else {
+		return valueForm;
+	}
+}
+
+CaractsManager.prototype.getSecondValueForm = function (caractForm, isChildElement) {
+	var valueForm;
+
+	valueForm = this.getValueForm(caractForm, isChildElement);
+
+	if (valueForm.length == 0) {
+		return valueForm;
+	}
+
+	if (valueForm.get(0).tagName == 'DIV') {
+		return valueForm.find('[id$=text]');
+	} else {
+		return valueForm;
 	}
 }
 
@@ -452,12 +494,9 @@ CaractsManager.prototype.removeValueForm = function(caractForm, isChildElement) 
 	var childForm;
 
 	if (isChildElement) {
-		childForm = caractForm.find('[id$=value_childValue]');
-		if(childForm.length == 1) {
-			childForm.parent().remove();
-		}
+		caractForm.find('[id=childValueDiv]').empty();
 	} else {
-		caractForm.find('[id$=value_value]').parent().remove();
+		caractForm.find('[id=valueDiv]').empty();
 	}
 }
 
@@ -469,13 +508,13 @@ CaractsManager.prototype.changeOrBuildValueForm = function (caractForm, index, i
 CaractsManager.prototype.getFirstOrBuildValueForm = function (caractForm, index, isChildElement) {
 	var formSelect;
 
-	formSelect = this.getValueFirstForm(caractForm, isChildElement);
+	formSelect = this.getFirstValueForm(caractForm, isChildElement);
 
 	if (formSelect.length > 0) {
 		return formSelect;
 	} else {
 		this.buildValueForm(caractForm, index, isChildElement);
-		formSelect = this.getValueFirstForm(caractForm, isChildElement);
+		formSelect = this.getFirstValueForm(caractForm, isChildElement);
 		return formSelect;
 	}
 }

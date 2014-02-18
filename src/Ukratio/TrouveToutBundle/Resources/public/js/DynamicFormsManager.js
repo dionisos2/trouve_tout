@@ -17,6 +17,7 @@ function DynamicFormsManager(ulName, liName, buttonAddFormValue, buttonDeleteFor
 
     this.symfonyPrototype = this.dynamicForms.data('prototype');
 	this.numberOfForm = this.dynamicForms.find('.' + liName).length;
+    this.reloadCaractButton = $('<input type="button" name="reload_caract" class="btn btn-primary" value="' + translate('caract.reload', language)  + '"/>');
 }
 
 
@@ -24,8 +25,9 @@ DynamicFormsManager.prototype.addButtonsForDynamicForms = function () {
 	var self = this;
 
     this.dynamicForms.append(this.addDynamicFormLinkLi);
-    this.dynamicForms.find('li.' + this.liName).each(function() {
+    this.dynamicForms.find('li.' + this.liName).each(function(index) {
         self.addDeleteDynamicFormLink($(this));
+		self.addReloadButton($(this), index);
     });
 }
 
@@ -48,6 +50,7 @@ DynamicFormsManager.prototype.addDynamicForm = function () {
 	});
 
     this.addDeleteDynamicFormLink(dynamicFormLi);
+	this.addReloadButton(dynamicFormLi, this.numberOfForm - 1);
 
     dynamicFormLi.insertBefore(this.addDynamicFormLinkLi);
 
@@ -60,11 +63,24 @@ DynamicFormsManager.prototype.addDeleteDynamicFormLink = function (dynamicFormLi
 
 	deleteDynamicFormLink = this.deleteDynamicFormLink.clone();
 
-    deleteDynamicFormLink.on('click', function(event) {
+    deleteDynamicFormLink.off().on('click', function(event) {
         event.preventDefault();
 		enableSave();
         dynamicFormLi.remove();
     });
 
     dynamicFormLi.append(deleteDynamicFormLink);
+}
+
+DynamicFormsManager.prototype.addReloadButton = function (dynamicFormLi, index) {
+	var self = this;
+	var reloadCaractButton;
+
+	reloadCaractButton = this.reloadCaractButton.clone();
+
+	reloadCaractButton.off().on('click', function (event) {
+		self.reloadForm(dynamicFormLi, index);
+	});
+
+	dynamicFormLi.append(reloadCaractButton);
 }

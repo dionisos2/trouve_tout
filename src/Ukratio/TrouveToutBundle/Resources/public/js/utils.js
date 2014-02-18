@@ -12,11 +12,13 @@ function disableSave() {
 	$('[id=save]').attr('disabled', 'true');
 }
 
+//TODO get transTab by phpTojs
 function createTransTab() {
 	var transTab = new Array("fr", "en");
 	transTab["fr"] = {"other":"autre",
 					  "plop":"plop",
-					  "picture":"image"};
+					  "picture":"image",
+					  "caract.reload":"Recharger la/les liste(s) déroulante(s)"};
 	return transTab;
 }
 
