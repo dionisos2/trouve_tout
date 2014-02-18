@@ -2,7 +2,10 @@
 
 {% block specific %}
 {{ form_row(form.name) }}
-{{ form_row(form.number) }}
+<div class="enligne">
+{{ form_row(form.number) }} ± {{ form_row(form.numberImprecision) }}
+</div>
+
 <div class="enligne">
   {{ form_row(form.linkable) }}
 </div>

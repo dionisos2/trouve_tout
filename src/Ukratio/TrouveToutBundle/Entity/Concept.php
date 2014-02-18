@@ -89,13 +89,21 @@ class Concept
      */
     private $researchedType;
 
-    // @Assert\Type(message="message.number.should_be_number", type="integer") big problème with this constrait, TOSEE !
+    // @Assert\Type(message="message.number.should_be_number", type="integer") big problème with this constraint, TOSEE !
     /**
      * @var string $number
      *
      * @ORM\Column(name="number", type="string", length=16, nullable=true)
      */
     private $number;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="numberImprecision", type="integer", nullable=true)
+     * @Assert\Type(type="integer")
+     */
+    private $numberImprecision;
 
     /**
      * @var string $researchedNumber
@@ -345,6 +353,7 @@ class Concept
 		$this->moreSpecificConceptConcepts = new ArrayCollection();
         $this->type = Discriminator::$Set->getName();
         $this->number = 1;
+        $this->numberImprecision = 0;
         $this->name = $name;
         $this->linkable = false;
     }
@@ -804,5 +813,27 @@ class Concept
     public function getModifiedAt()
     {
         return $this->modifiedAt;
+    }
+
+    /**
+     * Get numberImprecision
+     *
+     * @return integer
+     */
+    public function getNumberImprecision()
+    {
+        return $this->numberImprecision;
+    }
+
+    /**
+     * Set numberImprecision
+     *
+     * @return integer
+     */
+    public function setNumberImprecision($numberImprecision)
+    {
+        $this->numberImprecision = $numberImprecision;
+
+        return $this;
     }
 }

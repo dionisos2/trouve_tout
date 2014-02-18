@@ -31,7 +31,8 @@ class SetType extends ConceptType
 
         $builder->add('name', 'text', array('required' => false, 'label' => 'concept.name'))
                 ->add('linkable', 'checkbox', array('required' => false, 'label' => 'concept.linkable'))
-                ->add('number', 'integer', array('invalid_message' => 'concept.integer.invalid', 'label' => 'concept.number'));
+                ->add('number', 'integer', array('invalid_message' => 'concept.integer.invalid', 'label' => 'concept.number'))
+                ->add('numberImprecision', 'integer', array('invalid_message' => 'concept.integer.invalid', 'label' => 'concept.number_imprecision', 'required' => false));
 
 
         $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));

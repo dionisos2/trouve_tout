@@ -89,6 +89,7 @@ concept:
   name: 'Nom:'
   linkable: 'Liable:'
   number: 'Nombre:'
+  number_imprecision: 'imprécision:'
 
 test.hello: 'Hello !!'
 
