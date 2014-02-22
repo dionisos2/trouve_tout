@@ -33,6 +33,7 @@ function CaractsManager() {
 	this.prototypeOf['imprecision'] = $('form').data('prototype of imprecision');
 	this.prototypeOf['prefix'] = $('form').data('prototype of prefix');
 	this.prototypeOf['unit'] = $('form').data('prototype of unit');
+	this.prototypeOf['choosePicture'] = $('form').data('prototype of choose_picture');
 }
 
 
@@ -51,9 +52,27 @@ CaractsManager.prototype.addButtonsForDynamicForms = function () {
 
 	this.dynamicForms.find('li.caract').each(function(index) {
         self.addOnChangeEvent($(this), index);
+		self.addOrDeleteChoosePictureButton($(this), index);
     });
 }
 
+CaractsManager.prototype.addOrDeleteChoosePictureButton = function(caractForm, index) {
+	var self = this;
+	var choosePictureDiv;
+
+	choosePictureDiv = caractForm.find('[id=choosePictureDiv]');
+	choosePictureDiv.empty();
+
+	if (this.getType(caractForm) == 'picture') {
+		choosePictureButton = this.namePrototype(caractForm, index, this.prototypeOf['choosePicture'], ['choosePicture']);
+
+		choosePictureDiv.append(choosePictureButton);
+	}
+}
+
+CaractsManager.prototype.uploadPicture = function(caractForm, index) {
+	alert("plop");
+}
 
 CaractsManager.prototype.reloadPicture = function (caractForm) {
 	var pictureForm, pictureSrc;
@@ -172,7 +191,7 @@ CaractsManager.prototype.addOwnerElement = function (caractForm, index, value) {
 	ownerElementForm.find('input').on('dblclick keypress', function (event) {
 		self.generalize(caractForm, index, this);
 	});
-	caractForm.find('#restDiv').prepend(ownerElementForm);
+	caractForm.find('#ownerElementDiv').prepend(ownerElementForm);
 }
 
 CaractsManager.prototype.addDynamicForm = function () {
@@ -180,12 +199,13 @@ CaractsManager.prototype.addDynamicForm = function () {
 	result = this._super('addDynamicForm');
 	this.addOnChangeEvent(result.dynamicFormLi, result.index);
 	this.updateValueForm(result.dynamicFormLi, result.index, false);
+	this.addOrDeleteChoosePictureButton(result.dynamicFormLi, result.index);
 
 	return result;
 }
 
 CaractsManager.prototype.removeOwnerElements = function (caractForm, index) {
-	caractForm.find('#restDiv').empty();
+	caractForm.find('#ownerElementDiv').empty();
 }
 
 CaractsManager.prototype.changeOwnerElements = function (caractForm, index) {
@@ -498,6 +518,7 @@ CaractsManager.prototype.buildValueForm = function(caractForm, index, isChildEle
 	var type;
 	var childFormSelectDiv;
 	var FormSelectDiv;
+	var caractObjectLink;
 	var self = this;
 
 	type = this.getType(caractForm);
@@ -515,7 +536,19 @@ CaractsManager.prototype.buildValueForm = function(caractForm, index, isChildEle
 		caractForm.find('#valueDiv').prepend(FormSelectDiv);
 	}
 
+	if (type != 'picture') {
+		caractForm.find('[name=caract_picture]').attr('src', '');
+		caractForm.find('[name=caract_picture]').attr('alt', '');
+	}
+
+	if (type != 'object') {
+		caractObjectLink = caractForm.find('[name=caract_object]');
+		if (caractObjectLink.length > 0) {
+			caractObjectLink.remove();
+		}
+	}
 	this.addOnChangeEvent(caractForm, index);
+	this.addOrDeleteChoosePictureButton(caractForm, index);
 }
 
 CaractsManager.prototype.removeValueForm = function(caractForm, isChildElement) {

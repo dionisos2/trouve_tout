@@ -9,7 +9,7 @@ services:
 
   TrouveTout.CaractTypeManager:
     class: Ukratio\TrouveToutBundle\Service\CaractTypeManager
-    arguments: [@form.factory, @TrouveTout.repository.concept, @TrouveTout.repository.element, @TrouveTout.ElementManager, @tool.data_checking]
+    arguments: [@form.factory, @TrouveTout.repository.concept, @TrouveTout.repository.element, @TrouveTout.ElementManager, @tool.data_checking, %kernel.root_dir%]
 
   TrouveTout.ConceptFormManager:
     class: Ukratio\TrouveToutBundle\Service\ConceptFormManager
@@ -19,21 +19,21 @@ services:
     class: Ukratio\TrouveToutBundle\Service\Tools
     arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept]
 
-  # TrouveTout.form.caract:
-  #   class: Ukratio\TrouveToutBundle\Form\Type\CaractType
-  #   arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept, @tool.data_checking]
-  #   tags:
-  #     - {name: form.type, alias: TrouveTout_Caract}
+  TrouveTout.form.caract:
+    class: Ukratio\TrouveToutBundle\Form\Type\CaractType
+    arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.CaractTypeManager,  @tool.data_checking]
+    tags:
+      - {name: form.type, alias: TrouveTout_Caract}
 
-  # TrouveTout.form.element:
-  #   class: Ukratio\TrouveToutBundle\Form\Type\ElementType
-  #   arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept, @TrouveTout.CaractTypeManager]
-  #   tags:
-  #     - {name: form.type, alias: TrouveTout_Element}
+  TrouveTout.form.element:
+    class: Ukratio\TrouveToutBundle\Form\Type\ElementType
+    arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.element, @TrouveTout.CaractTypeManager]
+    tags:
+      - {name: form.type, alias: TrouveTout_Element}
 
   TrouveTout.form.set:
     class: Ukratio\TrouveToutBundle\Form\Type\SetType
-    arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory, @doctrine.orm.entity_manager]
+    arguments: [@TrouveTout.repository.concept, @doctrine.orm.entity_manager, @TrouveTout.form.caract, @TrouveTout.CaractTypeManager]
     tags:
       - {name: form.type, alias: TrouveTout_Set}
 

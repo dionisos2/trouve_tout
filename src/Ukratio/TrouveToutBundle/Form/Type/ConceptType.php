@@ -27,13 +27,11 @@ use Ukratio\ToolBundle\Service\DataChecking;
 
 abstract class ConceptType extends AbstractType
 {
-
-
     protected $discriminator;
     protected $conceptRepo;
-    protected $elementRepo;
-    protected $caractRepo;
-    protected $elementManager;
+    protected $caractType;
+    protected $caractTypeManager;
+    protected $entityManager;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -43,46 +41,32 @@ abstract class ConceptType extends AbstractType
         $builder->addEventSubscriber(new AddCategories($builder->getFormFactory(), $this->conceptRepo, $this->entityManager));
     }
 
-    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, Discriminator $discriminator = null, ElementManager $elementManager, FormFactoryInterface $formFactory, EntityManager $entityManager)
+    public function __construct(ConceptRepository $conceptRepo, Discriminator $discriminator = null,EntityManager $entityManager, CaractType $caractType, CaractTypeManager $caractTypeManager)
     {
         $this->conceptRepo = $conceptRepo;
-        $this->entityManager = $entityManager;
-        $this->elementRepo = $elementRepo;
-        $this->caractRepo = $caractRepo;
         $this->discriminator = $discriminator;
-        $this->elementManager = $elementManager;
-        $this->dataChecking = new DataChecking;
-        $this->caractTypeManager = new CaractTypeManager($formFactory, $this->conceptRepo, $this->elementRepo, $this->elementManager, $this->dataChecking);
+        $this->entityManager = $entityManager;
+        $this->caractType = $caractType;
+        $this->caractTypeManager = $caractTypeManager;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ukratio\TrouveToutBundle\Entity\Concept',
+            'csrf_protection'   => false,
         ));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-
-        foreach(Type::getListOfElement() as $element)
-        {
-            $element[0] = strtoupper($element[0]);
-            $view->vars["prototypeOfChildValue$element"] = $form->getConfig()->getAttribute("prototypeOfChildValue$element")->createView($view);
-            $view->vars["prototypeOfValue$element"] = $form->getConfig()->getAttribute("prototypeOfValue$element")->createView($view);
-        }
-
-        $view->vars['prototypeOfOwnerElement'] = $form->getConfig()->getAttribute('prototypeOfOwnerElement')->createView($view);
-        $view->vars['prototypeOfImprecision'] = $form->getConfig()->getAttribute('prototypeOfImprecision')->createView($view);
-        $view->vars['prototypeOfPrefix'] = $form->getConfig()->getAttribute('prototypeOfPrefix')->createView($view);
-        $view->vars['prototypeOfUnit'] = $form->getConfig()->getAttribute('prototypeOfUnit')->createView($view);
-
+        $this->caractTypeManager->buildConceptView($view, $form, $options);
     }
 
     public function addCaracts(FormBuilderInterface $builder)
     {
 
-        $builder->add('caracts', 'collection', array('type' => new CaractType($this->conceptRepo, $this->caractRepo, $this->elementRepo, $this->caractTypeManager, $this->dataChecking),
+        $builder->add('caracts', 'collection', array('type' => $this->caractType,
                                                      'label' => ' ',
                                                      'allow_add' => true,
                                                      'allow_delete' => true,

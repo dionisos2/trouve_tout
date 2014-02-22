@@ -17,12 +17,13 @@ use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\CaractRepository;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Ukratio\TrouveToutBundle\Service\ElementManager;
+use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
 
 class SetType extends ConceptType
 {
-    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, ElementManager $elementManager, FormFactoryInterface $formFactory, EntityManager $entityManager)
+    public function __construct(ConceptRepository $conceptRepo,EntityManager $entityManager, CaractType $caractType, CaractTypeManager $caractTypeManager)
     {
-        parent::__construct($conceptRepo, $caractRepo, $elementRepo, Discriminator::$Set, $elementManager, $formFactory, $entityManager);
+        parent::__construct($conceptRepo, Discriminator::$Set, $entityManager, $caractType, $caractTypeManager);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

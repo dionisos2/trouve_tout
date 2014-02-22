@@ -49,6 +49,7 @@ caract:
   unit: 'Unité:'
   reload: 'Recharger les listes déroulantes'
   id: 'Identifiant'
+  choose_picture: 'téléverser une image'
 
 tools:
   success: 'L’action s’est effectuée avec succès !'
@@ -97,7 +98,7 @@ upload_picture:
   success: 'Téléchargement réussi !'
   fail: 'Téléchargement raté !'
   wrong_type: 'Mauvais type de fichier:'
-  picture: 'Image'
+  picture: 'Téléverser une image:'
   category: 'Categorie'
 
 home:

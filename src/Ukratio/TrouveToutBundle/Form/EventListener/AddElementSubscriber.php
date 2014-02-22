@@ -44,6 +44,11 @@ class AddElementSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
 
+        if (! isset($data['value'])) {
+            $form->add($this->caractTypeManager->createElementForm('value', $this->type, null));
+            return;
+        }
+
         if (is_array($data['value'])) {
             if ($data['value']['choice'] == 'other') { //TOSEE
                 $possibleValues = $data['value']['text'];

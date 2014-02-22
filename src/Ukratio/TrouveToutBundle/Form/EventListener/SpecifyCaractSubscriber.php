@@ -44,6 +44,14 @@ class SpecifyCaractSubscriber implements EventSubscriberInterface
             return;
         }
 
+        //let AddValueSubscriber do the work if we have a picture
+        if (Type::getEnumerator($caract->getType()) === Type::$picture) {
+            $picture = $form->get('choosePicture')->getData();
+            if ($picture != null) {
+                return;
+            }
+        }
+
         $element = $form->get('value')->getData();
 
         $ownerElements = array();

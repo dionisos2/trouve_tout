@@ -28,13 +28,7 @@ class AddCategories implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(FormEvents::PRE_SET_DATA => 'doAction',
-                     FormEvents::POST_BIND => 'postBind');
-    }
-
-    public function postBind(FormEvent $event)
-    {
-
+        return array(FormEvents::PRE_SET_DATA => 'doAction');
     }
 
     public function doAction(FormEvent $event)

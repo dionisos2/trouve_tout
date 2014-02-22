@@ -1,5 +1,5 @@
 <div class="well concept">
-  <form method="post" {{ form_enctype(form) }}>
+  <form enctype="multipart/form-data" method="post" {{ form_enctype(form) }}>
     <div class="well">
       {% if concept.id != 0 %}
       <h3><center>{{"caract.id" | trans }} : {{ concept.id }}</center></h3>
@@ -39,7 +39,7 @@
       {% if concept.type == 'Research' %}
       <input type="button" disabled id="save" name="save" class="fix-on-right btn btn-primary" value="{{ 'research.save_and_run' | trans }}" onclick="submitIfValid('save')" />
       {% else %}
-      <input type="button" disabled id="save" class="fix-on-right btn btn-primary" value="{{ 'concept.save' | trans }}" onclick="submitIfValid('save')"/>
+      <input type="submit" disabled id="save" class="fix-on-right btn btn-primary" value="{{ 'concept.save' | trans }}" />
       {% endif %}
 
       {% if concept.id != 0 %}

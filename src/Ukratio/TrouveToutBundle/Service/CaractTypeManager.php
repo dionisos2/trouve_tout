@@ -28,14 +28,17 @@ class CaractTypeManager
     private $elementRepo;
     private $factory;
     private $elementManager;
+    private $dataChecking;
+    private $rootDir;
 
-    public function __construct(FormFactoryInterface $factory, ConceptRepository $conceptRepo, ElementRepository $elementRepo, ElementManager $elementManager, DataChecking $dataChecking)
+    public function __construct(FormFactoryInterface $factory, ConceptRepository $conceptRepo, ElementRepository $elementRepo, ElementManager $elementManager, DataChecking $dataChecking, $rootDir)
     {
         $this->conceptRepo = $conceptRepo;
         $this->factory = $factory;
         $this->elementManager = $elementManager;
         $this->elementRepo = $elementRepo;
         $this->dataChecking = $dataChecking;
+        $this->rootDir = $rootDir;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
@@ -100,7 +103,7 @@ class CaractTypeManager
             $builder->add('type', new EnumType('Ukratio\TrouveToutBundle\Entity\Type'), array('label' => 'caract.type'));
         }
 
-        $builder->addEventSubscriber(new AddValueSubscriber($this->conceptRepo, $this->elementRepo, $this, $builder->getFormFactory()));
+        $builder->addEventSubscriber(new AddValueSubscriber($this->conceptRepo, $this->elementRepo, $this, $builder->getFormFactory(), $this->rootDir));
         $builder->addEventSubscriber(new SpecifyCaractSubscriber($builder->getFormFactory(), $this->elementRepo));
     }
 
@@ -146,6 +149,7 @@ class CaractTypeManager
         $prototypeOfImprecision = $builder->create('__name__', 'number', array('label' => 'caract.imprecision'));
         $prototypeOfPrefix = $builder->create('__name__', new EnumType('Ukratio\TrouveToutBundle\Entity\Prefix'), array('label' => 'caract.prefix'));
         $prototypeOfUnit = $builder->create('__name__', 'text', array('label' => 'caract.unit', 'required' => false));
+        $prototypeOfChoosePicture = $builder->create('__name__', 'file', array('label' => 'caract.choose_picture', 'required' => false));
 
         foreach(Type::getListOfElement() as $element)
         {
@@ -162,6 +166,24 @@ class CaractTypeManager
         $builder->setAttribute('prototypeOfImprecision', $prototypeOfImprecision->getForm());
         $builder->setAttribute('prototypeOfPrefix', $prototypeOfPrefix->getForm());
         $builder->setAttribute('prototypeOfUnit', $prototypeOfUnit->getForm());
+        $builder->setAttribute('prototypeOfChoosePicture', $prototypeOfChoosePicture->getForm());
+    }
+
+    public function buildConceptView(FormView $view, FormInterface $form, array $options)
+    {
+        //TODO maybe some refactorization to do
+        foreach(Type::getListOfElement() as $element)
+        {
+            $element[0] = strtoupper($element[0]);
+            $view->vars["prototypeOfChildValue$element"] = $form->getConfig()->getAttribute("prototypeOfChildValue$element")->createView($view);
+            $view->vars["prototypeOfValue$element"] = $form->getConfig()->getAttribute("prototypeOfValue$element")->createView($view);
+        }
+
+        $view->vars['prototypeOfOwnerElement'] = $form->getConfig()->getAttribute('prototypeOfOwnerElement')->createView($view);
+        $view->vars['prototypeOfImprecision'] = $form->getConfig()->getAttribute('prototypeOfImprecision')->createView($view);
+        $view->vars['prototypeOfPrefix'] = $form->getConfig()->getAttribute('prototypeOfPrefix')->createView($view);
+        $view->vars['prototypeOfUnit'] = $form->getConfig()->getAttribute('prototypeOfUnit')->createView($view);
+        $view->vars['prototypeOfChoosePicture'] = $form->getConfig()->getAttribute('prototypeOfChoosePicture')->createView($view);
     }
 
     public function getFormTypeFor($type)

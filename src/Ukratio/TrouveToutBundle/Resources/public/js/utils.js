@@ -18,7 +18,8 @@ function createTransTab() {
 	transTab["fr"] = {"other":"autre",
 					  "plop":"plop",
 					  "picture":"image",
-					  "caract.reload":"Recharger la/les liste(s) déroulante(s)"};
+					  "caract.reload":"Recharger la/les liste(s) déroulante(s)",
+					  "caract.upload_picture":"Téléverser l’image"};
 	return transTab;
 }
 
