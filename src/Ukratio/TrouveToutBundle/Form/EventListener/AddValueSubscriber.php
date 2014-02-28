@@ -30,19 +30,15 @@ use Doctrine\ORM\EntityManager;
 class AddValueSubscriber implements EventSubscriberInterface
 {
     protected $factory;
-    protected $validatorFactory;
-    protected $conceptRepo;
     protected $elementRepo;
     protected $caractTypeManager;
     protected $rootDir;
 
-    public function __construct(ConceptRepository $conceptRepo, ElementRepository $elementRepo, CaractTypeManager $caractTypeManager, FormFactoryInterface $factory, $rootDir)
+    public function __construct(ElementRepository $elementRepo, CaractTypeManager $caractTypeManager, FormFactoryInterface $factory, $rootDir)
     {
-        $this->conceptRepo = $conceptRepo;
         $this->elementRepo = $elementRepo;
         $this->caractTypeManager = $caractTypeManager;
         $this->factory = $factory;
-        $this->validatorFactory = new ConstraintValidatorFactory();
         $this->rootDir = $rootDir;
     }
 
@@ -50,7 +46,7 @@ class AddValueSubscriber implements EventSubscriberInterface
     {
         return array(FormEvents::PRE_SET_DATA => 'preSet',
                      FormEvents::PRE_BIND => 'preBind',
-                     FormEvents::POST_BIND => 'postSubmit');
+                     /* FormEvents::POST_BIND => 'postSubmit' */);
     }
 
     public function postSubmit(FormEvent $event)
@@ -104,7 +100,7 @@ class AddValueSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
 
         if (isset($data['type'] )) {
-            $form->add($this->factory->createNamed('value', new ElementType($this->conceptRepo, $this->elementRepo, $this->caractTypeManager), null, array('typeOfValue' => $data['type'], 'auto_initialize' => false)));
+            $form->add($this->factory->createNamed('value', 'TrouveTout_Element', null, array('typeOfValue' => $data['type'], 'auto_initialize' => false)));
             if (Type::getEnumerator($data['type']) === Type::$number) {
                 $form->add($this->factory->createNamed('imprecision', 'number', null, array('label' => 'caract.imprecision', 'auto_initialize' => false)));
 
@@ -137,7 +133,7 @@ class AddValueSubscriber implements EventSubscriberInterface
 
         $valueType = $data->getType();
 
-        $form->add($this->factory->createNamed('value', new ElementType($this->conceptRepo, $this->elementRepo, $this->caractTypeManager), null, array('typeOfValue' => $valueType, 'auto_initialize' => false)));
+        $form->add($this->factory->createNamed('value', 'TrouveTout_Element', null, array('typeOfValue' => $valueType, 'auto_initialize' => false)));
 
         if (Type::getEnumerator($valueType) === Type::$number) {
             $form->add($this->factory->createNamed('imprecision', 'number', null, array('label' => 'caract.imprecision', 'auto_initialize' => false)));

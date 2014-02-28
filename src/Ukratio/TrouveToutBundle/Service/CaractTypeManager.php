@@ -70,7 +70,7 @@ class CaractTypeManager
         }
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildCaractForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text', array('label' => 'caract.name'));
 
@@ -103,7 +103,7 @@ class CaractTypeManager
             $builder->add('type', new EnumType('Ukratio\TrouveToutBundle\Entity\Type'), array('label' => 'caract.type'));
         }
 
-        $builder->addEventSubscriber(new AddValueSubscriber($this->conceptRepo, $this->elementRepo, $this, $builder->getFormFactory(), $this->rootDir));
+        $builder->addEventSubscriber(new AddValueSubscriber($this->elementRepo, $this, $builder->getFormFactory(), $this->rootDir));
         $builder->addEventSubscriber(new SpecifyCaractSubscriber($builder->getFormFactory(), $this->elementRepo));
     }
 

@@ -324,15 +324,11 @@ CaractsManager.prototype.changeValueType = function (caractForm, index) {
 		this.deleteNumberForms(caractForm, index);
 	}
 
-	if (this.needUpdate(type)) {
-		this.updateValueForm(caractForm, index, false);
-	}
-		this.setValue(caractForm, value, false);
+	this.updateValueForm(caractForm, index, false);
+	this.setValue(caractForm, value, false);
 
-	if (this.needUpdate(type)) {
-		this.updateValueForm(caractForm, index, true);
-	}
-		this.setValue(caractForm, childValue, true);
+	this.updateValueForm(caractForm, index, true);
+	this.setValue(caractForm, childValue, true);
 }
 
 CaractsManager.prototype.getParentElements = function (caractForm) {
@@ -451,6 +447,7 @@ CaractsManager.prototype.getSecondValueForm = function (caractForm, isChildEleme
 
 CaractsManager.prototype.modifyValue = function (caractForm, index) {
 	var type = this.getType(caractForm);
+
 	this.updateValueForm(caractForm, index, true);
 
 	if (type == 'picture') {
@@ -461,6 +458,10 @@ CaractsManager.prototype.modifyValue = function (caractForm, index) {
 CaractsManager.prototype.updateValueForm = function (caractForm, index, isChildElement) {
 	var completeElement;
 	var self = this;
+
+	if(!this.needUpdate(this.getType(caractForm))) {
+		return 0;
+	}
 
 	completeElement = this.getParentElements(caractForm);
 

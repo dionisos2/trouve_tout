@@ -39,13 +39,13 @@ services:
 
   TrouveTout.form.category:
     class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
-    arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory, @doctrine.orm.entity_manager]
+    arguments: [@TrouveTout.repository.concept, @doctrine.orm.entity_manager, @TrouveTout.form.caract, @TrouveTout.CaractTypeManager]
     tags:
       - {name: form.type, alias: TrouveTout_Category}
 
   TrouveTout.form.research:
     class: Ukratio\TrouveToutBundle\Form\Type\ResearchType
-    arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory, @doctrine.orm.entity_manager]
+    arguments: [@TrouveTout.repository.concept, @doctrine.orm.entity_manager, @TrouveTout.form.caract, @TrouveTout.CaractTypeManager]
     tags:
       - {name: form.type, alias: TrouveTout_Research}
 

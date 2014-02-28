@@ -49,7 +49,7 @@ class CaractType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->caractTypeManager->buildForm($builder, $options);
+        $this->caractTypeManager->buildCaractForm($builder, $options);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

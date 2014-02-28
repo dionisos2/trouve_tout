@@ -140,7 +140,9 @@ class ConceptController extends ControllerWithTools
 
         $form = $cfc->createForm($concept);
 
+        echo "<br>bind<br>";
         $form->bind($request);
+        echo "<br>fin bind<br>";
 
         $type = Discriminator::getEnumerator($concept->getType());
 
