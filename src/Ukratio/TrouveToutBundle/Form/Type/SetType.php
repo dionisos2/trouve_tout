@@ -10,20 +10,21 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 
-use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
+use Ukratio\TrouveToutBundle\Form\EventListener\ConceptEventSubscriber;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\CaractRepository;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Ukratio\TrouveToutBundle\Service\ElementManager;
-use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
+use Ukratio\TrouveToutBundle\Service\PrototypeManager;
 
 class SetType extends ConceptType
 {
-    public function __construct(ConceptRepository $conceptRepo,EntityManager $entityManager, CaractType $caractType, CaractTypeManager $caractTypeManager)
+
+    public function __construct(ConceptEventSubscriber $conceptEventSubscriber, CaractType $caractType, PrototypeManager $prototypeManager)
     {
-        parent::__construct($conceptRepo, Discriminator::$Set, $entityManager, $caractType, $caractTypeManager);
+        parent::__construct($conceptEventSubscriber, $caractType, $prototypeManager, Discriminator::$Set);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -36,7 +37,7 @@ class SetType extends ConceptType
                 ->add('numberImprecision', 'integer', array('invalid_message' => 'concept.integer.invalid', 'label' => 'concept.number_imprecision', 'required' => false));
 
 
-        $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));
+        $builder->addEventSubscriber($this->conceptEventSubscriber);
     }
 
     public function getName()

@@ -27,7 +27,7 @@ use Ukratio\TrouveToutBundle\Service\Tools;
 
 use Doctrine\ORM\EntityManager;
 
-class AddValueSubscriber implements EventSubscriberInterface
+class CaractEventSubscriber implements EventSubscriberInterface
 {
     protected $factory;
     protected $elementRepo;
@@ -46,7 +46,7 @@ class AddValueSubscriber implements EventSubscriberInterface
     {
         return array(FormEvents::PRE_SET_DATA => 'preSet',
                      FormEvents::PRE_BIND => 'preBind',
-                     /* FormEvents::POST_BIND => 'postSubmit' */);
+                     FormEvents::POST_BIND => 'postBind');
     }
 
     public function postSubmit(FormEvent $event)
@@ -151,6 +151,63 @@ class AddValueSubscriber implements EventSubscriberInterface
         }
     }
 
+    public function postBind(FormEvent $event)
+    {
+        $caract = $event->getData();
+        $form = $event->getForm();
+
+        if (! $caract instanceof Caract) {
+            return;
+        }
+
+        if ((!$form->has('value')) || ($form->get('value') === null)) {
+            return;
+        }
+
+        //let CaractEventSubscriber do the work if we have a picture
+        if (Type::getEnumerator($caract->getType()) === Type::$picture) {
+            $picture = $form->get('choosePicture')->getData();
+            if ($picture != null) {
+                return;
+            }
+        }
+
+        $element = $form->get('value')->getData();
+
+        $ownerElements = array();
+        $index = 0;
+        while ($form->get('value')->has('element_'.$index)) {
+            $ownerElements['element_'.$index] = $form->get('value')->get('element_'.$index)->getData();
+            $index++;
+        }
+
+        $ownerElements = array_filter($ownerElements, function ($elementValue) {return $elementValue !== null;});
+
+        $pathElement = array_values($ownerElements);
+
+        if ($element->getValue() != null) {
+            $pathElement[] = $element->getValue();
+        } else {
+            $caract->setValue(null);
+            return;
+        }
+
+        $pathElement = array_reverse($pathElement);
+
+        $trueElement = $this->elementRepo->findByPath($pathElement, true);
+
+        if ($trueElement !== null) {
+            $caract->setValue($trueElement);
+        } else {//creation
+            if ($caract->getType() == Type::$date->getName()) {
+                $pathElement = array($pathElement[0], 'date');
+            }
+
+            $trueElement = $this->createElementByPath($pathElement);
+            $caract->setValue($trueElement);
+        }
+    }
+
     public function createElementByPath($pathElement)
     {
         $value = $pathElement[0];
@@ -168,4 +225,5 @@ class AddValueSubscriber implements EventSubscriberInterface
 
         return $newElement;
     }
+
 }

@@ -12,19 +12,19 @@ use Doctrine\ORM\EntityRepository;
 
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
-use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
+use Ukratio\TrouveToutBundle\Form\EventListener\ConceptEventSubscriber;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\CaractRepository;
 use Ukratio\TrouveToutBundle\Service\ElementManager;
-use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
+use Ukratio\TrouveToutBundle\Service\PrototypeManager;
 
 class CategoryType extends ConceptType
 {
 
-    public function __construct(ConceptRepository $conceptRepo,EntityManager $entityManager, CaractType $caractType, CaractTypeManager $caractTypeManager)
+    public function __construct(ConceptEventSubscriber $conceptEventSubscriber, CaractType $caractType, PrototypeManager $prototypeManager)
     {
-        parent::__construct($conceptRepo, Discriminator::$Category, $entityManager, $caractType, $caractTypeManager);
+        parent::__construct($conceptEventSubscriber, $caractType, $prototypeManager, Discriminator::$Category);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -32,7 +32,7 @@ class CategoryType extends ConceptType
         parent::buildForm($builder, $options);
         $builder->add('name', 'text', array('required' => true, 'label' => 'concept.name'));
 
-        $builder->addEventSubscriber(new AddCaractsOfCategories($builder->getFormFactory()));
+        $builder->addEventSubscriber($this->conceptEventSubscriber);
     }
 
     public function getName()

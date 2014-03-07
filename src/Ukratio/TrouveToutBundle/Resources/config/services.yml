@@ -3,6 +3,20 @@ parameters:
 
 services:
 
+  # Forms events
+  TrouveTout.ElementEventSubscriber:
+    class: Ukratio\TrouveToutBundle\Form\EventListener\ElementEventSubscriber
+    arguments: [@form.factory, @TrouveTout.CaractTypeManager]
+
+  TrouveTout.ConceptEventSubscriber:
+    class: Ukratio\TrouveToutBundle\Form\EventListener\ConceptEventSubscriber
+    arguments: [@form.factory, @TrouveTout.repository.concept, @doctrine.orm.entity_manager, @TrouveTout.form.concept_concept]
+
+  TrouveTout.CaractEventSubscriber:
+    class: Ukratio\TrouveToutBundle\Form\EventListener\CaractEventSubscriber
+    arguments: [@TrouveTout.repository.element, @TrouveTout.CaractTypeManager, @form.factory, %kernel.root_dir%]
+
+  # Services
   TrouveTout.ElementManager:
     class: Ukratio\TrouveToutBundle\Service\ElementManager
     arguments: [%kernel.root_dir%]
@@ -10,6 +24,10 @@ services:
   TrouveTout.CaractTypeManager:
     class: Ukratio\TrouveToutBundle\Service\CaractTypeManager
     arguments: [@form.factory, @TrouveTout.repository.concept, @TrouveTout.repository.element, @TrouveTout.ElementManager, @tool.data_checking, %kernel.root_dir%]
+
+  TrouveTout.PrototypeManager:
+    class: Ukratio\TrouveToutBundle\Service\PrototypeManager
+    arguments: []
 
   TrouveTout.ConceptFormManager:
     class: Ukratio\TrouveToutBundle\Service\ConceptFormManager
@@ -19,39 +37,44 @@ services:
     class: Ukratio\TrouveToutBundle\Service\Tools
     arguments: [@doctrine.orm.entity_manager, @TrouveTout.repository.concept]
 
+  # Forms Types
   TrouveTout.form.caract:
     class: Ukratio\TrouveToutBundle\Form\Type\CaractType
-    arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.CaractTypeManager,  @tool.data_checking]
+    arguments: [@TrouveTout.CaractTypeManager]
     tags:
       - {name: form.type, alias: TrouveTout_Caract}
 
   TrouveTout.form.element:
     class: Ukratio\TrouveToutBundle\Form\Type\ElementType
-    arguments: [@TrouveTout.repository.concept, @TrouveTout.repository.element, @TrouveTout.CaractTypeManager]
+    arguments: [@TrouveTout.ElementEventSubscriber]
     tags:
       - {name: form.type, alias: TrouveTout_Element}
 
+  TrouveTout.form.concept:
+    abstract: true
+    arguments: [@TrouveTout.ConceptEventSubscriber, @TrouveTout.form.caract, @TrouveTout.PrototypeManager]
+
   TrouveTout.form.set:
     class: Ukratio\TrouveToutBundle\Form\Type\SetType
-    arguments: [@TrouveTout.repository.concept, @doctrine.orm.entity_manager, @TrouveTout.form.caract, @TrouveTout.CaractTypeManager]
+    parent: TrouveTout.form.concept
     tags:
       - {name: form.type, alias: TrouveTout_Set}
 
   TrouveTout.form.category:
     class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
-    arguments: [@TrouveTout.repository.concept, @doctrine.orm.entity_manager, @TrouveTout.form.caract, @TrouveTout.CaractTypeManager]
+    parent: TrouveTout.form.concept
     tags:
       - {name: form.type, alias: TrouveTout_Category}
 
   TrouveTout.form.research:
     class: Ukratio\TrouveToutBundle\Form\Type\ResearchType
-    arguments: [@TrouveTout.repository.concept, @doctrine.orm.entity_manager, @TrouveTout.form.caract, @TrouveTout.CaractTypeManager]
+    parent: TrouveTout.form.concept
     tags:
       - {name: form.type, alias: TrouveTout_Research}
 
   TrouveTout.form.concept_concept:
     class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
-    arguments: [@TrouveTout.repository.concept, @doctrine.orm.entity_manager]
+    arguments: [@TrouveTout.form.sorted_concept]
     tags:
       - {name: form.type, alias: TrouveTout_ConceptConcept}
 
@@ -61,6 +84,7 @@ services:
     tags:
       - {name: form.type, alias: TrouveTout_SortedConcept}
 
+  # Repositories
   TrouveTout.repository.concept:
     class: Ukratio\TrouveToutBundle\Entity\ConceptRepository
     factory_service: doctrine.orm.default_entity_manager
@@ -85,14 +109,18 @@ services:
 
 # TUTORIAL SERVICE
 
-  TrouveTout.tutorial.form.category:
-    class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
-    arguments: [@TrouveTout.tutorial.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory, @doctrine.orm.entity_manager]
+  # TrouveTout.tutorial.form.concept:
+  #   abstract: true
+  #   arguments: [@TrouveTout.tutorial.ConceptEventSubscriber, @TrouveTout.form.caract, @TrouveTout.CaractTypeManager]
 
-  TrouveTout.tutorial.form.concept_concept:
-    class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
-    arguments: [@TrouveTout.tutorial.repository.concept, @doctrine.orm.entity_manager]
+  # TrouveTout.tutorial.form.category:
+  #   class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
+  #   arguments: [@TrouveTout.tutorial.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory, @doctrine.orm.entity_manager]
 
-  TrouveTout.tutorial.repository.concept:
-    class: Ukratio\TrouveToutBundle\Tutorial\ConceptTutorialRepository
-    arguments: [@translator]
+  # TrouveTout.tutorial.form.concept_concept:
+  #   class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
+  #   arguments: [@TrouveTout.tutorial.repository.concept, @doctrine.orm.entity_manager]
+
+  # TrouveTout.tutorial.repository.concept:
+  #   class: Ukratio\TrouveToutBundle\Tutorial\ConceptTutorialRepository
+  #   arguments: [@translator]

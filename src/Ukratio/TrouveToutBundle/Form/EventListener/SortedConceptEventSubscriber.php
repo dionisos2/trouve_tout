@@ -11,9 +11,11 @@ use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptConcept;
 
-class CategoriesGetter implements EventSubscriberInterface
+class SortedConceptEventSubscriber implements EventSubscriberInterface
 {
-    private $categories;
+    protected $categories;
+    protected $conceptRepo;
+    protected $entityManager;
 
     public function __construct($categories, $conceptRepo, $entityManager)
     {

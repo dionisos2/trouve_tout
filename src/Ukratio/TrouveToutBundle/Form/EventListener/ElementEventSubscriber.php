@@ -16,21 +16,21 @@ use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
 
-class AddElementSubscriber implements EventSubscriberInterface
+class ElementEventSubscriber implements EventSubscriberInterface
 {
     private $factory;
-    private $elementRepo;
     private $type;
-    private $conceptRepo;
     private $caractTypeManager;
 
-    public function __construct(FormFactoryInterface $factory, ConceptRepository $conceptRepo, ElementRepository $elementRepo , Type $type, CaractTypeManager $caractTypeManager)
+    public function __construct(FormFactoryInterface $factory, CaractTypeManager $caractTypeManager)
     {
         $this->factory = $factory;
-        $this->elementRepo = $elementRepo;
-        $this->conceptRepo = $conceptRepo;
-        $this->type = $type;
         $this->caractTypeManager = $caractTypeManager;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 
     public static function getSubscribedEvents()
@@ -43,6 +43,30 @@ class AddElementSubscriber implements EventSubscriberInterface
     {
         $data = $event->getData();
         $form = $event->getForm();
+
+        $ownerElements = array();
+        $index = 0;
+
+        while (isset($data['element_'.$index])) {
+            $ownerElements['element_'.$index] = $data['element_'.$index];
+            $index++;
+        }
+
+        krsort($ownerElements);
+
+        foreach ($ownerElements as $key => $ownerElement) {
+            $form->add($this->factory->createNamed($key, 'text', $ownerElement, array('mapped' => false,
+                                                                                      'label' => ' ',
+                                                                                      'read_only' => true,
+                                                                                      'auto_initialize' => false)));
+        }
+
+
+        if (isset($data['childValue'])) {
+            unset($data['childValue']);
+        }
+
+        $event->setData($data); // don’t forget this
 
         if (! isset($data['value'])) {
             $form->add($this->caractTypeManager->createElementForm('value', $this->type, null));
@@ -81,6 +105,29 @@ class AddElementSubscriber implements EventSubscriberInterface
             $path = array();
         } else {
             $path = array_slice($data->getPath(), 1);
+
+            $ownerElements = array_slice($data->getPath(), 1);
+
+            $ownerElements = array_reverse($ownerElements);
+            krsort($ownerElements);
+
+            foreach ($ownerElements as $key => $pathElement) {
+                $optionsElement = array('label' => ' ',
+                                        'read_only' => true,
+                                        'mapped' => false,
+                                        'auto_initialize' => false,
+                );
+
+                $builder = $this->factory->createNamedBuilder("element_$key", 'text', $pathElement, $optionsElement);
+                $form->add($builder->getForm());
+            }
+
+
+            $childElement = $this->caractTypeManager->createElementForm('childValue', $this->type, $data->getPath(), 'element.specify', false);
+
+            if($childElement != null) {
+                $form->add($childElement);
+            }
         }
 
         $form->add($this->caractTypeManager->createElementForm('value', $this->type, $path));

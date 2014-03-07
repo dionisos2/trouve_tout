@@ -19,32 +19,22 @@ use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\CaractRepository;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
-use Ukratio\TrouveToutBundle\Form\EventListener\AddValueSubscriber;
-use Ukratio\TrouveToutBundle\Form\EventListener\SpecifyCaractSubscriber;
+use Ukratio\TrouveToutBundle\Form\EventListener\CaractEventSubscriber;
 
 
 
 class CaractType extends AbstractType
 {
-
-    protected $conceptRepo;
-    protected $caractRepo;
-    protected $elementRepo;
-    protected $dataChecking;
     protected $caractTypeManager;
 
-    public function __construct(ConceptRepository $conceptRepo, CaractRepository $caractRepo, ElementRepository $elementRepo, CaractTypeManager $caractTypeManager, DataChecking $dataChecking)
+    public function __construct(CaractTypeManager $caractTypeManager)
     {
-        $this->dataChecking = $dataChecking;
-        $this->conceptRepo = $conceptRepo;
-        $this->caractRepo = $caractRepo;
-        $this->elementRepo = $elementRepo;
         $this->caractTypeManager = $caractTypeManager;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $this->caractTypeManager->buildView($view, $form, $options);
+        $this->caractTypeManager->buildCaractView($view, $form, $options);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

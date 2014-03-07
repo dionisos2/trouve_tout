@@ -14,21 +14,60 @@ use Ukratio\TrouveToutBundle\Entity\Concept;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType;
 
-class AddCategories implements EventSubscriberInterface
+class ConceptEventSubscriber implements EventSubscriberInterface
 {
-    private $factory;
-    private $conceptRepo;
+    protected $factory;
+    protected $conceptRepo;
+    protected $entityManager;
+    protected $conceptConceptType;
 
-    public function __construct(FormFactoryInterface $factory,ConceptRepository $conceptRepo, EntityManager $entityManager)
+    public function __construct(FormFactoryInterface $factory,ConceptRepository $conceptRepo, EntityManager $entityManager, ConceptConceptType $conceptConceptType)
     {
         $this->factory = $factory;
         $this->conceptRepo = $conceptRepo;
         $this->entityManager = $entityManager;
+        $this->conceptConceptType = $conceptConceptType;
     }
 
     public static function getSubscribedEvents()
     {
         return array(FormEvents::PRE_SET_DATA => 'doAction');
+        return array(FormEvents::POST_BIND => 'postBind');
+    }
+
+    public function postBind(FormEvent $event)
+    {
+        $data = $event->getData();
+        $form = $event->getForm();
+
+        if ($data === null) {
+            return;
+        }
+
+        if (! $data instanceof Concept) {//theorically impossible
+            return;
+        }
+
+        $this->addCaractsForAllCategories($data);
+    }
+
+    public function addCaractsForAllCategories(Concept $concept)
+    {
+        foreach($concept->getMoreGeneralConcepts() as $generalCategory) {
+            $this->addCaractsOfCategory($concept, $generalCategory);
+        }
+    }
+
+    private function addCaractsOfCategory(Concept $concept, Concept $category)
+    {
+        foreach($category->getCaracts() as $caract) {
+            $name = $caract->getName();
+            if ($caract->getSelected() and ($concept->getCaract($name) == null)) {
+                $caract->setSelected($caract->getByDefault());
+                $caract = clone $caract;
+                $concept->addCaract($caract);
+            }
+        }
     }
 
     public function doAction(FormEvent $event)
@@ -40,7 +79,7 @@ class AddCategories implements EventSubscriberInterface
                          'childConcept' => $data
         );
 
-        $named = $this->factory->createNamed('moreGeneralConceptConcepts', 'collection', null, array('type' => new ConceptConceptType($this->conceptRepo, $this->entityManager),
+        $named = $this->factory->createNamed('moreGeneralConceptConcepts', 'collection', null, array('type' => $this->conceptConceptType,
                                                                                                      'label' => ' ',
                                                                                                      'allow_add' => true,
                                                                                                      'allow_delete' => true,

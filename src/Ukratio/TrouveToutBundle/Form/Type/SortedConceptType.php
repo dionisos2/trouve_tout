@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManager;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\Concept;
 
-use Ukratio\TrouveToutBundle\Form\EventListener\CategoriesGetter;
+use Ukratio\TrouveToutBundle\Form\EventListener\SortedConceptEventSubscriber;
 
 class SortedConceptType extends AbstractType
 {
@@ -45,7 +45,7 @@ class SortedConceptType extends AbstractType
                                               'label' => ' '));
 
         $categories_copy = $choicesAndCategories['categories'];
-        $builder->addEventSubscriber(new CategoriesGetter($categories_copy, $this->conceptRepo, $this->entityManager));
+        $builder->addEventSubscriber(new SortedConceptEventSubscriber($categories_copy, $this->conceptRepo, $this->entityManager));
 
     }
 

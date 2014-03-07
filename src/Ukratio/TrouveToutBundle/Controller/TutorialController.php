@@ -22,7 +22,7 @@ use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\Caract;
 use Ukratio\TrouveToutBundle\Entity\Type;
 use Ukratio\ToolBundle\Form\Type\ChoiceOrTextType;
-use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
+use Ukratio\TrouveToutBundle\Form\EventListener\ConceptEventSubscriber;
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
 
 class TutorialController extends ControllerWithTools
@@ -149,7 +149,7 @@ class TutorialController extends ControllerWithTools
 
             $concept = $this->getWardrobeCategoryBegin();
 
-            $subscriber = new AddCaractsOfCategories;
+            $subscriber = new ConceptEventSubscriber;
             $subscriber->addCaractsForAllCategories($concept);
 
             $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
@@ -393,7 +393,7 @@ class TutorialController extends ControllerWithTools
     private function getWardrobeCategoryModified()
     {
         $concept = $this->getWardrobeCategoryBegin();
-        $subscriber = new AddCaractsOfCategories;
+        $subscriber = new ConceptEventSubscriber;
         $subscriber->addCaractsForAllCategories($concept);
 
         $matter = new Element($this->trans('tutorial.input.matter'));

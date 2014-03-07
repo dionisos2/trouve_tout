@@ -10,22 +10,27 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
+use Ukratio\TrouveToutBundle\Form\EventListener\ConceptEventSubscriber;
+
 use Ukratio\TrouveToutBundle\Entity\Discriminator;
-use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
+
 use Ukratio\ToolBundle\Form\Type\EnumType;
+
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
 use Ukratio\TrouveToutBundle\Entity\CaractRepository;
+
 use Ukratio\TrouveToutBundle\Service\ElementManager;
-use Ukratio\TrouveToutBundle\Service\CaractTypeManager;
+use Ukratio\TrouveToutBundle\Service\PrototypeManager;
+use Ukratio\TrouveToutBundle\Service\ConceptTypeFunctions;
 
 
 class ResearchType extends ConceptType
 {
 
-    public function __construct(ConceptRepository $conceptRepo,EntityManager $entityManager, CaractType $caractType, CaractTypeManager $caractTypeManager)
+    public function __construct(ConceptEventSubscriber $conceptEventSubscriber, CaractType $caractType, PrototypeManager $prototypeManager)
     {
-        parent::__construct($conceptRepo, Discriminator::$Research, $entityManager, $caractType, $caractTypeManager);
+        parent::__construct($conceptEventSubscriber, $caractType, $prototypeManager, Discriminator::$Research);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

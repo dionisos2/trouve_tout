@@ -11,19 +11,17 @@ use Symfony\Component\Form\FormInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
-use Ukratio\TrouveToutBundle\Form\EventListener\AddCaractsOfCategories;
 use Ukratio\TrouveToutBundle\Entity\ConceptRepository;
 
 
 class ConceptConceptType extends AbstractType
 {
 
-    protected $conceptRepo;
+    protected $sortedConceptType;
 
-    public function __construct(ConceptRepository $conceptRepo, EntityManager $entityManager)
+    public function __construct(SortedConceptType $sortedConceptType)
     {
-        $this->conceptRepo = $conceptRepo;
-        $this->entityManager = $entityManager;
+        $this->sortedConceptType = $sortedConceptType;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -33,7 +31,7 @@ class ConceptConceptType extends AbstractType
         $options = array('label' => ' ',
                          'childConcept' => $childConcept);
 
-        $builder->add('moreGeneral', new SortedConceptType($this->conceptRepo, $this->entityManager), $options);
+        $builder->add('moreGeneral', $this->sortedConceptType, $options);
 
     }
 

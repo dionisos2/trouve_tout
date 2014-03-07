@@ -8,9 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Ukratio\TrouveToutBundle\Form\EventListener\AddOwnerElementSubscriber;
-use Ukratio\TrouveToutBundle\Form\EventListener\AddChildElementSubscriber;
-use Ukratio\TrouveToutBundle\Form\EventListener\AddElementSubscriber;
+use Ukratio\TrouveToutBundle\Form\EventListener\ElementEventSubscriber;
 
 use Ukratio\TrouveToutBundle\Entity\Element;
 use Ukratio\TrouveToutBundle\Entity\ElementRepository;
@@ -23,27 +21,20 @@ use Doctrine\ORM\EntityManager;
 
 class ElementType extends AbstractType
 {
-    protected $conceptRepo;
-    protected $elementRepo;
-    protected $caractTypeManager;
+    protected $elementEventSubscriber;
 
-    public function __construct(ConceptRepository $conceptRepo, ElementRepository $elementRepo, CaractTypeManager $caractTypeManager)
+    public function __construct(ElementEventSubscriber $elementEventSubscriber)
     {
-        $this->conceptRepo = $conceptRepo;
-        $this->elementRepo = $elementRepo;
-        $this->caractTypeManager = $caractTypeManager;
+        $this->elementEventSubscriber = $elementEventSubscriber;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $type = Type::getEnumerator($options['typeOfValue']);
+        $this->elementEventSubscriber->setType($type);
 
-        $builder->addEventSubscriber(new AddElementSubscriber($builder->getFormFactory(), $this->conceptRepo, $this->elementRepo, $type, $this->caractTypeManager));
-
-        $builder->addEventSubscriber(new AddChildElementSubscriber($builder->getFormFactory(), $type, $this->caractTypeManager));
-
-        $builder->addEventSubscriber(new AddOwnerElementSubscriber($builder->getFormFactory()));
+        $builder->addEventSubscriber($this->elementEventSubscriber);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
