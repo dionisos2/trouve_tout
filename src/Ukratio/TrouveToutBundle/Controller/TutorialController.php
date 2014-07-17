@@ -149,7 +149,7 @@ class TutorialController extends ControllerWithTools
 
             $concept = $this->getWardrobeCategoryBegin();
 
-            $subscriber = new ConceptEventSubscriber;
+            $subscriber = $this->get('TrouveTout.tutorial.ConceptEventSubscriber');
             $subscriber->addCaractsForAllCategories($concept);
 
             $this->get('TrouveTout.tutorial.repository.concept')->setConceptsByProperties(
@@ -393,7 +393,7 @@ class TutorialController extends ControllerWithTools
     private function getWardrobeCategoryModified()
     {
         $concept = $this->getWardrobeCategoryBegin();
-        $subscriber = new ConceptEventSubscriber;
+        $subscriber = $this->get('TrouveTout.tutorial.ConceptEventSubscriber');
         $subscriber->addCaractsForAllCategories($concept);
 
         $matter = new Element($this->trans('tutorial.input.matter'));

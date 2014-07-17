@@ -109,18 +109,33 @@ services:
 
 # TUTORIAL SERVICE
 
-  # TrouveTout.tutorial.form.concept:
-  #   abstract: true
-  #   arguments: [@TrouveTout.tutorial.ConceptEventSubscriber, @TrouveTout.form.caract, @TrouveTout.CaractTypeManager]
+  TrouveTout.tutorial.repository.concept:
+    class: Ukratio\TrouveToutBundle\Tutorial\ConceptTutorialRepository
+    arguments: [@translator]
 
-  # TrouveTout.tutorial.form.category:
-  #   class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
-  #   arguments: [@TrouveTout.tutorial.repository.concept, @TrouveTout.repository.caract, @TrouveTout.repository.element, @TrouveTout.ElementManager, @form.factory, @doctrine.orm.entity_manager]
+  TrouveTout.tutorial.form.sorted_concept:
+    class: Ukratio\TrouveToutBundle\Form\Type\SortedConceptType
+    arguments: [@TrouveTout.tutorial.repository.concept, @doctrine.orm.entity_manager]
+    tags:
+      - {name: form.type, alias: TrouveTout_SortedConcept}
 
-  # TrouveTout.tutorial.form.concept_concept:
-  #   class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
-  #   arguments: [@TrouveTout.tutorial.repository.concept, @doctrine.orm.entity_manager]
+  TrouveTout.tutorial.form.concept_concept:
+    class: Ukratio\TrouveToutBundle\Form\Type\ConceptConceptType
+    arguments: [@TrouveTout.tutorial.form.sorted_concept]
+    tags:
+      - {name: form.type, alias: TrouveTout_ConceptConcept}
 
-  # TrouveTout.tutorial.repository.concept:
-  #   class: Ukratio\TrouveToutBundle\Tutorial\ConceptTutorialRepository
-  #   arguments: [@translator]
+  TrouveTout.tutorial.ConceptEventSubscriber:
+    class: Ukratio\TrouveToutBundle\Form\EventListener\ConceptEventSubscriber
+    arguments: [@form.factory, @TrouveTout.tutorial.repository.concept, @doctrine.orm.entity_manager, @TrouveTout.tutorial.form.concept_concept]
+
+  TrouveTout.tutorial.form.concept:
+    abstract: true
+    arguments: [@TrouveTout.tutorial.ConceptEventSubscriber, @TrouveTout.form.caract, @TrouveTout.PrototypeManager]
+
+  TrouveTout.tutorial.form.category:
+    class: Ukratio\TrouveToutBundle\Form\Type\CategoryType
+    parent: TrouveTout.tutorial.form.concept
+    tags:
+      - {name: form.type, alias: TrouveTout_Tutorial_Category}
+

@@ -52,32 +52,34 @@ CategoriesManager.prototype.reloadForm = function (categoryForm, index) {
 CategoriesManager.prototype.updateTemplateAndOwnerCategories = function (categoryForm) {
 	var self = this;
 
-	$('#ajax-loading').show();
-	if (categoryForm != null) {
-		$('#ajax-loading').prependTo(categoryForm);
-	} else {
-		$('#ajax-loading').appendTo($('#ul_categories'));
-	}
-	$.ajax({
-		async: false,
-		type: 'POST',
-		url: ajaxGetOwnerCategoryUrl,
-		dataType: 'json',
-		data: {'conceptId': (conceptId == null)? 'empty':conceptId,
-			  },
-
-		success: function(categoriesList, textStatus, jqXHR) {
-			self.updateTemplateAndOwnerCategoriesCallBack(categoriesList);
-			$('#ajax-loading').hide();
-			$('#ajax-loading').prependTo($('body'));
-		},
-
-		error: function(jqXHR, textStatus, errorThrown) {
-			alert(errorThrown);
-			$('#ajax-loading').hide();
-			$('#ajax-loading').prependTo($('body'));
+	if (!isTutorial) {
+		$('#ajax-loading').show();
+		if (categoryForm != null) {
+			$('#ajax-loading').prependTo(categoryForm);
+		} else {
+			$('#ajax-loading').appendTo($('#ul_categories'));
 		}
-	})
+		$.ajax({
+			async: false,
+			type: 'POST',
+			url: ajaxGetOwnerCategoryUrl,
+			dataType: 'json',
+			data: {'conceptId': (conceptId == null)? 'empty':conceptId,
+				  },
+
+			success: function(categoriesList, textStatus, jqXHR) {
+				self.updateTemplateAndOwnerCategoriesCallBack(categoriesList);
+				$('#ajax-loading').hide();
+				$('#ajax-loading').prependTo($('body'));
+			},
+
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+				$('#ajax-loading').hide();
+				$('#ajax-loading').prependTo($('body'));
+			}
+		})
+	}
 }
 
 CategoriesManager.prototype.updateTemplateAndOwnerCategoriesCallBack = function (categoriesList) {
