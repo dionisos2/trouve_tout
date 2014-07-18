@@ -40,6 +40,7 @@
       <input type="button" disabled id="save" name="save" class="fix-on-right btn btn-primary" value="{{ 'research.save_and_run' | trans }}" onclick="submitIfValid('save')" />
       {% else %}
       <input type="submit" disabled id="save" class="fix-on-right btn btn-primary" value="{{ 'concept.save' | trans }}" />
+      <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" disabled id="reload" class="fix-on-middle btn btn-primary"> {{ 'concept.reload' | trans }} </a>
       {% endif %}
 
       {% if concept.id != 0 %}

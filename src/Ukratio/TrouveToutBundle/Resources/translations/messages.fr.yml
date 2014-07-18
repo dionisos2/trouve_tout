@@ -84,6 +84,7 @@ research:
 
 concept:
   save: 'Sauvegarder'
+  reload: 'Annuler'
   delete: 'Supprimer'
   categories: 'Categories parentes'
   caracts: 'Caractéristiques'

@@ -6,10 +6,12 @@ function submitIfValid(name) {
 
 function enableSave() {
 	$('[id=save]').removeAttr('disabled');
+	$('[id=reload]').removeAttr('disabled');
 }
 
 function disableSave() {
 	$('[id=save]').attr('disabled', 'true');
+	$('[id=reload]').attr('disabled', 'true');
 }
 
 //TODO get transTab by phpTojs
