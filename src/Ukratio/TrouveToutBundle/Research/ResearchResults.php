@@ -118,20 +118,15 @@ class ResearchResults
         }
         $this->columnGroups[] = count($transformsLine) - $this->columnGroups[0];
 
-        foreach($this->arrayResults as $conceptResult) {
-            foreach($conceptResult->getMoreGeneralConcepts() as $category) {
-                $name = $category->getName();
-                $transformsLine[$name] = function (Concept $concept) use ($name)
-                {
-                    $category = $concept->getMoreGeneralConceptByName($name);
-                    if ($category != null) {
-                        return 'o';
-                    } else {
-                        return 'X';
-                    }
-                };
+        $transformsLine['categories'] = function (Concept $concept)
+        {
+            $categories = array(array(), 'categories');
+            foreach($concept->getMoreGeneralConcepts() as $category) {
+                $categories[0][] =  $category;
             }
-        }
+            return $categories;
+        };
+
         $this->columnGroups[] = count($transformsLine) - $this->columnGroups[0] - $this->columnGroups[1];
 
 

@@ -51,13 +51,17 @@
         <td>
           {% if value is iterable %}
             {% if value[1] == 'date' %}
-            {{ value[0] | date('d/m/Y H:i') }}
+              {{ value[0] | date('d/m/Y H:i') }}
             {% elseif value[1] == 'object' %}
-            {{ value[0] }}
+              {{ value[0] }}
+            {% elseif value[1] == 'categories' %}
+              {% for category in value[0] %}
+                 <a href="{{ path('edit_concept', {conceptId: category.getId()}) }}">{{ category.getName() }}</a>, 
+              {% endfor %}
             {% else %}
-            {{ value[0] }}
+              {{ value[0] }}
             {% endif %}
-            {% else %}
+          {% else %}
             {{ value }}
           {% endif %}
         </td>
