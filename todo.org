@@ -1,0 +1,145 @@
+* DONE lire les nouveaux tutos sur le site du zéro
+  <2013-02-19 mar.>
+  les évènements doctrines sont simple et pratique, les évènements symfony2 sont plus complexe mais puissant, essayer de repérer dans le code où ce pattern ferait l’affaire
+  assetic peut potentiellement permettre une bonne optimisation, à voir une fois le site terminé.
+* DONE approfondir la création de formulaires
+  http://osdir.com/ml/symfony-devs/2011-06/msg00248.html
+  $resolver->setDefaults(array(
+	   'data_class' => 'Acme\TaskBundle\Entity\Task',
+	   'cascade_validation' => true,
+   ));
+   If you have several collections in your form, or worse, nested collections you may want to change the placeholder so that unrelated placeholders are not replaced with the same value.
+
+   What onDelete="SET NULL" does is that when you delete a parent, its child element will get NULL value in parent_id column. This happens on DB level so you must doctrine:schema:update.
+
+   $data = new Container();
+   >                 $form = $this->get('form.factory')->create(new
+   > ContainerType());
+   >                 $form->setData($data);
+
+   ChoiceOrTextType <3
+* DONE faire les formulaires pour les différents objects
+* DONE redirection après validation
+  Redirecting a user after a successful form submission prevents the user from being able to hit "refresh" and re-post the data.
+* DONE permettre les recherches
+** DONE faire les formulaires de recherches
+** DONE effectuer les recherches
+   docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/native-sql.html
+** DONE afficher les recherches
+* DONE permettre l’effacement des éléments orphelins
+  CLOSED: [2013-03-30 sam. 03:34]
+* DONE gestion des spécifications de caracts pour les categories
+  CLOSED: [2013-03-30 sam. 20:28]
+* DONE voir avec evan pour le dessign du site
+  CLOSED: [2013-03-29 ven. 15:42]
+* DONE améliorer le système d’images
+  CLOSED: [2013-03-30 sam. 20:28]
+  image dans des dossiers, créer en fonction des catégories ?
+* DONE améliorer les liens entres objets
+  CLOSED: [2013-03-30 sam. 10:56]
+  affichage de la liste des liens dans pour les recherches et les modifications
+* DONE remplacer le bouton envoyer
+  CLOSED: [2013-04-30 mar. 18:42]
+  Le laisser et faire le passage à l’ajax
+* DONE selected et bydefault cocher par défaut
+  Obligé de le faire en javascript pour modifier le prototype
+  CLOSED: [2013-03-30 sam. 18:07]
+* DONE passage à l’ajax
+  CLOSED: [2013-05-08 mer. 22:41]
+** DONE apprendre le javacript
+	CLOSED: [2013-04-30 mar. 18:44]
+** DONE apprendre à se servir de jquery
+	CLOSED: [2013-04-30 mar. 18:44]
+** DONE apprendre à se servir de l’ajax
+	CLOSED: [2013-04-30 mar. 18:44]
+** DONE apprendre comment est géré l’ajax coté symfony2
+	CLOSED: [2013-04-30 mar. 18:44]
+** DONE refactoriser l’ancien code javascript
+	CLOSED: [2013-04-30 mar. 18:45]
+** DONE faire toute la partie javascript pour préparer le formulaire coté client
+	CLOSED: [2013-05-02 jeu. 18:52]
+** DONE gérer la réception de formulaire coté server
+	CLOSED: [2013-05-08 mer. 22:40]
+
+* DONE permettre une connexion par mot de passe
+  CLOSED: [2013-05-10 ven. 14:31]
+* DONE mettre le site en production sur ukratio.org
+  CLOSED: [2013-05-10 ven. 14:32]
+* DONE créer un tutoriel
+  CLOSED: [2013-11-11 lun. 09:59]
+* DONE gérer la traduction coté javascript
+  CLOSED: [2013-11-19 mar. 10:19]
+  sans doute pas entièrement
+* DONE ajouter un type date
+  CLOSED: [2013-06-01 sam. 08:19]
+* DONE voir pour rajouter un intervalle d’incertitude sur les nombres ou les dates
+  CLOSED: [2014-02-03 lun. 13:53]
+* TODO correction de bugs et autre v1.0a
+** DONE mettre toute les dossiers d’images de catégorie en racine de "picture"
+	CLOSED: [2014-02-16 dim. 11:42]
+** DONE bug avec upload d’images pour les catégories commençant par un accent
+	CLOSED: [2014-02-16 dim. 13:04]
+	suppression des accents lors de l’enregistrement
+** DONE liste déroulante verticale pour les caractéristiques, et non horizontale
+	CLOSED: [2014-02-16 dim. 13:32]
+	inline-table to first-child only
+** DONE ajouter un lien vers l’image sur l’image elle-même
+	CLOSED: [2014-02-16 dim. 13:44]
+** DONE gros problème de js après modification des caractéristiques
+	CLOSED: [2014-02-17 lun. 11:10]
+	semble plus ou moins réglé
+** DONE peut être ajouter un bouton pour recharger les éléments d’une caractéristique, ou mettre une note par rapport à cette nécessité de recharger
+	CLOSED: [2014-02-18 mar. 10:47]
+** DONE pas de rechargement ajax pour les caractéristiques ne le nécessitant pas (text/date/number)
+	CLOSED: [2014-02-18 mar. 10:47]
+** DONE avoir l’id des concepts de manière plus accessible (pas uniquement dans l’url)
+	CLOSED: [2014-02-18 mar. 10:57]
+** DONE chargement dynamique des images
+	CLOSED: [2014-02-18 mar. 11:20]
+** DONE la touche entrée lance la sauvegarde quand elle ne devrait pas
+	CLOSED: [2014-02-18 mar. 11:22]
+	semble ne plus le faire
+** DONE faire qu’on puisse choisir l’unité à la main
+	CLOSED: [2014-02-18 mar. 11:51]
+** DONE garder le bouton de sauvegarde activé quand il y a une erreur dans le formulaire
+	CLOSED: [2014-02-18 mar. 11:55]
+	abandonné car une erreur necessite une modification
+** DONE activé la sauvegarde lors d’un changement de catégorie
+	CLOSED: [2014-02-18 mar. 12:22]
+** DONE ajouter une impréssision sur le nombre d’objet
+	CLOSED: [2014-02-18 mar. 12:47]
+** DONE faire que la page de modification des recherches permettent le lancement de la recherche. (comme pour la page run_research)
+	CLOSED: [2014-02-18 mar. 20:03]
+** DONE afficher correctement les dates dans le tableau de recherche
+	CLOSED: [2014-02-18 mar. 20:26]
+** DONE faire en sorte que le formulaire de recherche garde une largeur minimal
+	CLOSED: [2014-02-18 mar. 20:42]
+** DONE bug pour les listes déroulantes des caractéristiques après le lancement d’une recherche
+   CLOSED: [2014-02-18 mar. 20:58]
+   Le rechargement fera l’affaire
+** DONE jeton CSRF souvent invalide
+	CLOSED: [2014-02-19 mer. 10:18]
+	suppression des jeton CSRF pour les concepts
+** DONE faire l’upload d’image au même endroit que l’ajout d’une caractéristique image
+	CLOSED: [2014-02-22 sam. 18:12]
+** DONE problème d’emplacement des images lorsque qu’une catégorie en a plusieurs autres
+	CLOSED: [2014-02-22 sam. 18:12]
+	première catégorie choisie
+** TODO possibilité d’envoyer plusieurs images à la fois
+** TODO possibilité de supprimer des images sur le serveur
+
+** TODO option pour choisir la taille et l’orientation des images
+** TODO faire en sorte que les recherches prennent en compte l’impréssion
+** TODO gros problème de ralentissement quand les listes déroulantes deviennent longues
+* TODO possibilité d’accès rapide à un concept par son ID
+* TODO gestion moins bizarre des types de caracts pour les recherches
+* TODO passer tout les events en services
+* TODO sans doute besoin d’un moyen d’atteindre les différentes catégories plus rapidement
+* TODO permettre une recherche par intervalle sur les dates ou les nombres
+* TODO voir pour mettre en place un système d’enregistrement par utilisateurs
+  Entrer les utilisateurs comme des concepts (sans catégorie), et ajouter un type de caractéristique "person", pour définir par exemple le gardien/propriétaire.
+* TODO mettre en place un système de sauvegarde
+* TODO permettre une vision rapide de la localisation d’un objet
+* TODO permettre d’organiser le tableau de recherche selon une des colonnes.
+* TODO avoir l’option d’afficher certainne image dans le tableau de recherche.
+* TODO créer un outil pour réorganiser les images sur le serveur en cas de changement de nom de catégories
