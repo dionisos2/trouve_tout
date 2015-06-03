@@ -125,7 +125,8 @@
 ** DONE problème d’emplacement des images lorsque qu’une catégorie en a plusieurs autres
 	CLOSED: [2014-02-22 sam. 18:12]
 	première catégorie 
-** TODO régler le problème de suppression de concepts
+** DONE régler le problème de suppression de concepts
+   CLOSED: [2015-06-03 mer. 12:20]
 ** TODO régler le problème de non-héritage de catégories
 ** TODO faire en sorte que les recherches prennent en compte l’imprécision
 ** TODO créer testes unitaires couvrant le programme
