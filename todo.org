@@ -124,13 +124,13 @@
 	CLOSED: [2014-02-22 sam. 18:12]
 ** DONE problème d’emplacement des images lorsque qu’une catégorie en a plusieurs autres
 	CLOSED: [2014-02-22 sam. 18:12]
-	première catégorie choisie
-** TODO possibilité d’envoyer plusieurs images à la fois
-** TODO possibilité de supprimer des images sur le serveur
-
-** TODO option pour choisir la taille et l’orientation des images
-** TODO faire en sorte que les recherches prennent en compte l’impréssion
-** TODO gros problème de ralentissement quand les listes déroulantes deviennent longues
+	première catégorie 
+** TODO régler le problème de suppression de concepts
+** TODO régler le problème de non-héritage de catégories
+** TODO faire en sorte que les recherches prennent en compte l’imprécision
+** TODO créer testes unitaires couvrant le programme
+** TODO créer testes fonctionnel
+* TODO gros problème de ralentissement quand les listes déroulantes deviennent longues
 * TODO possibilité d’accès rapide à un concept par son ID
 * TODO gestion moins bizarre des types de caracts pour les recherches
 * TODO passer tout les events en services
@@ -141,5 +141,8 @@
 * TODO mettre en place un système de sauvegarde
 * TODO permettre une vision rapide de la localisation d’un objet
 * TODO permettre d’organiser le tableau de recherche selon une des colonnes.
-* TODO avoir l’option d’afficher certainne image dans le tableau de recherche.
+* TODO possibilité de supprimer des images sur le serveur
+* TODO possibilité d’envoyer plusieurs images à la fois
+* TODO option pour choisir la taille et l’orientation des images
+* TODO avoir l’option d’afficher certaine image dans le tableau de recherche.
 * TODO créer un outil pour réorganiser les images sur le serveur en cas de changement de nom de catégories

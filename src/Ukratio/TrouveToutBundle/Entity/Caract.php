@@ -154,6 +154,7 @@ class Caract
         } else {
             $this->name = Constant::UNDEFINED;
         }
+        $this->assertData = new AssertData();
     }
 
     /**
@@ -196,6 +197,7 @@ class Caract
      */
     public function setUnit($unit)
     {
+        
         $this->unit = $unit;
         return $this;
     }
@@ -218,6 +220,7 @@ class Caract
      */
     public function setType($type)
     {
+        $this->assertData->assertString($type);
         $this->type = $type;
         return $this;
     }
@@ -410,6 +413,7 @@ class Caract
      */
     public function setPrefix($prefix)
     {
+        //TODO vérifier préfix
         $this->prefix = $prefix;
 
         return $this;

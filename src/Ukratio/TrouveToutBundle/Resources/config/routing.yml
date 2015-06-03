@@ -7,6 +7,6 @@ TrouveTout_route:
 
 login_check:
     pattern:   /{_locale}/login_check
- 
+
 logout:
     pattern:   /{_locale}/logout

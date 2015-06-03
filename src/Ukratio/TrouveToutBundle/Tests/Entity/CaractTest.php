@@ -103,21 +103,13 @@ class CaractTest extends ValidatorAwareTestCase
      */
     public function testGetAndSetUnit()
     {
-        $this->caract0->setUnit("plop");
+        $this->caract0->setUnit("mètre");
         $this->assertEquals('mètre', $this->caract0->getUnit());
-        $this->caract0->setUnit("plop");
+        $this->caract0->setUnit("∅");
         $this->assertEquals('∅', $this->caract0->getUnit());
         $this->valide($this->caract0);
     }
 
-    /**
-     * @covers Caract::setUnit
-     */
-    public function testSetUnitWithWrongType()
-    {
-        $this->caract0->setUnit(10);
-        $this->notValide($this->caract0, 'unit');
-    }
 
     /**
      * @covers Caract::getType
@@ -142,15 +134,6 @@ class CaractTest extends ValidatorAwareTestCase
         $this->valide($this->caract0);
     }
 
-
-    /**
-     * @covers Caract::setType
-     */
-    public function testSetTypeWithWrongType()
-    {
-        $this->caract0->setType(10);
-        $this->notValide($this->caract0, 'type');
-    }
 
     /**
      * @covers Caract::setType
