@@ -128,7 +128,9 @@
 ** TODO régler le problème de suppression de concepts
 ** TODO régler le problème de non-héritage de catégories
 ** TODO faire en sorte que les recherches prennent en compte l’imprécision
-** TODO gros problème de ralentissement quand les listes déroulantes deviennent longues
+** TODO créer testes unitaires couvrant le programme
+** TODO créer testes fonctionnel
+* TODO gros problème de ralentissement quand les listes déroulantes deviennent longues
 * TODO possibilité d’accès rapide à un concept par son ID
 * TODO gestion moins bizarre des types de caracts pour les recherches
 * TODO passer tout les events en services
