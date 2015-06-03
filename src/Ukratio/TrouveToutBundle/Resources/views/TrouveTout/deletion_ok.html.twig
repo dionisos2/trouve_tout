@@ -1,0 +1,11 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'title.confirm_delete' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+
+<p>{{ 'delete_concept.deletion_ok' | trans({'%conceptId%': conceptId}) }}</p>
+
+{% endblock %}

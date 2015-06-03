@@ -44,9 +44,7 @@
       {% endif %}
 
       {% if concept.id != 0 %}
-
-      <form action="{{ path('delete_concept', {id: concept.id}) }}" method="post">
-      <input type="submit" class="fix-on-left btn btn-primary" value="{{ 'concept.delete' | trans }}">
+      <a href="{{ path('confirm_delete', {id: concept.id}) }}" class="fix-on-left btn btn-primary"> {{ 'concept.delete' | trans }} </a>
       {% endif %}
     {% endif %}
 

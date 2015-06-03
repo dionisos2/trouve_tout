@@ -21,6 +21,7 @@ title:
   create_concept: 'Créer un concept'
   add_object: 'Ajouter un objet'
   do_research: 'Faire une recherche'
+  confirm_delete: 'Confirmer la suppression'
 
 menu:
   home: Accueil
@@ -93,6 +94,12 @@ concept:
   number: 'Nombre:'
   number_imprecision: 'imprécision:'
 
+delete_concept:
+  ask_confirm: 'Voulez vous vraiment supprimer le concept d’identifiant: '
+  yes: 'oui'
+  no: 'no'
+  deletion_ok: 'Suppression du concept d’identifiant %conceptId% réussi.'
+
 test.hello: 'Hello !!'
 
 upload_picture:
@@ -112,6 +119,7 @@ home:
   source_code: 'Code source :'
   ucratique_community: 'la communautée ucratique'
   gitorious: 'Page gitorious'
+
 
 picture: 'image'
 object: 'objet'

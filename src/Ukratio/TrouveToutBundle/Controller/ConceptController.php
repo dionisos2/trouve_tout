@@ -160,17 +160,32 @@ class ConceptController extends ControllerWithTools
 
     }
 
+
+    /**
+     * @Route("/delete/{id}", name="confirm_delete", requirements={"id" = "\d+"})
+     * @Secure(roles="ROLE_USER")
+     * @Method({"GET"})
+     * @Template("TrouveToutBundle:TrouveTout:confirm_delete.html.twig")
+     */
+    public function confirmDeleteConcept(Request $request, Concept $concept)
+    {
+        //TODO afficher le concept dans la page
+        return array('conceptId' => $concept->getId());
+    }
+
     /**
      * @Route("/delete/{id}", name="delete_concept", requirements={"id" = "\d+"})
      * @Secure(roles="ROLE_USER")
      * @Method({"POST"})
+     * @Template("TrouveToutBundle:TrouveTout:deletion_ok.html.twig")
      */
     public function deleteConcept(Request $request, Concept $concept)
     {
+        $conceptId = $concept->getId();
         $cfc = $this->get('TrouveTout.ConceptFormManager');
         $cfc->deleteConcept($concept);
 
-        return $this->redirect($this->generateUrl('create_set'));
+        return array('conceptId' => $conceptId);
     }
 
 }

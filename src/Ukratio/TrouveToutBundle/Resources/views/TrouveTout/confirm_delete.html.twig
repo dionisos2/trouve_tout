@@ -1,0 +1,15 @@
+{% extends "TrouveToutBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - {{ 'title.confirm_delete' | trans }}
+{% endblock %}
+
+{% block TrouveTout %}
+
+<p>{{ 'delete_concept.ask_confirm' | trans }}{{ conceptId }}</p>
+<a href="{{ path('edit_concept', {conceptId: conceptId}) }}" class="fix-on-left btn btn-primary">{{ 'delete_concept.no' | trans }}</a>
+
+<form action="{{ path('delete_concept', {id: conceptId}) }}" method="post">
+  <input type="submit" class="fix-on-right btn btn-primary" value="{{ 'delete_concept.yes' | trans }}">
+</form>
+{% endblock %}
