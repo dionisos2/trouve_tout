@@ -8,6 +8,7 @@
 /bin/
 /sql/
 symfony_vendor
+Form_of_symfony.php
 /composer.phar
 *~
 composer.lock
