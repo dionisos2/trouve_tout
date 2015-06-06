@@ -35,8 +35,8 @@ class ConceptController extends ControllerWithTools
      */
     public function createCategoryAction()
     {
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
-        return $cfc->createConcept(Discriminator::$Category);
+        $cfm = $this->get('TrouveTout.ConceptFormManager');
+        return $cfm->createConcept(Discriminator::$Category);
     }
 
     /**
@@ -48,8 +48,8 @@ class ConceptController extends ControllerWithTools
      */
     public function createSetAction()
     {
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
-        return $cfc->createConcept(Discriminator::$Set);
+        $cfm = $this->get('TrouveTout.ConceptFormManager');
+        return $cfm->createConcept(Discriminator::$Set);
     }
 
     /**
@@ -60,7 +60,7 @@ class ConceptController extends ControllerWithTools
      */
     public function saveConcept(Request $request, $type)
     {
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $cfm = $this->get('TrouveTout.ConceptFormManager');
         $concept = new Concept();
 
         if ($type == 'category') {
@@ -74,17 +74,17 @@ class ConceptController extends ControllerWithTools
 
         $concept->setType($type->getName());
 
-        $form = $cfc->createForm($concept);
+        $form = $cfm->createForm($concept);
 
         $form->bind($request);
 
         if ($form->isValid()) {
-            $cfc->saveConcept($concept);
+            $cfm->saveConcept($concept);
 
             return $this->redirect($this->generateUrl('edit_concept', array('conceptId' => $concept->getId())));
         } else {
 
-            return $cfc->arrayForTemplate($concept, $form);
+            return $cfm->arrayForTemplate($concept, $form);
         }
 
     }
@@ -97,32 +97,34 @@ class ConceptController extends ControllerWithTools
     {
         $response = new Response();
 
-        if ($this->get('security.context')->isGranted('ROLE_USER')) {
-            $response->setETag("connected");
-        } else {
-            $response->setETag("unconnected");
-        }
+        /* if ($this->get('security.context')->isGranted('ROLE_USER')) { */
+        /*     $response->setETag("connected"); */
+        /* } else { */
+        /*     $response->setETag("unconnected"); */
+        /* } */
 
         $conceptRepo = $this->getDoctrine()
                             ->getRepository('TrouveToutBundle:Concept');
-        if (in_array($response->getEtag(), $request->getEtags())) {
-            $date = $conceptRepo->getModifiedAt($conceptId);
-            if($date == null) {
-                $date = new \DateTime();
-                $date->setTimezone(new \DateTimeZone('UTC'));
-            }
-            $response->setLastModified($date);
-        }
+        /* if (in_array($response->getEtag(), $request->getEtags())) { */
+        /*     $date = $conceptRepo->getModifiedAt($conceptId); */
+        /*     if($date == null) { */
+        /*         $date = new \DateTime(); */
+        /*         $date->setTimezone(new \DateTimeZone('UTC')); */
+        /*     } */
+        /*     $response->setLastModified($date); */
+        /* } */
 
-        if ($response->isNotModified($request)) {
-            return $response;
-        } else {
+        /* if ($response->isNotModified($request)) { */
+        /*     return $response; */
+        /* } else { */
             $concept = $conceptRepo->findByIdWithCaract($conceptId);
-            $cfc = $this->get('TrouveTout.ConceptFormManager');
-            $form = $cfc->createForm($concept);
-            $options = $cfc->arrayForTemplate($concept, $form);
+            $cfm = $this->get('TrouveTout.ConceptFormManager');
+            echo "before createform</br>";
+            $form = $cfm->createForm($concept);
+            echo "after createform</br>";
+            $options = $cfm->arrayForTemplate($concept, $form);
             return $this->render('TrouveToutBundle:TrouveTout:modifyConcept.html.twig', $options, $response);
-        }
+        /* } */
 
     }
 
@@ -136,9 +138,9 @@ class ConceptController extends ControllerWithTools
      */
     public function updateAction(Request $request, Concept $concept)
     {
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $cfm = $this->get('TrouveTout.ConceptFormManager');
 
-        $form = $cfc->createForm($concept);
+        $form = $cfm->createForm($concept);
 
         echo "<br>bind<br>";
         $form->bind($request);
@@ -147,7 +149,7 @@ class ConceptController extends ControllerWithTools
         $type = Discriminator::getEnumerator($concept->getType());
 
         if ($form->isValid()) {
-            $cfc->saveConcept($concept);
+            $cfm->saveConcept($concept);
 
             if ($type == Discriminator::$Research) {
                 return $this->redirect($this->generateUrl('run_with_id_research', array('id' => $concept->getId())));
@@ -155,7 +157,7 @@ class ConceptController extends ControllerWithTools
                 return $this->redirect($this->generateUrl('edit_concept', array('conceptId' => $concept->getId())));
             }
         } else {
-            return $cfc->arrayForTemplate($concept, $form);
+            return $cfm->arrayForTemplate($concept, $form);
         }
 
     }
@@ -182,8 +184,8 @@ class ConceptController extends ControllerWithTools
     public function deleteConcept(Request $request, Concept $concept)
     {
         $conceptId = $concept->getId();
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
-        $cfc->deleteConcept($concept);
+        $cfm = $this->get('TrouveTout.ConceptFormManager');
+        $cfm->deleteConcept($concept);
 
         return array('conceptId' => $conceptId);
     }

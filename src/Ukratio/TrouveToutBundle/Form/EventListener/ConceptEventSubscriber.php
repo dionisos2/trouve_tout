@@ -31,11 +31,11 @@ class ConceptEventSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(FormEvents::PRE_SET_DATA => 'doAction');
-        return array(FormEvents::POST_BIND => 'postBind');
+        return array(FormEvents::PRE_SET_DATA => 'preSetData');
+        return array(FormEvents::POST_SUBMIT => 'postSubmit');
     }
 
-    public function postBind(FormEvent $event)
+    public function postSubmit(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
@@ -47,7 +47,8 @@ class ConceptEventSubscriber implements EventSubscriberInterface
         if (! $data instanceof Concept) {//theorically impossible
             return;
         }
-
+        echo "uanierstuarnietrsunateiuie";
+        throw new UnexpectedTypeException($data, 'Caract');
         $this->addCaractsForAllCategories($data);
     }
 
@@ -70,7 +71,7 @@ class ConceptEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function doAction(FormEvent $event)
+    public function preSetData(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();

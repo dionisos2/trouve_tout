@@ -32,6 +32,10 @@ class ConceptFormManager
         $concept = new Concept();
         $concept->setType($type->getName());
 
+        if($type == Discriminator::$Research) {
+            $concept->setResearchedType(Discriminator::$Set->getName());
+        }
+
         $form = $this->createForm($concept);
         return $this->arrayForTemplate($concept, $form);
     }

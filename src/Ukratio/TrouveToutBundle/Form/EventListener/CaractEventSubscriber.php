@@ -46,7 +46,7 @@ class CaractEventSubscriber implements EventSubscriberInterface
     {
         return array(FormEvents::PRE_SET_DATA => 'preSet',
                      FormEvents::PRE_BIND => 'preBind',
-                     FormEvents::POST_BIND => 'postBind');
+                     FormEvents::POST_SUBMIT => 'postBind');
     }
 
     public function postSubmit(FormEvent $event)

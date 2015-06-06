@@ -39,8 +39,9 @@ class ResearchController extends ControllerWithTools
         if ($response->isNotModified($request)) {
             return $response;
         } else {
-            $cfc = $this->get('TrouveTout.ConceptFormManager');
-            $options = $cfc->createConcept(Discriminator::$Research);
+            $cfm = $this->get('TrouveTout.ConceptFormManager');
+            $options = $cfm->createConcept(Discriminator::$Research);
+
             return $this->render('TrouveToutBundle:TrouveTout:createConcept.html.twig', $options, $response);
         }
     }
@@ -53,11 +54,11 @@ class ResearchController extends ControllerWithTools
      */
     public function runResearchAction(Request $request, Concept $research)
     {
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
-        $researchResults = $cfc->runResearch($research);
-        $form = $cfc->createForm($research);
+        $cfm = $this->get('TrouveTout.ConceptFormManager');
+        $researchResults = $cfm->runResearch($research);
+        $form = $cfm->createForm($research);
 
-        $returnArray = $cfc->arrayForTemplate($research, $form);
+        $returnArray = $cfm->arrayForTemplate($research, $form);
         $returnArray += array('researchResults' => $researchResults, 'research' => $research);
 
         return $returnArray;
@@ -70,16 +71,16 @@ class ResearchController extends ControllerWithTools
      */
     public function saveResearchAction(Request $request, Concept $research)
     {
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
-        $form = $cfc->createForm($research);
+        $cfm = $this->get('TrouveTout.ConceptFormManager');
+        $form = $cfm->createForm($research);
 
         $form->bind($request);
 
         if ($form->isValid()) {
-            $cfc->saveConcept($research);
+            $cfm->saveConcept($research);
             return $this->redirect($this->generateUrl('run_with_id_research', array('id' => $research->getId())));
         } else {
-            return $cfc->arrayForTemplate($research, $form);
+            return $cfm->arrayForTemplate($research, $form);
         }
 
         return $returnArray;
@@ -92,31 +93,31 @@ class ResearchController extends ControllerWithTools
      */
     public function saveOrRunResearch(Request $request)
     {
-        $cfc = $this->get('TrouveTout.ConceptFormManager');
+        $cfm = $this->get('TrouveTout.ConceptFormManager');
         $concept = new Concept();
 
         $type = Discriminator::$Research;
 
         $concept->setType($type->getName());
 
-        $form = $cfc->createForm($concept);
+        $form = $cfm->createForm($concept);
 
         $form->bind($request);
 
         if ($form->isValid()) {
 
             if (($request->request->get('save') != null)and($this->get('security.context')->isGranted('ROLE_USER'))) {
-                $cfc->saveConcept($concept);
+                $cfm->saveConcept($concept);
                 return $this->redirect($this->generateUrl('run_with_id_research', array('id' => $concept->getId())));
             } else {
-                $returnArray = $cfc->arrayForTemplate($concept, $form);
-                $researchResults = $cfc->runResearch($concept);
+                $returnArray = $cfm->arrayForTemplate($concept, $form);
+                $researchResults = $cfm->runResearch($concept);
                 $returnArray += array('researchResults' => $researchResults, 'research' => $concept);
                 return $returnArray;
                 /* return $this->forward('TrouveToutBundle:Research:runResearch', array('research'  => $concept)); */
             }
         } else {
-            return $cfc->arrayForTemplate($concept, $form);
+            return $cfm->arrayForTemplate($concept, $form);
         }
 
     }
