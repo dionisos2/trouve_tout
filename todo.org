@@ -127,8 +127,10 @@
 	première catégorie 
 ** DONE régler le problème de suppression de concepts
    CLOSED: [2015-06-03 mer. 12:20]
+** TODO régler le problème de non affichage des erreurs dans les events
 ** TODO régler le problème de non-héritage de catégories
 ** TODO faire en sorte que les recherches prennent en compte l’imprécision
+** TODO mettre symfony2 à jour
 ** TODO créer testes unitaires couvrant le programme
 ** TODO créer testes fonctionnel
 * TODO gros problème de ralentissement quand les listes déroulantes deviennent longues
