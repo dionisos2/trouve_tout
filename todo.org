@@ -133,7 +133,8 @@
 ** DONE régler le problème de non-héritage de catégories
    CLOSED: [2015-06-21 dim. 17:07]
    l’évènement n’était pas appelé
-** TODO faire en sorte que les recherches prennent en compte l’imprécision
+** DONE faire que les boutons ne cache pas le bas des recherches
+   CLOSED: [2015-06-21 dim. 17:20]
 ** TODO mettre symfony2 à jour
 ** TODO créer testes unitaires couvrant le programme
 ** TODO créer testes fonctionnel
