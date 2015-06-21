@@ -20,6 +20,7 @@ class ConceptEventSubscriber implements EventSubscriberInterface
     protected $conceptRepo;
     protected $entityManager;
     protected $conceptConceptType;
+    protected $hihi;
 
     public function __construct(FormFactoryInterface $factory,ConceptRepository $conceptRepo, EntityManager $entityManager, ConceptConceptType $conceptConceptType)
     {
@@ -27,12 +28,13 @@ class ConceptEventSubscriber implements EventSubscriberInterface
         $this->conceptRepo = $conceptRepo;
         $this->entityManager = $entityManager;
         $this->conceptConceptType = $conceptConceptType;
+        $this->hihi = "theEvent";
     }
 
     public static function getSubscribedEvents()
     {
-        return array(FormEvents::PRE_SET_DATA => 'preSetData');
-        return array(FormEvents::POST_SUBMIT => 'postSubmit');
+        return array(FormEvents::PRE_SET_DATA => 'preSetData',
+                     FormEvents::POST_SUBMIT => 'postSubmit');
     }
 
     public function postSubmit(FormEvent $event)
@@ -47,8 +49,7 @@ class ConceptEventSubscriber implements EventSubscriberInterface
         if (! $data instanceof Concept) {//theorically impossible
             return;
         }
-        echo "uanierstuarnietrsunateiuie";
-        throw new UnexpectedTypeException($data, 'Caract');
+
         $this->addCaractsForAllCategories($data);
     }
 

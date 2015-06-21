@@ -97,34 +97,32 @@ class ConceptController extends ControllerWithTools
     {
         $response = new Response();
 
-        /* if ($this->get('security.context')->isGranted('ROLE_USER')) { */
-        /*     $response->setETag("connected"); */
-        /* } else { */
-        /*     $response->setETag("unconnected"); */
-        /* } */
+        if ($this->get('security.context')->isGranted('ROLE_USER')) {
+            $response->setETag("connected");
+        } else {
+            $response->setETag("unconnected");
+        }
 
         $conceptRepo = $this->getDoctrine()
                             ->getRepository('TrouveToutBundle:Concept');
-        /* if (in_array($response->getEtag(), $request->getEtags())) { */
-        /*     $date = $conceptRepo->getModifiedAt($conceptId); */
-        /*     if($date == null) { */
-        /*         $date = new \DateTime(); */
-        /*         $date->setTimezone(new \DateTimeZone('UTC')); */
-        /*     } */
-        /*     $response->setLastModified($date); */
-        /* } */
+        if (in_array($response->getEtag(), $request->getEtags())) {
+            $date = $conceptRepo->getModifiedAt($conceptId);
+            if($date == null) {
+                $date = new \DateTime();
+                $date->setTimezone(new \DateTimeZone('UTC'));
+            }
+            $response->setLastModified($date);
+        }
 
-        /* if ($response->isNotModified($request)) { */
-        /*     return $response; */
-        /* } else { */
+        if ($response->isNotModified($request)) {
+            return $response;
+        } else {
             $concept = $conceptRepo->findByIdWithCaract($conceptId);
             $cfm = $this->get('TrouveTout.ConceptFormManager');
-            echo "before createform</br>";
             $form = $cfm->createForm($concept);
-            echo "after createform</br>";
             $options = $cfm->arrayForTemplate($concept, $form);
             return $this->render('TrouveToutBundle:TrouveTout:modifyConcept.html.twig', $options, $response);
-        /* } */
+        }
 
     }
 
@@ -142,9 +140,7 @@ class ConceptController extends ControllerWithTools
 
         $form = $cfm->createForm($concept);
 
-        echo "<br>bind<br>";
         $form->bind($request);
-        echo "<br>fin bind<br>";
 
         $type = Discriminator::getEnumerator($concept->getType());
 

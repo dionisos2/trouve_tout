@@ -127,8 +127,12 @@
 	première catégorie 
 ** DONE régler le problème de suppression de concepts
    CLOSED: [2015-06-03 mer. 12:20]
-** TODO régler le problème de non affichage des erreurs dans les events
-** TODO régler le problème de non-héritage de catégories
+** DONE régler le problème de non affichage des erreurs dans les events
+   CLOSED: [2015-06-21 dim. 17:06]
+   l’évènement n’était pas appelé
+** DONE régler le problème de non-héritage de catégories
+   CLOSED: [2015-06-21 dim. 17:07]
+   l’évènement n’était pas appelé
 ** TODO faire en sorte que les recherches prennent en compte l’imprécision
 ** TODO mettre symfony2 à jour
 ** TODO créer testes unitaires couvrant le programme
