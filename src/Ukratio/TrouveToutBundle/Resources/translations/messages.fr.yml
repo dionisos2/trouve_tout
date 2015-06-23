@@ -82,6 +82,8 @@ research:
     category: 'catégorie'
     set: 'objet'
     research: 'recherche'
+    selection: 'select'
+    select_all: 'tout selectionner'
 
 concept:
   save: 'Sauvegarder'

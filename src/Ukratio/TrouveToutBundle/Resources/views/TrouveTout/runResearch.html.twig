@@ -1,7 +1,7 @@
 {% extends "TrouveToutBundle:TrouveTout:createConcept.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - {{ 'title.research' | trans }}
+{{ parent() }} - {{ 'title.research' | trans }}
 {% endblock %}
 
 {% block TrouveTout %}
@@ -15,59 +15,76 @@
 
   <th valign="top">
     {% if researchResults is defined %}
-    <table class="table table-bordered">
-      <caption> {{ 'research.table.name' | trans({'%researchedType%': ("research.table." ~ research.researchedType) | lower | trans}) }}</caption>
-
-      <colgroup>
-        <col span="{{ researchResults.columnGroups[0] + 1 }}" style="background-color:yellow">
-        <col span="{{ researchResults.columnGroups[1] }}" style="background-color:Aqua">
-        <col span="{{ researchResults.columnGroups[2] }}" style="background-color:Orchid">
-      </colgroup>
-
-      <th>
-        {{ 'research.table.ID' | trans }}
-      </th>
-      {% for header in researchResults.headers %}
-      <th>
-        {{ header | trans}}
-      </th>
-      {% endfor %}
-
-      {% for conceptLine in researchResults.conceptLines %}
-      <tr>
+    <table>
+      <tr align="left">
         <td>
-          {% if conceptLine.concept.type == 'Research' %}
-          <a href="{{ path('run_with_id_research', {id: conceptLine.concept.id}) }}">
-            {{ conceptLine.concept.id }}
-          </a>
-          {% else %}
-          <a href="{{ path('edit_concept', {conceptId: conceptLine.concept.id}) }}">
-            {{ conceptLine.concept.id }}
-          </a>
-          {% endif %}
+          <input type="button" id="select_all" class="btn btn-primary" value="{{ 'research.table.select_all' | trans }}"/>
         </td>
-
-        {% for value in conceptLine.line %}
-        <td>
-          {% if value is iterable %}
-            {% if value[1] == 'date' %}
-              {{ value[0] | date('d/m/Y H:i') }}
-            {% elseif value[1] == 'object' %}
-              {{ value[0] }}
-            {% elseif value[1] == 'categories' %}
-              {% for category in value[0] %}
-                 <a href="{{ path('edit_concept', {conceptId: category.getId()}) }}">{{ category.getName() }}</a>, 
-              {% endfor %}
-            {% else %}
-              {{ value[0] }}
-            {% endif %}
-          {% else %}
-            {{ value }}
-          {% endif %}
-        </td>
-        {% endfor %}
       </tr>
-      {% endfor %}
+
+      <tr>
+        <table class="table table-bordered">
+          <caption> {{ 'research.table.name' | trans({'%researchedType%': ("research.table." ~ research.researchedType) | lower | trans}) }}</caption>
+
+          <colgroup>
+            <col span="{{ researchResults.columnGroups[0] + 2 }}" style="background-color:yellow">
+            <col span="{{ researchResults.columnGroups[1] }}" style="background-color:Aqua">
+            <col span="{{ researchResults.columnGroups[2] }}" style="background-color:Orchid">
+          </colgroup>
+
+          <th>
+            {{ 'research.table.selection' | trans }}
+          </th>
+          <th>
+            {{ 'research.table.ID' | trans }}
+          </th>
+          {% for header in researchResults.headers %}
+          <th>
+            {{ header | trans}}
+          </th>
+          {% endfor %}
+
+          {% for conceptLine in researchResults.conceptLines %}
+          <tr>
+            <td>
+              <input id="selection_id_{{conceptLine.concept.id}}" type="checkbox" value="1">
+            </td>
+
+            <td>
+              {% if conceptLine.concept.type == 'Research' %}
+              <a href="{{ path('run_with_id_research', {id: conceptLine.concept.id}) }}">
+                {{ conceptLine.concept.id }}
+              </a>
+              {% else %}
+              <a href="{{ path('edit_concept', {conceptId: conceptLine.concept.id}) }}">
+                {{ conceptLine.concept.id }}
+              </a>
+              {% endif %}
+            </td>
+
+            {% for value in conceptLine.line %}
+            <td>
+              {% if value is iterable %}
+              {% if value[1] == 'date' %}
+              {{ value[0] | date('d/m/Y H:i') }}
+              {% elseif value[1] == 'object' %}
+              {{ value[0] }}
+              {% elseif value[1] == 'categories' %}
+              {% for category in value[0] %}
+              <a href="{{ path('edit_concept', {conceptId: category.getId()}) }}">{{ category.getName() }}</a>, 
+              {% endfor %}
+              {% else %}
+              {{ value[0] }}
+              {% endif %}
+              {% else %}
+              {{ value }}
+              {% endif %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </table>
+      </tr>
     </table>
     <br>
     <br>
@@ -82,4 +99,3 @@
     {% endif %}
 </table>
 {% endblock %}
-
