@@ -18,7 +18,8 @@
     <table>
       <tr align="left">
         <td>
-          <input type="button" id="select_all" class="btn btn-primary" value="{{ 'research.table.select_all' | trans }}"/>
+          <input type="button" id="select_all" class="btn btn-primary" value="{{ 'research.table.select_all' | trans }}" onclick="select_all()"/>
+          <input type="button" id="unselect_all" class="btn btn-primary" value="{{ 'research.table.unselect_all' | trans }}" onclick="unselect_all()"/>
         </td>
       </tr>
 
@@ -98,4 +99,13 @@
   </th>
     {% endif %}
 </table>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+{% javascripts filter='cssrewrite, ?uglifyjs2' '@TrouveToutBundle/Resources/public/js/researchActions.js' %}
+<script src="{{ asset_url}}" type="text/javascript"></script>
+{% endjavascripts %}
+
 {% endblock %}

@@ -84,6 +84,7 @@ research:
     research: 'recherche'
     selection: 'select'
     select_all: 'tout selectionner'
+    unselect_all: 'défaire la selection'
 
 concept:
   save: 'Sauvegarder'
